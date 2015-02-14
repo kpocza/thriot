@@ -161,6 +161,7 @@ copydeps:
 	cp $(EXTERNALS)/$(LIBWEBSOCKETS)/build/lib/libwebsockets.so $(DEPS)/$(LIB)
 	cp $(EXTERNALS)/$(LIBWEBSOCKETS)/build/lib/libwebsockets.so $(OUT)
 	ln -f -s libwebsockets.so $(OUT)/libwebsockets.so.5.0.0
+	ln -f -s libwebsockets.so $(OUT)/libwebsockets.so.5
 	
 	cp -R $(EXTERNALS)/$(ARDUINOJSON)/include/* $(DEPS)/$(INC)
 	cp $(EXTERNALS)/$(ARDUINOJSON)/lib/libArduinoJson.a $(DEPS)/$(LIB)
