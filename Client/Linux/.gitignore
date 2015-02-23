@@ -1,0 +1,8 @@
+app/obj/
+deps/
+externals/
+lib/obj/
+libout/
+out/
+test/obj/
+
