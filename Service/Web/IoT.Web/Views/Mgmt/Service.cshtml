@@ -1,0 +1,69 @@
+﻿@model IoT.Web.Models.Mdl
+
+@section scripts {
+    @Scripts.Render("~/app/Management/ServiceViewModel.js")
+    @Scripts.Render("~/app/Management/TelemetryDataSinksDirective.js")
+    @Scripts.Render("~/app/Management/CompanyUsersDirective.js")
+}
+
+<div ng-controller="ServiceViewModel" data-service-id="@Model.Id">
+    <table width="100%">
+        <tr>
+            <td width="70%"><h2>Service - {{service.Name}}</h2></td>
+            <td><a ng-if="canNavigateToCompany" ng-href="{{parentCompanyPageUrl}}">Go to Company</a></td>
+        </tr>
+    </table>
+
+    <table width="100%">
+        <tr>
+            <td width="70%" valign="top">
+                <h3>Networks</h3>
+
+                <table class="item-list" width="100%">
+                    <tr>
+                        <th width="60%">Name</th>
+                        <th>Operations</th>
+                    </tr>
+                    <tr ng-repeat="network in networks">
+                        <td>{{network.Name}}</td>
+                        <td><a href="#" ng-click="manageNetwork(network.Id)">Manage</a>&nbsp;&nbsp;<a href="#" ng-click="deleteNetwork(network.Id)">Delete</a></td>
+                    </tr>
+                </table>
+                <br />
+                <div ng-if="!addNetworkVisible">
+                    <button ng-click="showAddNetwork()">Add Network</button>
+                </div>
+                <div class="embeddedinputform" ng-if="addNetworkVisible">
+                    <label class="thinlabelwidth" for="addName">Name</label><input type="text" name="addName" ng-model="addNetwork.Name" /><br />
+                    <button ng-click="addNetworkSave()">Add</button>
+                    <a href="#" ng-click="cancelInput()">Cancel</a>
+                </div>
+                <br />
+                <div ng-if="!canNavigateToCompany" company-users-directive company-id="service.CompanyId"></div>
+            </td>
+            <td width="30%" valign="top">
+                <h3>Service properties</h3>
+
+                <div ng-if="!editServiceVisible">
+                    <h4>Basic properties</h4>
+                    <p>
+                        <label>Id</label> {{service.Id}}
+                    </p>
+                    <label>Name</label> {{service.Name}} <br />
+                    <label>ApiKey</label> {{service.ApiKey}} <br />
+                    <a href="#" ng-click="showEditService()">Edit</a>
+                </div>
+                <div class="embeddedinputform" ng-if="editServiceVisible">
+                    <h4>Edit Service</h4>
+                    <label class="thinlabelwidth" for="editName">Name</label><input type="text" name="editName" ng-model="editService.Name" /><br />
+                    <button ng-click="saveService()">Save</button>
+                    <a href="#" ng-click="cancelInput()">Cancel</a>
+                </div>
+                <br />
+                <br />
+                <div telemetry-data-sinks-directive service-id="'@Model.Id'"></div>
+                <div url-info-directive></div>
+            </td>
+        </tr>
+    </table>
+</div>

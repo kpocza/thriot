@@ -1,0 +1,17 @@
+﻿namespace IoT.ServiceClient.Messaging
+{
+    public interface IMessagingService
+    {
+        void Setup(string serviceUrl, string apiKey);
+
+        long Initialize(string deviceId);
+
+        DeviceListDto Enqueue(EnqueueMessagesDto enqueueMessages);
+
+        DequeueMessagesDto Dequeue(DeviceListDto deviceList);
+
+        DequeueMessagesDto Peek(DeviceListDto deviceList);
+
+        DeviceListDto Commit(DeviceListDto deviceList);
+    }
+}

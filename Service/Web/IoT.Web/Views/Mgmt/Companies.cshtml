@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Companies";
+}
+
+@section scripts {
+    @Scripts.Render("~/app/Management/CompaniesViewModel.js")
+}
+
+<h2>Thriot</h2>
+
+<div ng-controller="CompaniesViewModel">
+    <table width="100%">
+        <tr>
+            <td width="70%" valign="top">
+                <h2>Companies</h2>
+
+                <table class="item-list" width="100%">
+                    <tr>
+                        <th width="60%">Name</th>
+                        <th>Operations</th>
+                    </tr>
+                    <tr ng-repeat="company in companies">
+                        <td>{{company.Name}}</td>
+                        <td><a href="#" ng-click="manageCompany(company.Id)">Manage</a>&nbsp;&nbsp;<a href="#" ng-click="delete(company.Id)">Delete</a></td>
+                    </tr>
+                </table>
+                <br />
+                <div ng-if="!addCompanyVisible">
+                    <button ng-click="showAdd()">Add Company</button>
+                </div>
+                <div class="embeddedinputform" ng-if="addCompanyVisible">
+                    <label class="thinlabelwidth" for="addName">Name</label><input type="text" name="addName" ng-model="addCompany.Name" /><br />
+                    <button class="smallspacing" ng-click="add()">Add</button>
+                    <a href="#" ng-click="cancel()">Cancel</a>
+                </div>
+            </td>
+            <td width="30%" valign="top">
+                <div url-info-directive></div>
+            </td>
+        </tr>
+    </table>
+</div>

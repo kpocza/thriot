@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+<form ng-submit="login()" ng-controller="UserController">
+    <label for="email" class="labelwidth">Email</label><input type="email" name="email" ng-model="userInfo.email" autofocus /><br />
+    <label for="password" class="labelwidth">Password</label><input type="password" name="password" ng-model="userInfo.password" /><br />
+    <input type="submit" value="Login" />
+</form>

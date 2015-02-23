@@ -1,0 +1,10 @@
+﻿Dear @Raw(Model.Name),
+
+Please click on the following link to activate you account in Thriot:
+@Raw(Model.Url)
+
+
+Regards:
+Thriot team
+
+thriot@@kpocza.net

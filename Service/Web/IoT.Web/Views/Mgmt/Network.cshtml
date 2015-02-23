@@ -1,0 +1,96 @@
+﻿@model IoT.Web.Models.Mdl
+
+@section scripts {
+    @Scripts.Render("~/app/Management/NetworkViewModel.js")
+    @Scripts.Render("~/app/Management/TelemetryDataSinksDirective.js")
+}
+
+<div ng-controller="NetworkViewModel" data-network-id="@Model.Id">
+    <table width="100%">
+        <tr>
+            <td width="70%"><h2>Network - {{network.Name}}</h2></td>
+            <td><a ng-href="{{parentServicePageUrl}}">Go to Service</a><a ng-href="{{parentNetworkPageUrl}}" ng-if="parentNetworkPageUrl">&nbsp;&nbsp;Go to Enclosing network</a></td>
+        </tr>
+    </table>
+
+    <table width="100%">
+        <tr>
+            <td width="70%" valign="top">
+                <h3>Devices</h3>
+
+                <table class="item-list" width="100%">
+                    <tr>
+                        <th width="60%">Name</th>
+                        <th>Operations</th>
+                    </tr>
+                    <tr ng-repeat="device in devices">
+                        <td>{{device.Name}}</td>
+                        <td><a href="#" ng-click="manageDevice(device.Id)">Manage</a>&nbsp;&nbsp;<a href="#" ng-click="deleteDevice(device.Id)">Delete</a></td>
+                    </tr>
+                </table>
+                <br />
+                <div ng-if="!addDeviceVisible">
+                    <button ng-click="showAddDevice()">Add Device</button>
+                </div>
+                <div class="embeddedinputform" ng-if="addDeviceVisible">
+                    <label class="thinlabelwidth" for="addNameD">Name</label><input type="text" name="addNameD" ng-model="addDevice.Name" /><br />
+                    <button ng-click="addDeviceSave()">Add</button>
+                    <a href="#" ng-click="cancelInput()">Cancel</a>
+                </div>
+
+                <br />
+
+                <h3>Subnetworks</h3>
+
+                <table class="item-list" width="100%">
+                    <tr>
+                        <th width="60%">Name</th>
+                        <th>Operations</th>
+                    </tr>
+                    <tr ng-repeat="network in networks">
+                        <td>{{network.Name}}</td>
+                        <td><a href="#" ng-click="manageNetwork(network.Id)">Manage</a>&nbsp;&nbsp;<a href="#" ng-click="deleteNetwork(network.Id)">Delete</a></td>
+                    </tr>
+                </table>
+                <br />
+                <div ng-if="!addNetworkVisible">
+                    <button ng-click="showAddNetwork()">Add Network</button>
+                </div>
+                <div class="embeddedinputform" ng-if="addNetworkVisible">
+                    <label class="thinlabelwidth" for="addNameN">Name</label><input type="text" name="addNameN" ng-model="addNetwork.Name" /><br />
+                    <button ng-click="addNetworkSave()">Add</button>
+                    <a href="#" ng-click="cancelInput()">Cancel</a>
+                </div>
+                <br />
+            </td>
+            <td width="30%" valign="top">
+                <h3>Network properties</h3>
+
+                <div ng-if="!editNetworkVisible">
+                    <h4>Basic properties</h4>
+                    <p>
+                        <label>Id</label> {{network.Id}}
+                    </p>
+                    <label>Name</label> {{network.Name}} <br />
+                    <label>NetworkKey</label> {{network.NetworkKey}} <br />
+                    <a href="#" ng-click="showEditNetwork()">Edit</a>
+                </div>
+                <div class="embeddedinputform" ng-if="editNetworkVisible">
+                    <h4>Edit Network</h4>
+                    <label class="thinlabelwidth" for="editName">Name</label><input type="text" name="editName" ng-model="editNetwork.Name" /><br />
+                    <button ng-click="saveNetwork()">Save</button>
+                    <a href="#" ng-click="cancelInput()">Cancel</a>
+                </div>
+                <br />
+                <br />
+                <div telemetry-data-sinks-directive network-id="'@Model.Id'"></div>
+                <br />
+                <br />
+
+                <h3>Network reports</h3>
+                <a ng-href="{{networkReportPageUrl}}">Navigate to reports</a>
+                <div url-info-directive></div>
+            </td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,23 @@
+# User-specific files
+*.suo
+*.user
+*.vspscc
+*.vssscc
+
+**/bin/*
+**/obj/*
+
+*.nupkg
+**/packages/*
+!**/packages/repositories.config
+
+
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+
+_NCrunch_*
+.*crunch*.local.xml
+*.ncrunchproject
+*.ncrunchsolution

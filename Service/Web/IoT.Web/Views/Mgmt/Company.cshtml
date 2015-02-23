@@ -1,0 +1,67 @@
+﻿@model IoT.Web.Models.Mdl
+
+@section scripts {
+    @Scripts.Render("~/app/Management/CompanyViewModel.js")
+    @Scripts.Render("~/app/Management/TelemetryDataSinksDirective.js")
+    @Scripts.Render("~/app/Management/CompanyUsersDirective.js")
+}
+
+<div ng-controller="CompanyViewModel" data-company-id="@Model.Id">
+    <table width="100%">
+        <tr>
+            <td width="70%"><h2>Company - {{company.Name}}</h2></td>
+            <td><div ng-if="canNavigateToCompanies">@Html.ActionLink("Companies", "Companies")</div></td>
+        </tr>
+    </table>
+    <table width="100%">
+        <tr>
+            <td width="70%" valign="top">
+                <h3>Services</h3>
+
+                <table class="item-list" width="100%">
+                    <tr>
+                        <th width="60%">Name</th>
+                        <th>Operations</th>
+                    </tr>
+                    <tr ng-repeat="service in services">
+                        <td>{{service.Name}}</td>
+                        <td><a href="#" ng-click="manageService(service.Id)">Manage</a>&nbsp;&nbsp;<a href="#" ng-click="deleteService(service.Id)">Delete</a></td>
+                    </tr>
+                </table>
+                <br />
+                <div ng-if="!addServiceVisible">
+                    <button ng-click="showAddService()">Add Service</button>
+                </div>
+                <div class="embeddedinputform" ng-if="addServiceVisible">
+                    <label class="thinlabelwidth" for="addName">Name</label><input type="text" name="addName" ng-model="addService.Name" /><br />
+                    <button ng-click="addServiceSave()">Add</button>
+                    <a href="#" ng-click="cancelInput()">Cancel</a>
+                </div>
+                <br />
+                <div company-users-directive company-id="'@Model.Id'"></div>
+            </td>
+            <td width="30%" valign="top">
+                <h3>Company properties</h3>
+                
+                <div ng-if="!editCompanyVisible">
+                    <h4>Basic properties</h4>
+                    <p>
+                        <label>Id</label> {{company.Id}}
+                    </p>
+                    <label>Name</label> {{company.Name}} <br/>
+                    <a href="#" ng-click="showEditCompany()">Edit</a>
+                </div>
+                <div class="embeddedinputform" ng-if="editCompanyVisible">
+                    <h4>Edit Company</h4>
+                    <label class="thinlabelwidth" for="editName">Name</label><input type="text" name="editName" ng-model="editCompany.Name" /><br />
+                    <button ng-click="saveCompany()">Save</button>
+                    <a href="#" ng-click="cancelInput()">Cancel</a>
+                </div>
+                <br />
+                <br />
+                <div telemetry-data-sinks-directive company-id="'@Model.Id'"></div>
+                <div url-info-directive></div>
+            </td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/angular.min.js")
+    @Scripts.Render("~/Scripts/angular-cookies.min.js")
+    @Scripts.Render("~/Scripts/jquery.cookie.js")
+    @Scripts.Render("~/app/common/extensions.js")
+    @Scripts.Render("~/app/common/angularbase.js")
+    @Scripts.Render("~/config/siteRoots.js")
+    @Scripts.Render("~/app/common/enums.js")
+    @Scripts.Render("~/app/Management/InfoService.js")
+    @Scripts.Render("~/app/Management/UserController.js")
+    @Scripts.Render("~/app/Management/UrlInfoDirective.js")
+
+    @RenderSection("scripts", required: false)
+</head>
+<body ng-app="iot">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                @Html.ActionLink("Thriot", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div ng-controller="UserStateController">
+                <ul class="nav navbar-nav navbar-right">
+                    <li ng-if="!isLoggedIn()">
+                        @Html.ActionLink("Register", "Register", "User")
+                    </li>
+                    <li ng-if="!isLoggedIn()">
+                        @Html.ActionLink("Login", "Login", "User")
+                    </li>
+                    <li ng-if="isLoggedIn()">
+                        <a href="#" ng-click="gotoapp()">Main View</a>
+                    </li>
+                    <li ng-if="isLoggedIn()">
+                        <a href="#" ng-click="logoff()">Logoff</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Thriot</p>
+        </footer>
+    </div>
+</body>
+</html>

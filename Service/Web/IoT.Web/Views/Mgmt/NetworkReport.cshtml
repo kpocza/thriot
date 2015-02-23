@@ -1,0 +1,60 @@
+﻿@model IoT.Web.Models.Mdl
+
+@section scripts {
+    @Scripts.Render("~/app/Management/NetworkReportViewModel.js")
+    @Scripts.Render("~/app/common/dateSelector.js")
+    @Scripts.Render("~/app/common/timeSeriesGraph.js")
+    @Scripts.Render("~/Scripts/flot/jquery.flot.min.js")
+    @Scripts.Render("~/Scripts/flot/jquery.flot.navigate.min.js")
+    @Scripts.Render("~/Scripts/FileSaver.js")
+}
+<div ng-controller="NetworkReportViewModel" data-network-id="@Model.Id">
+    <table width="100%">
+        <tr>
+            <td width="70%"><h2>Network Report - {{network.Name}}</h2></td>
+            <td><a ng-href="{{networkPageUrl}}">Go to Network</a></td>
+        </tr>
+    </table>
+    <table width="100%">
+        <tr>
+            <td width="70%">
+                <a href="#" ng-click="currentDataShown=true;showCurrentData()">Show current data</a>
+                <div ng-if="currentDataShown">
+                    <button ng-click="exportCurrentDataCsv()">Export CSV</button>
+                    <div ng-repeat="currentData in currentDataList">
+                        <div>Device: {{currentData.Name}} - {{currentData.DeviceId}}</div>
+                        <div>Timestamp: {{currentData.Timestamp}}</div>
+                        <div>Data: {{currentData.Payload}}</div>
+                        <br />
+                    </div>
+                </div>
+                <br />
+                <br />
+                <div date-selector-directive="timestamp"></div>
+                <a href="#" ng-click="timeSeriesShown=true;showTimeSeries()">Show timeseries</a>
+                <div ng-if="timeSeriesShown && timeSeriesDataList.length > 0">
+                    <button ng-click="showGraph()">Show graphs</button>
+                    <button ng-click="exportTimeseriesCsv()">Export CSV</button>
+                    <div ng-repeat="timeSeriesData in timeSeriesDataList">
+                        <div>{{timeSeriesData.Name}} - {{timeSeriesData.DeviceId}}</div>
+                        <div time-series-graph-directive="timeSeriesData.Data" graph-shown="graphShown"></div>
+                        <table>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>&nbsp;&nbsp;</th>
+                                <th>Data</th>
+                            </tr>
+                            <tr ng-repeat="tsd in timeSeriesData.Data">
+                                <td>{{tsd.Timestamp}}</td>
+                                <th>&nbsp;&nbsp;</th>
+                                <td>{{tsd.Payload}}</td>
+                            </tr>
+                        </table>
+                        <br />
+                    </div>
+                </div>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+</div>
