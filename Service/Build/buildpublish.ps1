@@ -17,7 +17,12 @@ if(test-path $targetRoot\websocketservice)
 {
    rm -Force -Recu $targetRoot\websocketservice\*
 }
-cp -Recu -Force $solutionRoot\Platform\IoT.Platform.WebsocketService\bin\$config\* $targetRoot\websocketservice
+else
+{
+   mkdir $targetRoot\websocketservice 
+}
+
+cp -Recu -Force $solutionRoot\Platform\IoT.Platform.WebsocketService\bin\$config\* $targetRoot\websocketservice\
 
 if($config -eq "DevAzure" -or $config -eq "DevSql") {
 	mv -Force $targetRoot\web\config\siteRoots.dev.js $targetRoot\web\config\siteRoots.js 
