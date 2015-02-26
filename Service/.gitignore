@@ -11,6 +11,7 @@
 **/packages/*
 !**/packages/repositories.config
 
+TestResults/*
 
 _ReSharper*/
 *.[Rr]e[Ss]harper
