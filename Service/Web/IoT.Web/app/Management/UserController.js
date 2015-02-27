@@ -1,4 +1,4 @@
-﻿function UserController($scope, $http, cookies, $window, mgmtApiUrls, infoService) {
+﻿function UserController($scope, $http, cookies, $window, mgmtApiUrls, infoService, localStorage) {
     $scope.userInfo = {
         email: '',
         name: '',
@@ -7,14 +7,15 @@
 
     $scope.register = function() {
         $http.post(mgmtApiUrls.usersApi + '/register', { email: $scope.userInfo.email, name: $scope.userInfo.name, password: $scope.userInfo.password })
-            .success(function (regResponse) {
-            if (regResponse.NeedsActivation) {
-                $window.location.href = '/';
-            } else {
-                cookies.set('authToken', regResponse.AuthToken);
-                infoService.navigateToRightPlace(true);
-            }
-        });
+            .success(function(regResponse) {
+                if (regResponse.NeedsActivation) {
+                    localStorage.put('messageWarning', 'Please check you email and activate your Thriot account.');
+                    $window.location.href = '/';
+                } else {
+                    cookies.set('authToken', regResponse.AuthToken);
+                    infoService.navigateToRightPlace(true);
+                }
+            });
     }
 
     $scope.login = function() {

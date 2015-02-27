@@ -29,6 +29,9 @@
             </div>
             <div ng-controller="UserStateController">
                 <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <div loading-indicator></div>
+                    </li>
                     <li ng-if="!isLoggedIn()">
                         @Html.ActionLink("Register", "Register", "User")
                     </li>
@@ -46,6 +49,7 @@
         </div>
     </div>
     <div class="container body-content">
+        <div system-messages></div>
         @RenderBody()
         <hr />
         <footer>

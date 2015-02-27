@@ -4,18 +4,27 @@
     var reqConfig = null;
 
     $scope.showCurrentData = function() {
-        $http.get(reportingApiUrls.networksApi + "/json/" + currentDataSink.SinkName, reqConfig).success(function(data) {
+        if (!currentDataSink) {
+            return;
+        }
+        $http.get(reportingApiUrls.networksApi + "/json/" + currentDataSink.SinkName, reqConfig).success(function (data) {
             $scope.currentDataList = data.Devices;
         });
     }
 
     $scope.exportCurrentDataCsv = function () {
+        if (!currentDataSink) {
+            return;
+        }
         $http.get(reportingApiUrls.networksApi + "/csv/" + currentDataSink.SinkName, reqConfig).success(function (data) {
             saveAs(new Blob([data]), 'currentdata' + $scope.network.Id + '.csv');
         });
     }
 
     $scope.showTimeSeries = function() {
+        if (!timeSeriesSink) {
+            return;
+        }
         $http.get(reportingApiUrls.networksApi + "/json/" + timeSeriesSink.SinkName + "/" + $scope.timestamp, reqConfig).success(function (data) {
             if (data != null && data.Devices.length > 0) {
                 $scope.timeSeriesDataList = data.Devices;
@@ -29,6 +38,9 @@
     }
 
     $scope.exportTimeseriesCsv = function () {
+        if (!timeSeriesSink) {
+            return;
+        }
         $http.get(reportingApiUrls.networksApi + "/csv/" + timeSeriesSink.SinkName + "/" + $scope.timestamp, reqConfig).success(function (data) {
             saveAs(new Blob([data]), 'timeseries' + $scope.network.Id + '.csv');
         });

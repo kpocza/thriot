@@ -271,6 +271,7 @@
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Mgmt\NetworkReport.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

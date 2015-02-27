@@ -1,0 +1,23 @@
+﻿<script>
+    function ErrorController($scope, localStorage) {
+        var lastErrorParameters = localStorage.fetch('lastErrorParameters');
+
+        if (lastErrorParameters) {
+            $scope.hasError = true;
+            $scope.errorObject = JSON.parse(lastErrorParameters);
+        } else {
+            $scope.hasError = false;
+        }
+    }
+</script>
+<div ng-controller="ErrorController">
+    <div ng-if="hasError">
+        <h3>An error occured</h3>
+        <label class="labelwidth">Status</label>{{errorObject.status}}<br />
+        <label class="labelwidth">Info</label>{{errorObject.statusText}}<br />
+        <label class="labelwidth">Details</label>{{errorObject.data}}<br />
+    </div>    
+    <div ng-if="!hasError">
+        An error occured somewhere, somehow, just the log knows why.
+    </div>
+</div>

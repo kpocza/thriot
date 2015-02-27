@@ -5,7 +5,8 @@
         service: '/Mgmt/Service',
         network: '/Mgmt/Network',
         device: '/Mgmt/Device',
-        networkReport: '/Mgmt/NetworkReport'
+        networkReport: '/Mgmt/NetworkReport',
+        errorPage: '/Home/Error'
     });
 
 app.service('mgmtApiUrls', function mgmtApiUrls(siteRoots) {

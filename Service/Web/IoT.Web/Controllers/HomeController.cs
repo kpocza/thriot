@@ -10,5 +10,11 @@ namespace IoT.Web.Controllers
 
             return View();
         }
+        public ActionResult Error()
+        {
+            ViewBag.Title = "Error";
+
+            return View();
+        }
     }
 }

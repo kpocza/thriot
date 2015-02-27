@@ -33,6 +33,9 @@
 
             $http.get(reportingApiUrls.devicesApi + "/sinks", reqConfig).success(function(sinks) {
                 var currentDataSink = sinks.firstOrDefault(function (e) { return e.SinkType == sinkTypes.currentData; });
+                if (!currentDataSink) {
+                    return;
+                }
                 $http.get(reportingApiUrls.devicesApi + "/json/" + currentDataSink.SinkName, reqConfig).success(function (data) {
                     if (data != null && data.Devices.length == 1) {
                         var deviceData = data.Devices[0];
@@ -52,6 +55,9 @@
 
             $http.get(reportingApiUrls.devicesApi + "/sinks", reqConfig).success(function (sinks) {
                 var currentDataSink = sinks.firstOrDefault(function (e) { return e.SinkType == sinkTypes.currentData; });
+                if (!currentDataSink) {
+                    return;
+                }
                 $http.get(reportingApiUrls.devicesApi + "/csv/" + currentDataSink.SinkName, reqConfig).success(function (data) {
                     saveAs(new Blob([data]), 'currentdata' + $scope.device.Id + '.csv');
                 });
@@ -65,6 +71,9 @@
 
             $http.get(reportingApiUrls.devicesApi + "/sinks", reqConfig).success(function(sinks) {
                 var timeSeriesSink = sinks.firstOrDefault(function(e) { return e.SinkType == sinkTypes.timeSeries; });
+                if (!timeSeriesSink) {
+                    return;
+                }
                 $http.get(reportingApiUrls.devicesApi + "/json/" + timeSeriesSink.SinkName + "/" + $scope.timestamp, reqConfig).success(function (data) {
                     if (data != null && data.Devices.length == 1) {
                         $scope.timeSeriesData = data.Devices[0].Data;
@@ -85,6 +94,9 @@
 
             $http.get(reportingApiUrls.devicesApi + "/sinks", reqConfig).success(function (sinks) {
                 var timeSeriesSink = sinks.firstOrDefault(function (e) { return e.SinkType == sinkTypes.timeSeries; });
+                if (!timeSeriesSink) {
+                    return;
+                }
                 $http.get(reportingApiUrls.devicesApi + "/csv/" + timeSeriesSink.SinkName + "/" + $scope.timestamp, reqConfig).success(function (data) {
                     saveAs(new Blob([data]), 'timeseries' +  $scope.device.Id + '.csv');
                 });
