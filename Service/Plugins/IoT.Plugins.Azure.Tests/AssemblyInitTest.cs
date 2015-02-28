@@ -12,7 +12,9 @@ namespace IoT.Plugins.Azure.Tests
         {
             DtoMapper.Setup();
 
+#if INTEGRATIONTEST
             SettingInitializer.Init();
+#endif
         }
     }
 }

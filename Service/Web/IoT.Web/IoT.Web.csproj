@@ -115,6 +115,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\MgmtController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -130,6 +131,7 @@
     <Content Include="app\common\enums.js" />
     <Content Include="app\common\timeSeriesGraph.js" />
     <Content Include="app\Management\CompaniesViewModel.js" />
+    <Content Include="app\Management\DeviceReportDirective.js" />
     <Content Include="app\Management\UrlInfoDirective.js" />
     <Content Include="app\Management\InfoService.js" />
     <Content Include="app\Management\CompanyUsersDirective.js" />
@@ -270,8 +272,9 @@
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Scripts\version.json" />
-    <Content Include="Views\Mgmt\NetworkReport.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Report\Network.cshtml" />
+    <Content Include="Views\Report\Device.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

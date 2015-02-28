@@ -2,6 +2,7 @@
 
 @section scripts {
     @Scripts.Render("~/app/Management/DeviceViewModel.js")
+    @Scripts.Render("~/app/Management/DeviceReportDirective.js")
     @Scripts.Render("~/app/common/dateSelector.js")
     @Scripts.Render("~/app/common/timeSeriesGraph.js")
     @Scripts.Render("~/Scripts/flot/jquery.flot.min.js")
@@ -23,33 +24,7 @@
         <tr>
             <td width="70%" valign="top">
                 <h3>Device data</h3>
-                <a href="#" ng-click="currentDataShown=true;showCurrentData()">Show current data</a>
-                <div ng-if="currentDataShown">
-                    <button ng-click="exportCurrentDataCsv()">Export CSV</button>
-                    <div>Timestamp: {{currentDataTimestamp}}</div>
-                    <div>Data: {{currentData}}</div>
-                </div>
-                <br />
-                <br />
-                <div date-selector-directive="timestamp"></div>
-                <a href="#" ng-click="timeSeriesShown=true;showTimeSeries()">Show timeseries</a>
-                <div ng-if="timeSeriesShown && timeSeriesData.length > 0">
-                    <button ng-click="showGraph()">Show graph</button>
-                    <button ng-click="exportTimeseriesCsv()">Export CSV</button>
-                    <div time-series-graph-directive="timeSeriesData" graph-shown="graphShown"></div>
-                    <table>
-                        <tr>
-                            <th>Timestamp</th>
-                            <th>&nbsp;&nbsp;</th>
-                            <th>Data</th>
-                        </tr>
-                        <tr ng-repeat="tsd in timeSeriesData">
-                            <td>{{tsd.Timestamp}}</td>
-                            <th>&nbsp;&nbsp;</th>
-                            <td>{{tsd.Payload}}</td>
-                        </tr>
-                    </table>
-                </div>
+                <div device-report-directive device="device"></div>
             </td>
             <td valign="top">
                 <h3>Device properties</h3>

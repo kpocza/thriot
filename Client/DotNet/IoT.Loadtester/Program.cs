@@ -326,6 +326,7 @@ namespace IoT.Loadtester
             var deviceId = parts[0];
             var apiKey = parts[1];
 
+            var rnd = new Random();
             int cnt = 0;
             Log(deviceId);
 
@@ -338,7 +339,11 @@ namespace IoT.Loadtester
                 {
                     try
                     {
-                        persistentConnectionClient.RecordTelemetryData("{\"Temperature:\": 24, \"Humidity\": 60, \"Time\":" + DateTime.UtcNow.Ticks + "}");
+                        var doit = rnd.Next(100);
+                        var a = doit % 10 == 0 ? string.Format(", \"A\": {0}", rnd.Next(10)) : "";
+                        var b = doit % 15 == 0 ? string.Format(", \"B\": {0}", rnd.Next(20)) : "";
+                        
+                        persistentConnectionClient.RecordTelemetryData(string.Format("{{\"Temperature\": {0}, \"Humidity\": {1}, \"Time\": {2}{3}}}", rnd.Next(10) + 18, rnd.Next(40) + 40, DateTime.UtcNow.Second, a + b));
                         cnt++;
                     }
                     catch (Exception ex)

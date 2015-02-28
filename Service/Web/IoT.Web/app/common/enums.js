@@ -5,7 +5,7 @@
         service: '/Mgmt/Service',
         network: '/Mgmt/Network',
         device: '/Mgmt/Device',
-        networkReport: '/Mgmt/NetworkReport',
+        networkReport: '/Report/Network',
         errorPage: '/Home/Error'
     });
 

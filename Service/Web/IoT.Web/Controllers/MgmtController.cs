@@ -34,11 +34,5 @@ namespace IoT.Web.Controllers
         {
             return View(new Mdl {Id = id});
         }
-
-        [Route("NetworkReport/{id}")]
-        public ActionResult NetworkReport(string id)
-        {
-            return View(new Mdl { Id = id });
-        }
     }
 }
