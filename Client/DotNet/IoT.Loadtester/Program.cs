@@ -20,18 +20,18 @@ namespace IoT.Loadtester
 
 
         // IIS Express - Dev Azure
-        //private const string ManagementApi = "http://localhost:12345/api/v1";
-        //private const string PlatformApi = "http://localhost:12345/papi/v1";
-        //private const string PlatformApiWS = "ws://localhost:8080";
-        //private const string sinkData = "localAzureData";
-        //private const string sinkTimeSeries = "localAzureTimeSeries";
-
-        // IIS - Dev Azure
-        private const string ManagementApi = "http://localhost/api/v1";
-        private const string PlatformApi = "http://localhost/papi/v1";
+        private const string ManagementApi = "http://localhost:12345/api/v1";
+        private const string PlatformApi = "http://localhost:12345/papi/v1";
         private const string PlatformApiWS = "ws://localhost:8080";
         private const string sinkData = "localAzureData";
         private const string sinkTimeSeries = "localAzureTimeSeries";
+
+        // IIS - Dev Azure
+        //private const string ManagementApi = "http://localhost/api/v1";
+        //private const string PlatformApi = "http://localhost/papi/v1";
+        //private const string PlatformApiWS = "ws://localhost:8080";
+        //private const string sinkData = "localAzureData";
+        //private const string sinkTimeSeries = "localAzureTimeSeries";
 
         // IIS - Dev Sql
         //private const string ManagementApi = "http://localhost/api/v1";
