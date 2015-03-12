@@ -1,9 +1,11 @@
 #pragma once
 
-#define APIURL "http://avantasia/api/v1"
-#define PAPIURL "http://avantasia/papi/v1"
-#define RAPIURL "http://avantasia/rapi/v1"
-#define WSURL "ws://avantasia:8080"
+// !!! ENSURE TO have thriothost resolved to the correct hostname by adding it to your /etc/hosts file !!!
+
+#define APIURL "http://thriothost/api/v1"
+#define PAPIURL "http://thriothost/papi/v1"
+#define RAPIURL "http://thriothost/rapi/v1"
+#define WSURL "ws://thriothost:8080"
 
 #define SINKDATA "localazuredata"
 #define SINKTIMESERIES "localazuretimeseries"
@@ -11,6 +13,13 @@
 #define PARAMSINKDATA "azuredata"
 #define SINKPARAMCS "UseDevelopmentStorage=true"
 #define SINKPARAMT "LinuxData"
+
+//#define SINKDATA "localsqldata"
+//#define SINKTIMESERIES "localsqltimeseries"
+
+//#define PARAMSINKDATA "sqldata"
+//#define SINKPARAMCS "Server=.\\SQLEXPRESS;Database=IoTTelemetry;Trusted_Connection=true"
+//#define SINKPARAMT "LinuxData"
 
 class ManagementClient;
 class OcassionalConnectionClient;

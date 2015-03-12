@@ -12,9 +12,11 @@ void messageReceived(const PushedMessage& pushedMessage)
 	cout << "received: " + pushedMessage.Payload << endl;
 }
 
+// !!! ENSURE TO have thriothost resolved to the correct hostname by adding it to your /etc/hosts file !!!
+
 int main()
 {
-	ManagementClient*  managementClient = new ManagementClient("http://avantasia/api/v1");
+	ManagementClient*  managementClient = new ManagementClient("http://thriothost/api/v1");
 
 	UserManagementClient* userManagementClient = managementClient->User();
 
@@ -70,7 +72,7 @@ int main()
 	if(pid == 0)
 	{
 		PersistentConnectionClient*  persistentConnectionClient = new PersistentConnectionClient();
-		persistentConnectionClient->Login("ws://avantasia:8080", device1Id, service.ApiKey);
+		persistentConnectionClient->Login("ws://thriothost:8080", device1Id, service.ApiKey);
 
 		while(true)
 		{
@@ -84,7 +86,7 @@ int main()
 	else
 	{
 		PersistentConnectionClient*  persistentConnectionClient = new PersistentConnectionClient();
-		persistentConnectionClient->Login("ws://avantasia:8080", device2Id, service.ApiKey);
+		persistentConnectionClient->Login("ws://thriothost:8080", device2Id, service.ApiKey);
 		persistentConnectionClient->Subscribe(ReceiveAndForget, messageReceived);
 
 		while(true)
