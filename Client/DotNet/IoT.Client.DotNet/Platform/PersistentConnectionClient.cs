@@ -8,7 +8,6 @@ namespace IoT.Client.DotNet.Platform
     {
         private PersistentConnectionInternalClient _persistentConnectionInternalClient;
         private bool _isLoggedIn;
-        private bool _isSubscribed;
         private string _url;
         private string _deviceId;
         private string _apiKey;
@@ -16,18 +15,17 @@ namespace IoT.Client.DotNet.Platform
         private Action<PushedMessage> _onMessageReceived;
         private readonly int _maxRetryCount;
 
-        public PersistentConnectionClient(int maxRetryCount = 5)
+        public PersistentConnectionClient(string url, int maxRetryCount = 5)
         {
             InitializeClient();
+            _url = url;
             _isLoggedIn = false;
-            _isSubscribed = false;
             _maxRetryCount = maxRetryCount;
         }
 
-        public void Login(string url, string deviceId, string apiKey)
+        public void Login(string deviceId, string apiKey)
         {
             _isLoggedIn = true;
-            _url = url;
             _deviceId = deviceId;
             _apiKey = apiKey;
 
@@ -37,7 +35,7 @@ namespace IoT.Client.DotNet.Platform
             {
                 try
                 {
-                    _persistentConnectionInternalClient.Login(url, deviceId, apiKey);
+                    _persistentConnectionInternalClient.Login(_url, deviceId, apiKey);
                     return;
                 }
                 catch (DisconnectedException ex)
@@ -72,7 +70,6 @@ namespace IoT.Client.DotNet.Platform
 
         public void Subscribe(SubscriptionType subscriptionType, Action<PushedMessage> onMessageReceived)
         {
-            _isSubscribed = true;
             _subscriptionType = subscriptionType;
             _onMessageReceived = onMessageReceived;
 
@@ -114,8 +111,6 @@ namespace IoT.Client.DotNet.Platform
 
         public void Unsubscribe()
         {
-            _isSubscribed = false;
-
             Exception lastException = null;
             int retryCount = 0;
             while (retryCount < _maxRetryCount)
@@ -141,7 +136,6 @@ namespace IoT.Client.DotNet.Platform
             _persistentConnectionInternalClient.Close();
 
             _isLoggedIn = false;
-            _isSubscribed = false;
         }
 
         public void RecordTelemetryData(string payload)
@@ -222,7 +216,7 @@ namespace IoT.Client.DotNet.Platform
             if (_isLoggedIn)
             {
                 InitializeClient();
-                Login(_url, _deviceId, _apiKey);
+                Login(_deviceId, _apiKey);
             }
         }
 

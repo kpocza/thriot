@@ -2,7 +2,11 @@
 {
     public class ManagementClient
     {
-        public ManagementClient(string baseUrl, IRestConnection restConnection)
+        public ManagementClient(string baseUrl) : this(baseUrl, new RestConnection())
+        {
+        }
+
+        private ManagementClient(string baseUrl, IRestConnection restConnection)
         {
             restConnection.Setup(baseUrl, null);
 

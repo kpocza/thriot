@@ -7,11 +7,15 @@ using System.Text;
 
 namespace IoT.Client.DotNet.Platform
 {
-    public class OcassionalConnectionClient
+    public class OccassionalConnectionClient
     {
         private readonly IRestConnection _restConnection;
 
-        public OcassionalConnectionClient(string baseUrl, string deviceId, string apiKey, IRestConnection restConnection)
+        public OccassionalConnectionClient(string baseUrl, string deviceId, string apiKey) : this(baseUrl, deviceId, apiKey, new RestConnection())
+        {
+        }
+
+        private OccassionalConnectionClient(string baseUrl, string deviceId, string apiKey, IRestConnection restConnection)
         {
             _restConnection = restConnection;
             _restConnection.Setup(baseUrl, new Dictionary<string, string>

@@ -107,7 +107,7 @@ namespace IoT.Loadtester
         {
             var lines = new List<string>();
 
-            var managementClient = ManagementClientFactory.Create(ManagementApi);
+            var managementClient = new ManagementClient(ManagementApi);
 
             var email = Guid.NewGuid() + "@test.hu";
             managementClient.User.Register(new Register
@@ -185,7 +185,7 @@ namespace IoT.Loadtester
 
             Log(deviceId);
 
-            var ocassionalConnectionClient = OcassionalConnectionClientFactory.Create(PlatformApi, deviceId, apiKey);
+            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, deviceId, apiKey);
             var rnd = new Random();
             int cnt = 0;
             while (true)
@@ -220,7 +220,7 @@ namespace IoT.Loadtester
 
             Log(deviceId);
 
-            var ocassionalConnectionClient = OcassionalConnectionClientFactory.Create(PlatformApi, deviceId, apiKey);
+            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, deviceId, apiKey);
             var rnd = new Random();
 
             int cnt = 0;
@@ -255,7 +255,7 @@ namespace IoT.Loadtester
 
             Log(deviceId);
 
-            var ocassionalConnectionClient = OcassionalConnectionClientFactory.Create(PlatformApi, deviceId, apiKey);
+            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, deviceId, apiKey);
             int cnt = 0;
             while (true)
             {
@@ -285,7 +285,7 @@ namespace IoT.Loadtester
 
             Log(deviceId);
 
-            var ocassionalConnectionClient = OcassionalConnectionClientFactory.Create(PlatformApi, deviceId, apiKey);
+            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, deviceId, apiKey);
 
             int cnt = 0;
             while (true)
@@ -330,7 +330,7 @@ namespace IoT.Loadtester
             int cnt = 0;
             Log(deviceId);
 
-            var persistentConnectionClient = PersistentConnectionClientFactory.Create();
+            var persistentConnectionClient = new PersistentConnectionClient(PlatformApiWS);
             while (true)
             {
                 RetryableLogin(persistentConnectionClient, deviceId, apiKey);
@@ -371,7 +371,7 @@ namespace IoT.Loadtester
             int cnt = 0;
             var rnd = new Random();
 
-            var persistentConnectionClient = PersistentConnectionClientFactory.Create();
+            var persistentConnectionClient = new PersistentConnectionClient(PlatformApiWS);
 
             while (true)
             {
@@ -411,7 +411,7 @@ namespace IoT.Loadtester
             Log(deviceId);
 
             int cnt = 0;
-            var persistentConnectionClient = PersistentConnectionClientFactory.Create();
+            var persistentConnectionClient = new PersistentConnectionClient(PlatformApiWS);
             RetryableLogin(persistentConnectionClient, deviceId, apiKey);
             RetryableSubscribe(persistentConnectionClient, SubscriptionType.ReceiveAndForget, message =>
             {
@@ -444,7 +444,7 @@ namespace IoT.Loadtester
 
             PushedMessage pushedMessage = null;
             int cnt = 0;
-            var persistentConnectionClient = PersistentConnectionClientFactory.Create();
+            var persistentConnectionClient = new PersistentConnectionClient(PlatformApiWS);
             RetryableLogin(persistentConnectionClient, deviceId, apiKey);
             RetryableSubscribe(persistentConnectionClient, SubscriptionType.PeekAndCommit, message =>
             {
@@ -469,7 +469,7 @@ namespace IoT.Loadtester
         {
             try
             {
-                persistentConnectionClient.Login(PlatformApiWS, deviceId, apiKey);
+                persistentConnectionClient.Login(deviceId, apiKey);
             }
             catch (Exception ex)
             {

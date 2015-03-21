@@ -2,7 +2,11 @@
 {
     public class ReportingClient
     {
-        public ReportingClient(string baseUrl, IRestConnection restConnection)
+        public ReportingClient(string baseUrl) : this(baseUrl, new RestConnection())
+        {
+        }
+
+        private ReportingClient(string baseUrl, IRestConnection restConnection)
         {
             restConnection.Setup(baseUrl, null);
 

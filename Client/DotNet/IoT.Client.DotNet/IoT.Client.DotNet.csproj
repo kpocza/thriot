@@ -56,7 +56,6 @@
     <Compile Include="Management\Dto\SmallUser.cs" />
     <Compile Include="Management\Dto\User.cs" />
     <Compile Include="JsonSerializer.cs" />
-    <Compile Include="Management\ManagementClientFactory.cs" />
     <Compile Include="Management\UserManagementClient.cs" />
     <Compile Include="Management\TelemetryDataSinksMetadataClient.cs" />
     <Compile Include="Management\DeviceManagementClient.cs" />
@@ -74,7 +73,6 @@
     <Compile Include="Reporting\Dto\TimeSeriesDeviceDto.cs" />
     <Compile Include="Reporting\Dto\TimeSeriesReportDto.cs" />
     <Compile Include="Reporting\Dto\TimeSeriesRowDto.cs" />
-    <Compile Include="Reporting\ReportingClientFactory.cs" />
     <Compile Include="RestConnection.cs" />
     <Compile Include="Management\SpecificManagementClient.cs" />
     <Compile Include="Platform\Exceptions\ConnectedAlreadyException.cs" />
@@ -91,11 +89,9 @@
     <Compile Include="Platform\Exceptions\SubscriptionRequiredException.cs" />
     <Compile Include="Platform\Exceptions\UnsubscribeNotsubscribedException.cs" />
     <Compile Include="Platform\IWebSocketConnection.cs" />
-    <Compile Include="Platform\OcassionalConnectionClient.cs" />
-    <Compile Include="Platform\OcassionalConnectionClientFactory.cs" />
+    <Compile Include="Platform\OccassionalConnectionClient.cs" />
     <Compile Include="Platform\PersistentConnectionClient.cs" />
     <Compile Include="Platform\PersistentConnectionInternalClient.cs" />
-    <Compile Include="Platform\PersistentConnectionClientFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Platform\PushedMessage.cs" />
     <Compile Include="Platform\SubscriptionType.cs" />

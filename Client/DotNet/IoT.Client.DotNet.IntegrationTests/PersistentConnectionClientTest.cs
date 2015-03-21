@@ -19,9 +19,9 @@ namespace IoT.Client.DotNet.IntegrationTests
         {
             RegisterDevice();
 
-            var persistentConnection = PersistentConnectionClientFactory.Create();
+            var persistentConnection = new PersistentConnectionClient(PlatformWebSocketApi);
 
-            persistentConnection.Login(PlatformWebSocketApi, _deviceId, _apiKey);
+            persistentConnection.Login(_deviceId, _apiKey);
         }
 
         [TestMethod]
@@ -30,9 +30,9 @@ namespace IoT.Client.DotNet.IntegrationTests
         {
             RegisterDevice();
 
-            var persistentConnection = PersistentConnectionClientFactory.Create();
+            var persistentConnection = new PersistentConnectionClient(PlatformWebSocketApi);
 
-            persistentConnection.Login(PlatformWebSocketApi, _deviceId, "123123");
+            persistentConnection.Login(_deviceId, "123123");
         }
 
         [TestMethod]
@@ -40,9 +40,9 @@ namespace IoT.Client.DotNet.IntegrationTests
         {
             RegisterDevice();
 
-            var persistentConnection = PersistentConnectionClientFactory.Create();
+            var persistentConnection = new PersistentConnectionClient(PlatformWebSocketApi);
 
-            persistentConnection.Login(PlatformWebSocketApi, _deviceId, _apiKey);
+            persistentConnection.Login(_deviceId, _apiKey);
 
             persistentConnection.Subscribe(SubscriptionType.ReceiveAndForget, message => { });
 
@@ -57,7 +57,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         {
             RegisterDevice();
 
-            var persistentConnection = PersistentConnectionClientFactory.Create();
+            var persistentConnection = new PersistentConnectionClient(PlatformWebSocketApi);
 
             persistentConnection.Subscribe(SubscriptionType.ReceiveAndForget, message => { });
         }
@@ -68,9 +68,9 @@ namespace IoT.Client.DotNet.IntegrationTests
         {
             RegisterDevice();
 
-            var persistentConnection = PersistentConnectionClientFactory.Create();
+            var persistentConnection = new PersistentConnectionClient(PlatformWebSocketApi);
 
-            persistentConnection.Login(PlatformWebSocketApi, _deviceId, _apiKey);
+            persistentConnection.Login(_deviceId, _apiKey);
 
             persistentConnection.Subscribe(SubscriptionType.ReceiveAndForget, message => { });
 
@@ -83,9 +83,9 @@ namespace IoT.Client.DotNet.IntegrationTests
         {
             RegisterDevice();
 
-            var persistentConnection = PersistentConnectionClientFactory.Create();
+            var persistentConnection = new PersistentConnectionClient(PlatformWebSocketApi);
 
-            persistentConnection.Login(PlatformWebSocketApi, _deviceId, _apiKey);
+            persistentConnection.Login(_deviceId, _apiKey);
 
             persistentConnection.RecordTelemetryData("{\"Temperature\": 24, \"Time\":" + DateTime.UtcNow.Ticks + "}");
 
@@ -98,9 +98,9 @@ namespace IoT.Client.DotNet.IntegrationTests
         {
             RegisterDevice(addMessageSinks: false);
 
-            var persistentConnection = PersistentConnectionClientFactory.Create();
+            var persistentConnection = new PersistentConnectionClient(PlatformWebSocketApi);
 
-            persistentConnection.Login(PlatformWebSocketApi, _deviceId, _apiKey);
+            persistentConnection.Login(_deviceId, _apiKey);
 
             persistentConnection.RecordTelemetryData("{\"Temperature\": 24, \"Time\":" + DateTime.UtcNow.Ticks + "}");
         }
@@ -110,9 +110,9 @@ namespace IoT.Client.DotNet.IntegrationTests
         {
             RegisterDevice(true);
 
-            var persistentConnection = PersistentConnectionClientFactory.Create();
+            var persistentConnection = new PersistentConnectionClient(PlatformWebSocketApi);
 
-            persistentConnection.Login(PlatformWebSocketApi, _deviceId, _apiKey);
+            persistentConnection.Login(_deviceId, _apiKey);
 
             persistentConnection.SendMessageTo(_otherDeviceId, "{\"Temperature\": 24, \"Time\":" + DateTime.UtcNow.Ticks + "}");
 
@@ -121,7 +121,7 @@ namespace IoT.Client.DotNet.IntegrationTests
 
         private void RegisterDevice(bool regOther = false, bool addMessageSinks = true)
         {
-            var managementClient = ManagementClientFactory.Create(ManagementApi);
+            var managementClient = new ManagementClient(ManagementApi);
 
             managementClient.User.Register(new Register
             {

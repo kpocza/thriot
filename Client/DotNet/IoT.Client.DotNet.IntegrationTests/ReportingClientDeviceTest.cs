@@ -25,7 +25,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void GetSinksTest()
         {
-            var reportingClient = ReportingClientFactory.Create(ReportingApi);
+            var reportingClient = new ReportingClient(ReportingApi);
 
             reportingClient.Device.SetDevice(_deviceId, _deviceKey);
 
@@ -38,7 +38,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [ExpectedHttpStatusCode(HttpStatusCode.Unauthorized)]
         public void GetSinksNotAuthTest()
         {
-            var reportingClient = ReportingClientFactory.Create(ReportingApi);
+            var reportingClient = new ReportingClient(ReportingApi);
 
             reportingClient.Device.SetDevice(_deviceId, "asdfasdf");
 
@@ -48,10 +48,10 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void CurrentDataSingleTest()
         {
-            var ocassionalConnectionClient = OcassionalConnectionClientFactory.Create(PlatformApi, _deviceId, _deviceKey);
+            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId, _deviceKey);
             ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 123}");
 
-            var reportingClient = ReportingClientFactory.Create(ReportingApi);
+            var reportingClient = new ReportingClient(ReportingApi);
 
             reportingClient.Device.SetDevice(_deviceId, _deviceKey);
 
@@ -72,10 +72,10 @@ namespace IoT.Client.DotNet.IntegrationTests
         [ExpectedHttpStatusCode(HttpStatusCode.Unauthorized)]
         public void CurrentDataAuthErrorTest()
         {
-            var ocassionalConnectionClient = OcassionalConnectionClientFactory.Create(PlatformApi, _deviceId, _deviceKey);
+            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId, _deviceKey);
             ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 123}");
 
-            var reportingClient = ReportingClientFactory.Create(ReportingApi);
+            var reportingClient = new ReportingClient(ReportingApi);
             reportingClient.Device.SetDevice(_deviceId, "1234");
 
             reportingClient.Device.GetCurrentData("nomatter");
@@ -84,7 +84,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void CurrentDataNoDataTest()
         {
-            var reportingClient = ReportingClientFactory.Create(ReportingApi);
+            var reportingClient = new ReportingClient(ReportingApi);
             reportingClient.Device.SetDevice(_deviceId, _deviceKey);
 
             var sinks = reportingClient.Device.GetSinks();
@@ -97,10 +97,10 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void TimeSeriesSingleTest()
         {
-            var ocassionalConnectionClient = OcassionalConnectionClientFactory.Create(PlatformApi, _deviceId, _deviceKey);
+            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId, _deviceKey);
             ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 123}");
 
-            var reportingClient = ReportingClientFactory.Create(ReportingApi);
+            var reportingClient = new ReportingClient(ReportingApi);
 
             reportingClient.Device.SetDevice(_deviceId, _deviceKey);
 
@@ -122,12 +122,12 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void TimeSeriesMultiTest()
         {
-            var ocassionalConnectionClient = OcassionalConnectionClientFactory.Create(PlatformApi, _deviceId, _deviceKey);
+            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId, _deviceKey);
             ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 123}");
             Thread.Sleep(100);
             ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 124}");
 
-            var reportingClient = ReportingClientFactory.Create(ReportingApi);
+            var reportingClient = new ReportingClient(ReportingApi);
 
             reportingClient.Device.SetDevice(_deviceId, _deviceKey);
 
@@ -153,10 +153,10 @@ namespace IoT.Client.DotNet.IntegrationTests
         [ExpectedHttpStatusCode(HttpStatusCode.Unauthorized)]
         public void TimeSeriesAuthErrorTest()
         {
-            var ocassionalConnectionClient = OcassionalConnectionClientFactory.Create(PlatformApi, _deviceId, _deviceKey);
+            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId, _deviceKey);
             ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 123}");
 
-            var reportingClient = ReportingClientFactory.Create(ReportingApi);
+            var reportingClient = new ReportingClient(ReportingApi);
             reportingClient.Device.SetDevice(_deviceId, "1234");
 
             reportingClient.Device.GetTimeSeriesReport("nomatter", DateTime.UtcNow);
@@ -165,7 +165,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void TimeSeriesNoDataTest()
         {
-            var reportingClient = ReportingClientFactory.Create(ReportingApi);
+            var reportingClient = new ReportingClient(ReportingApi);
             reportingClient.Device.SetDevice(_deviceId, _deviceKey);
 
             var sinks = reportingClient.Device.GetSinks();
@@ -182,10 +182,10 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void CurrentDataSingleCsvTest()
         {
-            var ocassionalConnectionClient = OcassionalConnectionClientFactory.Create(PlatformApi, _deviceId, _deviceKey);
+            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId, _deviceKey);
             ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 123}");
 
-            var reportingClient = ReportingClientFactory.Create(ReportingApi);
+            var reportingClient = new ReportingClient(ReportingApi);
 
             reportingClient.Device.SetDevice(_deviceId, _deviceKey);
 
@@ -201,10 +201,10 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void CurrentDataSingleCsvDataWithCommaTest()
         {
-            var ocassionalConnectionClient = OcassionalConnectionClientFactory.Create(PlatformApi, _deviceId, _deviceKey);
+            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId, _deviceKey);
             ocassionalConnectionClient.RecordTelmetryData("{\"F,ld\": \"12,3\"}");
 
-            var reportingClient = ReportingClientFactory.Create(ReportingApi);
+            var reportingClient = new ReportingClient(ReportingApi);
 
             reportingClient.Device.SetDevice(_deviceId, _deviceKey);
 
@@ -220,12 +220,12 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void TimeSeriesMultiCsvTest()
         {
-            var ocassionalConnectionClient = OcassionalConnectionClientFactory.Create(PlatformApi, _deviceId, _deviceKey);
+            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId, _deviceKey);
             ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 123, \"A\": 234}");
             Thread.Sleep(100);
             ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 124, \"B\": 456}");
 
-            var reportingClient = ReportingClientFactory.Create(ReportingApi);
+            var reportingClient = new ReportingClient(ReportingApi);
 
             reportingClient.Device.SetDevice(_deviceId, _deviceKey);
 
@@ -242,7 +242,7 @@ namespace IoT.Client.DotNet.IntegrationTests
 
         private void RegisterDevice()
         {
-            var managementClient = ManagementClientFactory.Create(ManagementApi);
+            var managementClient = new ManagementClient(ManagementApi);
 
             managementClient.User.Register(new Register
             {

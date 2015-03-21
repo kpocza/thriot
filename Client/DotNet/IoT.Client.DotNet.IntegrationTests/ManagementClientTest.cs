@@ -15,7 +15,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void RegisterUserTest()
         {
-            var managementClient = ManagementClientFactory.Create(ManagementApi);
+            var managementClient = new ManagementClient(ManagementApi);
 
             managementClient.User.Register(new Register { Email = Guid.NewGuid() + "@test.hu", Name = "test user", Password = "p@ssw0rd"});
 
@@ -25,7 +25,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void LoginLogoffGetUserTest()
         {
-            var managementClient = ManagementClientFactory.Create(ManagementApi);
+            var managementClient = new ManagementClient(ManagementApi);
 
             var email = Guid.NewGuid() + "@test.hu";
 
@@ -52,7 +52,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [ExpectedHttpStatusCode(HttpStatusCode.Unauthorized)]
         public void GetUserNotAuthTest()
         {
-            var managementClient = ManagementClientFactory.Create(ManagementApi);
+            var managementClient = new ManagementClient(ManagementApi);
 
             managementClient.User.Get();
         }
@@ -60,7 +60,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void FindUserTest()
         {
-            var managementClient = ManagementClientFactory.Create(ManagementApi);
+            var managementClient = new ManagementClient(ManagementApi);
 
             var email = "user+" + Guid.NewGuid() + "@test.hu";
             managementClient.User.Register(new Register { Email = email, Name = "test user", Password = "p@ssw0rd" });
@@ -80,7 +80,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [ExpectedHttpStatusCode(HttpStatusCode.NotFound)]
         public void CreateGetUpdateGetDeleteGetCompanyTest()
         {
-            var managementClient = ManagementClientFactory.Create(ManagementApi);
+            var managementClient = new ManagementClient(ManagementApi);
 
             managementClient.User.Register(new Register
             {
@@ -111,7 +111,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [ExpectedHttpStatusCode(HttpStatusCode.BadRequest)]
         public void CreateCompanyBadRequestTest()
         {
-            var managementClient = ManagementClientFactory.Create(ManagementApi);
+            var managementClient = new ManagementClient(ManagementApi);
 
             managementClient.User.Register(new Register
             {
@@ -126,7 +126,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void MultiCreateListCompanyTest()
         {
-            var managementClient = ManagementClientFactory.Create(ManagementApi);
+            var managementClient = new ManagementClient(ManagementApi);
 
             managementClient.User.Register(new Register { Email = Guid.NewGuid() + "@test.hu", Name = "test user", Password = "p@ssw0rd" });
 
@@ -143,7 +143,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void CompanyAddUserListUsersTest()
         {
-            var managementClient = ManagementClientFactory.Create(ManagementApi);
+            var managementClient = new ManagementClient(ManagementApi);
 
             var email1 = Guid.NewGuid() + "@test.hu";
             var email2 = Guid.NewGuid() + "@test.hu";
@@ -179,7 +179,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [ExpectedHttpStatusCode(HttpStatusCode.NotFound)]
         public void CreateGetUpdateGetDeleteGetServiceTest()
         {
-            var managementClient = ManagementClientFactory.Create(ManagementApi);
+            var managementClient = new ManagementClient(ManagementApi);
 
             managementClient.User.Register(new Register
             {
@@ -216,7 +216,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void MultiCreateListServiceTest()
         {
-            var managementClient = ManagementClientFactory.Create(ManagementApi);
+            var managementClient = new ManagementClient(ManagementApi);
 
             managementClient.User.Register(new Register { Email = Guid.NewGuid() + "@test.hu", Name = "test user", Password = "p@ssw0rd" });
 
@@ -240,7 +240,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [ExpectedHttpStatusCode(HttpStatusCode.NotFound)]
         public void CreateGetUpdateGetDeleteGetNetworkUnderServiceTest()
         {
-            var managementClient = ManagementClientFactory.Create(ManagementApi);
+            var managementClient = new ManagementClient(ManagementApi);
 
             managementClient.User.Register(new Register
             {
@@ -277,7 +277,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void MultiCreateListNetworkUnderServiceTest()
         {
-            var managementClient = ManagementClientFactory.Create(ManagementApi);
+            var managementClient = new ManagementClient(ManagementApi);
 
             managementClient.User.Register(new Register { Email = Guid.NewGuid() + "@test.hu", Name = "test user", Password = "p@ssw0rd" });
 
@@ -298,7 +298,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [ExpectedHttpStatusCode(HttpStatusCode.NotFound)]
         public void CreateGetUpdateGetDeleteGetNetworkUnderNetworkTest()
         {
-            var managementClient = ManagementClientFactory.Create(ManagementApi);
+            var managementClient = new ManagementClient(ManagementApi);
 
             managementClient.User.Register(new Register
             {
@@ -337,7 +337,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void MultiCreateListNetworkUnderNetworkTest()
         {
-            var managementClient = ManagementClientFactory.Create(ManagementApi);
+            var managementClient = new ManagementClient(ManagementApi);
 
             managementClient.User.Register(new Register { Email = Guid.NewGuid() + "@test.hu", Name = "test user", Password = "p@ssw0rd" });
 
@@ -364,7 +364,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [ExpectedHttpStatusCode(HttpStatusCode.NotFound)]
         public void CreateGetUpdateGetDeleteGetDeviceTest()
         {
-            var managementClient = ManagementClientFactory.Create(ManagementApi);
+            var managementClient = new ManagementClient(ManagementApi);
 
             managementClient.User.Register(new Register
             {
@@ -406,7 +406,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void MultiCreateListDeviceTest()
         {
-            var managementClient = ManagementClientFactory.Create(ManagementApi);
+            var managementClient = new ManagementClient(ManagementApi);
 
             managementClient.User.Register(new Register { Email = Guid.NewGuid() + "@test.hu", Name = "test user", Password = "p@ssw0rd" });
 
@@ -431,7 +431,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void TelemetryMetadataGetTest()
         {
-            var managementClient = ManagementClientFactory.Create(ManagementApi);
+            var managementClient = new ManagementClient(ManagementApi);
 
             managementClient.User.Register(new Register
             {
@@ -449,7 +449,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void UpdateIncomingMessageSinksCompanyServiceNetworkTest()
         {
-            var managementClient = ManagementClientFactory.Create(ManagementApi);
+            var managementClient = new ManagementClient(ManagementApi);
 
             managementClient.User.Register(new Register
             {
@@ -500,7 +500,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void UpdateIncomingMessageSinksWithParams()
         {
-            var managementClient = ManagementClientFactory.Create(ManagementApi);
+            var managementClient = new ManagementClient(ManagementApi);
 
             managementClient.User.Register(new Register
             {
