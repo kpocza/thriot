@@ -40,6 +40,7 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Management\ActivationRequiredException.cs" />
     <Compile Include="Management\Dto\Company.cs" />
     <Compile Include="Management\Dto\CompanyUser.cs" />
     <Compile Include="Management\Dto\Device.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Management\CompanyManagementClient.cs" />
     <Compile Include="IRestConnection.cs" />
     <Compile Include="Management\ManagementClient.cs" />
+    <Compile Include="Platform\Exceptions\TooManyRetriesException.cs" />
     <Compile Include="Reporting\NetworkClient.cs" />
     <Compile Include="Reporting\DeviceClient.cs" />
     <Compile Include="Reporting\Dto\CurrentDataDeviceDto.cs" />
@@ -80,7 +82,7 @@
     <Compile Include="Platform\Exceptions\DisconnectedException.cs" />
     <Compile Include="Platform\Exceptions\CommitInvalidException.cs" />
     <Compile Include="Platform\Exceptions\SendToInvalidException.cs" />
-    <Compile Include="Platform\Exceptions\MessageInvalidException.cs" />
+    <Compile Include="Platform\Exceptions\TelemetryDataInvalidException.cs" />
     <Compile Include="Platform\Exceptions\UnsubscribeInvalidException.cs" />
     <Compile Include="Platform\Exceptions\SubscribeInvalidException.cs" />
     <Compile Include="Platform\Exceptions\SubscribedAlreadyException.cs" />
@@ -89,7 +91,7 @@
     <Compile Include="Platform\Exceptions\SubscriptionRequiredException.cs" />
     <Compile Include="Platform\Exceptions\UnsubscribeNotsubscribedException.cs" />
     <Compile Include="Platform\IWebSocketConnection.cs" />
-    <Compile Include="Platform\OccassionalConnectionClient.cs" />
+    <Compile Include="Platform\OccasionallyConnectionClient.cs" />
     <Compile Include="Platform\PersistentConnectionClient.cs" />
     <Compile Include="Platform\PersistentConnectionInternalClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

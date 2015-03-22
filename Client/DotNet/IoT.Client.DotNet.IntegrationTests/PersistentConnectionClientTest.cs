@@ -93,7 +93,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(MessageInvalidException))]
+        [ExpectedException(typeof(TelemetryDataInvalidException))]
         public void TelemetryDataErrorNoSinkTest()
         {
             RegisterDevice(addMessageSinks: false);

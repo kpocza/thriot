@@ -185,7 +185,7 @@ namespace IoT.Loadtester
 
             Log(deviceId);
 
-            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, deviceId, apiKey);
+            var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, deviceId, apiKey);
             var rnd = new Random();
             int cnt = 0;
             while (true)
@@ -220,7 +220,7 @@ namespace IoT.Loadtester
 
             Log(deviceId);
 
-            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, deviceId, apiKey);
+            var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, deviceId, apiKey);
             var rnd = new Random();
 
             int cnt = 0;
@@ -255,7 +255,7 @@ namespace IoT.Loadtester
 
             Log(deviceId);
 
-            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, deviceId, apiKey);
+            var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, deviceId, apiKey);
             int cnt = 0;
             while (true)
             {
@@ -285,7 +285,7 @@ namespace IoT.Loadtester
 
             Log(deviceId);
 
-            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, deviceId, apiKey);
+            var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, deviceId, apiKey);
 
             int cnt = 0;
             while (true)

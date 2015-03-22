@@ -22,7 +22,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void SingleDeviceSendTest()
         {
-            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId, _apiKey);
+            var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId, _apiKey);
 
             ocassionalConnectionClient.RecordTelmetryData("{\"Temperature\": 24, \"Time\":" + DateTime.UtcNow.Ticks + "}");
         }
@@ -31,7 +31,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [ExpectedHttpStatusCode(HttpStatusCode.Unauthorized)]
         public void SingleDeviceSendAuthErrorTest()
         {
-            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId, _apiKey + "aaa");
+            var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId, _apiKey + "aaa");
 
             ocassionalConnectionClient.RecordTelmetryData("{\"Temperature\": 24, \"Time\":" + DateTime.UtcNow.Ticks + "}");
         }
@@ -39,7 +39,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void SingleDeviceSendToTest()
         {
-            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId, _apiKey);
+            var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId, _apiKey);
 
             ocassionalConnectionClient.SendMessageTo(_deviceId, "test");
         }
@@ -47,7 +47,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void SingleDeviceSendToAndReceiveAndForgetTest()
         {
-            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId, _apiKey);
+            var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId, _apiKey);
 
             ocassionalConnectionClient.SendMessageTo(_deviceId, "test");
 
@@ -61,7 +61,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void SingleDeviceReceiveAndForgetNothingTest()
         {
-            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId, _apiKey);
+            var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId, _apiKey);
 
             var result = ocassionalConnectionClient.ReceiveAndForgetMessage();
 
@@ -71,7 +71,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void SingleDeviceSendToAndPeekAndCommitTest()
         {
-            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId, _apiKey);
+            var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId, _apiKey);
 
             ocassionalConnectionClient.SendMessageTo(_deviceId, "msg1");
             ocassionalConnectionClient.SendMessageTo(_deviceId, "msg2");
@@ -100,7 +100,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void SingleDevicePeekNothingTest()
         {
-            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId, _apiKey);
+            var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId, _apiKey);
 
             var result = ocassionalConnectionClient.PeekMessage();
 
@@ -110,7 +110,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void SingleDeviceCommitNothingTest()
         {
-            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId, _apiKey);
+            var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId, _apiKey);
 
             ocassionalConnectionClient.CommitMessage();
         }

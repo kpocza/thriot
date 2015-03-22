@@ -127,7 +127,7 @@ namespace IoT.Client.DotNet.Platform
                 if (_lastResponse == "unsubscribe notsubscribed")
                     throw new UnsubscribeNotsubscribedException();
 
-                throw new UbsubscribeInvalidException(_lastResponse);
+                throw new UnsubscribeInvalidException(_lastResponse);
             }
             else
             {
@@ -164,7 +164,7 @@ namespace IoT.Client.DotNet.Platform
                 if (_lastResponse == "telemetrydata unauthorized")
                     throw new LoginRequiredException();
 
-                throw new MessageInvalidException(_lastResponse);
+                throw new TelemetryDataInvalidException(_lastResponse);
             }
             else
             {

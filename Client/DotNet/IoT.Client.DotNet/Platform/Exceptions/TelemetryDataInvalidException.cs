@@ -3,21 +3,21 @@
 namespace IoT.Client.DotNet.Platform.Exceptions
 {
     /// <summary>
-    /// There was an error while subscribing
+    /// Invalid telemetry data
     /// Used in case of persistent connection client.
     /// </summary>
-    public class SubscribeInvalidException : Exception
+    public class TelemetryDataInvalidException : Exception
     {
         /// <summary>
-        /// Error response from the service
+        /// Error message from the service
         /// </summary>
         public string Response { get; private set; }
 
         /// <summary>
-        /// Create exception instance
+        /// Create a new exception instance
         /// </summary>
-        /// <param name="response">Error response</param>
-        public SubscribeInvalidException(string response)
+        /// <param name="response">Error message</param>
+        public TelemetryDataInvalidException(string response)
         {
             Response = response;
         }

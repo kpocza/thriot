@@ -50,9 +50,9 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void CurrentDataSingleTest()
         {
-            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId1, _networkKey);
+            var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId1, _networkKey);
             ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 123}");
-            ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId2, _networkKey);
+            ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId2, _networkKey);
             ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 124}");
 
             var reportingClient = new ReportingClient(ReportingApi);
@@ -82,7 +82,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [ExpectedHttpStatusCodeAttribute(HttpStatusCode.Unauthorized)]
         public void CurrentDataAuthErrorTest()
         {
-            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId1, _networkKey);
+            var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId1, _networkKey);
             ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 123}");
 
             var reportingClient = new ReportingClient(ReportingApi);
@@ -107,7 +107,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void TimeSeriesSingleTest()
         {
-            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId1, _networkKey);
+            var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId1, _networkKey);
             ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 123}");
 
             var reportingClient = new ReportingClient(ReportingApi);
@@ -135,7 +135,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void TimeSeriesMultiTest()
         {
-            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId1, _networkKey);
+            var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId1, _networkKey);
             ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 123}");
             Thread.Sleep(100);
             ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 124}");
@@ -168,11 +168,11 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void TimeSeriesMultiMultiTest()
         {
-            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId1, _networkKey);
+            var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId1, _networkKey);
             ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 123}");
             Thread.Sleep(100);
             ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 124}");
-            ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId2, _networkKey);
+            ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId2, _networkKey);
             ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 125}");
             Thread.Sleep(100);
             ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 126}");
@@ -207,7 +207,7 @@ namespace IoT.Client.DotNet.IntegrationTests
         [ExpectedHttpStatusCode(HttpStatusCode.Unauthorized)]
         public void TimeSeriesAuthErrorTest()
         {
-            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId1, _networkKey);
+            var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId1, _networkKey);
             ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 123}");
 
             var reportingClient = new ReportingClient(ReportingApi);
@@ -241,9 +241,9 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void CurrentDataSingleCsvTest()
         {
-            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId1, _networkKey);
+            var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId1, _networkKey);
             ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 123, \"A\": 234}");
-            ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId2, _networkKey);
+            ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId2, _networkKey);
             ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 124, \"B\": 456}");
 
             var reportingClient = new ReportingClient(ReportingApi);
@@ -265,11 +265,11 @@ namespace IoT.Client.DotNet.IntegrationTests
         [TestMethod]
         public void TimeSeriesMultiMultiCsvTest()
         {
-            var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId1, _networkKey);
+            var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId1, _networkKey);
             ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 123, \"A\": 234}");
             Thread.Sleep(100);
             ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 124, \"A\": 345}");
-            ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, _deviceId2, _networkKey);
+            ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId2, _networkKey);
             ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 125, \"B\": 567}");
             Thread.Sleep(100);
             ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 126, \"B\": 678}");

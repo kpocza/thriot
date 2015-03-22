@@ -65,7 +65,7 @@ namespace IoT.Client.DotNet.IntegrationTests
                 var deviceId = list[i];
                 var task = Task.Factory.StartNew(() =>
                 {
-                    var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, deviceId, apiKey);
+                    var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, deviceId, apiKey);
                     for (var j = 0; j < messageCount; j++)
                     {
                         ocassionalConnectionClient.RecordTelmetryData("{\"Temperature\": 24, \"Time\":" + DateTime.UtcNow.Ticks + "}");
@@ -115,7 +115,7 @@ namespace IoT.Client.DotNet.IntegrationTests
                 var deviceId = list[i];
                 var task = Task.Factory.StartNew(() =>
                 {
-                    var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, deviceId, apiKey);
+                    var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, deviceId, apiKey);
                     for (var j = 0; j < messageCount; j++)
                     {
                         ocassionalConnectionClient.SendMessageTo(deviceId, "msg" + j);
@@ -132,7 +132,7 @@ namespace IoT.Client.DotNet.IntegrationTests
                 var deviceId = list[i];
                 var task = Task.Factory.StartNew(() =>
                 {
-                    var ocassionalConnectionClient = new OccassionalConnectionClient(PlatformApi, deviceId, apiKey);
+                    var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, deviceId, apiKey);
                     for (var j = 0; j < messageCount; j++)
                     {
                         var message = ocassionalConnectionClient.ReceiveAndForgetMessage();
