@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace IoT.Client.DotNet.IntegrationTests
 {
     [TestClass]
-    public class OcassionalConnectionClientTest : TestBase
+    public class OccasionallyConnectionClientTest : TestBase
     {
         private string _deviceId;
         private string _apiKey;
