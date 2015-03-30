@@ -3,4 +3,4 @@
     [int]$cnt = 10
  )
 
-.\IoT.Loadtester.exe /generate $devices $cnt
+.\IoT.Loadtester.exe env.config /generate $devices $cnt

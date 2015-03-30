@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.Serialization.Json;
+using System.Text;
 using System.Threading;
 using IoT.Client.DotNet.Management;
 using IoT.Client.DotNet.Platform;
@@ -11,52 +13,36 @@ namespace IoT.Loadtester
 {
     class Program
     {
-        // ProdAzure
-        //private const string ManagementApi = "http://thriotweb.cloudapp.net/api/v1";
-        //private const string PlatformApi = "http://thriotweb.cloudapp.net/papi/v1";
-        //private const string PlatformApiWS = "ws://thriotweb.cloudapp.net:8080";
-        //private const string sinkData = "localAzureData";
-        //private const string sinkTimeSeries = "localAzureTimeSeries";
-
-
-        // IIS Express - Dev Azure
-        private const string ManagementApi = "http://localhost:12345/api/v1";
-        private const string PlatformApi = "http://localhost:12345/papi/v1";
-        private const string PlatformApiWS = "ws://localhost:8080";
-        private const string sinkData = "localAzureData";
-        private const string sinkTimeSeries = "localAzureTimeSeries";
-
-        // IIS - Dev Azure
-        //private const string ManagementApi = "http://localhost/api/v1";
-        //private const string PlatformApi = "http://localhost/papi/v1";
-        //private const string PlatformApiWS = "ws://localhost:8080";
-        //private const string sinkData = "localAzureData";
-        //private const string sinkTimeSeries = "localAzureTimeSeries";
-
-        // IIS - Dev Sql
-        //private const string ManagementApi = "http://localhost/api/v1";
-        //private const string PlatformApi = "http://localhost/papi/v1";
-        //private const string PlatformApiWS = "ws://localhost:8080";
-        //private const string sinkData = "localSqlData";
-        //private const string sinkTimeSeries = "localSqlTimeSeries";
+        private static Config Config { get; set; }
 
         static void Main(string[] args)
         {
             ServicePointManager.DefaultConnectionLimit = 200;
+            var jsonSerializer = new DataContractJsonSerializer(typeof(Config));
 
-            string operation = args[0];
+            using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(File.ReadAllText(args[0]))))
+            {
+                ms.Position = 0;
+                Config = (Config)jsonSerializer.ReadObject(ms);
+            }
+
+            string operation = args[1];
             if (operation == "/generate")
             {
-                var count = int.Parse(args[2]);
-
-                RegisterDevice(args[1], count);
+                RegisterDevice(args[2], int.Parse(args[3]));
                 return;
             }
 
-            var lines = File.ReadAllLines(args[1]);
+            if (operation == "/generateforuser")
+            {
+                RegisterDevice(args[2], int.Parse(args[3]), args[4], args[5]);
+                return;
+            }
+
+            var lines = File.ReadAllLines(args[2]);
             var deviceOrders =
-                args[2].Split(new[] {","}, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
-            var sleep = int.Parse(args[3]);
+                args[3].Split(new[] {","}, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
+            var sleep = int.Parse(args[4]);
 
             if (operation == "/ocrecord")
             {
@@ -64,7 +50,7 @@ namespace IoT.Loadtester
             }
             if (operation == "/ocsendto")
             {
-                StartMulti(deviceOrders, deviceOrder => OcassionalSend(lines, deviceOrder, sleep, int.Parse(args[4])));
+                StartMulti(deviceOrders, deviceOrder => OcassionalSend(lines, deviceOrder, sleep, int.Parse(args[5])));
             }
             if (operation == "/ocrecvforget")
             {
@@ -81,7 +67,7 @@ namespace IoT.Loadtester
             }
             if (operation == "/psendto")
             {
-                StartMulti(deviceOrders, deviceOrder => PersistentSend(lines, deviceOrder, sleep, int.Parse(args[4])));
+                StartMulti(deviceOrders, deviceOrder => PersistentSend(lines, deviceOrder, sleep, int.Parse(args[5])));
             }
             if (operation == "/precvforget")
             {
@@ -103,23 +89,30 @@ namespace IoT.Loadtester
             }
         }
 
-        private static void RegisterDevice(string devicesFile, int count)
+        private static void RegisterDevice(string devicesFile, int count, string email = null, string password = null)
         {
             var lines = new List<string>();
 
-            var managementClient = new ManagementClient(ManagementApi);
+            var managementClient = new ManagementClient(Config.ManagementApi);
 
-            var email = Guid.NewGuid() + "@test.hu";
-            managementClient.User.Register(new Register
+            if (email == null && password == null)
             {
-                Email = email,
-                Name = "test user",
-                Password = "p@ssw0rd"
-            });
+                email = Guid.NewGuid() + "@test.hu";
+                managementClient.User.Register(new Register
+                {
+                    Email = email,
+                    Name = "test user",
+                    Password = "p@ssw0rd"
+                });
+            }
+            else
+            {
+                managementClient.User.Login(new Login {Email = email, Password = password});
+            }
 
             Console.WriteLine("Username: {0}, Password: {1}", email, "p@ssw0rd");
 
-            var companyId = managementClient.Company.Create(new Company { Name = "company" });
+            var companyId = managementClient.Company.Create(new Company { Name = "company" + DateTime.UtcNow.Ticks });
             var serviceId =
                 managementClient.Service.Create(new Service { CompanyId = companyId, Name = "service" });
             var networkId =
@@ -134,12 +127,12 @@ namespace IoT.Loadtester
                 {
                     new TelemetryDataSinkParameters
                     {
-                        SinkName = sinkData,
+                        SinkName = Config.SinkData,
                         Parameters = new Dictionary<string, string>()
                     },
                     new TelemetryDataSinkParameters
                     {
-                        SinkName = sinkTimeSeries,
+                        SinkName = Config.SinkTimeSeries,
                         Parameters = new Dictionary<string, string>()
                     }
                 };
@@ -185,7 +178,7 @@ namespace IoT.Loadtester
 
             Log(deviceId);
 
-            var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, deviceId, apiKey);
+            var ocassionalConnectionClient = new OccasionallyConnectionClient(Config.PlatformApi, deviceId, apiKey);
             var rnd = new Random();
             int cnt = 0;
             while (true)
@@ -220,7 +213,7 @@ namespace IoT.Loadtester
 
             Log(deviceId);
 
-            var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, deviceId, apiKey);
+            var ocassionalConnectionClient = new OccasionallyConnectionClient(Config.PlatformApi, deviceId, apiKey);
             var rnd = new Random();
 
             int cnt = 0;
@@ -255,7 +248,7 @@ namespace IoT.Loadtester
 
             Log(deviceId);
 
-            var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, deviceId, apiKey);
+            var ocassionalConnectionClient = new OccasionallyConnectionClient(Config.PlatformApi, deviceId, apiKey);
             int cnt = 0;
             while (true)
             {
@@ -285,7 +278,7 @@ namespace IoT.Loadtester
 
             Log(deviceId);
 
-            var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, deviceId, apiKey);
+            var ocassionalConnectionClient = new OccasionallyConnectionClient(Config.PlatformApi, deviceId, apiKey);
 
             int cnt = 0;
             while (true)
@@ -330,7 +323,7 @@ namespace IoT.Loadtester
             int cnt = 0;
             Log(deviceId);
 
-            var persistentConnectionClient = new PersistentConnectionClient(PlatformApiWS);
+            var persistentConnectionClient = new PersistentConnectionClient(Config.PlatformApiWS);
             while (true)
             {
                 RetryableLogin(persistentConnectionClient, deviceId, apiKey);
@@ -371,7 +364,7 @@ namespace IoT.Loadtester
             int cnt = 0;
             var rnd = new Random();
 
-            var persistentConnectionClient = new PersistentConnectionClient(PlatformApiWS);
+            var persistentConnectionClient = new PersistentConnectionClient(Config.PlatformApiWS);
 
             while (true)
             {
@@ -411,7 +404,7 @@ namespace IoT.Loadtester
             Log(deviceId);
 
             int cnt = 0;
-            var persistentConnectionClient = new PersistentConnectionClient(PlatformApiWS);
+            var persistentConnectionClient = new PersistentConnectionClient(Config.PlatformApiWS);
             RetryableLogin(persistentConnectionClient, deviceId, apiKey);
             RetryableSubscribe(persistentConnectionClient, SubscriptionType.ReceiveAndForget, message =>
             {
@@ -444,7 +437,7 @@ namespace IoT.Loadtester
 
             PushedMessage pushedMessage = null;
             int cnt = 0;
-            var persistentConnectionClient = new PersistentConnectionClient(PlatformApiWS);
+            var persistentConnectionClient = new PersistentConnectionClient(Config.PlatformApiWS);
             RetryableLogin(persistentConnectionClient, deviceId, apiKey);
             RetryableSubscribe(persistentConnectionClient, SubscriptionType.PeekAndCommit, message =>
             {
@@ -536,5 +529,14 @@ namespace IoT.Loadtester
             //    }
             //}
         }
+    }
+
+    public class Config
+    {
+        public string ManagementApi { get; set; }
+        public string PlatformApi { get; set; }
+        public string PlatformApiWS { get; set; }
+        public string SinkData { get; set; }
+        public string SinkTimeSeries { get; set; }
     }
 }

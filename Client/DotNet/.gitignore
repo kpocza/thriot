@@ -22,3 +22,7 @@ _NCrunch_*
 .*crunch*.local.xml
 *.ncrunchproject
 *.ncrunchsolution
+
+
+
+IoT.Loadtester/**/env.config
