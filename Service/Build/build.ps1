@@ -1,6 +1,6 @@
 param (
 	[string]$solutionRoot = "$(pwd)\..\",
-	[string]$targetRoot = "c:\Thriot\",
+	[string]$targetRoot = $null,
 	[string]$msbuild = "c:\Program Files (x86)\MSBuild\12.0\Bin\MSBuild.exe",
 	[string]$config = "ProdAzure"
 )
@@ -15,6 +15,10 @@ function EnsureEmptyDirectory([string]$dirPath)
 	{
 		mkdir $dirPath 
 	}
+}
+
+if(!$targetRoot -or $(![System.IO.Path]::IsPathRooted($targetRoot))) {
+	$targetRoot = $(pwd).Path + "\output\" + [DateTime]::Now.ToString("yyyyMMddHHmm") + "_" + $config
 }
 
 &$msbuild $solutionRoot\Iot.Service.sln /p:Configuration=$config /p:DebugSymbols=true
@@ -33,7 +37,7 @@ if($config -eq "DevAzure" -or $config -eq "DevSql") {
 	mv -Force $targetRoot\web\config\siteRoots.dev.js $targetRoot\web\config\siteRoots.js 
 }
 
-if($config -eq "ProdAzure" -or $config -eq "ProdSql") {
+if(($config -eq "ProdAzure" -or $config -eq "ProdSql") -and $(test-path $targetRoot\web\config)) {
 	rmdir -Recu -Force $targetRoot\web\config
 }
 
