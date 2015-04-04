@@ -110,7 +110,7 @@ namespace IoT.Loadtester
                 managementClient.User.Login(new Login {Email = email, Password = password});
             }
 
-            Console.WriteLine("Username: {0}, Password: {1}", email, "p@ssw0rd");
+            Console.WriteLine("Username: {0}, Password: {1}", email, password);
 
             var companyId = managementClient.Company.Create(new Company { Name = "company" + DateTime.UtcNow.Ticks });
             var serviceId =

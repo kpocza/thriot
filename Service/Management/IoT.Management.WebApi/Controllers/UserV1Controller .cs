@@ -52,7 +52,7 @@ namespace IoT.Management.WebApi.Controllers
             _userService.Activate(userId, activationCode);
 
             var response = new HttpResponseMessage(HttpStatusCode.Redirect);
-            response.Headers.Location = new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority));
+            response.Headers.Location = new Uri(_settingProvider.WebsiteUrl);
             return response;
         }
 
