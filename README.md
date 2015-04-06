@@ -4,90 +4,36 @@
 
 ## What is Thriot?
 
-Thriot stands for Rioting things which means that Thriot is an open source IoT Platform with 
-Client libraries for such things that are rioting against being stupid and want to connect to Thriot 
-to become smart, record telemetry data and collaborate with other things.
+Thriot stands for *TH*ings that are *RIOT*ing which means that Thriot is an open source IoT Platform with Client libraries for such things that are rioting against being stupid and want to get connected to Thriot to become smart, record telemetry data and collaborate with other things.
 
-## How things are structured?
+## Thriot as an IoT Platform
 
-There is always a tree-like network structure. Devices (things) can be created under any network in the tree.
-Devices can send message to any device in the same network and any device can record telemetry data.
+There are several IoT platforms on the market. Most of them aims to handle several million devices with low latency of course on top of a huge infrastructure running in the cloud or on-premise DCs. The operators and developers of  these systems are so called service providers. Furthermore these solutions are generally proprietary pieces of software so they are mainly closed source.
 
-## What are the 3 operating modes?
+## How Thriot is different from that?
 
-Besides networks and devices you can have services and companies. Here come the following 
-3 operating modes (aka. service profile) into the picture (globally configurable):
+The following facts make Thriot special:
+- The aim of Thriot is to provide eligible solution for smaller users (smart homes, small companies who are doing their own business, etc.) so that they can install Thriot on their own and it’s not necessary to buy IoT service from a service provider. Of course there is the possibility for service providers to provide Thriot as a SaaS solution (although it’s not yet recommended).
+- Thriot achieves this flexibility with its loosely coupled plugable architecture so that besides cloud storage providers, on-premise storages can be also added to the system. (Currently Azure Table Storage and MS SQL (Express) is supported)
+- Thriot is completely open source. Everybody is welcome the contribute. 
 
-1. Single service
-2. Single company
-3. Service provider
+## Basic concepts and architecture
 
-The default configutation is *Servie provider* to have all freedom while development.
+You can read about basic concepts here: http://portal.thriot.io/basic-concepts/ while a high level architectural description can be found here: http://portal.thriot.io/architecture/
 
-*Single service* mode is for smart homes and small users with a single service who want to manage 
-only a handful of devices. In this mode the sytem has only a single service, just networks 
-and devices can be managed. In case of *single company* mode you can create different services for 
-different businesses as a company but cannot register multiple companies 
-(there is a single company in the system). 
-In *service provider* mode any registered user is free to create several companies with any services.
+## Development environmnet - API, client library documentation
 
-Multiple users can be added to any company (service in single service mode) as coadmins.
+Currently Thriot Service is developed using .NET 4.5 and Visual Studio and runs on Windows. However there is a C++ client for connecting Linux-based devices and microcomputers (Raspberry Pi 1/2, Banana Pi, etc) and of course we have a .NET-based client also.
 
-## What are the main concepts for the platform?
+Page http://portal.thriot.io/service-development-environment/ describes the steps creating Service development environment. http://portal.thriot.io/net-test-environment/ goes a step further and it describes how to create a fully functional test environment for the system. Page http://portal.thriot.io/linux-client-development-environment/ has some details on creating a Linux-based client development environment. 
 
-* Things (devices) can be managed on a website
-* The platform functionality can be reached through an API
-* The server platform runs on Windows using Microsoft .NET 4.5 
-  The aim is to support Linux with .NET Core CLR 
-* There is a .NET client library and a C++ client library that currently support Linux on Intel and ARM.
-  You can attach Raspberry Pi and Banana Pi based devices to the system 
-* Currently incoming telemetry data can be recorded to Azure Table Storage and Microsoft SQL (Express also)
-* The M2M messaging is implemented on top of Microsoft SQL 2012+ (Express also) 
-* Thriot has an extensible architecture which means that further storage engines can be added 
-  to the system to remove Windows dependency 
+Thriot has a REST-based and a Websocket-based API. http://portal.thriot.io/api-reference/ is the root page for all API documentation exposed by the Thriot service.
 
-## What are the main platform components?
+http://portal.thriot.io/net-client-library-reference/ describes the basic concepts of the .NET library. http://portal.thriot.io/linux-c-client-library-reference/ is for the C++ library that runs under Linux.
 
-* *Management API* - REST API for managing users, companies, services, networks, devices
-* *Platform API* - REST API for recording telemetry data and sending/receiving messages
-* *Platform WebSocket* - WebSocket API with the same functionality as the Platform API but
-  with persistent connection support
-* *Reporting API* - REST API with reporting functionality to retrieve device and network level reports
-  for telemetry data in JSON and CSV format
-* *Management Website* - Web UI for device management and reporting - 
-  employs Management API and Reporting API
-* *Messaging services* - Background services with SQL storage for M2M messaging
+## Hosting environments
 
-## How do I prepare the development environment?
+Currently Thirot Service is able to run on a Windows-based hosting environment and store data in Azure Table Storage or in  Microsoft SQL (Express).
 
-### Common steps
+Page http://portal.thriot.io/sql-backed-hosting-environment/ describes the steps to create a SQL-backed hosting environment while page http://portal.thriot.io/azure-environment/ describes the steps of how to create a hosting environment in Azure with ATS backend storage.
 
-* Branch/clone the github repository (do not use c:\Thriot by default)
-* Use Visual Studio 2013, Azure Emulator 2.5 and Microsoft SQL Express 2014
-* Open *Service\IoT.Service.sln* using Visual Studio
-* Do a full build in Debug configuration
-* Create *IoTMessaging database* in the *.\SQLEXPRESS* instance
-* Run *Service\Messaging\Scripts\CreateDB.sql* on the IoTMessaging database
-* Create c:\Thriot\log folder. Ensure that the current user has write permission to this folder
-
-#### Further steps to create local Azure development environment
-
-* Do a full build in *DevAzure* configuration
-* Run *Service\Misc\IoT.CreateAzureStorage\bin\Debug\IoT.CreateAzureStorage.exe* to create the 
-  necessary tables in the Azure Table Storage emulator
-* Run all unit tests. Correct any environment issues until every test turns green
-* Set the IoT.Web project as the startup project. Hit F5. The website should appear
-* Try registering a new user. Play with the website
-* Start *Service\Platform\IoT.Platform.WebsocketService\bin\DevAzure\IoT.Platform.WebsocketService.exe*
-* Open *Client\DotNet\IoT.Client.DotNet.sln* in an other Visual Studio instance
-* Ensure that in app.config the settings under *IIS Express - Dev Azure* are uncommented
-* Do a full Debug build
-* Run all integration tests. Correct any environment issues until every test turns green.
-
-#### Further steps to create local SQL Express-based development environment
-
-* Do a full rebuild in *DevSql* configuration
-* Create two databases in the *.\SQLEXPRESS* instance: IoT, IoTTelemetry
-* Run *Service\Misc\IoT.CreateSqlStorage\bin\Debug\IoT.CreateSqlStorage.exe* to create the 
-  necessary tables in *IoT* database in the local SQL Express 2014
-* Run all unit tests. Correct any environment issues until every test turns green
