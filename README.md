@@ -1,4 +1,4 @@
-# Thriot
+﻿# Thriot
 
 ---
 
@@ -13,7 +13,7 @@ There are several IoT platforms on the market. Most of them aims to handle sever
 ## How Thriot is different from that?
 
 The following facts make Thriot special:
-- The aim of Thriot is to provide eligible solution for smaller users (smart homes, small companies who are doing their own business, etc.) so that they can install Thriot on their own and it’s not necessary to buy IoT service from a service provider. Of course there is the possibility for service providers to provide Thriot as a SaaS solution (although it’s not yet recommended).
+- The main goal of Thriot is to satisfy the IoT needs of smart home users and individual companies so that they can install Thriot on their own and it’s not necessary to buy an IoT service from a service provider. Of course there is the possibility for service providers to provide Thriot as a SaaS solution (although it’s not yet recommended).
 - Thriot achieves this flexibility with its loosely coupled plugable architecture so that besides cloud storage providers, on-premise storages can be also added to the system. (Currently Azure Table Storage and MS SQL (Express) is supported)
 - Thriot is completely open source. Everybody is welcome the contribute. 
 
