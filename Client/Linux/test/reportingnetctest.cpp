@@ -4,6 +4,9 @@
 #include "ReportingClient.h"
 #include "common.h"
 
+using namespace Thriot::Platform;
+using namespace Thriot::Reporting;
+
 TEST(ReportingNetworkClientTest, singleNetworkGetSinks)
 {
 	ReportingTestInput reportingTestInput = CreateReportingTestInput();

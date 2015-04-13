@@ -5,6 +5,14 @@
 
 using namespace std;
 
+namespace Thriot
+{
+class RestConnection;
+
+namespace Platform
+{
+class PersistentConnectionInternalClient;
+
 struct PushedMessage
 {
 	int32_t MessageId;
@@ -43,9 +51,6 @@ enum PlatformOperationResult
 typedef void (*OnMessageReceived)(const PushedMessage& message);
 
 #define NOMESSAGERECEIVED -1
-
-class RestConnection;
-class PersistentConnectionInternalClient;
 
 class OcassionalConnectionClient
 {
@@ -99,4 +104,4 @@ class PersistentConnectionClient
 		void Relogin();
 		void Wait();
 };
-
+}}

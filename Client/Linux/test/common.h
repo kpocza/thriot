@@ -1,3 +1,7 @@
+#include "ManagementClient.h"
+
+using namespace Thriot::Management;
+
 #pragma once
 
 // !!! ENSURE TO have thriothost resolved to the correct hostname by adding it to your /etc/hosts file !!!
@@ -20,9 +24,6 @@
 //#define PARAMSINKDATA "sqldata"
 //#define SINKPARAMCS "Server=.\\SQLEXPRESS;Database=IoTTelemetry;Trusted_Connection=true"
 //#define SINKPARAMT "LinuxData"
-
-class ManagementClient;
-class OcassionalConnectionClient;
 
 struct PlatformTestInput
 {

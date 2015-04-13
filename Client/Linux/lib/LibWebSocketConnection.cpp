@@ -3,6 +3,8 @@
 #include <string.h>
 #include <stdio.h>
 
+namespace Thriot
+{
 unsigned char buffer[LWS_SEND_BUFFER_PRE_PADDING + 1024 + LWS_SEND_BUFFER_POST_PADDING];
 
 int WebSocketConnection::lws_callback(struct libwebsocket_context *context, struct libwebsocket *wsi,
@@ -171,3 +173,5 @@ void WebSocketConnection::Close()
 	_isConnected = false;
 	libwebsocket_context_destroy(_context);
 }
+}
+

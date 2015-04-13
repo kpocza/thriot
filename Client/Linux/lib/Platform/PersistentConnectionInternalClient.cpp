@@ -2,6 +2,8 @@
 #include "../WebSocketConnection.h"
 #include <cstdlib>
 
+namespace Thriot { namespace Platform {
+
 PersistentConnectionInternalClient::PersistentConnectionInternalClient(WebSocketConnection* webSocketConnection)
 {
 	_webSocketConnection = webSocketConnection;
@@ -266,4 +268,5 @@ bool PersistentConnectionInternalClient::OnMessagePayloadReceived(const void* ob
 
 	return false;
 }
+}}
 

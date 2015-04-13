@@ -3,6 +3,8 @@
 #include "common.h"
 #include "ArduinoJson.h"
 
+namespace Thriot { namespace Management {
+
 CompanyManagementClient::CompanyManagementClient(RestConnection* restConnection)
 {
 	_restConnection = restConnection;
@@ -174,4 +176,5 @@ int CompanyManagementClient::AddUser(const string& companyId, const string& user
 
 	return 0;
 }
+}}
 

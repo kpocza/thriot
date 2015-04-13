@@ -4,9 +4,12 @@
 #include <map>
 #include <vector>
 
+using namespace std;
+
+namespace Thriot { 
 class RestConnection;
 
-using namespace std;
+namespace Management {
 
 struct LoginInfo
 {
@@ -209,4 +212,5 @@ class ManagementClient
 		DeviceManagementClient* Device();
 		TelemetryDataSinksMetadataClient* TelemetryDataSinksMetadata();
 };
+}}
 

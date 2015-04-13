@@ -3,6 +3,8 @@
 #include "../RestConnection.h"
 #include <sstream>
 
+namespace Thriot { namespace Reporting {
+
 NetworkClient::NetworkClient(RestConnection* restConnection)
 {
 	_restConnection = restConnection;
@@ -85,4 +87,5 @@ string NetworkClient::GetTimeSeriesCsv(const string& sinkName, unsigned long tim
 
 	return httpResponse.Body;
 }
+}}
 

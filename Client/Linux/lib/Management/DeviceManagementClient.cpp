@@ -3,6 +3,8 @@
 #include "common.h"
 #include "ArduinoJson.h"
 
+namespace Thriot { namespace Management {
+
 DeviceManagementClient::DeviceManagementClient(RestConnection* restConnection)
 {
 	_restConnection = restConnection;
@@ -82,4 +84,5 @@ int DeviceManagementClient::Delete(const string& id)
 
 	return 0;
 }
+}}
 

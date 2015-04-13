@@ -2,9 +2,12 @@
 
 using namespace std;
 
-typedef bool (*MessagePayloadReceivedFunc)(const void *object, const string& message);
 struct libwebsocket_context;
 struct libwebsocket;
+
+namespace Thriot
+{
+typedef bool (*MessagePayloadReceivedFunc)(const void *object, const string& message);
 
 class WebSocketConnection
 {
@@ -26,5 +29,7 @@ class WebSocketConnection
 		void Spin();
 		void Close();
 		static int lws_callback(struct libwebsocket_context *context, struct libwebsocket *wsi,
-              int reason, void *userdata, void *in, size_t len);
+			int reason, void *userdata, void *in, size_t len);
 };
+}
+

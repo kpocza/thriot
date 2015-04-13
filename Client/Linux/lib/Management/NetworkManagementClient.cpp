@@ -3,6 +3,8 @@
 #include "common.h"
 #include "ArduinoJson.h"
 
+namespace Thriot { namespace Management {
+
 NetworkManagementClient::NetworkManagementClient(RestConnection* restConnection)
 {
 	_restConnection = restConnection;
@@ -143,4 +145,5 @@ int NetworkManagementClient::UpdateIncomingTelemetryDataSinks(const string& id, 
 
 	return 0;
 }
+}}
 

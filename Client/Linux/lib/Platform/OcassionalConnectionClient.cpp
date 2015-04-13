@@ -3,6 +3,8 @@
 #include "../RestConnection.h"
 #include "../base64.h"
 
+namespace Thriot { namespace Platform {
+
 OcassionalConnectionClient::OcassionalConnectionClient(const string& baseUrl, const string& deviceId, const string& apiKey)
 {
 	_restConnection = new RestConnection(baseUrl);
@@ -83,3 +85,5 @@ PushedMessage OcassionalConnectionClient::Receive(const string& url)
 
 	return pushedMessage;
 }
+}}
+

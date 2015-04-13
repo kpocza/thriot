@@ -6,6 +6,8 @@
 #include <unistd.h>
 
 using namespace std;
+using namespace Thriot::Management;
+using namespace Thriot::Platform;
 
 void messageReceived(const PushedMessage& pushedMessage)
 {

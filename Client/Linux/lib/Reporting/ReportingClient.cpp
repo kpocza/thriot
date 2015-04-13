@@ -4,6 +4,8 @@
 
 using namespace std;
 
+namespace Thriot { namespace Reporting {
+
 ReportingClient::ReportingClient(const string& baseUrl)
 {
 	_restConnection = new RestConnection(baseUrl);
@@ -27,4 +29,4 @@ NetworkClient* ReportingClient::Network()
 {
 	return _networkClient;
 }
-
+}}

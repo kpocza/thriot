@@ -5,6 +5,8 @@
 
 using namespace std;
 
+namespace Thriot
+{
 struct Response
 {
 	int Code;
@@ -34,4 +36,5 @@ class RestConnection
 		Response Put(const string& url, const string& contentType, const string& data);
 		Response Delete(const string& url);
 };
+}
 

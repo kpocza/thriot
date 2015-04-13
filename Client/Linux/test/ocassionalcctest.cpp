@@ -3,6 +3,8 @@
 #include "PlatformClient.h"
 #include "common.h"
 
+using namespace Thriot::Platform;
+
 TEST(OcassionalConnectionTest, recordTelemetryData)
 {
 	PlatformTestInput platformTestInput = CreatePlatformTestInput();

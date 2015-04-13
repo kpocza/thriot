@@ -3,9 +3,12 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
+namespace Thriot { 
 class RestConnection;
 
-using namespace std;
+namespace Reporting {
 
 enum SinkType
 {
@@ -69,4 +72,5 @@ class ReportingClient
 		DeviceClient* Device();
 		NetworkClient* Network();
 };
+}}
 

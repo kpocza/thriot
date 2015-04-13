@@ -3,6 +3,8 @@
 #include "../RestConnection.h"
 #include <sstream>
 
+namespace Thriot { namespace Reporting {
+
 DeviceClient::DeviceClient(RestConnection* restConnection)
 {
 	_restConnection = restConnection;
@@ -85,4 +87,5 @@ string DeviceClient::GetTimeSeriesCsv(const string& sinkName, unsigned long time
 
 	return httpResponse.Body;
 }
+}}
 

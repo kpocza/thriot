@@ -1,7 +1,9 @@
 #include "PlatformClient.h"
 
+namespace Thriot { 
 class WebSocketConnection;
 
+namespace Platform {
 class PersistentConnectionInternalClient
 {
 	private:
@@ -38,4 +40,4 @@ class PersistentConnectionInternalClient
 
 		static bool OnMessagePayloadReceived(const void *object, const string& message);
 };
-
+}}

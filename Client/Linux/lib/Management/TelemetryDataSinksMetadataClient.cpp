@@ -8,6 +8,8 @@
 
 using namespace std;
 
+namespace Thriot { namespace Management {
+
 TelemetryDataSinksMetadataClient::TelemetryDataSinksMetadataClient(RestConnection* restConnection) 
 {
 	_restConnection = restConnection;
@@ -42,4 +44,5 @@ TelemetryDataSinksMetadata TelemetryDataSinksMetadataClient::Get()
 	
 	return telemetryDataSinksMetadata;
 }
+}}
 

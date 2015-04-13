@@ -8,6 +8,8 @@
 
 using namespace std;
 
+namespace Thriot { namespace Management {
+
 UserManagementClient::UserManagementClient(RestConnection* restConnection) 
 {
 	_restConnection = restConnection;
@@ -118,4 +120,5 @@ User UserManagementClient::FindUser(const string& email)
 
 	return user;
 }
+}}
 

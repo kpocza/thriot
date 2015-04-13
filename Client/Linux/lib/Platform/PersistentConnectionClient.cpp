@@ -3,6 +3,8 @@
 #include "PersistentConnectionInternalClient.h"
 #include <unistd.h>
 
+namespace Thriot { namespace Platform {
+
 PersistentConnectionClient::PersistentConnectionClient(const int maxRetryCount)
 {
 	InitializeClient();
@@ -216,4 +218,5 @@ void PersistentConnectionClient::Wait()
 {
 	usleep(10 * 1000);
 }
+}}
 

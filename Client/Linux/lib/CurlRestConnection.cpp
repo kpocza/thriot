@@ -5,6 +5,8 @@
 #include <string.h>
 #include <algorithm>
 
+namespace Thriot
+{
 #define USERAGENT "Thriot Linux Curl"
 
 typedef struct
@@ -301,5 +303,6 @@ size_t read_callback(void *data, size_t size, size_t nmemb, void *userdata)
 	u->length -= copy_size;
 	u->data += copy_size;
 	return copy_size;
+}
 }
 

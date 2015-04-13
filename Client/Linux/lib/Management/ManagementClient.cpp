@@ -1,6 +1,10 @@
 #include "ManagementClient.h"
 #include "../RestConnection.h"
 
+using namespace Thriot;
+
+namespace Thriot { namespace Management {
+
 ManagementClient::ManagementClient(const string& baseUrl)
 {
 	_restConnection = new RestConnection(baseUrl);
@@ -53,4 +57,4 @@ TelemetryDataSinksMetadataClient* ManagementClient::TelemetryDataSinksMetadata()
 {
 	return _telemetryDataSinksMetadataClient;
 }
-
+}}

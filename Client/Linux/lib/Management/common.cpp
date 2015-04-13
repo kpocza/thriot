@@ -3,6 +3,10 @@
 #include <iomanip>
 #include <sstream>
 
+namespace Thriot
+{
+namespace Management
+{
 void StripQuotes(std::string &str)
 {
 	str.replace(0, 1, "");
@@ -77,5 +81,7 @@ string BuildTelmetryDataSinkParametersListJson(vector<TelemetryDataSinkParameter
 	array.printTo(buffer, sizeof(buffer));
 
 	return string(buffer);
+}
+}
 }
 
