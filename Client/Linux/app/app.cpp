@@ -73,8 +73,8 @@ int main()
 	cout << "pid" << pid <<  endl;
 	if(pid == 0)
 	{
-		PersistentConnectionClient*  persistentConnectionClient = new PersistentConnectionClient();
-		persistentConnectionClient->Login("ws://thriothost:8080", device1Id, service.ApiKey);
+		PersistentConnectionClient*  persistentConnectionClient = new PersistentConnectionClient("ws://thriothost:8080");
+		persistentConnectionClient->Login(device1Id, service.ApiKey);
 
 		while(true)
 		{
@@ -87,8 +87,8 @@ int main()
 	}
 	else
 	{
-		PersistentConnectionClient*  persistentConnectionClient = new PersistentConnectionClient();
-		persistentConnectionClient->Login("ws://thriothost:8080", device2Id, service.ApiKey);
+		PersistentConnectionClient*  persistentConnectionClient = new PersistentConnectionClient("ws://thriothost:8080");
+		persistentConnectionClient->Login(device2Id, service.ApiKey);
 		persistentConnectionClient->Subscribe(ReceiveAndForget, messageReceived);
 
 		while(true)

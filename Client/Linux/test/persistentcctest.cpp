@@ -8,8 +8,8 @@ using namespace Thriot::Platform;
 TEST(PersistentConnectionTest, recordTelemetryData)
 {
 	PlatformTestInput platformTestInput = CreatePlatformTestInput();
-	PersistentConnectionClient *persistentConnectionClient = new PersistentConnectionClient();
-	PlatformOperationResult por = persistentConnectionClient->Login(WSURL, platformTestInput.Dev.Id, platformTestInput.Dev.DeviceKey);
+	PersistentConnectionClient *persistentConnectionClient = new PersistentConnectionClient(WSURL);
+	PlatformOperationResult por = persistentConnectionClient->Login(platformTestInput.Dev.Id, platformTestInput.Dev.DeviceKey);
 
 	ASSERT_EQ(Ok, por);
 
@@ -23,8 +23,8 @@ TEST(PersistentConnectionTest, recordTelemetryData)
 TEST(PersistentConnectionTest, loginInvalid)
 {
 	PlatformTestInput platformTestInput = CreatePlatformTestInput();
-	PersistentConnectionClient *persistentConnectionClient = new PersistentConnectionClient();
-	PlatformOperationResult por = persistentConnectionClient->Login(WSURL, platformTestInput.Dev.Id, "asdfasdf");
+	PersistentConnectionClient *persistentConnectionClient = new PersistentConnectionClient(WSURL);
+	PlatformOperationResult por = persistentConnectionClient->Login(platformTestInput.Dev.Id, "asdfasdf");
 
 	ASSERT_EQ(LoginInvalid, por);
 
@@ -34,8 +34,8 @@ TEST(PersistentConnectionTest, loginInvalid)
 TEST(PersistentConnectionTest, sendto)
 {
 	PlatformTestInput platformTestInput = CreatePlatformTestInput();
-	PersistentConnectionClient *persistentConnectionClient = new PersistentConnectionClient();
-	PlatformOperationResult por = persistentConnectionClient->Login(WSURL, platformTestInput.Dev.Id, platformTestInput.Dev.DeviceKey);
+	PersistentConnectionClient *persistentConnectionClient = new PersistentConnectionClient(WSURL);
+	PlatformOperationResult por = persistentConnectionClient->Login(platformTestInput.Dev.Id, platformTestInput.Dev.DeviceKey);
 
 	ASSERT_EQ(Ok, por);
 
@@ -56,8 +56,8 @@ void messageReceived(const PushedMessage& pushedMessage)
 TEST(PersistentConnectionTest, subscribeUnsubscribe)
 {
 	PlatformTestInput platformTestInput = CreatePlatformTestInput();
-	PersistentConnectionClient *persistentConnectionClient = new PersistentConnectionClient();
-	PlatformOperationResult por = persistentConnectionClient->Login(WSURL, platformTestInput.Dev.Id, platformTestInput.Dev.DeviceKey);
+	PersistentConnectionClient *persistentConnectionClient = new PersistentConnectionClient(WSURL);
+	PlatformOperationResult por = persistentConnectionClient->Login(platformTestInput.Dev.Id, platformTestInput.Dev.DeviceKey);
 	ASSERT_EQ(Ok, por);
 
 	por = persistentConnectionClient->Subscribe(ReceiveAndForget, messageReceived);
@@ -71,8 +71,8 @@ TEST(PersistentConnectionTest, subscribeUnsubscribe)
 TEST(PersistentConnectionTest, sendPlusReceiveAndForget)
 {
 	PlatformTestInput platformTestInput = CreatePlatformTestInput();
-	PersistentConnectionClient *persistentConnectionClient = new PersistentConnectionClient();
-	PlatformOperationResult por = persistentConnectionClient->Login(WSURL, platformTestInput.Dev.Id, platformTestInput.Dev.DeviceKey);
+	PersistentConnectionClient *persistentConnectionClient = new PersistentConnectionClient(WSURL);
+	PlatformOperationResult por = persistentConnectionClient->Login(platformTestInput.Dev.Id, platformTestInput.Dev.DeviceKey);
 	ASSERT_EQ(Ok, por);
 
 	por = persistentConnectionClient->Subscribe(ReceiveAndForget, messageReceived);
@@ -114,8 +114,8 @@ TEST(PersistentConnectionTest, sendPlusReceiveAndForget)
 TEST(PersistentConnectionTest, sendPlusPeekAndCommit)
 {
 	PlatformTestInput platformTestInput = CreatePlatformTestInput();
-	PersistentConnectionClient *persistentConnectionClient = new PersistentConnectionClient();
-	PlatformOperationResult por = persistentConnectionClient->Login(WSURL, platformTestInput.Dev.Id, platformTestInput.Dev.DeviceKey);
+	PersistentConnectionClient *persistentConnectionClient = new PersistentConnectionClient(WSURL);
+	PlatformOperationResult por = persistentConnectionClient->Login(platformTestInput.Dev.Id, platformTestInput.Dev.DeviceKey);
 	ASSERT_EQ(Ok, por);
 
 	por = persistentConnectionClient->Subscribe(PeekAndCommit, messageReceived);
@@ -157,8 +157,8 @@ TEST(PersistentConnectionTest, sendPlusPeekAndCommit)
 /*TEST(PersistentConnectionTest, spin)
 {
 	PlatformTestInput platformTestInput = CreatePlatformTestInput();
-	PersistentConnectionClient *persistentConnectionClient = new PersistentConnectionClient();
-	PlatformOperationResult por = persistentConnectionClient->Login(WSURL, platformTestInput.Dev.Id, platformTestInput.Dev.DeviceKey);
+	PersistentConnectionClient *persistentConnectionClient = new PersistentConnectionClient(WSURL);
+	PlatformOperationResult por = persistentConnectionClient->Login(platformTestInput.Dev.Id, platformTestInput.Dev.DeviceKey);
 
 	ASSERT_EQ(Ok, por);
 

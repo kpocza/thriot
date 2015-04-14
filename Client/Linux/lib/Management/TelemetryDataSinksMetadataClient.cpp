@@ -10,11 +10,21 @@ using namespace std;
 
 namespace Thriot { namespace Management {
 
+/**
+Create new instance of the telemetry data sink metadata client
+
+@param restConnection Connection wrapper for the REST accessor
+*/
 TelemetryDataSinksMetadataClient::TelemetryDataSinksMetadataClient(RestConnection* restConnection) 
 {
 	_restConnection = restConnection;
 }
 
+/**
+Get all telemetry data sinks metadata supported by the client
+On error an uninitialized entity will be returned
+
+@return All telemetry data sinks metadata*/
 TelemetryDataSinksMetadata TelemetryDataSinksMetadataClient::Get()
 {
 	Response httpResponse =_restConnection->Get("telemetryMetadata");

@@ -871,7 +871,7 @@ EXCLUDE_PATTERNS       =
 # Note that the wildcards are matched against the file with absolute path, so to
 # exclude all test directories use the pattern */test/*
 
-EXCLUDE_SYMBOLS        = Thriot::PersistentConnectionInternalClient \
+EXCLUDE_SYMBOLS        = Thriot::Platform::PersistentConnectionInternalClient \
                          Thriot::RestConnection \
                          Thriot::Response \
                          Thriot::upload_object \

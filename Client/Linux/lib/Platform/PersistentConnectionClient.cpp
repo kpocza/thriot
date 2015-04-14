@@ -5,18 +5,31 @@
 
 namespace Thriot { namespace Platform {
 
-PersistentConnectionClient::PersistentConnectionClient(const int maxRetryCount)
+/**
+Create a new instance of persistently connected client.
+
+@param url Base API Url 
+@param maxRetryCount Maximum retry count for operations (default is 5)
+*/
+PersistentConnectionClient::PersistentConnectionClient(const string& url, const int maxRetryCount)
 {
-	InitializeClient();
 	_isLoggedIn = false;
 	_isSubscribed = false;
+	_url = url;
 	_maxRetryCount = maxRetryCount;
+	InitializeClient();
 }
 
-PlatformOperationResult PersistentConnectionClient::Login(const string& url, const string& deviceId, const string& apiKey)
+/**
+Login the device. All subsequent operations will be accomplished in the name of the connected client.
+
+@param deviceId 32-characters long unique device id 
+@param apiKey Access key of the device or the enclosing network or service
+
+@return Ok or any of the error codes (Disconnected, ConnectedAlready, ConnectionFailed, Timeout, LoginInvalid, etc.) */
+PlatformOperationResult PersistentConnectionClient::Login(const string& deviceId, const string& apiKey)
 {
 	_isLoggedIn = true;
-	_url = url;
 	_deviceId = deviceId;
 	_apiKey = apiKey;
 
@@ -24,7 +37,7 @@ PlatformOperationResult PersistentConnectionClient::Login(const string& url, con
 	int retryCount = 0;
 	while (retryCount < _maxRetryCount)
 	{
-		lastResult = _persistentConnectionInternalClient->Login(url, deviceId, apiKey);
+		lastResult = _persistentConnectionInternalClient->Login(deviceId, apiKey);
 
 		switch(lastResult)
 		{
@@ -57,8 +70,16 @@ PlatformOperationResult PersistentConnectionClient::Login(const string& url, con
 	return lastResult;
 }
 
-PlatformOperationResult PersistentConnectionClient::Subscribe(const SubscriptionType subscriptionType, 
-													OnMessageReceived onMessageReceived)
+/**
+Subscribe to the message channel of the device with the given subscription type (QoS level).
+The onMessageReceived callback will be executed on message receive. The commit operation is automatically executed by the client
+in case of QoS 1.
+
+@param subscriptionType ReceiveAndForget or ReceiveAndCommit
+@param onMessageReceived Method to be executed for message processing
+
+@return Ok or error code (Disconnected, LoginRequired, Timeout, SubscribeInvalid, LoginRequired, etc.) */
+PlatformOperationResult PersistentConnectionClient::Subscribe(const SubscriptionType subscriptionType, OnMessageReceived onMessageReceived)
 {
 	_isSubscribed = true;
 	_subscriptionType = subscriptionType;
@@ -94,12 +115,16 @@ PlatformOperationResult PersistentConnectionClient::Subscribe(const Subscription
 				return lastResult;
 		}
 
-	    retryCount++;
+		retryCount++;
 	}
 
 	return lastResult;
 }
 
+/**
+Unsubscribe from an already subscribed device channel.
+
+@return Ok or error code (TimeOut, SubscribeRequired, LoginRequired, etc)*/
 PlatformOperationResult PersistentConnectionClient::Unsubscribe()
 {
 	_isSubscribed = false;
@@ -123,6 +148,9 @@ PlatformOperationResult PersistentConnectionClient::Unsubscribe()
 	return lastResult;
 }
 
+/**
+Close connection
+*/
 void PersistentConnectionClient::Close()
 {
 	_persistentConnectionInternalClient->Close();
@@ -131,6 +159,12 @@ void PersistentConnectionClient::Close()
 	_isSubscribed = false;
 }
 
+/**
+Record telemetry data in the name of the currently logged in device.
+
+@param payload Message payload. Maximum 1024 characters long.
+
+@return Ok or error code (LoginRequired, Disconnected, Timeout, TelemetryDataInvalid, etc.) */
 PlatformOperationResult PersistentConnectionClient::RecordTelemetryData(const string& payload)
 {
 	PlatformOperationResult lastResult = Ok;
@@ -146,12 +180,12 @@ PlatformOperationResult PersistentConnectionClient::RecordTelemetryData(const st
 				Relogin();
 				break;
 
-		    case LoginRequired:
+			case LoginRequired:
 				Wait();
 				Relogin();
 				break;
 
-	    	case Timeout:
+			case Timeout:
 				Wait();
 				break;
 
@@ -159,42 +193,56 @@ PlatformOperationResult PersistentConnectionClient::RecordTelemetryData(const st
 				return lastResult;
 		}
 
-	    retryCount++;
+		retryCount++;
 	}
 
 	throw lastResult;
 }
 
+/**
+Send message from the logged in device to an other device in the same network
+
+@param deviceId Target device id
+@param payload Message to be sent (512 characters max)
+
+@return Ok or error code (Disconnected, LoginRequired, Timeout, SendToInvalid, etc.) */
 PlatformOperationResult PersistentConnectionClient::SendMessageTo(const string& deviceId, const string& payload)
 {
 	PlatformOperationResult lastResult = Ok;
 	int retryCount = 0;
 	while (retryCount < _maxRetryCount)
 	{
-	    lastResult = _persistentConnectionInternalClient->SendMessageTo(deviceId, payload);
+		lastResult = _persistentConnectionInternalClient->SendMessageTo(deviceId, payload);
 
 		switch(lastResult)
 		{
-		    case Disconnected:
-		        Wait();
-	    	    Relogin();
-
-		    case LoginRequired:
-		        Wait();
+			case Disconnected:
+				Wait();
 				Relogin();
+				break;
 
-		    case Timeout:
-		        Wait();
+			case LoginRequired:
+				Wait();
+				Relogin();
+				break;
+
+			case Timeout:
+				Wait();
+				break;
 
 			default:
 				return lastResult;
 		}
-	    retryCount++;
+		retryCount++;
 	}
 
 	return lastResult;
 }
 
+/**
+Let the background websocket work. Call this operation regularly in a while loop in the main processing cycle of your application
+to be able to send and receive websocket message in the background.
+*/
 void PersistentConnectionClient::Spin()
 {
 	_persistentConnectionInternalClient->Spin();
@@ -202,7 +250,7 @@ void PersistentConnectionClient::Spin()
 
 void PersistentConnectionClient::InitializeClient()
 {
-	_persistentConnectionInternalClient = new PersistentConnectionInternalClient(new WebSocketConnection());
+	_persistentConnectionInternalClient = new PersistentConnectionInternalClient(_url, new WebSocketConnection());
 }
 
 void PersistentConnectionClient::Relogin()
@@ -210,7 +258,7 @@ void PersistentConnectionClient::Relogin()
 	if (_isLoggedIn)
 	{
 		InitializeClient();
-		Login(_url, _deviceId, _apiKey);
+		Login(_deviceId, _apiKey);
 	}
 }
 

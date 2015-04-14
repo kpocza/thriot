@@ -5,11 +5,23 @@
 
 namespace Thriot { namespace Management {
 
+/**
+Create a new instance of the network management client
+
+@param restConnection Class providing REST function calls
+*/
 NetworkManagementClient::NetworkManagementClient(RestConnection* restConnection)
 {
 	_restConnection = restConnection;
 }
 
+/**
+Get a single network by it's unique identifier.
+The function returns an uninitialized entity on error.
+
+@param id Network unique identifier
+
+@return A network entity */
 Network NetworkManagementClient::Get(const string& id)
 {
 	Network network;
@@ -36,6 +48,12 @@ Network NetworkManagementClient::Get(const string& id)
 	return network;
 }
 
+/**
+Create a new network. The function returns an empty string on error.
+
+@param network Network parameters
+
+@return 32-characters long unique identifier of the network */
 string NetworkManagementClient::Create(const Network& network)
 {
 	DynamicJsonBuffer jsonBufferRequest;
@@ -61,6 +79,12 @@ string NetworkManagementClient::Create(const Network& network)
 	return id;
 }
 
+/**
+Update a network. On error return the http status code otherwise 0.
+
+@param network Network to update
+
+@return status code */
 int NetworkManagementClient::Update(const Network& network)
 {
 	DynamicJsonBuffer jsonBufferRequest;
@@ -80,6 +104,12 @@ int NetworkManagementClient::Update(const Network& network)
 	return 0;
 }
 
+/**
+Delete a network specified by id. On error return the http status code otherwise 0.
+
+@param id Network specified by id to delete
+
+@return status code*/
 int NetworkManagementClient::Delete(const string& id)
 {
 	Response httpResponse =_restConnection->Delete("networks/" + id);
@@ -90,6 +120,12 @@ int NetworkManagementClient::Delete(const string& id)
 	return 0;
 }
 
+/**
+List networks that are set up under the parent network. On error the function returns an empty list.
+
+@param id Parent network id
+
+@return List of networks*/
 vector<Small> NetworkManagementClient::ListNetworks(const string& id)
 {
 	vector<Small> networks;
@@ -112,6 +148,12 @@ vector<Small> NetworkManagementClient::ListNetworks(const string& id)
 	return networks;
 }
 
+/**
+List devices that are set up under the network. On error the function returns an empty list.
+
+@param id Network id
+
+@return List of devices*/
 vector<Small> NetworkManagementClient::ListDevices(const string& id)
 {
 	vector<Small> devices;
@@ -134,6 +176,14 @@ vector<Small> NetworkManagementClient::ListDevices(const string& id)
 	return devices;
 }
 
+/**
+Updates the telemetry data sinks specified for a network.
+On error the functions returns the http status code otherwise 0.
+
+@param id Network identifier
+@param telemetryDataSinkParameters Collection of parameterized telemetry data sinks
+
+@return status code */
 int NetworkManagementClient::UpdateIncomingTelemetryDataSinks(const string& id, const vector<TelemetryDataSinkParameters>& telemetryDataSinkParameters)
 {
 	string tdspJsonString = BuildTelmetryDataSinkParametersListJson(telemetryDataSinkParameters);

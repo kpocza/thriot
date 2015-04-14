@@ -5,11 +5,23 @@
 
 namespace Thriot { namespace Management {
 
+/**
+Create a new instance of the device management client
+
+@param restConnection Class providing REST function calls
+*/
 DeviceManagementClient::DeviceManagementClient(RestConnection* restConnection)
 {
 	_restConnection = restConnection;
 }
 
+/**
+Get a single device by it's unique identifier.
+The function returns an uninitialized entity on error.
+
+@param id Device unique identifier
+
+@return A device entity */
 Device DeviceManagementClient::Get(const string& id)
 {
 	Device device;
@@ -32,6 +44,12 @@ Device DeviceManagementClient::Get(const string& id)
 	return device;
 }
 
+/**
+Create a new device. The function returns an empty string on error.
+
+@param device Device parameters
+
+@return 32-characters long unique identifier of the device */
 string DeviceManagementClient::Create(const Device& device)
 {
 	DynamicJsonBuffer jsonBufferRequest;
@@ -56,6 +74,12 @@ string DeviceManagementClient::Create(const Device& device)
 	return id;
 }
 
+/**
+Update a device. On error return the http status code otherwise 0.
+
+@param device Device to update
+
+@return status code */
 int DeviceManagementClient::Update(const Device& device)
 {
 	DynamicJsonBuffer jsonBufferRequest;
@@ -75,6 +99,12 @@ int DeviceManagementClient::Update(const Device& device)
 	return 0;
 }
 
+/**
+Delete a device specified by id. On error return the http status code otherwise 0.
+
+@param id Device specified by id to delete
+
+@return status code*/
 int DeviceManagementClient::Delete(const string& id)
 {
 	Response httpResponse =_restConnection->Delete("devices/" + id);

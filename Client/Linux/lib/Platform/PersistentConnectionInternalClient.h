@@ -7,6 +7,7 @@ namespace Platform {
 class PersistentConnectionInternalClient
 {
 	private:
+		string _url;
 		WebSocketConnection *_webSocketConnection;
 		bool _isLoggedIn;
 		bool _isSubscribed;
@@ -19,9 +20,9 @@ class PersistentConnectionInternalClient
 		string _lastSendtoResponse;
 
 	public:
-		PersistentConnectionInternalClient(WebSocketConnection *webSocketConnection);
+		PersistentConnectionInternalClient(const string& url, WebSocketConnection *webSocketConnection);
 
-		PlatformOperationResult Login(const string& url, const string& deviceId, const string& apiKey);
+		PlatformOperationResult Login(const string& deviceId, const string& apiKey);
 
 		PlatformOperationResult Subscribe(const SubscriptionType subscriptionType, OnMessageReceived onMessageReceived);
 		PlatformOperationResult Unsubscribe();

@@ -5,11 +5,22 @@
 
 namespace Thriot { namespace Management {
 
+/**
+Create a new instance of the company management client
+
+@param restConnection Class providing REST function calls
+
+*/
 CompanyManagementClient::CompanyManagementClient(RestConnection* restConnection)
 {
 	_restConnection = restConnection;
 }
 
+/**
+List all companies that the currently logged in user has permission to.
+The function returns an empty list on error.
+
+@return List of companies*/
 vector<Small> CompanyManagementClient::List()
 {
 	vector<Small> companies;
@@ -32,6 +43,13 @@ vector<Small> CompanyManagementClient::List()
 	return companies;
 }
 
+/**
+Get a single company by it's unique identifier.
+The function returns an uninitialized entity on error.
+
+@param id Company unique identifier
+
+@return A company entity */
 Company CompanyManagementClient::Get(const string& id)
 {
 	Company company;
@@ -52,6 +70,12 @@ Company CompanyManagementClient::Get(const string& id)
 	return company;
 }
 
+/**
+Create a new company. The function returns an empty string on error.
+
+@param company Company parameters
+
+@return 32-characters long unique identifier of the company */
 string CompanyManagementClient::Create(const Company& company)
 {
 	DynamicJsonBuffer jsonBufferRequest;
@@ -73,6 +97,12 @@ string CompanyManagementClient::Create(const Company& company)
 	return id;
 }
 
+/**
+Update a company. On error return the http status code otherwise 0.
+
+@param company Company to update
+
+@return status code */
 int CompanyManagementClient::Update(const Company& company)
 {
 	DynamicJsonBuffer jsonBufferRequest;
@@ -92,6 +122,12 @@ int CompanyManagementClient::Update(const Company& company)
 	return 0;
 }
 
+/**
+Delete a company specified by id. On error return the http status code otherwise 0.
+
+@param id Company specified by id to delete
+
+@return status code*/
 int CompanyManagementClient::Delete(const string& id)
 {
 	Response httpResponse =_restConnection->Delete("companies/" + id);
@@ -102,6 +138,12 @@ int CompanyManagementClient::Delete(const string& id)
 	return 0;
 }
 
+/**
+List services that are set up under the company. On error the function returns an empty list.
+
+@param id Company id
+
+@return List of services*/
 vector<Small> CompanyManagementClient::ListServices(const string& id)
 {
 	vector<Small> services;
@@ -124,6 +166,14 @@ vector<Small> CompanyManagementClient::ListServices(const string& id)
 	return services;
 }
 
+/**
+Updates the telemetry data sinks specified for a company.
+On error the functions returns the http status code otherwise 0.
+
+@param id Company identifier
+@param telemetryDataSinkParameters Collection of parameterized telemetry data sinks
+
+@return status code */
 int CompanyManagementClient::UpdateIncomingTelemetryDataSinks(const string& id, const vector<TelemetryDataSinkParameters>& telemetryDataSinkParameters)
 {
 	string tdspJsonString = BuildTelmetryDataSinkParametersListJson(telemetryDataSinkParameters);
@@ -136,6 +186,13 @@ int CompanyManagementClient::UpdateIncomingTelemetryDataSinks(const string& id, 
 	return 0;
 }
 
+/**
+List users who have access to the company.
+On error an empty list will be returned.
+
+@param id Id of the company
+
+@return List of users */
 vector<SmallUser> CompanyManagementClient::ListUsers(const string& id)
 {
 	vector<SmallUser> services;
@@ -158,6 +215,14 @@ vector<SmallUser> CompanyManagementClient::ListUsers(const string& id)
 	return services;
 }
 
+/**
+Add users to the company.
+Http status code on error, otherwise 0.
+
+@param companyId Company identifier
+@param userId User identifier
+
+@return status code*/
 int CompanyManagementClient::AddUser(const string& companyId, const string& userId)
 {
 	DynamicJsonBuffer jsonBufferRequest;

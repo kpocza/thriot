@@ -11,98 +11,151 @@ class RestConnection;
 
 namespace Management {
 
+/** DTO class used to store login information */
 struct LoginInfo
 {
+	/** Email address */
 	string Email;
+	/** Plain-text password */
 	string Password;
 };
 
+/** DTO used for registration */
 struct RegisterInfo : LoginInfo
 {
+	/** Full name of the user */
 	string Name;
 };
 
+/** DTO used when a single or multiple User entities are returned */
 struct User
 {
+	/** 32-character long unique Id */
 	string Id;
+	/** Full name */
 	string Name;
+	/** Email address */
 	string Email;
 };
 
+/** A parameterized telemetry data sink entity */
 struct TelemetryDataSinkParameters
 {
+	/** Telemetry data sink name */
 	string SinkName;
+	/** Filled in parameters of the telemetry data sink */
 	map<string, string> Parameters;
 };
 
+/** Types that encapsulates multiple parameterized telemetry data sinks */
 struct TelemetryDataSinkSettingsType
 {
+	/** Multiple parameterized telemetry data sinks */
 	vector<TelemetryDataSinkParameters> Incoming;
 };
 
+/** Telemetry data sink metadata used to provide information about the telemetry data sink and required parameters */
 struct TelemetryDataSinkMetadata
 {
+	/** Name of the telemetry data sink */
 	string Name;
+	/** Description */
 	string Description;
+	/** Parameters identified by their names to fill */
 	vector<string> ParametersToInput;
 };
 
+/** Class that encapsulates multiple telemetry data sink metadata entities */
 struct TelemetryDataSinksMetadata
 {
+	/** List of telemetry data sink metadata entities */
 	vector<TelemetryDataSinkMetadata> Incoming;
 };
 
+/** DTO entity for transferring company information */
 struct Company
 {
+	/** 32-characters long unique identifier */
 	string Id;
+	/** Name of the comapany */
 	string Name;
+	/** Parameterized telemetry data sinks */
 	TelemetryDataSinkSettingsType TelemetryDataSinkSettings;
 };
 
+/** DTO entity for transferring service information */
 struct Service
 {
+	/** 32-characters long unique identifier */
 	string Id;
+	/** Name of the service */
 	string Name;
+	/** Enclosing company id */
 	string CompanyId;
+	/** API key that all devices attached to this service can use for authentication */
 	string ApiKey;
+	/** Parameterized telemetry data sinks */
 	TelemetryDataSinkSettingsType TelemetryDataSinkSettings;
 };
 
+/** DTO entity for transferring network information */
 struct Network
 {
+	/** 32-characters long unique identifier */
 	string Id;
+	/** Name of the network */
 	string Name;
+	/** API key that all devices attached to this network can use for authentication */
 	string NetworkKey;
+	/** If the network has a parent network then the id of the parent network otherwise empty string */
 	string ParentNetworkId;
+	/** Id of the enclosing service */
 	string ServiceId;
+	/** Id of the enclosing company */
 	string CompanyId;
+	/** Parameterized telemetry data sinks */
 	TelemetryDataSinkSettingsType TelemetryDataSinkSettings;
 };
 
+/** DTO entity for transferring device information */
 struct Device
 {
+	/** 32-characters long unique identifier */
 	string Id;
+	/** Name of the device */
 	string Name;
+	/** API Key that can be used for authenticating this device */
 	string DeviceKey;
+	/** Id of the enclosing network */
 	string NetworkId;
+	/** Id of the enclosing service */
 	string ServiceId;
+	/** Id of the enclosing company */
 	string CompanyId;
 };
 
+/** DTO entity for transferring basic entity information */
 struct Small
 {
+	/** 32-characters long unique identifier */
 	string Id;
+	/** Name of the basic entity */
 	string Name;
 };
 
 
+/** DTO entity for transferring basic user information */
 struct SmallUser
 {
+	/** 32-characters long unique identifier */
 	string Id;
+	/** Name of the basic user entity */
 	string Name;
+	/** Email address */
 	string Email;
 };
 
+/** Class that is used to manage users and profile login/logoff functionality */
 class UserManagementClient
 {
 	private:
@@ -118,6 +171,7 @@ class UserManagementClient
 		User FindUser(const string& email);
 };
 
+/** Query telemetry metadata */
 class TelemetryDataSinksMetadataClient
 {
 	private:
@@ -128,6 +182,7 @@ class TelemetryDataSinksMetadataClient
 		TelemetryDataSinksMetadata Get();
 };
 
+/** Manage companies */
 class CompanyManagementClient
 {
 	private:
@@ -146,6 +201,7 @@ class CompanyManagementClient
 		int AddUser(const string& companyId, const string& userId);
 };
 
+/** Manage services */
 class ServiceManagementClient
 {
 	private:
@@ -161,6 +217,7 @@ class ServiceManagementClient
 		int UpdateIncomingTelemetryDataSinks(const string& id, const vector<TelemetryDataSinkParameters>& telemetryDataSinkParameters);
 };
 
+/** Manage networks */
 class NetworkManagementClient
 {
 	private:
@@ -177,6 +234,7 @@ class NetworkManagementClient
 		int UpdateIncomingTelemetryDataSinks(const string& id, const vector<TelemetryDataSinkParameters>& telemetryDataSinkParameters);
 };
 
+/** Manage devices */
 class DeviceManagementClient
 {
 	private:
@@ -190,6 +248,7 @@ class DeviceManagementClient
 		int Delete(const string& id);
 };
 
+/** Encapsulate all management classes */
 class ManagementClient
 {
 	private:

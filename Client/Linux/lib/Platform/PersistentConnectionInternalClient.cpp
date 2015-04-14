@@ -4,14 +4,15 @@
 
 namespace Thriot { namespace Platform {
 
-PersistentConnectionInternalClient::PersistentConnectionInternalClient(WebSocketConnection* webSocketConnection)
+PersistentConnectionInternalClient::PersistentConnectionInternalClient(const string& url, WebSocketConnection* webSocketConnection)
 {
+	_url = url;
 	_webSocketConnection = webSocketConnection;
 	_isLoggedIn = false;
 	_isSubscribed = false;
 }
 
-PlatformOperationResult PersistentConnectionInternalClient::Login(const string& url, const string& deviceId, const string& apiKey)
+PlatformOperationResult PersistentConnectionInternalClient::Login(const string& deviceId, const string& apiKey)
 {
 	if(_isLoggedIn)
 		return InvalidOperation;
@@ -19,7 +20,7 @@ PlatformOperationResult PersistentConnectionInternalClient::Login(const string& 
 	if(!_webSocketConnection->IsDisconnected())
 		return ConnectedAlready;
 
-	if(!_webSocketConnection->Connect(url))
+	if(!_webSocketConnection->Connect(_url))
 		return Disconnected;
 
 	_webSocketConnection->OnMessage(this, OnMessagePayloadReceived);
@@ -172,7 +173,7 @@ PlatformOperationResult PersistentConnectionInternalClient::RecordTelemetryData(
 		if(response == "telemetrydata unauthorized")
 			return LoginRequired;
 
-		return MessageInvalid;
+		return TelemetryDataInvalid;
 	}
 	else
 	{

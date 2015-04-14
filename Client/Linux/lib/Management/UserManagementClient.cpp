@@ -10,11 +10,24 @@ using namespace std;
 
 namespace Thriot { namespace Management {
 
+/**
+Initializes a new instance of the user management client
+
+@param restConnection Wrapper class for the rest API calls
+*/
 UserManagementClient::UserManagementClient(RestConnection* restConnection) 
 {
 	_restConnection = restConnection;
 }
 
+/**
+Register a new user. 
+Return 0 if there was no error, -1 if email activation is needed, HTTP status code on other error.
+On successfull registration all subsequent operations will be executed in the name of the registered user.
+
+@param reg Registration parameters
+
+@return operation status. 0 if Ok.*/
 int UserManagementClient::Register(const RegisterInfo& reg)
 {
 	DynamicJsonBuffer jsonBufferRequest;
@@ -47,6 +60,14 @@ int UserManagementClient::Register(const RegisterInfo& reg)
 	return 0;	
 }
 
+/**
+Login a new user.
+On successfull login all subsequent operations will be executed in the name of the logged in user.
+If everything was fine 0 is returned otherwise a http status code.
+
+@param login Login user email and password
+
+@return operation status. 0 if Ok*/
 int UserManagementClient::Login(const LoginInfo& login)
 {
 	DynamicJsonBuffer jsonBufferRequest;
@@ -73,16 +94,27 @@ int UserManagementClient::Login(const LoginInfo& login)
 	return 0;	
 }
 
+/** Logoff the currently logged-in user */
 void UserManagementClient::Logoff()
 {
 	_restConnection->ClearAuthToken();
 }
 
+
+/**
+Determines whether the user is logged in
+
+@return user login status*/
 bool UserManagementClient::IsLoggedIn()
 {
 	return _restConnection->IsAuthenticated();
 }
 
+/**
+Get the currently logged in user.
+If the operation is successfull a valid user object is returned otherwise an uninitialized one.
+
+@return User object*/
 User UserManagementClient::Get()
 {
 	Response httpResponse =_restConnection->Get("users/me");
@@ -102,6 +134,13 @@ User UserManagementClient::Get()
 	return user;
 }
 
+/**
+Find user by email address.
+If the operation is successfull a valid user object is returned otherwise an uninitialized one.
+
+@param email email address of the user we are looking for 
+
+@return User object*/
 User UserManagementClient::FindUser(const string& email)
 {
 	Response httpResponse =_restConnection->Get("users/byemail/" + UrlEncode(email) + "/");

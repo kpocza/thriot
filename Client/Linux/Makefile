@@ -23,14 +23,14 @@ _LIBOBJS = CurlRestConnection.o LibWebSocketConnection.o base64.o \
 	Management/UserManagementClient.o Management/TelemetryDataSinksMetadataClient.o \
 	Management/CompanyManagementClient.o Management/ServiceManagementClient.o \
 	Management/NetworkManagementClient.o Management/DeviceManagementClient.o \
-	Platform/OcassionalConnectionClient.o Platform/PersistentConnectionClient.o \
+	Platform/OccasionallyConnectionClient.o Platform/PersistentConnectionClient.o \
 	Platform/PersistentConnectionInternalClient.o \
 	Reporting/ReportingClient.o Reporting/DeviceClient.o Reporting/NetworkClient.o
 
 LIBOBJS = $(patsubst %,$(LIB)/obj/%, $(_LIBOBJS))
 
 _TESTOBJS = usertest.o companytest.o servicetest.o networktest.o devicetest.o telemetrymetadatatest.o \
-		ocassionalcctest.o persistentcctest.o reportingdevctest.o reportingnetctest.o common.o
+		occasionalcctest.o persistentcctest.o reportingdevctest.o reportingnetctest.o common.o
 TESTOBJS = $(patsubst %,$(TEST)/obj/%, $(_TESTOBJS))
 
 _APPOBJS = app.o 

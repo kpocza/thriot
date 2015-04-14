@@ -50,10 +50,10 @@ TEST(ReportingDeviceClientTest, singleDeviceSingleEntry)
 {
 	ReportingTestInput reportingTestInput = CreateReportingTestInput();
 
-	OcassionalConnectionClient *ocassionalConnectionClient = new OcassionalConnectionClient(PAPIURL, 
+	OccasionallyConnectionClient *occasionallyConnectionClient = new OccasionallyConnectionClient(PAPIURL, 
 		reportingTestInput.Dev1.Id, reportingTestInput.Dev1.DeviceKey);
 
-	ocassionalConnectionClient->RecordTelemetryData("{\"Temperature\": 24, \"Humidity\": 50, \"Source\": \"Linux\"}");
+	occasionallyConnectionClient->RecordTelemetryData("{\"Temperature\": 24, \"Humidity\": 50, \"Source\": \"Linux\"}");
 
 	ReportingClient *reportingClient = new ReportingClient(RAPIURL);
 
@@ -95,11 +95,11 @@ TEST(ReportingDeviceClientTest, singleDeviceMultiEntry)
 {
 	ReportingTestInput reportingTestInput = CreateReportingTestInput();
 
-	OcassionalConnectionClient *ocassionalConnectionClient = new OcassionalConnectionClient(PAPIURL, 
+	OccasionallyConnectionClient *occasionallyConnectionClient = new OccasionallyConnectionClient(PAPIURL, 
 		reportingTestInput.Dev1.Id, reportingTestInput.Dev1.DeviceKey);
 
-	ocassionalConnectionClient->RecordTelemetryData("{\"Temperature\": 24, \"Humidity\": 50, \"Source\": \"Linux\"}");
-	ocassionalConnectionClient->RecordTelemetryData("{\"Temperature\": 25, \"Humidity\": 51, \"Source\": \"Linux\"}");
+	occasionallyConnectionClient->RecordTelemetryData("{\"Temperature\": 24, \"Humidity\": 50, \"Source\": \"Linux\"}");
+	occasionallyConnectionClient->RecordTelemetryData("{\"Temperature\": 25, \"Humidity\": 51, \"Source\": \"Linux\"}");
 
 	ReportingClient *reportingClient = new ReportingClient(RAPIURL);
 

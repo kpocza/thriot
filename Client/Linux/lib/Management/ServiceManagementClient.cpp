@@ -5,11 +5,23 @@
 
 namespace Thriot { namespace Management {
 
+/**
+Create a new instance of the service management client
+
+@param restConnection Class providing REST function calls
+*/
 ServiceManagementClient::ServiceManagementClient(RestConnection* restConnection)
 {
 	_restConnection = restConnection;
 }
 
+/**
+Get a single service by it's unique identifier.
+The function returns an uninitialized entity on error.
+
+@param id Service unique identifier
+
+@return A service entity */
 Service ServiceManagementClient::Get(const string& id)
 {
 	Service service;
@@ -32,6 +44,12 @@ Service ServiceManagementClient::Get(const string& id)
 	return service;
 }
 
+/**
+Create a new service. The function returns an empty string on error.
+
+@param service Service parameters
+
+@return 32-characters long unique identifier of the service */
 string ServiceManagementClient::Create(const Service& service)
 {
 	DynamicJsonBuffer jsonBufferRequest;
@@ -54,6 +72,12 @@ string ServiceManagementClient::Create(const Service& service)
 	return id;
 }
 
+/**
+Update a service. On error return the http status code otherwise 0.
+
+@param service Service to update
+
+@return status code */
 int ServiceManagementClient::Update(const Service& service)
 {
 	DynamicJsonBuffer jsonBufferRequest;
@@ -73,6 +97,12 @@ int ServiceManagementClient::Update(const Service& service)
 	return 0;
 }
 
+/**
+Delete a service specified by id. On error return the http status code otherwise 0.
+
+@param id Service specified by id to delete
+
+@return status code*/
 int ServiceManagementClient::Delete(const string& id)
 {
 	Response httpResponse =_restConnection->Delete("services/" + id);
@@ -83,6 +113,12 @@ int ServiceManagementClient::Delete(const string& id)
 	return 0;
 }
 
+/**
+List networks that are set up under the service. On error the function returns an empty list.
+
+@param id Service id
+
+@return List of networks*/
 vector<Small> ServiceManagementClient::ListNetworks(const string& id)
 {
 	vector<Small> networks;
@@ -105,6 +141,14 @@ vector<Small> ServiceManagementClient::ListNetworks(const string& id)
 	return networks;
 }
 
+/**
+Updates the telemetry data sinks specified for a service.
+On error the functions returns the http status code otherwise 0.
+
+@param id Service identifier
+@param telemetryDataSinkParameters Collection of parameterized telemetry data sinks
+
+@return status code */
 int ServiceManagementClient::UpdateIncomingTelemetryDataSinks(const string& id, const vector<TelemetryDataSinkParameters>& telemetryDataSinkParameters)
 {
 	string tdspJsonString = BuildTelmetryDataSinkParametersListJson(telemetryDataSinkParameters);

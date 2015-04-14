@@ -10,18 +10,25 @@ class RestConnection;
 
 namespace Reporting {
 
+/** Telemetry data sink type*/
 enum SinkType
 {
+	/** Sink handles current data */
 	CurrentData = 1,
+	/** Time series sink */
 	TimeSeries = 2
 };
 
+/** Sink information entity to be used for reporting */
 struct SinkInfo
 {
+	/** Name of the sink */
 	string SinkName;
+	/** Type of the sink */
 	SinkType Type;
 };
 
+/** Client class used for device-level reporting */
 class DeviceClient
 {
 	private:
@@ -40,6 +47,7 @@ class DeviceClient
 		string GetTimeSeriesCsv(const string& sinkName, unsigned long time);
 };
 
+/** Client class used for network-level reporting. In the reports created by this class you will find all devices under the network. */
 class NetworkClient
 {
 	private:
@@ -58,6 +66,7 @@ class NetworkClient
 		string GetTimeSeriesCsv(const string& sinkName, unsigned long time);
 };
 
+/** Client class encapsulating the device-level and network-level reporting functionality */
 class ReportingClient
 {
 	private:
