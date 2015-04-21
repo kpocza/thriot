@@ -33,11 +33,11 @@ EnsureEmptyDirectory $targetRoot\websocketservice;
 
 cp -Recu -Force $solutionRoot\Platform\IoT.Platform.WebsocketService\bin\$config\* $targetRoot\websocketservice\
 
-if($config -eq "DevAzure" -or $config -eq "DevSql") {
+if($config.StartsWith("Dev")) {
 	mv -Force $targetRoot\web\config\siteRoots.dev.js $targetRoot\web\config\siteRoots.js 
 }
 
-if(($config -eq "ProdAzure" -or $config -eq "ProdSql") -and $(test-path $targetRoot\web\config)) {
+if($config.StartsWith("Prod") -and $(test-path $targetRoot\web\config)) {
 	rmdir -Recu -Force $targetRoot\web\config
 }
 
@@ -49,12 +49,18 @@ EnsureEmptyDirectory $targetRoot\install\storage\management;
 
 if($config -eq "DevAzure" -or $config -eq "ProdAzure") {
 	cp $solutionRoot\Build\templates\config\azure\* $targetRoot\install\configtemplates
-	cp $solutionRoot\Messaging\Scripts\* $targetRoot\install\storage\messaging
+	cp $solutionRoot\Messaging\Scripts\Sql\* $targetRoot\install\storage\messaging
 	cp -Recu $solutionRoot\Misc\IoT.CreateAzureStorage\bin\Debug\* $targetRoot\install\storage\management
 }
 
 if($config -eq "DevSql" -or $config -eq "ProdSql") {
 	cp $solutionRoot\Build\templates\config\sql\* $targetRoot\install\configtemplates
-	cp $solutionRoot\Messaging\Scripts\* $targetRoot\install\storage\messaging
+	cp $solutionRoot\Messaging\Scripts\Sql\* $targetRoot\install\storage\messaging
 	cp -Recu $solutionRoot\Misc\IoT.CreateSqlStorage\bin\Debug\* $targetRoot\install\storage\management
+}
+
+if($config -eq "DevPgSql" -or $config -eq "ProdPgSql") {
+	#cp $solutionRoot\Build\templates\config\pgsql\* $targetRoot\install\configtemplates
+	cp $solutionRoot\Messaging\Scripts\PgSql\* $targetRoot\install\storage\messaging
+	#cp -Recu $solutionRoot\Misc\IoT.CreatePgSqlStorage\bin\Debug\* $targetRoot\install\storage\management
 }

@@ -27,9 +27,11 @@ namespace IoT.Messaging.PerformanceTest
         public static void Main(string[] args)
         {
             //_messagingService = new PureDatabaseCalls();
+            _messagingService = new PureDatabaseCallsPgSql();
             //_messagingService = new InprocMessagingService();
-            _messagingService = new WebApiMessagingService();
-            _messagingService.Setup("http://localhost/msvc/v1/messaging", "bb9lWD60BTCBWJO0FlOwtVZxLn0lrC3/");
+
+            //_messagingService = new WebApiMessagingService();
+            //_messagingService.Setup("http://localhost/msvc/v1/messaging", "bb9lWD60BTCBWJO0FlOwtVZxLn0lrC3/");
 
             _deviceIds = new List<long>();
 
@@ -51,7 +53,7 @@ namespace IoT.Messaging.PerformanceTest
             {
                 Task.Factory.StartNew(Enqueue);
 
-                Task.Factory.StartNew(DequeueMany);
+                //Task.Factory.StartNew(DequeueMany);
             }
 
             Console.WriteLine("Press enter to exit");
@@ -96,7 +98,7 @@ namespace IoT.Messaging.PerformanceTest
                     prevDate = now;
                     prevEnci = _encI;
                 }
-                Thread.Sleep(200);
+                Thread.Sleep(20);
             }
         }
 

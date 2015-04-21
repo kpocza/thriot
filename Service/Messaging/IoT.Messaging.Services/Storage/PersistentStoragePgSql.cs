@@ -1,37 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
+using Newtonsoft.Json;
+using Npgsql;
+using NpgsqlTypes;
 
 namespace IoT.Messaging.Services.Storage
 {
-    public class PersistentStorage : IPersistentStorage
+    public class PersistentStoragePgSql : IPersistentStorage
     {
         private readonly string _connectionString;
 
-        public PersistentStorage(IConnectionStringResolver connectionStringResolver)
+        public PersistentStoragePgSql(IConnectionStringResolver connectionStringResolver)
         {
             _connectionString = connectionStringResolver.ConnectionString;
         }
 
         public long InitializeDevice(string deviceId)
         {
-            using (var sqlConnection = new SqlConnection(_connectionString))
+            using (var connection = new NpgsqlConnection(_connectionString))
             {
-                sqlConnection.Open();
+                connection.Open();
 
-                using (var sqlCommand = new SqlCommand("RegisterDevice", sqlConnection))
+                using (var command = new NpgsqlCommand("RegisterDevice", connection))
                 {
-                    sqlCommand.CommandType = CommandType.StoredProcedure;
-                    sqlCommand.Parameters.Add(new SqlParameter("@Uid", deviceId));
-                    var outParam = new SqlParameter("@DeviceId", SqlDbType.BigInt);
-                    outParam.Direction = ParameterDirection.Output;
-                    sqlCommand.Parameters.Add(outParam);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("Uid", deviceId);
 
-                    sqlCommand.ExecuteNonQuery();
-
-                    return (long)outParam.Value;
+                    return (long)command.ExecuteScalar();
                 }
             }
         }
@@ -41,39 +39,37 @@ namespace IoT.Messaging.Services.Storage
             if(!items.Any())
                 return new List<EnqueueResult>();
 
-            var dataTable = new DataTable("EnqueueItemTable");
-            dataTable.Columns.Add("DeviceId", typeof(long));
-            dataTable.Columns.Add("Payload", typeof(byte[]));
-            dataTable.Columns.Add("Timestamp", typeof(DateTime));
-
-            foreach (var item in items)
+            using (var connection = new NpgsqlConnection(_connectionString))
             {
-                var dataRow = dataTable.NewRow();
-                dataRow[0] = item.DeviceId;
-                dataRow[1] = item.Payload;
-                dataRow[2] = item.Timestamp;
-                dataTable.Rows.Add(dataRow);
-            }
+                connection.Open();
 
-            using (var sqlConnection = new SqlConnection(_connectionString))
-            {
-                sqlConnection.Open();
-
-                using (var sqlCommand = new SqlCommand("Enqueue", sqlConnection))
+                using (var command = new NpgsqlCommand("Enqueue", connection))
                 {
-                    sqlCommand.CommandType = CommandType.StoredProcedure;
-                    sqlCommand.Parameters.Add(new SqlParameter("@Messages", dataTable));
+                    command.CommandType = CommandType.StoredProcedure;
+                    var jsonSource = items.Select(
+                        item =>
+                            new EnqueueData
+                            {
+                                deviceid = item.DeviceId,
+                                payload = item.Payload,
+                                timestamp = item.Timestamp
+                            }).ToList();
+                    
+                    var messages = new NpgsqlParameter("MessagesJson", NpgsqlDbType.Json);
+                    messages.Value = JsonConvert.SerializeObject(jsonSource);
+                    command.Parameters.Add(messages);
 
-                    var enqueueResults = new List<EnqueueResult>();
-
-                    using (var reader = sqlCommand.ExecuteReader())
+                    using (var reader = command.ExecuteReader())
                     {
+
                         var colDeviceId = reader.GetOrdinal("DeviceId");
                         var colDequeueIndex = reader.GetOrdinal("DequeueIndex");
                         var colEnqueueIndex = reader.GetOrdinal("EnqueueIndex");
                         var colPeek = reader.GetOrdinal("Peek");
                         var colVersion = reader.GetOrdinal("Version");
                         var colMessageId = reader.GetOrdinal("MessageId");
+
+                        var enqueueResults = new List<EnqueueResult>();
 
                         while (reader.Read())
                         {
@@ -89,9 +85,9 @@ namespace IoT.Messaging.Services.Storage
 
                             enqueueResults.Add(enqueueResult);
                         }
-                    }
 
-                    return enqueueResults;
+                        return enqueueResults;
+                    }
                 }
             }
         }
@@ -111,28 +107,22 @@ namespace IoT.Messaging.Services.Storage
             if(!deviceIds.Any())
                 return new List<DeviceEntry>();
 
-            var dataTable = new DataTable("DeviceIdTable");
-            dataTable.Columns.Add("DeviceId", typeof(long));
-
-            foreach (var deviceId in deviceIds)
+            using (var connection = new NpgsqlConnection(_connectionString))
             {
-                var dataRow = dataTable.NewRow();
-                dataRow[0] = deviceId;
-                dataTable.Rows.Add(dataRow);
-            }
+                connection.Open();
 
-            using (var sqlConnection = new SqlConnection(_connectionString))
-            {
-                sqlConnection.Open();
-
-                using (var sqlCommand = new SqlCommand("Commit", sqlConnection))
+                using (var command = new NpgsqlCommand("Commit", connection))
                 {
-                    sqlCommand.CommandType = CommandType.StoredProcedure;
-                    sqlCommand.Parameters.Add(new SqlParameter("@CommitItems", dataTable));
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    var commitItemsJsonSource = deviceIds.Select(item => new CommitData {deviceid = item}).ToList();
+                    var messages = new NpgsqlParameter("CommitItemsJson", NpgsqlDbType.Json);
+                    messages.Value = JsonConvert.SerializeObject(commitItemsJsonSource);
+                    command.Parameters.Add(messages);
 
                     var deviceEntries = new List<DeviceEntry>();
 
-                    using (var reader = sqlCommand.ExecuteReader())
+                    using (var reader = command.ExecuteReader())
                     {
                         var colDeviceId = reader.GetOrdinal("DeviceId");
                         var colDequeueIndex = reader.GetOrdinal("DequeueIndex");
@@ -164,33 +154,27 @@ namespace IoT.Messaging.Services.Storage
         {
             if (!deviceIds.Any())
                 return new DequeueResults { Messages = new List<DequeueResult>(), UnknownEntries = new List<DeviceEntry>()};
-            
-            var dataTable = new DataTable("DeviceIdWithIndexTable");
-            dataTable.Columns.Add("DeviceId", typeof(long));
-            dataTable.Columns.Add("Index", typeof(int));
 
-            foreach (var item in deviceIds)
+            using (var connection = new NpgsqlConnection(_connectionString))
             {
-                var dataRow = dataTable.NewRow();
-                dataRow[0] = item.DeviceId;
-                dataRow[1] = item.Index ?? -1; // just to avoid NULL check problems in SQL
-                dataTable.Rows.Add(dataRow);
-            }
+                connection.Open();
 
-            using (var sqlConnection = new SqlConnection(_connectionString))
-            {
-                sqlConnection.Open();
-
-                using (var sqlCommand = new SqlCommand(spName, sqlConnection))
+                using (var command = new NpgsqlCommand(spName, connection))
                 {
-                    sqlCommand.CommandType = CommandType.StoredProcedure;
-                    sqlCommand.Parameters.Add(new SqlParameter("@DequeueItems", dataTable));
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    var dequeueItemsJsonSource =
+                        deviceIds.Select(item => new RetrieveData {deviceid = item.DeviceId, index = item.Index ?? -1}).ToList();
+
+                    var dequeueItems = new NpgsqlParameter("DequeueItemsJson", NpgsqlDbType.Json);
+                    dequeueItems.Value = JsonConvert.SerializeObject(dequeueItemsJsonSource);
+                    command.Parameters.Add(dequeueItems);
 
                     var dequeueResults = new DequeueResults();
                     var messages = new List<DequeueResult>();
                     var unknownEntries = new List<DeviceEntry>();
 
-                    using (var reader = sqlCommand.ExecuteReader())
+                    using (var reader = command.ExecuteReader())
                     {
                         var colIsMessage = reader.GetOrdinal("IsMessage");
                         var colDeviceId = reader.GetOrdinal("DeviceId");
@@ -204,7 +188,7 @@ namespace IoT.Messaging.Services.Storage
 
                         while (reader.Read())
                         {
-                            if ((int) reader[colIsMessage] == 1)
+                            if ((bool) reader[colIsMessage])
                             {
                                 var dequeueResult = new DequeueResult
                                 {
@@ -217,7 +201,7 @@ namespace IoT.Messaging.Services.Storage
                                 };
                                 if (!reader.IsDBNull(colPayload))
                                 {
-                                    dequeueResult.Payload = (byte[]) reader[colPayload];
+                                    dequeueResult.Payload = Convert.FromBase64String(Encoding.UTF8.GetString((byte[]) reader[colPayload]));
                                     dequeueResult.Timestamp = (DateTime) reader[colTimestamp];
                                 }
 
@@ -245,6 +229,24 @@ namespace IoT.Messaging.Services.Storage
                     return dequeueResults;
                 }
             }
+        }
+
+        class EnqueueData
+        {
+            public long deviceid;
+            public byte[] payload;
+            public DateTime timestamp;
+        }
+
+        class RetrieveData
+        {
+            public long deviceid;
+            public int index;
+        }
+
+        class CommitData
+        {
+            public long deviceid;
         }
     }
 }

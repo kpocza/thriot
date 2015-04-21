@@ -45,10 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConnectionStringResolverPgSql.cs" />
     <Compile Include="ConnectionStringResolver.cs" />
     <Compile Include="InprocMessagingService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PureDatabaseCallsPgSql.cs" />
     <Compile Include="PureDatabaseCalls.cs" />
     <Compile Include="WebApiMessagingService.cs" />
   </ItemGroup>
