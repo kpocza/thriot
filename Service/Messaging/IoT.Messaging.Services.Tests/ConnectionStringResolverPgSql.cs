@@ -6,7 +6,7 @@ namespace IoT.Messaging.Services.Tests
     {
         public string ConnectionString
         {
-            get { return @"Server=127.0.0.1;Port=5432;Database=IoTMessaging;User Id=postgres;Password=postgres;"; }
+            get { return @"Server=127.0.0.1;Port=5432;Database=ThriotMessaging;User Id=thriotmessaging;Password=thriotmessaging;"; }
         }
     }
 }

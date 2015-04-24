@@ -2,6 +2,7 @@
 using System.Data.Common;
 using System.IO;
 using IoT.Management.Operations.Sql.DataAccess;
+using IoT.Management.Operations.Sql.DataAccess.Sql;
 using IoT.Objects.Operations.Sql.DataAccess;
 using IoT.ServiceClient.Messaging;
 
@@ -15,9 +16,7 @@ namespace IoT.UnitTestHelpers
 
             InitializeDb(sqliteConnectionParametersResolver);
 
-            var managementUnitOfWorkFactory = new ManagementUnitOfWorkFactory(sqliteConnectionParametersResolver);
-            managementUnitOfWorkFactory.EnableMigrations = false;
-            return managementUnitOfWorkFactory;
+            return new ManagementUnitOfWorkFactorySql(sqliteConnectionParametersResolver);
         }
 
         private static bool _isInitialized = false;

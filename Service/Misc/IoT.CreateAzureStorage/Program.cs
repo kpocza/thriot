@@ -1,4 +1,5 @@
-﻿using IoT.Framework;
+﻿using System;
+using IoT.Framework;
 using IoT.Framework.Azure.DataAccess;
 using IoT.Framework.DataAccess;
 using IoT.Management.Model;
@@ -31,7 +32,7 @@ namespace IoT.CreateAzureStorage
             CreateSettingIfNotExist(settingRepository, Setting.MessagingServiceEndpoint, "http://localhost:12345/msvc/v1/messaging");
             CreateSettingIfNotExist(settingRepository, Setting.MessagingServiceApiKey, Crypto.GenerateSafeRandomToken());
             CreateSettingIfNotExist(settingRepository, SettingId.GetConnection("TelemetryConnectionAzure"), "UseDevelopmentStorage=true");
-            CreateSettingIfNotExist(settingRepository, SettingId.GetConnection("TelemetryConnectionSql"), @"Server=.\SQLEXPRESS;Database=IoTTelemetry;Trusted_Connection=True;");
+            CreateSettingIfNotExist(settingRepository, SettingId.GetConnection("TelemetryConnectionSql"), @"Server=.\SQLEXPRESS;Database=ThriotTelemetry;Trusted_Connection=True;");
             CreateSettingIfNotExist(settingRepository, Setting.WebsiteUrl, "http://localhost:12345");
             CreateSettingIfNotExist(settingRepository, Setting.ManagementApiUrl, "http://localhost:12345/api/v1");
             CreateSettingIfNotExist(settingRepository, Setting.PlatformApiUrl, "http://localhost:12345/papi/v1");
@@ -48,6 +49,7 @@ namespace IoT.CreateAzureStorage
             {
                 var settingTableEntity = new SettingTableEntity(settingId, value);
                 settingRepository.Create(settingTableEntity);
+                Console.WriteLine("Added {0}", settingId);
             }
         }
 

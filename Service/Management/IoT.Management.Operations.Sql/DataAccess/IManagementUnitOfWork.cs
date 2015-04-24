@@ -4,6 +4,8 @@ namespace IoT.Management.Operations.Sql.DataAccess
 {
     public interface IManagementUnitOfWork : IUnitOfWork
     {
+        void ExecuteScript(string script);
+
         DeviceRepository GetDeviceRepository();
 
         NetworkRepository GetNetworkRepository();

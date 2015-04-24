@@ -16,7 +16,7 @@ namespace IoT.Objects.Operations.Sql.DataAccess
         public IObjectsUnitOfWork Create()
         {
             var unitOfWork = new ObjectsUnitOfWork();
-            unitOfWork.Setup(_connectionString, _connectionProvider, false);
+            unitOfWork.Setup(_connectionString, _connectionProvider);
 
             return unitOfWork;
         }

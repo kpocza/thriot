@@ -21,7 +21,7 @@ namespace IoT.Plugins.Sql.Tests
 
         protected override string GetConnectionString()
         {
-            return @"Server=.\SQLEXPRESS;Database=IoTTelemetry;Trusted_Connection=True;";
+            return @"Server=.\SQLEXPRESS;Database=ThriotTelemetry;Trusted_Connection=True;";
         }
 
         [TestMethod]

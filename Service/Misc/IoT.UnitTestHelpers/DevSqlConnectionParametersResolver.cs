@@ -12,7 +12,7 @@ namespace IoT.UnitTestHelpers
 
         public string ManagementConnectionString
         {
-            get { return @"Server=.\SQLEXPRESS;Database=IoT;Trusted_Connection=True;"; }
+            get { return @"Server=.\SQLEXPRESS;Database=Thriot;Trusted_Connection=True;"; }
         }
 
         public string ManagementConnectionProvider

@@ -1,4 +1,5 @@
 ﻿using IoT.Management.Operations.Sql.DataAccess;
+using IoT.Management.Operations.Sql.DataAccess.Sql;
 using IoT.Objects.Operations.Sql.DataAccess;
 using IoT.ServiceClient.Messaging;
 
@@ -10,7 +11,7 @@ namespace IoT.UnitTestHelpers
         {
             var connectionParameterResolver = new DevSqlConnectionParametersResolver();
 
-            return new ManagementUnitOfWorkFactory(connectionParameterResolver);
+            return new ManagementUnitOfWorkFactorySql(connectionParameterResolver);
         }
         
         private IObjectsUnitOfWorkFactory GetPlatformUnitOfWorkFactory()

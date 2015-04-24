@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace IoT.Framework.Sql
@@ -7,11 +8,11 @@ namespace IoT.Framework.Sql
     {
         protected DbContext DbContext;
 
-        protected abstract DbContext GetDbContext(string connectionString, string providerName, bool enableMigrations);
+        protected abstract DbContext GetDbContext(string connectionString, string providerName);
 
-        public void Setup(string connectionString, string providerName, bool enableMigrations = true)
+        public void Setup(string connectionString, string providerName)
         {
-            DbContext = GetDbContext(connectionString, providerName, enableMigrations);
+            DbContext = GetDbContext(connectionString, providerName);
         }
 
         public void Commit()

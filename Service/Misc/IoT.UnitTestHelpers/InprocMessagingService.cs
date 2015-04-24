@@ -18,7 +18,7 @@ namespace IoT.UnitTestHelpers
         {
             public string ConnectionString
             {
-                get { return @"Server=.\SQLEXPRESS;Database=IoTMessaging;Trusted_Connection=True;"; }
+                get { return @"Server=.\SQLEXPRESS;Database=ThriotMessaging;Trusted_Connection=True;"; }
             }
         }
 

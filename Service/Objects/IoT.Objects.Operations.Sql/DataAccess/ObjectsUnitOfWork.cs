@@ -6,7 +6,7 @@ namespace IoT.Objects.Operations.Sql.DataAccess
 {
     public class ObjectsUnitOfWork : UnitOfWork, IObjectsUnitOfWork
     {
-        protected override DbContext GetDbContext(string connectionString, string providerName, bool enableMigrations)
+        protected override DbContext GetDbContext(string connectionString, string providerName)
         {
             var dbProviderFactory = DbProviderFactories.GetFactory(providerName);
             var dbConnection = dbProviderFactory.CreateConnection();

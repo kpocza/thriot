@@ -1,0 +1,23 @@
+﻿Sql:
+	Initialization (run only once):
+		Enable-Migrations -ContextAssemblyName Thriot.Management.DataAccess.Sql -ContextTypeName Thriot.Management.DataAccess.Sql.ManagementDbContextSql -MigrationsDirectory:Migrations
+
+	Initial migration (first time example):
+		Add-migration -ConfigurationTypeName Thriot.Management.DataAccess.Sql.Migrations.Configuration -ProjectName Thriot.Management.DataAccess.Sql -StartupProject Thriot.Management.DataAccess.Sql "InitialDatabase"
+
+	Running after each migration to update database:
+		Update-Database -ConfigurationTypeName Thriot.Management.DataAccess.Sql.Migrations.Configuration -ProjectName Thriot.Management.DataAccess.Sql -StartupProject Thriot.Management.DataAccess.Sql -ConnectionString "Server=.\SQLEXPRESS;Database=Thriot;Trusted_Connection=True;" -ConnectionProviderName System.Data.SqlClient
+
+
+PgSql:
+	Initialization (run only once):
+		Enable-Migrations -ContextAssemblyName Thriot.Management.DataAccess.PgSql -ContextTypeName Thriot.Management.DataAccess.PgSql.ManagementDbContextPgSql -MigrationsDirectory:Migrations
+
+		Add the following line to the generated Configuration.cs class's constructor:
+		SetSqlGenerator("Npgsql", new NpgsqlMigrationSqlGenerator());
+
+	Initial migration (first time example):
+		Add-migration -ConfigurationTypeName Thriot.Management.DataAccess.PgSql.Migrations.Configuration -ProjectName Thriot.Management.DataAccess.PgSql -StartupProject Thriot.Management.DataAccess.PgSql "InitialDatabase"
+
+	Running after each migration to update database (could be but run createsqlstore instead after devpgsql build):
+		Update-Database -ConfigurationTypeName Thriot.Management.DataAccess.PgSql.Migrations.Configuration -ProjectName Thriot.Management.DataAccess.PgSql -StartupProject Thriot.Management.DataAccess.PgSql -ConnectionString "Server=127.0.0.1;Port=5432;Database=Thriot;User Id=thriot;Password=thriot;" -ConnectionProviderName Npgsql
