@@ -1,7 +1,7 @@
 ﻿CREATE OR REPLACE FUNCTION CreateDatabase() RETURNS int AS $$
 -- BEGIN: InitialDatabase
 BEGIN
-	IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE' AND lower(TABLE_NAME)=lower('Company')) THEN
+	IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE' AND lower(TABLE_NAME)=lower('Setting')) THEN
 		create table "Company" (
 			"Id" char(32) primary key not null,
 			"Name" varchar(50) not null,
@@ -48,7 +48,7 @@ BEGIN
 			"Id" char(32) primary key not null,
 			"Name" varchar(50) not null,
 			"Email" varchar(128) not null,
-			"Activated" bit not null,
+			"Activated" boolean not null,
 			"ActivationCode" varchar(8000) null
 		);
 		create table "UserCompany" (
@@ -65,6 +65,9 @@ BEGIN
 		alter table "Service" add constraint Service_Company foreign key ("CompanyId") references "Company"("Id");
 		alter table "UserCompany" add constraint User_Companies_Source foreign key ("UserId") references "User"("Id");
 		alter table "UserCompany" add constraint User_Companies_Target foreign key ("CompanyId") references "Company"("Id");
+
+		INSERT INTO "Setting"("Category", "Config", "Value") VALUES('Version', 'System', '0.1');
+		INSERT INTO "Setting"("Category", "Config", "Value") VALUES('Version', 'Database', '1');
 	END IF;
 RETURN 0;
 END

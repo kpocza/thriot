@@ -6,14 +6,14 @@ using IoT.Objects.Model;
 
 namespace IoT.Objects.Operations.Sql.DataAccess
 {
-    public class ObjectsDbContext : DbContext
+    public abstract class ObjectsDbContext : DbContext
     {
         static ObjectsDbContext()
         {
-            var ensureDLLIsCopied = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
+            var ensureDllIsCopied = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
         }
 
-        public ObjectsDbContext(DbConnection dbConnection, bool ownsConnections) : base(dbConnection, ownsConnections)
+        protected ObjectsDbContext(DbConnection dbConnection, bool ownsConnections) : base(dbConnection, ownsConnections)
         {
             // dirty hack to make unit tests work
             // ensure that ef dlls are copied to the right place
@@ -24,7 +24,7 @@ namespace IoT.Objects.Operations.Sql.DataAccess
             Configuration.ValidateOnSaveEnabled = false;
         }
 
-        public ObjectsDbContext()
+        protected ObjectsDbContext()
         {
         }
 
@@ -36,19 +36,20 @@ namespace IoT.Objects.Operations.Sql.DataAccess
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Add(new ForeignKeyNamingConvention());
-            modelBuilder.Entity<Company>().Property(p => p.Id).HasColumnType("varchar");
-            modelBuilder.Entity<Device>().Property(p => p.Id).HasColumnType("varchar");
+
+            modelBuilder.Entity<Company>().Property(p => p.Id).HasColumnType("char").IsFixedLength();
+            modelBuilder.Entity<Device>().Property(p => p.Id).HasColumnType("char").IsFixedLength();
             modelBuilder.Entity<Device>().Property(p => p.DeviceKey).HasColumnType("varchar");
-            modelBuilder.Entity<Device>().Property(p => p.CompanyId).HasColumnType("varchar");
-            modelBuilder.Entity<Device>().Property(p => p.ServiceId).HasColumnType("varchar");
-            modelBuilder.Entity<Device>().Property(p => p.NetworkId).HasColumnType("varchar");
-            modelBuilder.Entity<Network>().Property(p => p.Id).HasColumnType("varchar");
+            modelBuilder.Entity<Device>().Property(p => p.CompanyId).HasColumnType("char").IsFixedLength();
+            modelBuilder.Entity<Device>().Property(p => p.ServiceId).HasColumnType("char").IsFixedLength();
+            modelBuilder.Entity<Device>().Property(p => p.NetworkId).HasColumnType("char").IsFixedLength();
+            modelBuilder.Entity<Network>().Property(p => p.Id).HasColumnType("char").IsFixedLength();
             modelBuilder.Entity<Network>().Property(p => p.NetworkKey).HasColumnType("varchar");
-            modelBuilder.Entity<Network>().Property(p => p.CompanyId).HasColumnType("varchar");
-            modelBuilder.Entity<Network>().Property(p => p.ServiceId).HasColumnType("varchar");
+            modelBuilder.Entity<Network>().Property(p => p.CompanyId).HasColumnType("char").IsFixedLength();
+            modelBuilder.Entity<Network>().Property(p => p.ServiceId).HasColumnType("char").IsFixedLength();
             modelBuilder.Entity<Network>().Property(p => p.ParentNetworkId).HasColumnType("varchar");
-            modelBuilder.Entity<Service>().Property(p => p.Id).HasColumnType("varchar");
-            modelBuilder.Entity<Service>().Property(p => p.CompanyId).HasColumnType("varchar");
+            modelBuilder.Entity<Service>().Property(p => p.Id).HasColumnType("char").IsFixedLength();
+            modelBuilder.Entity<Service>().Property(p => p.CompanyId).HasColumnType("char").IsFixedLength();
             modelBuilder.Entity<Service>().Property(p => p.ApiKey).HasColumnType("varchar");
             modelBuilder.Entity<Setting>().Property(p => p.Category).HasColumnType("varchar");
             modelBuilder.Entity<Setting>().Property(p => p.Config).HasColumnType("varchar");

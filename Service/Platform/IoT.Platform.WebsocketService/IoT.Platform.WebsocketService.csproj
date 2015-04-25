@@ -185,6 +185,9 @@
     <Content Include="App.ProdSql.config">
       <DependentUpon>App.config</DependentUpon>
     </Content>
+    <Content Include="App.DevPgSql.config">
+      <DependentUpon>App.config</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -142,6 +142,9 @@
     <Content Include="Web.ProdAzure.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+    <None Include="Web.DevPgSql.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
     <None Include="Web.DevSql.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

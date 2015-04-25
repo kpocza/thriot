@@ -88,10 +88,12 @@
   <ItemGroup>
     <Compile Include="AssertionHelper.cs" />
     <Compile Include="AzureEnvironmentFactory.cs" />
+    <Compile Include="DevPgSqlConnectionParametersResolver.cs" />
     <Compile Include="DevSqlConnectionParametersResolver.cs" />
     <Compile Include="InprocMessagingService.cs" />
     <Compile Include="InMemoryMessagingService.cs" />
     <Compile Include="SettingInitializer.cs" />
+    <Compile Include="PgSqlEnvironmentFactory.cs" />
     <Compile Include="SqLiteConnectionParametersResolver.cs" />
     <Compile Include="EmailHelper.cs" />
     <Compile Include="IEnvironmentFactory.cs" />

@@ -1,25 +1,26 @@
 ﻿using IoT.Management.Operations.Sql.DataAccess;
-using IoT.Management.Operations.Sql.DataAccess.Sql;
+using IoT.Management.Operations.Sql.DataAccess.PgSql;
 using IoT.Objects.Operations.Sql.DataAccess;
+using IoT.Objects.Operations.Sql.DataAccess.PgSql;
 using IoT.Objects.Operations.Sql.DataAccess.Sql;
 using IoT.ServiceClient.Messaging;
 
 namespace IoT.UnitTestHelpers
 {
-    public class SqlEnvironmentFactory : IEnvironmentFactory
+    public class PgSqlEnvironmentFactory : IEnvironmentFactory
     {
         private IManagementUnitOfWorkFactory GetManagementUnitOfWorkFactory()
         {
-            var connectionParameterResolver = new DevSqlConnectionParametersResolver();
+            var connectionParameterResolver = new DevPgSqlConnectionParametersResolver();
 
-            return new ManagementUnitOfWorkFactorySql(connectionParameterResolver);
+            return new ManagementUnitOfWorkFactoryPgSql(connectionParameterResolver);
         }
         
         private IObjectsUnitOfWorkFactory GetPlatformUnitOfWorkFactory()
         {
-            var connectionParameterResolver = new DevSqlConnectionParametersResolver();
+            var connectionParameterResolver = new DevPgSqlConnectionParametersResolver();
 
-            return new ObjectsUnitOfWorkFactorySql(connectionParameterResolver);
+            return new ObjectsUnitOfWorkFactoryPgSql(connectionParameterResolver);
         }
 
         public Management.Model.Operations.IUserOperations MgmtUserOperations

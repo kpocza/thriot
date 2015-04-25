@@ -42,6 +42,15 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Security">
+      <HintPath>..\..\packages\Npgsql.2.2.5\lib\net45\Mono.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Npgsql">
+      <HintPath>..\..\packages\Npgsql.2.2.5\lib\net45\Npgsql.dll</HintPath>
+    </Reference>
+    <Reference Include="Npgsql.EntityFramework">
+      <HintPath>..\..\packages\Npgsql.EntityFramework.2.2.5\lib\net45\Npgsql.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -61,8 +70,14 @@
     <Compile Include="DataAccess\ObjectsDbContext.cs" />
     <Compile Include="DataAccess\ObjectsUnitOfWork.cs" />
     <Compile Include="DataAccess\ObjectsUnitOfWorkFactory.cs" />
+    <Compile Include="DataAccess\PgSql\ObjectsDbContextPgSql.cs" />
+    <Compile Include="DataAccess\PgSql\ObjectsUnitOfWorkFactoryPgSql.cs" />
+    <Compile Include="DataAccess\PgSql\ObjectsUnitOfWorkPgSql.cs" />
     <Compile Include="DataAccess\ServiceRepository.cs" />
     <Compile Include="DataAccess\SettingRepository.cs" />
+    <Compile Include="DataAccess\Sql\ObjectsDbContextSql.cs" />
+    <Compile Include="DataAccess\Sql\ObjectsUnitOfWorkSql.cs" />
+    <Compile Include="DataAccess\Sql\ObjectsUnitOfWorkFactorySql.cs" />
     <Compile Include="DeviceOperations.cs" />
     <Compile Include="NetworkOperations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -87,6 +102,7 @@
       <Name>IoT.Objects.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -1,6 +1,5 @@
 ﻿using System.Data.Common;
 using System.Data.Entity;
-using System.IO;
 using IoT.Framework.Sql;
 
 namespace IoT.Management.Operations.Sql.DataAccess

@@ -2,12 +2,12 @@
 
 namespace IoT.Objects.Operations.Sql.DataAccess
 {
-    public class ObjectsUnitOfWorkFactory : IObjectsUnitOfWorkFactory
+    public abstract class ObjectsUnitOfWorkFactory : IObjectsUnitOfWorkFactory
     {
         private readonly string _connectionString;
         private readonly string _connectionProvider;
 
-        public ObjectsUnitOfWorkFactory(IConnectionParametersResolver connectionParametersResolver)
+        protected ObjectsUnitOfWorkFactory(IConnectionParametersResolver connectionParametersResolver)
         {
             _connectionString = connectionParametersResolver.ManagementConnectionString;
             _connectionProvider = connectionParametersResolver.ManagementConnectionProvider;
@@ -15,10 +15,12 @@ namespace IoT.Objects.Operations.Sql.DataAccess
 
         public IObjectsUnitOfWork Create()
         {
-            var unitOfWork = new ObjectsUnitOfWork();
+            var unitOfWork = CreateCore();
             unitOfWork.Setup(_connectionString, _connectionProvider);
 
             return unitOfWork;
         }
+
+        protected abstract ObjectsUnitOfWork CreateCore();
     }
 }

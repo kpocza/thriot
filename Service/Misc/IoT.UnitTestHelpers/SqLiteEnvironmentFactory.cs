@@ -4,6 +4,7 @@ using System.IO;
 using IoT.Management.Operations.Sql.DataAccess;
 using IoT.Management.Operations.Sql.DataAccess.Sql;
 using IoT.Objects.Operations.Sql.DataAccess;
+using IoT.Objects.Operations.Sql.DataAccess.Sql;
 using IoT.ServiceClient.Messaging;
 
 namespace IoT.UnitTestHelpers
@@ -60,7 +61,7 @@ namespace IoT.UnitTestHelpers
         {
             var connectionParameterResolver = new SqLiteConnectionParametersResolver();
 
-            return new ObjectsUnitOfWorkFactory(connectionParameterResolver);
+            return new ObjectsUnitOfWorkFactorySql(connectionParameterResolver);
         }
 
         public Management.Model.Operations.IUserOperations MgmtUserOperations

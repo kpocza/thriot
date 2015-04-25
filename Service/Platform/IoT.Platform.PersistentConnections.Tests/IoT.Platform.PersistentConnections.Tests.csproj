@@ -110,6 +110,9 @@
     <None Include="App.DevSql.config">
       <DependentUpon>App.config</DependentUpon>
     </None>
+    <None Include="App.DevPgSql.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

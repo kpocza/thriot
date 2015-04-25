@@ -9,9 +9,11 @@ namespace IoT.Management.Operations.Sql.DataAccess.PgSql
         public ManagementDbContextPgSql(DbConnection dbConnection, bool ownsConnections)
             : base(dbConnection, ownsConnections)
         {
+            Database.SetInitializer<ManagementDbContextPgSql>(null);
+            
             // dirty hack to make unit tests work
             // ensure that ef dlls are copied to the right place
-            var _ = typeof(System.Data.Entity.SqlServer.SqlProviderServices);
+            var _ = typeof(Npgsql.NpgsqlServices);
         }
 
         public ManagementDbContextPgSql()

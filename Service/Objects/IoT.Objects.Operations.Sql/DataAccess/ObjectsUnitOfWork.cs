@@ -4,7 +4,7 @@ using IoT.Framework.Sql;
 
 namespace IoT.Objects.Operations.Sql.DataAccess
 {
-    public class ObjectsUnitOfWork : UnitOfWork, IObjectsUnitOfWork
+    public abstract class ObjectsUnitOfWork : UnitOfWork, IObjectsUnitOfWork
     {
         protected override DbContext GetDbContext(string connectionString, string providerName)
         {
@@ -12,8 +12,10 @@ namespace IoT.Objects.Operations.Sql.DataAccess
             var dbConnection = dbProviderFactory.CreateConnection();
             dbConnection.ConnectionString = connectionString;
 
-            return new ObjectsDbContext(dbConnection, true);
+            return GetDbContextCore(dbConnection);
         }
+
+        protected abstract ObjectsDbContext GetDbContextCore(DbConnection dbConnection);
 
         public CompanyRepository GetCompanyRepository()
         {

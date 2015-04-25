@@ -7,7 +7,7 @@ namespace IoT.Management.Operations.Sql.DataAccess
         private readonly string _connectionString;
         private readonly string _connectionProvider;
 
-        public ManagementUnitOfWorkFactory(IConnectionParametersResolver connectionParametersResolver)
+        protected ManagementUnitOfWorkFactory(IConnectionParametersResolver connectionParametersResolver)
         {
             _connectionString = connectionParametersResolver.ManagementConnectionString;
             _connectionProvider = connectionParametersResolver.ManagementConnectionProvider;
