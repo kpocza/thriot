@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using IoT.Framework.DataAccess;
 using IoT.Plugins.Core;
+using Npgsql;
 
-namespace IoT.Plugins.Sql
+namespace IoT.Plugins.PgSql
 {
     public abstract class TelemetryDataSinkBase : ITelemetryDataSink
     {
@@ -43,16 +43,11 @@ namespace IoT.Plugins.Sql
 
         public void Initialize()
         {
-            using (var sqlConnection = new SqlConnection(ConnectionString))
+            using (var sqlConnection = new NpgsqlConnection(ConnectionString))
             {
                 sqlConnection.Open();
 
-                string createTableIfNotExists =
-                    string.Join(Environment.NewLine,
-                        string.Format("IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = '{0}')", TableName),
-                        CreateTableStatement);
-
-                using (var sqlCommand = new SqlCommand(createTableIfNotExists, sqlConnection))
+                using (var sqlCommand = new NpgsqlCommand(CreateTableStatement, sqlConnection))
                 {
                     sqlCommand.ExecuteNonQuery();
                 }

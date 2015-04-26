@@ -2,6 +2,7 @@
 using IoT.Management.Operations.Sql.DataAccess.Sql;
 using IoT.Objects.Operations.Sql.DataAccess;
 using IoT.Objects.Operations.Sql.DataAccess.Sql;
+using IoT.Plugins.Core;
 using IoT.ServiceClient.Messaging;
 
 namespace IoT.UnitTestHelpers
@@ -14,7 +15,7 @@ namespace IoT.UnitTestHelpers
 
             return new ManagementUnitOfWorkFactorySql(connectionParameterResolver);
         }
-        
+
         private IObjectsUnitOfWorkFactory GetPlatformUnitOfWorkFactory()
         {
             var connectionParameterResolver = new DevSqlConnectionParametersResolver();
@@ -80,6 +81,21 @@ namespace IoT.UnitTestHelpers
         public IMessagingService MessagingService
         {
             get { return InprocMessagingService.Instance; }
+        }
+
+        public string TelemetryConnectionString
+        {
+            get { return @"Server=.\SQLEXPRESS;Database=ThriotTelemetry;Trusted_Connection=True;"; }
+        }
+
+        public ITelemetryDataSinkCurrent TelemetryDataSinkCurrent
+        {
+            get { return new IoT.Plugins.Sql.TelemetryDataSinkCurrent(); }
+        }
+
+        public ITelemetryDataSinkTimeSeries TelemetryDataSinkTimeSeries
+        {
+            get { return new IoT.Plugins.Sql.TelemetryDataSinkTimeSeries(); }
         }
     }
 } 

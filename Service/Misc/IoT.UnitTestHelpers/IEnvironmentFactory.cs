@@ -1,4 +1,5 @@
-﻿using IoT.ServiceClient.Messaging;
+﻿using IoT.Plugins.Core;
+using IoT.ServiceClient.Messaging;
 using MgmtOp = IoT.Management.Model.Operations;
 using ObjOp = IoT.Objects.Model.Operations;
 
@@ -29,5 +30,11 @@ namespace IoT.UnitTestHelpers
         ObjOp.ISettingOperations ObjSettingOperations { get; }
 
         IMessagingService MessagingService { get; }
+
+        string TelemetryConnectionString { get; }
+
+        ITelemetryDataSinkCurrent TelemetryDataSinkCurrent { get; }
+
+        ITelemetryDataSinkTimeSeries TelemetryDataSinkTimeSeries { get; }
     }
 }

@@ -2,7 +2,7 @@
 using IoT.Management.Operations.Sql.DataAccess.PgSql;
 using IoT.Objects.Operations.Sql.DataAccess;
 using IoT.Objects.Operations.Sql.DataAccess.PgSql;
-using IoT.Objects.Operations.Sql.DataAccess.Sql;
+using IoT.Plugins.Core;
 using IoT.ServiceClient.Messaging;
 
 namespace IoT.UnitTestHelpers
@@ -81,6 +81,25 @@ namespace IoT.UnitTestHelpers
         public IMessagingService MessagingService
         {
             get { return InprocMessagingService.Instance; }
+        }
+
+        public string TelemetryConnectionString
+        {
+            get
+            {
+                return
+                    "Server=127.0.0.1;Port=5432;Database=ThriotTelemetry;User Id=thriottelemetry;Password=thriottelemetry;";
+            }
+        }
+
+        public ITelemetryDataSinkCurrent TelemetryDataSinkCurrent
+        {
+            get { return new IoT.Plugins.PgSql.TelemetryDataSinkCurrent(); }
+        }
+
+        public ITelemetryDataSinkTimeSeries TelemetryDataSinkTimeSeries
+        {
+            get { return new IoT.Plugins.PgSql.TelemetryDataSinkTimeSeries(); }
         }
     }
 } 

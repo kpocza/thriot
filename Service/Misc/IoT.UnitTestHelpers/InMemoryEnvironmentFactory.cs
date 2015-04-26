@@ -1,4 +1,5 @@
 ﻿using IoT.Framework.Azure.DataAccess;
+using IoT.Plugins.Core;
 using IoT.ServiceClient.Messaging;
 
 namespace IoT.UnitTestHelpers
@@ -68,6 +69,21 @@ namespace IoT.UnitTestHelpers
         public IMessagingService MessagingService
         {
             get { return InMemoryMessagingService.Instance; }
+        }
+
+        public string TelemetryConnectionString
+        {
+            get { return null; }
+        }
+
+        public ITelemetryDataSinkCurrent TelemetryDataSinkCurrent
+        {
+            get { return null; }
+        }
+
+        public ITelemetryDataSinkTimeSeries TelemetryDataSinkTimeSeries
+        {
+            get { return null; }
         }
     }
 }
