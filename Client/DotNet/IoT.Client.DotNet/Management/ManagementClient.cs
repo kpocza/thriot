@@ -1,4 +1,4 @@
-﻿namespace IoT.Client.DotNet.Management
+﻿namespace Thriot.Client.DotNet.Management
 {
     /// <summary>
     /// This is an umbrella class above all other classes responsible for doing management operations in case of 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace IoT.Client.DotNet.Reporting
+namespace Thriot.Client.DotNet.Reporting
 {
     /// <summary>
     /// Class that encapsultes one or more device's latest telemetry data

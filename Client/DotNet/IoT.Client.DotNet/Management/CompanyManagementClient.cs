@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 
-namespace IoT.Client.DotNet.Management
+namespace Thriot.Client.DotNet.Management
 {
     /// <summary>
     /// This class is responsible for managing companies and strictly company-related artifacts

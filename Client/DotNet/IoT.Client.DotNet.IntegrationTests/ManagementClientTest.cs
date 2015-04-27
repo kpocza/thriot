@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using IoT.Client.DotNet.Management;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Thriot.Client.DotNet.Management;
 
-namespace IoT.Client.DotNet.IntegrationTests
+namespace Thriot.Client.DotNet.IntegrationTests
 {
     [TestClass]
     public class ManagementClientTest : TestBase

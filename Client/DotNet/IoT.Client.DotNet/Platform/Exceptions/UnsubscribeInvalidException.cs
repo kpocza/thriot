@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IoT.Client.DotNet.Platform.Exceptions
+namespace Thriot.Client.DotNet.Platform.Exceptions
 {
     /// <summary>
     /// Error while unsubscribing the device from the pushed messages.

@@ -1,4 +1,4 @@
-﻿namespace IoT.Client.DotNet.Management
+﻿namespace Thriot.Client.DotNet.Management
 {
     /// <summary>
     /// Company-user pair. Used for manipulating users who can access a given company

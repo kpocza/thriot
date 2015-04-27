@@ -1,4 +1,4 @@
-﻿namespace IoT.Client.DotNet.Platform
+﻿namespace Thriot.Client.DotNet.Platform
 {
     /// <summary>
     /// Represents the subscription type

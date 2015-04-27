@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace IoT.Client.DotNet.Reporting
+namespace Thriot.Client.DotNet.Reporting
 {
     /// <summary>
     /// Device-specific reporting operations

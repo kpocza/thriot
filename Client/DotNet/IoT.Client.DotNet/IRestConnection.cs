@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace IoT.Client.DotNet
+namespace Thriot.Client.DotNet
 {
     public interface IRestConnection
     {

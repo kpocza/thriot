@@ -1,4 +1,4 @@
-﻿namespace IoT.Client.DotNet.Management
+﻿namespace Thriot.Client.DotNet.Management
 {
     public abstract class SpecificManagementClient
     {

@@ -1,4 +1,4 @@
-﻿namespace IoT.Client.DotNet.Reporting
+﻿namespace Thriot.Client.DotNet.Reporting
 {
     /// <summary>
     /// Umbrella class for device and network based reporting functions.

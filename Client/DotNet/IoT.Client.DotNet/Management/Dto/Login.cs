@@ -1,4 +1,4 @@
-﻿namespace IoT.Client.DotNet.Management
+﻿namespace Thriot.Client.DotNet.Management
 {
     /// <summary>
     /// Login entity for loggin in user

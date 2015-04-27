@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace IoT.Client.DotNet.Management
+namespace Thriot.Client.DotNet.Management
 {
     /// <summary>
     /// Telemetry data sink metadata

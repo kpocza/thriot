@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IoT.Client.DotNet.Platform
+namespace Thriot.Client.DotNet.Platform
 {
     public interface IWebSocketConnection : IDisposable
     {

@@ -1,4 +1,4 @@
-﻿namespace IoT.Client.DotNet.Reporting
+﻿namespace Thriot.Client.DotNet.Reporting
 {
     /// <summary>
     /// Sink types

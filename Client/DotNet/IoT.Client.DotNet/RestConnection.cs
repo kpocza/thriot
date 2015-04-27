@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 
-namespace IoT.Client.DotNet
+namespace Thriot.Client.DotNet
 {
     public class RestConnection : IRestConnection
     {

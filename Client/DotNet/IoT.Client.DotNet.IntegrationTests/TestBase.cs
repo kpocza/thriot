@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace IoT.Client.DotNet.IntegrationTests
+namespace Thriot.Client.DotNet.IntegrationTests
 {
     public abstract class TestBase
     {

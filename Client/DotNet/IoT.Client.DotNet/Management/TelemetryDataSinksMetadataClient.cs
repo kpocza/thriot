@@ -1,4 +1,4 @@
-﻿namespace IoT.Client.DotNet.Management
+﻿namespace Thriot.Client.DotNet.Management
 {
     /// <summary>
     /// This class is responsible to query the applicable telemetry data sinks. The list of telemetry data sinks is needed to

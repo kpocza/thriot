@@ -2,7 +2,7 @@
 using System.Net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace IoT.Client.DotNet.IntegrationTests
+namespace Thriot.Client.DotNet.IntegrationTests
 {
     public class ExpectedHttpStatusCodeAttribute : ExpectedExceptionBaseAttribute
     {

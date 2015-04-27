@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading;
-using IoT.Client.DotNet.Management;
-using IoT.Client.DotNet.Platform;
-using IoT.Client.DotNet.Reporting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Thriot.Client.DotNet.Management;
+using Thriot.Client.DotNet.Platform;
+using Thriot.Client.DotNet.Reporting;
 
-namespace IoT.Client.DotNet.IntegrationTests
+namespace Thriot.Client.DotNet.IntegrationTests
 {
     [TestClass]
     public class ReportingClientDeviceTest : TestBase

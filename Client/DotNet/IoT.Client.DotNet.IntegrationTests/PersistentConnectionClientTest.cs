@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using IoT.Client.DotNet.Management;
-using IoT.Client.DotNet.Platform;
-using IoT.Client.DotNet.Platform.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Thriot.Client.DotNet.Management;
+using Thriot.Client.DotNet.Platform;
+using Thriot.Client.DotNet.Platform.Exceptions;
 
-namespace IoT.Client.DotNet.IntegrationTests
+namespace Thriot.Client.DotNet.IntegrationTests
 {
     [TestClass]
     public class PersistentConnectionClientTest : TestBase

@@ -6,10 +6,10 @@ using System.Net;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading;
-using IoT.Client.DotNet.Management;
-using IoT.Client.DotNet.Platform;
+using Thriot.Client.DotNet.Management;
+using Thriot.Client.DotNet.Platform;
 
-namespace IoT.Loadtester
+namespace Thriot.Loadtester
 {
     class Program
     {

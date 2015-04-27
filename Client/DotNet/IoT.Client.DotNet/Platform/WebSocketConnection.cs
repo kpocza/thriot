@@ -2,9 +2,9 @@
 using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
-using IoT.Client.DotNet.Platform.Exceptions;
+using Thriot.Client.DotNet.Platform.Exceptions;
 
-namespace IoT.Client.DotNet.Platform
+namespace Thriot.Client.DotNet.Platform
 {
     public class WebSocketConnection : IWebSocketConnection
     {

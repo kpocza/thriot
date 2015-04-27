@@ -1,4 +1,4 @@
-﻿namespace IoT.Client.DotNet.Management
+﻿namespace Thriot.Client.DotNet.Management
 {
     /// <summary>
     /// Registration paraemters. The email address and the password properties come from the base entity (<see cref="Login"></see>)

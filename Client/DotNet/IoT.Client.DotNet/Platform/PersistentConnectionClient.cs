@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading;
-using IoT.Client.DotNet.Platform.Exceptions;
+using Thriot.Client.DotNet.Platform.Exceptions;
 
-namespace IoT.Client.DotNet.Platform
+namespace Thriot.Client.DotNet.Platform
 {
     /// <summary>
     /// Represents a persistent connection to the service implemented by Websockets.

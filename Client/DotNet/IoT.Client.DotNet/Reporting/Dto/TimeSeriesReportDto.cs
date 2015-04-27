@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace IoT.Client.DotNet.Reporting
+namespace Thriot.Client.DotNet.Reporting
 {
     /// <summary>
     /// Class that encapsulates one of more device's time series data

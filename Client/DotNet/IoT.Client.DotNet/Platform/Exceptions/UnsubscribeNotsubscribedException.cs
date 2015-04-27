@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IoT.Client.DotNet.Platform.Exceptions
+namespace Thriot.Client.DotNet.Platform.Exceptions
 {
     /// <summary>
     /// Trying to unsubscribe the device while it wasn't subscribed previously

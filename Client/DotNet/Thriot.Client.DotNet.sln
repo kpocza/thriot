@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoT.Client.DotNet", "IoT.Client.DotNet\IoT.Client.DotNet.csproj", "{82EC1A63-2B3E-43FF-BC4B-AC28B751F1C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Client.DotNet", "IoT.Client.DotNet\Thriot.Client.DotNet.csproj", "{82EC1A63-2B3E-43FF-BC4B-AC28B751F1C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoT.Client.DotNet.IntegrationTests", "IoT.Client.DotNet.IntegrationTests\IoT.Client.DotNet.IntegrationTests.csproj", "{23B22CBA-0D58-4CA8-9819-0CE5C9C0FB76}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Client.DotNet.IntegrationTests", "IoT.Client.DotNet.IntegrationTests\Thriot.Client.DotNet.IntegrationTests.csproj", "{23B22CBA-0D58-4CA8-9819-0CE5C9C0FB76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoT.Loadtester", "IoT.Loadtester\IoT.Loadtester.csproj", "{7DD0AFD4-3C2A-4C8F-AFDF-0D21FF3C5F27}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Loadtester", "IoT.Loadtester\Thriot.Loadtester.csproj", "{7DD0AFD4-3C2A-4C8F-AFDF-0D21FF3C5F27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

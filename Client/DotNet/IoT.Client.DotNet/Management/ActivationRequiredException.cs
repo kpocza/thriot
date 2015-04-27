@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IoT.Client.DotNet.Management
+namespace Thriot.Client.DotNet.Management
 {
     /// <summary>
     /// This exception will be thrown when the registration is performed on a Thriot installation where activation is needed after registration.

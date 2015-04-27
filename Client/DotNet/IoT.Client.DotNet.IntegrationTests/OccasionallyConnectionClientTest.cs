@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
-using IoT.Client.DotNet.Management;
-using IoT.Client.DotNet.Platform;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Thriot.Client.DotNet.Management;
+using Thriot.Client.DotNet.Platform;
 
-namespace IoT.Client.DotNet.IntegrationTests
+namespace Thriot.Client.DotNet.IntegrationTests
 {
     [TestClass]
     public class OccasionallyConnectionClientTest : TestBase

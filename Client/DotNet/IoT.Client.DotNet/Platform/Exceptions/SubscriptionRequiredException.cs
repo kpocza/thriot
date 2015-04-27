@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IoT.Client.DotNet.Platform.Exceptions
+namespace Thriot.Client.DotNet.Platform.Exceptions
 {
     /// <summary>
     /// Subscription is required to access the operation

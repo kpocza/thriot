@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
 
-namespace IoT.Client.DotNet.Platform
+namespace Thriot.Client.DotNet.Platform
 {
     /// <summary>
     /// Represents an occasionally connected client. There is no persistent connection, every operation is a standalone REST API request.

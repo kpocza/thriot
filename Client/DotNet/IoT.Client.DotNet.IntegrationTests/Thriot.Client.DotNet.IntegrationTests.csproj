@@ -6,8 +6,8 @@
     <ProjectGuid>{23B22CBA-0D58-4CA8-9819-0CE5C9C0FB76}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IoT.Client.DotNet.IntegrationTests</RootNamespace>
-    <AssemblyName>IoT.Client.DotNet.IntegrationTests</AssemblyName>
+    <RootNamespace>Thriot.Client.DotNet.IntegrationTests</RootNamespace>
+    <AssemblyName>Thriot.Client.DotNet.IntegrationTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -111,9 +111,9 @@
     <Compile Include="TestBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IoT.Client.DotNet\IoT.Client.DotNet.csproj">
+    <ProjectReference Include="..\IoT.Client.DotNet\Thriot.Client.DotNet.csproj">
       <Project>{82ec1a63-2b3e-43ff-bc4b-ac28b751f1c8}</Project>
-      <Name>IoT.Client.DotNet</Name>
+      <Name>Thriot.Client.DotNet</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

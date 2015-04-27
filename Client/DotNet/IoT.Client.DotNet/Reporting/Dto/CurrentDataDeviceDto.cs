@@ -1,4 +1,4 @@
-﻿namespace IoT.Client.DotNet.Reporting
+﻿namespace Thriot.Client.DotNet.Reporting
 {
     /// <summary>
     /// Latest telemetry data for a given device

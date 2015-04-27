@@ -2,7 +2,7 @@
 using System.Net;
 using System.Web;
 
-namespace IoT.Client.DotNet.Management
+namespace Thriot.Client.DotNet.Management
 {
     /// <summary>
     /// This class is responsible for managing users and doing login operations. Activation is not currently the part of this library.

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace IoT.Client.DotNet.Management
+namespace Thriot.Client.DotNet.Management
 {
     /// <summary>
     /// Class that encapuslated the list of configured telemetry data sinks for incoming telemetry data recording

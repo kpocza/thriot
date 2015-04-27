@@ -2,7 +2,7 @@
 using System.Runtime.Serialization.Json;
 using System.Text;
 
-namespace IoT.Client.DotNet
+namespace Thriot.Client.DotNet
 {
     internal static class JsonSerializer
     {
