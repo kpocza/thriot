@@ -5,90 +5,90 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Management", "Management", "{9410464C-9293-45AF-8D3B-B991B5E01A38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Management.Operations.Azure", "Management\IoT.Management.Operations.Azure\Thriot.Management.Operations.Azure.csproj", "{91DB3326-0850-4A22-BFCF-215EC2BEBAC5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Management.Operations.Azure", "Management\Thriot.Management.Operations.Azure\Thriot.Management.Operations.Azure.csproj", "{91DB3326-0850-4A22-BFCF-215EC2BEBAC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Management.Services", "Management\IoT.Management.Services\Thriot.Management.Services.csproj", "{74101052-2463-4AAA-BEC2-76F239D9B77C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Management.Services", "Management\Thriot.Management.Services\Thriot.Management.Services.csproj", "{74101052-2463-4AAA-BEC2-76F239D9B77C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Management.Services.Tests", "Management\IoT.Management.Services.Tests\Thriot.Management.Services.Tests.csproj", "{8F302E92-6188-4487-A34A-CE5C0868C2A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Management.Services.Tests", "Management\Thriot.Management.Services.Tests\Thriot.Management.Services.Tests.csproj", "{8F302E92-6188-4487-A34A-CE5C0868C2A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Management.Model", "Management\IoT.Management.Model\Thriot.Management.Model.csproj", "{F955E692-FD87-4964-9DC3-B3269B1CB92D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Management.Model", "Management\Thriot.Management.Model\Thriot.Management.Model.csproj", "{F955E692-FD87-4964-9DC3-B3269B1CB92D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{2EB474CC-AE21-4682-81CD-E66559763344}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{A7461ACE-ABB7-4359-BAEC-3494430B7A63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Framework", "Framework\IoT.Framework\Thriot.Framework.csproj", "{72721CBB-098D-499B-B037-1CCEACBC4524}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Framework", "Framework\Thriot.Framework\Thriot.Framework.csproj", "{72721CBB-098D-499B-B037-1CCEACBC4524}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Framework.Azure", "Framework\IoT.Framework.Azure\Thriot.Framework.Azure.csproj", "{CBCBB6A3-0097-46ED-A49C-EF9A6DA87B63}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Framework.Azure", "Framework\Thriot.Framework.Azure\Thriot.Framework.Azure.csproj", "{CBCBB6A3-0097-46ED-A49C-EF9A6DA87B63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Framework.Tests", "Framework\IoT.Framework.Tests\Thriot.Framework.Tests.csproj", "{7729478D-EC79-41E3-918E-E25C367FD3BB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Framework.Tests", "Framework\Thriot.Framework.Tests\Thriot.Framework.Tests.csproj", "{7729478D-EC79-41E3-918E-E25C367FD3BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.TestHelpers", "Misc\IoT.UnitTestHelpers\Thriot.TestHelpers.csproj", "{F554A376-529D-4FA6-9E4F-AFBE87C32861}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.TestHelpers", "Misc\Thriot.UnitTestHelpers\Thriot.TestHelpers.csproj", "{F554A376-529D-4FA6-9E4F-AFBE87C32861}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Management.WebApi", "Management\IoT.Management.WebApi\Thriot.Management.WebApi.csproj", "{4B3CFD31-7BF9-4262-9572-F0924A83CC1B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Management.WebApi", "Management\Thriot.Management.WebApi\Thriot.Management.WebApi.csproj", "{4B3CFD31-7BF9-4262-9572-F0924A83CC1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Framework.Web", "Framework\IoT.Framework.Web\Thriot.Framework.Web.csproj", "{F18D54A4-364B-430C-9612-D1CD3644D4B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Framework.Web", "Framework\Thriot.Framework.Web\Thriot.Framework.Web.csproj", "{F18D54A4-364B-430C-9612-D1CD3644D4B4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platform", "Platform", "{1BB195CE-8252-4DDE-83B9-74ACCA99087D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Platform.WebApi", "Platform\IoT.Platform.WebApi\Thriot.Platform.WebApi.csproj", "{C7275BD4-52B2-444E-A880-2C70A8B79BEF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Platform.WebApi", "Platform\Thriot.Platform.WebApi\Thriot.Platform.WebApi.csproj", "{C7275BD4-52B2-444E-A880-2C70A8B79BEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Platform.Model", "Platform\IoT.Platform.Model\Thriot.Platform.Model.csproj", "{2A0959ED-854C-43A6-B8E5-A8818CBB35CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Platform.Model", "Platform\Thriot.Platform.Model\Thriot.Platform.Model.csproj", "{2A0959ED-854C-43A6-B8E5-A8818CBB35CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.CreateAzureStorage", "Misc\IoT.CreateAzureStorage\Thriot.CreateAzureStorage.csproj", "{899D0061-6F5A-4089-9727-E8FCA58ABB1E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.CreateAzureStorage", "Misc\Thriot.CreateAzureStorage\Thriot.CreateAzureStorage.csproj", "{899D0061-6F5A-4089-9727-E8FCA58ABB1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Platform.WebsocketService", "Platform\IoT.Platform.WebsocketService\Thriot.Platform.WebsocketService.csproj", "{D078663B-F5D5-4B06-8D59-73B31EFEF375}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Platform.WebsocketService", "Platform\Thriot.Platform.WebsocketService\Thriot.Platform.WebsocketService.csproj", "{D078663B-F5D5-4B06-8D59-73B31EFEF375}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{7480DBBF-9FA7-4714-9219-37B52D113E8A}"
 	ProjectSection(SolutionItems) = preProject
 		Build\build.ps1 = Build\build.ps1
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Management.Dto", "Management\IoT.Management.Dto\Thriot.Management.Dto.csproj", "{17D1CC13-A661-43C8-8845-EFC46F0CE132}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Management.Dto", "Management\Thriot.Management.Dto\Thriot.Management.Dto.csproj", "{17D1CC13-A661-43C8-8845-EFC46F0CE132}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Management.Operations.Sql", "Management\IoT.Management.Operations.Sql\Thriot.Management.Operations.Sql.csproj", "{B5F4AFF8-5386-4CC9-9E0D-F53958E5522A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Management.Operations.Sql", "Management\Thriot.Management.Operations.Sql\Thriot.Management.Operations.Sql.csproj", "{B5F4AFF8-5386-4CC9-9E0D-F53958E5522A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Framework.Sql", "Framework\IoT.Framework.Sql\Thriot.Framework.Sql.csproj", "{8AD145BA-1606-46C1-A72B-3C202265AE26}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Framework.Sql", "Framework\Thriot.Framework.Sql\Thriot.Framework.Sql.csproj", "{8AD145BA-1606-46C1-A72B-3C202265AE26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.CreateSqlStorage", "Misc\IoT.CreateSqlStorage\Thriot.CreateSqlStorage.csproj", "{3AE0CD09-FF02-4CE9-9EF9-2C2A510DA3FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.CreateSqlStorage", "Misc\Thriot.CreateSqlStorage\Thriot.CreateSqlStorage.csproj", "{3AE0CD09-FF02-4CE9-9EF9-2C2A510DA3FD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceClient", "ServiceClient", "{15745EE2-4B60-4185-B820-296C07FBE446}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.ServiceClient.TelemetrySetup", "ServiceClient\IoT.ServiceClient.TelemetrySetup\Thriot.ServiceClient.TelemetrySetup.csproj", "{EB617FF2-8BE5-4146-BA9D-4D9A08C70CE5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.ServiceClient.TelemetrySetup", "ServiceClient\Thriot.ServiceClient.TelemetrySetup\Thriot.ServiceClient.TelemetrySetup.csproj", "{EB617FF2-8BE5-4146-BA9D-4D9A08C70CE5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Messaging", "Messaging", "{2205AEEA-ABE7-43AC-A1BD-93AC8A84469F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Messaging.Services", "Messaging\IoT.Messaging.Services\Thriot.Messaging.Services.csproj", "{7894BBE9-AE81-4F95-AD81-BA2B0431698C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Messaging.Services", "Messaging\Thriot.Messaging.Services\Thriot.Messaging.Services.csproj", "{7894BBE9-AE81-4F95-AD81-BA2B0431698C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Messaging.Dto", "Messaging\IoT.Messaging.Dto\Thriot.Messaging.Dto.csproj", "{512934AB-4E46-42DA-935B-537530B7E85B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Messaging.Dto", "Messaging\Thriot.Messaging.Dto\Thriot.Messaging.Dto.csproj", "{512934AB-4E46-42DA-935B-537530B7E85B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Messaging.WebApi", "Messaging\IoT.Messaging.WebApi\Thriot.Messaging.WebApi.csproj", "{3705E2BB-7E58-4745-B3E8-08223E57557A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Messaging.WebApi", "Messaging\Thriot.Messaging.WebApi\Thriot.Messaging.WebApi.csproj", "{3705E2BB-7E58-4745-B3E8-08223E57557A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Messaging.Services.Tests", "Messaging\IoT.Messaging.Services.Tests\Thriot.Messaging.Services.Tests.csproj", "{53B16969-6EB6-4D8F-9EB6-716E559E2BB2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Messaging.Services.Tests", "Messaging\Thriot.Messaging.Services.Tests\Thriot.Messaging.Services.Tests.csproj", "{53B16969-6EB6-4D8F-9EB6-716E559E2BB2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{450A4620-4290-4B07-846A-7D33FF53B5FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.ServiceClient.Messaging", "ServiceClient\IoT.ServiceClient.Messaging\Thriot.ServiceClient.Messaging.csproj", "{B242CE85-F186-4107-98FC-1A87538B704D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.ServiceClient.Messaging", "ServiceClient\Thriot.ServiceClient.Messaging\Thriot.ServiceClient.Messaging.csproj", "{B242CE85-F186-4107-98FC-1A87538B704D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Messaging.PerformanceTest", "Messaging\IoT.Messaging.PerformanceTest\Thriot.Messaging.PerformanceTest.csproj", "{BBDDF8C6-196F-4B25-906E-108B59E4A837}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Messaging.PerformanceTest", "Messaging\Thriot.Messaging.PerformanceTest\Thriot.Messaging.PerformanceTest.csproj", "{BBDDF8C6-196F-4B25-906E-108B59E4A837}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Platform.Services.Telemetry", "Platform\IoT.Platform.Services.Telemetry\Thriot.Platform.Services.Telemetry.csproj", "{AB320464-7159-4AA8-8116-1A7169FBF79C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Platform.Services.Telemetry", "Platform\Thriot.Platform.Services.Telemetry\Thriot.Platform.Services.Telemetry.csproj", "{AB320464-7159-4AA8-8116-1A7169FBF79C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Platform.Services.Messaging", "Platform\IoT.Platform.Services.Messaging\Thriot.Platform.Services.Messaging.csproj", "{6C337D0B-BFB0-417B-8E11-57B917F4BF81}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Platform.Services.Messaging", "Platform\Thriot.Platform.Services.Messaging\Thriot.Platform.Services.Messaging.csproj", "{6C337D0B-BFB0-417B-8E11-57B917F4BF81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Platform.PersistentConnections", "Platform\IoT.Platform.PersistentConnections\Thriot.Platform.PersistentConnections.csproj", "{1099F633-4AC5-4BF9-A368-3B1840164FA0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Platform.PersistentConnections", "Platform\Thriot.Platform.PersistentConnections\Thriot.Platform.PersistentConnections.csproj", "{1099F633-4AC5-4BF9-A368-3B1840164FA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Platform.Services.Messaging.Tests", "Platform\IoT.Platform.Services.Messaging.Tests\Thriot.Platform.Services.Messaging.Tests.csproj", "{7F6016B1-F2ED-41FE-993A-3C1B3A0B3E98}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Platform.Services.Messaging.Tests", "Platform\Thriot.Platform.Services.Messaging.Tests\Thriot.Platform.Services.Messaging.Tests.csproj", "{7F6016B1-F2ED-41FE-993A-3C1B3A0B3E98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Platform.Services.Telemetry.Tests", "Platform\IoT.Platform.Services.Telemetry.Tests\Thriot.Platform.Services.Telemetry.Tests.csproj", "{3CFC1F80-92F1-40F0-A654-0FE940A48F02}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Platform.Services.Telemetry.Tests", "Platform\Thriot.Platform.Services.Telemetry.Tests\Thriot.Platform.Services.Telemetry.Tests.csproj", "{3CFC1F80-92F1-40F0-A654-0FE940A48F02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Platform.PersistentConnections.Tests", "Platform\IoT.Platform.PersistentConnections.Tests\Thriot.Platform.PersistentConnections.Tests.csproj", "{C475C1B5-8F18-47AA-A248-34339BA82240}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Platform.PersistentConnections.Tests", "Platform\Thriot.Platform.PersistentConnections.Tests\Thriot.Platform.PersistentConnections.Tests.csproj", "{C475C1B5-8F18-47AA-A248-34339BA82240}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{F0375912-0C84-400B-9BF0-917162B331E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Plugins.Azure", "Plugins\IoT.Plugins.Azure\Thriot.Plugins.Azure.csproj", "{65436FF0-E291-429C-8FB3-D914C1FFAAA6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Plugins.Azure", "Plugins\Thriot.Plugins.Azure\Thriot.Plugins.Azure.csproj", "{65436FF0-E291-429C-8FB3-D914C1FFAAA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Plugins.Sql", "Plugins\IoT.Plugins.Sql\Thriot.Plugins.Sql.csproj", "{FE9571D9-2B37-4E4C-A838-955A3CA5235F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Plugins.Sql", "Plugins\Thriot.Plugins.Sql\Thriot.Plugins.Sql.csproj", "{FE9571D9-2B37-4E4C-A838-955A3CA5235F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C0395CFB-B769-4929-87C3-C810EEA036A2}"
 EndProject
@@ -98,25 +98,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{08014198
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{BB2778D2-A30A-405C-8002-720BB147EFDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Plugins.Core", "Plugins\IoT.Plugins.Core\Thriot.Plugins.Core.csproj", "{D84F1A4C-1539-416A-A40A-A72AA2A5F360}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Plugins.Core", "Plugins\Thriot.Plugins.Core\Thriot.Plugins.Core.csproj", "{D84F1A4C-1539-416A-A40A-A72AA2A5F360}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Objects", "Objects", "{6FC08326-9D39-40B4-A595-A4FE4FCC724E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Objects.Model", "Objects\IoT.Objects.Model\Thriot.Objects.Model.csproj", "{5A84EBC0-E8A7-4789-972B-B4B46A2834EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Objects.Model", "Objects\Thriot.Objects.Model\Thriot.Objects.Model.csproj", "{5A84EBC0-E8A7-4789-972B-B4B46A2834EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Objects.Operations.Azure", "Objects\IoT.Objects.Operations.Azure\Thriot.Objects.Operations.Azure.csproj", "{80EE6482-6D90-4EA0-9FB3-9DC891AFC52E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Objects.Operations.Azure", "Objects\Thriot.Objects.Operations.Azure\Thriot.Objects.Operations.Azure.csproj", "{80EE6482-6D90-4EA0-9FB3-9DC891AFC52E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Objects.Operations.Sql", "Objects\IoT.Objects.Operations.Sql\Thriot.Objects.Operations.Sql.csproj", "{D28F31A2-4794-4DF4-95FF-2174C64D733D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Objects.Operations.Sql", "Objects\Thriot.Objects.Operations.Sql\Thriot.Objects.Operations.Sql.csproj", "{D28F31A2-4794-4DF4-95FF-2174C64D733D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8D24CFFE-D232-4281-BBEF-5B30126A4251}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reporting", "Reporting", "{8D701613-E0C6-4C03-938C-988F5628881D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Reporting.Dto", "Reporting\IoT.Reporting.Dto\Thriot.Reporting.Dto.csproj", "{77179348-0B89-43C2-BBFB-1044CCBAF86E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Reporting.Dto", "Reporting\Thriot.Reporting.Dto\Thriot.Reporting.Dto.csproj", "{77179348-0B89-43C2-BBFB-1044CCBAF86E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Reporting.Services", "Reporting\IoT.Reporting.Services\Thriot.Reporting.Services.csproj", "{020767B5-495D-4E39-A29D-B48EB18AF32F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Reporting.Services", "Reporting\Thriot.Reporting.Services\Thriot.Reporting.Services.csproj", "{020767B5-495D-4E39-A29D-B48EB18AF32F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Reporting.Tests", "Reporting\IoT.Reporting.Tests\Thriot.Reporting.Tests.csproj", "{E9D1F537-54A6-42BA-8849-6E446DF9C14C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Reporting.Tests", "Reporting\Thriot.Reporting.Tests\Thriot.Reporting.Tests.csproj", "{E9D1F537-54A6-42BA-8849-6E446DF9C14C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{722BF598-1BBC-4BE5-8A71-0569993623AA}"
 EndProject
@@ -129,15 +129,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{11DC45
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{48F5F4BD-FBD0-4FCA-BC51-04025CF979D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Web", "Web\IoT.Web\Thriot.Web.csproj", "{429AFBBC-C531-436B-A1AB-28514BBFB4E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Web", "Web\Thriot.Web\Thriot.Web.csproj", "{429AFBBC-C531-436B-A1AB-28514BBFB4E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Reporting.WebApi", "Reporting\IoT.Reporting.WebApi\Thriot.Reporting.WebApi.csproj", "{89919401-0294-4AB2-BCD6-F52047BB6F3D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Reporting.WebApi", "Reporting\Thriot.Reporting.WebApi\Thriot.Reporting.WebApi.csproj", "{89919401-0294-4AB2-BCD6-F52047BB6F3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Objects.Common", "Objects\IoT.Objects.Common\Thriot.Objects.Common.csproj", "{AD67078E-E373-409E-886F-A0270CE3D555}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Objects.Common", "Objects\Thriot.Objects.Common\Thriot.Objects.Common.csproj", "{AD67078E-E373-409E-886F-A0270CE3D555}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Objects.Common.Tests", "Objects\IoT.Objects.Common.Tests\Thriot.Objects.Common.Tests.csproj", "{1386C55A-AD2E-4101-9176-4E98987F811C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Objects.Common.Tests", "Objects\Thriot.Objects.Common.Tests\Thriot.Objects.Common.Tests.csproj", "{1386C55A-AD2E-4101-9176-4E98987F811C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Framework.Mails", "Framework\IoT.Framework.Mails\Thriot.Framework.Mails.csproj", "{3C41112F-9499-4B28-ACCA-C1A53E1FEB41}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Framework.Mails", "Framework\Thriot.Framework.Mails\Thriot.Framework.Mails.csproj", "{3C41112F-9499-4B28-ACCA-C1A53E1FEB41}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4FBF854A-9BF1-4BDB-B536-61B976E5EA8F}"
 EndProject
@@ -183,13 +183,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PgSql", "PgSql", "{AF4A7C88
 		Messaging\Scripts\PgSql\DropDB.sql = Messaging\Scripts\PgSql\DropDB.sql
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Plugins.PgSql", "Plugins\IoT.Plugins.PgSql\Thriot.Plugins.PgSql.csproj", "{6C1F185C-BBD2-4A90-B565-58F03D46CABE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Plugins.PgSql", "Plugins\Thriot.Plugins.PgSql\Thriot.Plugins.PgSql.csproj", "{6C1F185C-BBD2-4A90-B565-58F03D46CABE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Plugins.Tests", "Plugins\IoT.Plugins.Tests\Thriot.Plugins.Tests.csproj", "{126163CF-5D88-4CE5-A63C-A84760AD948D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Plugins.Tests", "Plugins\Thriot.Plugins.Tests\Thriot.Plugins.Tests.csproj", "{126163CF-5D88-4CE5-A63C-A84760AD948D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Management.Operations.Tests", "Management\IoT.Management.Operations.Tests\Thriot.Management.Operations.Tests.csproj", "{1206296C-DA77-428A-853D-7ACD5F99B5E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Management.Operations.Tests", "Management\Thriot.Management.Operations.Tests\Thriot.Management.Operations.Tests.csproj", "{1206296C-DA77-428A-853D-7ACD5F99B5E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Objects.Operations.Tests", "Objects\IoT.Objects.Operations.Tests\Thriot.Objects.Operations.Tests.csproj", "{D90B9D2C-1589-4D62-A9E0-60919B9D66D6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Objects.Operations.Tests", "Objects\Thriot.Objects.Operations.Tests\Thriot.Objects.Operations.Tests.csproj", "{D90B9D2C-1589-4D62-A9E0-60919B9D66D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
