@@ -20,8 +20,8 @@ if(!$targetRoot -or $(![System.IO.Path]::IsPathRooted($targetRoot))) {
 	$targetRoot = $(pwd).Path + "\output\" + [DateTime]::Now.ToString("yyyyMMddHHmm")
 }
 
-&$msbuild $solutionRoot\Iot.Client.DotNet.sln /p:Configuration=Debug /p:DebugSymbols=true
+&$msbuild $solutionRoot\Thriot.Client.DotNet.sln /p:Configuration=Debug /p:DebugSymbols=true
 
 EnsureEmptyDirectory $targetRoot;
 
-cp -Recu -Force $solutionRoot\Iot.Client.DotNet\bin\Debug\* $targetRoot\
+cp -Recu -Force $solutionRoot\Thriot.Client.DotNet\bin\Debug\* $targetRoot\

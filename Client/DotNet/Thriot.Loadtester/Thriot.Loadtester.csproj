@@ -77,7 +77,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IoT.Client.DotNet\Thriot.Client.DotNet.csproj">
+    <ProjectReference Include="..\Thriot.Client.DotNet\Thriot.Client.DotNet.csproj">
       <Project>{82ec1a63-2b3e-43ff-bc4b-ac28b751f1c8}</Project>
       <Name>Thriot.Client.DotNet</Name>
     </ProjectReference>
