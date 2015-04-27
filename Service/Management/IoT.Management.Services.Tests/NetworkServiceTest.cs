@@ -1,16 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Authentication;
-using IoT.Framework;
-using IoT.Framework.Exceptions;
-using IoT.Management.Dto;
-using IoT.Management.Model.Operations;
-using TelemetrySetup = IoT.ServiceClient.TelemetrySetup;
-using IoT.UnitTestHelpers;
+using Thriot.Framework;
+using Thriot.Framework.Exceptions;
+using Thriot.Management.Dto;
+using Thriot.Management.Model.Operations;
+using Thriot.ServiceClient.TelemetrySetup;
+using Thriot.TestHelpers;
+using TelemetrySetup = Thriot.ServiceClient.TelemetrySetup;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using TelemetryDataSinkMetadataDto = Thriot.ServiceClient.TelemetrySetup.TelemetryDataSinkMetadataDto;
+using TelemetryDataSinksMetadataDto = Thriot.ServiceClient.TelemetrySetup.TelemetryDataSinksMetadataDto;
 
-namespace IoT.Management.Services.Tests
+namespace Thriot.Management.Services.Tests
 {
     [TestClass]
     public class NetworkServiceTest
@@ -482,14 +485,14 @@ namespace IoT.Management.Services.Tests
         {
             var id = _networkService.Create(GetNetwork());
 
-            var telemetryDataSinkSetupService = Substitute.For<TelemetrySetup.ITelemetryDataSinkSetupService>();
+            var telemetryDataSinkSetupService = Substitute.For<ITelemetryDataSinkSetupService>();
             telemetryDataSinkSetupService.GetTelemetryDataSinksMetadata().Returns(
-                new TelemetrySetup.TelemetryDataSinksMetadataDto
+                new TelemetryDataSinksMetadataDto
                 {
                     Incoming =
-                        new List<TelemetrySetup.TelemetryDataSinkMetadataDto>
+                        new List<TelemetryDataSinkMetadataDto>
                         {
-                            new TelemetrySetup.TelemetryDataSinkMetadataDto
+                            new TelemetryDataSinkMetadataDto
                             {
                                 Name = "test",
                                 Description = null,

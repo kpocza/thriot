@@ -1,7 +1,7 @@
-﻿using IoT.Framework.Mails;
-using IoT.Management.Services;
+﻿using Thriot.Framework.Mails;
+using Thriot.Management.Services;
 
-namespace IoT.Management.WebApi.WebFunctions
+namespace Thriot.Management.WebApi.WebFunctions
 {
     public class Mailer : IMailer
     {

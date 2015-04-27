@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
-using IoT.Framework;
-using IoT.Platform.Model;
-using IoT.Platform.Model.Messaging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using NSubstitute.Exceptions;
+using Thriot.Framework;
+using Thriot.Platform.Model;
+using Thriot.Platform.Model.Messaging;
 
-namespace IoT.Platform.PersistentConnections.Tests
+namespace Thriot.Platform.PersistentConnections.Tests
 {
     [TestClass]
     public class PersitentConnectionWorkerTest

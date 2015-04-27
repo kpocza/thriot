@@ -1,6 +1,6 @@
 ﻿using System.Collections.Concurrent;
 
-namespace IoT.Framework.Azure.TableOperations
+namespace Thriot.Framework.Azure.TableOperations
 {
     public class InMemoryDatabase
     {

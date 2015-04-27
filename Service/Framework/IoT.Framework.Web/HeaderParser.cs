@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Net.Http.Headers;
 
-namespace IoT.Framework.Web
+namespace Thriot.Framework.Web
 {
     public static class HeaderParser
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using IoT.Framework.Exceptions;
-using IoT.Management.Model;
-using IoT.Management.Model.Operations;
+using Thriot.Framework.Exceptions;
+using Thriot.Management.Model;
+using Thriot.Management.Model.Operations;
 
-namespace IoT.Management.Services
+namespace Thriot.Management.Services
 {
     public class SettingProvider : ISettingProvider
     {

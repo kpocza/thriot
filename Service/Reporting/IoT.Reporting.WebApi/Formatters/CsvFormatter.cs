@@ -4,9 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using IoT.Reporting.Dto;
+using Thriot.Reporting.Dto;
 
-namespace IoT.Reporting.WebApi.Formatters
+namespace Thriot.Reporting.WebApi.Formatters
 {
     public static class CsvFormatter
     {

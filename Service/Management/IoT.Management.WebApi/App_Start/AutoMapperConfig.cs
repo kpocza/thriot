@@ -1,6 +1,6 @@
-﻿using IoT.Management.Services;
+﻿using Thriot.Management.Services;
 
-namespace IoT.Management.WebApi
+namespace Thriot.Management.WebApi
 {
     public static class AutoMapperConfig
     {

@@ -1,18 +1,18 @@
 ﻿using System.Configuration;
 using System.Linq;
-using IoT.Framework;
-using IoT.Objects.Model;
-using IoT.Objects.Model.Operations;
-using IoT.Platform.Model;
-using IoT.Platform.PersistentConnections;
-using IoT.Platform.Services.Messaging;
-using IoT.Platform.Services.Telemetry.Configuration;
-using IoT.Platform.Services.Telemetry.Metadata;
-using IoT.ServiceClient.Messaging;
-using IoT.ServiceClient.TelemetrySetup;
 using SuperSocket.SocketBase.Config;
+using Thriot.Framework;
+using Thriot.Objects.Model;
+using Thriot.Objects.Model.Operations;
+using Thriot.Platform.Model;
+using Thriot.Platform.PersistentConnections;
+using Thriot.Platform.Services.Messaging;
+using Thriot.Platform.Services.Telemetry.Configuration;
+using Thriot.Platform.Services.Telemetry.Metadata;
+using Thriot.ServiceClient.Messaging;
+using Thriot.ServiceClient.TelemetrySetup;
 
-namespace IoT.Platform.WebsocketService
+namespace Thriot.Platform.WebsocketService
 {
     class Brain
     {

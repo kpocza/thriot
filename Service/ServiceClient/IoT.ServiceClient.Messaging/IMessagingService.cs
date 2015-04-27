@@ -1,4 +1,4 @@
-﻿namespace IoT.ServiceClient.Messaging
+﻿namespace Thriot.ServiceClient.Messaging
 {
     public interface IMessagingService
     {

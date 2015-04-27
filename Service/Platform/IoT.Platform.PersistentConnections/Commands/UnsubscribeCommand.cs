@@ -1,4 +1,4 @@
-﻿namespace IoT.Platform.PersistentConnections.Commands
+﻿namespace Thriot.Platform.PersistentConnections.Commands
 {
     public class UnsubscribeCommand : Command
     {

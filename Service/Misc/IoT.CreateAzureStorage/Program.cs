@@ -1,10 +1,10 @@
 ﻿using System;
-using IoT.Framework;
-using IoT.Framework.Azure.DataAccess;
-using IoT.Framework.DataAccess;
-using IoT.Management.Model;
+using Thriot.Framework;
+using Thriot.Framework.Azure.DataAccess;
+using Thriot.Framework.DataAccess;
+using Thriot.Management.Model;
 
-namespace IoT.CreateAzureStorage
+namespace Thriot.CreateAzureStorage
 {
     class Program
     {

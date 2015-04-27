@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace IoT.Platform.Services.Telemetry.Metadata
+namespace Thriot.Platform.Services.Telemetry.Metadata
 {
     public class TelemetryDataSinkMetadata
     {

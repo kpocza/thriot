@@ -1,4 +1,4 @@
-﻿namespace IoT.Objects.Model
+﻿namespace Thriot.Objects.Model
 {
     public interface IDeviceAuthenticator
     {

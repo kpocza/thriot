@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IoT.Platform.Model.Messaging
+namespace Thriot.Platform.Model.Messaging
 {
     public class OutgoingMessageToSend
     {

@@ -1,9 +1,9 @@
-﻿using IoT.Framework;
-using IoT.Objects.Model;
-using IoT.UnitTestHelpers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Thriot.Framework;
+using Thriot.Objects.Model;
+using Thriot.TestHelpers;
 
-namespace IoT.Objects.Operations.Tests
+namespace Thriot.Objects.Operations.Tests
 {
     [TestClass]
     public class SettingOperationsTest

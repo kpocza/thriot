@@ -1,4 +1,4 @@
-﻿namespace IoT.Framework.Mails
+﻿namespace Thriot.Framework.Mails
 {
     public class MailTemplate
     {

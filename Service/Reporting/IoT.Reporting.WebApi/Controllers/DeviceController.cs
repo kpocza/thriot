@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Web.Http;
-using IoT.Framework;
-using IoT.Framework.Logging;
-using IoT.Reporting.Dto;
-using IoT.Reporting.Services;
-using IoT.Reporting.WebApi.Auth;
-using IoT.Reporting.WebApi.Formatters;
+using Thriot.Framework;
+using Thriot.Framework.Logging;
+using Thriot.Reporting.Dto;
+using Thriot.Reporting.Services;
+using Thriot.Reporting.WebApi.Auth;
+using Thriot.Reporting.WebApi.Formatters;
 
-namespace IoT.Reporting.WebApi.Controllers
+namespace Thriot.Reporting.WebApi.Controllers
 {
     [RoutePrefix("v1/devices")]
     [WebApiDeviceAuthenticator]

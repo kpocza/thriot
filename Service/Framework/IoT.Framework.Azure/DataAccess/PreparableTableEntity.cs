@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.WindowsAzure.Storage.Table;
 
-namespace IoT.Framework.Azure.DataAccess
+namespace Thriot.Framework.Azure.DataAccess
 {
     public abstract class PreparableTableEntity : TableEntity
     {

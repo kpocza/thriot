@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using IoT.Messaging.Services.Storage;
-using IoT.ServiceClient.Messaging;
+using Thriot.Messaging.Services.Storage;
+using Thriot.ServiceClient.Messaging;
 
-namespace IoT.Messaging.PerformanceTest
+namespace Thriot.Messaging.PerformanceTest
 {
     public class PureDatabaseCalls : IMessagingService
     {

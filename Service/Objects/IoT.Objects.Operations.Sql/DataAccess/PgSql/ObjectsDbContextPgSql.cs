@@ -1,8 +1,8 @@
 ﻿using System.Data.Common;
 using System.Data.Entity;
-using IoT.Objects.Model;
+using Thriot.Objects.Model;
 
-namespace IoT.Objects.Operations.Sql.DataAccess.PgSql
+namespace Thriot.Objects.Operations.Sql.DataAccess.PgSql
 {
     public class ObjectsDbContextPgSql : ObjectsDbContext
     {

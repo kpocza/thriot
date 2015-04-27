@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace IoT.UnitTestHelpers
+namespace Thriot.TestHelpers
 {
     public static class AssertionHelper
     {

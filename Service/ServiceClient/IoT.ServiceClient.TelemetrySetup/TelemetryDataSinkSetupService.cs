@@ -2,7 +2,7 @@
 using System.Text;
 using Newtonsoft.Json;
 
-namespace IoT.ServiceClient.TelemetrySetup
+namespace Thriot.ServiceClient.TelemetrySetup
 {
     public class TelemetryDataSinkSetupService : ITelemetryDataSinkSetupService
     {

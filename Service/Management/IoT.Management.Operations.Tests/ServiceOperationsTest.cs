@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using IoT.Framework;
-using IoT.Framework.Exceptions;
-using IoT.Management.Model;
-using IoT.UnitTestHelpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Thriot.Framework;
+using Thriot.Framework.Exceptions;
+using Thriot.Management.Model;
+using Thriot.TestHelpers;
 
-namespace IoT.Management.Operations.Tests
+namespace Thriot.Management.Operations.Tests
 {
     [TestClass]
     public class ServiceOperationsTest

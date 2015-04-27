@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using IoT.Messaging.Dto;
-using IoT.Messaging.Services.Caching;
-using IoT.Messaging.Services.Storage;
+using Thriot.Messaging.Dto;
+using Thriot.Messaging.Services.Caching;
+using Thriot.Messaging.Services.Storage;
 
-namespace IoT.Messaging.Services
+namespace Thriot.Messaging.Services
 {
     internal static class ItemConverters
     {

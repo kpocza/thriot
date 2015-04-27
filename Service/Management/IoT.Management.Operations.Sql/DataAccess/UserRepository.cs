@@ -1,8 +1,8 @@
 ﻿using System.Data.Entity;
-using IoT.Framework.Sql;
-using IoT.Management.Model;
+using Thriot.Framework.Sql;
+using Thriot.Management.Model;
 
-namespace IoT.Management.Operations.Sql.DataAccess
+namespace Thriot.Management.Operations.Sql.DataAccess
 {
     public class UserRepository : Repository<User>
     {

@@ -1,8 +1,8 @@
-﻿using IoT.Framework.Azure.DataAccess;
-using IoT.Plugins.Core;
-using IoT.ServiceClient.Messaging;
+﻿using Thriot.Framework.Azure.DataAccess;
+using Thriot.Plugins.Core;
+using Thriot.ServiceClient.Messaging;
 
-namespace IoT.UnitTestHelpers
+namespace Thriot.TestHelpers
 {
     public class InMemoryEnvironmentFactory : IEnvironmentFactory
     {

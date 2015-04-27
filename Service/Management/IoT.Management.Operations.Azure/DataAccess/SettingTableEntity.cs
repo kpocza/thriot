@@ -1,6 +1,6 @@
-﻿using IoT.Framework.Azure.DataAccess;
+﻿using Thriot.Framework.Azure.DataAccess;
 
-namespace IoT.Management.Operations.Azure.DataAccess
+namespace Thriot.Management.Operations.Azure.DataAccess
 {
     public class SettingTableEntity : PreparableTableEntity
     {

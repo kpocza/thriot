@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using IoT.Objects.Model;
-using IoT.Objects.Model.Operations;
-using IoT.Plugins.Core;
-using IoT.Reporting.Dto;
-using IoT.Reporting.Services;
 using NSubstitute;
+using Thriot.Objects.Model;
+using Thriot.Objects.Model.Operations;
+using Thriot.Plugins.Core;
+using Thriot.Reporting.Dto;
+using Thriot.Reporting.Services;
 
-namespace IoT.Reporting.Tests
+namespace Thriot.Reporting.Tests
 {
     public abstract class NetworkTestBase
     {

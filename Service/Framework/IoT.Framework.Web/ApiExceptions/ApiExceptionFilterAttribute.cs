@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Web.Http.Filters;
 
-namespace IoT.Framework.Web.ApiExceptions
+namespace Thriot.Framework.Web.ApiExceptions
 {
     public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
     {

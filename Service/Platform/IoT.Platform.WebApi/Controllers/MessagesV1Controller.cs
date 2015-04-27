@@ -3,13 +3,13 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Web.Http;
-using IoT.Framework.Logging;
-using IoT.Platform.Model.Messaging;
-using IoT.Platform.Services.Messaging;
-using IoT.Platform.WebApi.Auth;
-using IoT.Platform.WebApi.Models;
+using Thriot.Framework.Logging;
+using Thriot.Platform.Model.Messaging;
+using Thriot.Platform.Services.Messaging;
+using Thriot.Platform.WebApi.Auth;
+using Thriot.Platform.WebApi.Models;
 
-namespace IoT.Platform.WebApi.Controllers
+namespace Thriot.Platform.WebApi.Controllers
 {
     [RoutePrefix("v1/messages")]
     [WebApiDeviceAuthenticator]

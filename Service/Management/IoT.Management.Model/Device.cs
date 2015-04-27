@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using IoT.Framework;
+using Thriot.Framework;
 
-namespace IoT.Management.Model
+namespace Thriot.Management.Model
 {
     public class Device : IEntity
     {

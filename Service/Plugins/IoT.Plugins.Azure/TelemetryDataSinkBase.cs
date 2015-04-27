@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using IoT.Framework.Azure.TableOperations;
-using IoT.Framework.DataAccess;
-using IoT.Plugins.Core;
 using Microsoft.WindowsAzure.Storage;
+using Thriot.Framework.Azure.TableOperations;
+using Thriot.Framework.DataAccess;
+using Thriot.Plugins.Core;
 
-namespace IoT.Plugins.Azure
+namespace Thriot.Plugins.Azure
 {
     public abstract class TelemetryDataSinkBase : ITelemetryDataSink
     {

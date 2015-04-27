@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace IoT.Platform.PersistentConnections.Tests
+namespace Thriot.Platform.PersistentConnections.Tests
 {
     [TestClass]
     public class CommandPartsTest

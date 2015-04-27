@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace IoT.Framework
+namespace Thriot.Framework
 {
     public class Crypto
     {

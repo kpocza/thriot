@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace IoT.Framework.Sql
+namespace Thriot.Framework.Sql
 {
     public interface IUnitOfWork : IDisposable
     {

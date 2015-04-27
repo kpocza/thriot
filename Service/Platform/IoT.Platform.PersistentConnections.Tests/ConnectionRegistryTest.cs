@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using IoT.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using Thriot.Framework;
 
-namespace IoT.Platform.PersistentConnections.Tests
+namespace Thriot.Platform.PersistentConnections.Tests
 {
     [TestClass]
     public class ConnectionRegistryTest

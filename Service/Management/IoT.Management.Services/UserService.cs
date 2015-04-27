@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Security.Authentication;
 using AutoMapper;
-using IoT.Framework;
-using IoT.Framework.Exceptions;
-using IoT.Management.Dto;
-using IoT.Management.Model.Exceptions;
-using IoT.Management.Model.Operations;
-using IoT.Management.Model;
+using Thriot.Framework;
+using Thriot.Framework.Exceptions;
+using Thriot.Management.Dto;
+using Thriot.Management.Model;
+using Thriot.Management.Model.Exceptions;
+using Thriot.Management.Model.Operations;
 
-namespace IoT.Management.Services
+namespace Thriot.Management.Services
 {
     public class UserService
     {

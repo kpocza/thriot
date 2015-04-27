@@ -1,7 +1,7 @@
 ﻿using System.Data.Common;
 using System.Data.Entity;
 
-namespace IoT.Objects.Operations.Sql.DataAccess.Sql
+namespace Thriot.Objects.Operations.Sql.DataAccess.Sql
 {
     public class ObjectsDbContextSql : ObjectsDbContext
     {

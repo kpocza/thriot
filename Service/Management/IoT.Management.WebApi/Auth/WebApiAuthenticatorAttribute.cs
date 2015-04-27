@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Filters;
 using System.Web.Http.Results;
-using IoT.Framework.Logging;
-using IoT.Framework.Web.Logging;
+using Thriot.Framework.Web.Logging;
+using Thriot.Framework.Logging;
 
-namespace IoT.Management.WebApi.Auth
+namespace Thriot.Management.WebApi.Auth
 {
     public class WebApiAuthenticatorAttribute : Attribute, IAuthenticationFilter
     {

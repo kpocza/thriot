@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using IoT.Framework;
-using IoT.Framework.DataAccess;
-using IoT.Management.Dto;
-using IoT.Plugins.Core;
-using IoT.UnitTestHelpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Thriot.Framework;
+using Thriot.Framework.DataAccess;
+using Thriot.Management.Dto;
+using Thriot.Plugins.Core;
+using Thriot.TestHelpers;
 
-namespace IoT.Plugins.Tests
+namespace Thriot.Plugins.Tests
 {
     [TestClass]
     public class TelemetryDataSinkTimeSeriesTest : TestBase

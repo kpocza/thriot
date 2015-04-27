@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using IoT.Management.Dto;
-using IoT.Management.Model;
-using IoT.ServiceClient.TelemetrySetup;
+using Thriot.Management.Dto;
+using Thriot.Management.Model;
+using Thriot.ServiceClient.TelemetrySetup;
 
-namespace IoT.Management.Services
+namespace Thriot.Management.Services
 {
     public static class DtoMapper
     {

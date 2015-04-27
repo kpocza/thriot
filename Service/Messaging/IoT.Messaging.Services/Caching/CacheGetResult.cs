@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace IoT.Messaging.Services.Caching
+namespace Thriot.Messaging.Services.Caching
 {
     public class CacheGetResult
     {

@@ -1,7 +1,7 @@
-﻿using IoT.Framework.Azure.DataAccess;
-using IoT.Framework.Azure.TableOperations;
+﻿using Thriot.Framework.Azure.DataAccess;
+using Thriot.Framework.Azure.TableOperations;
 
-namespace IoT.Objects.Operations.Azure.DataAccess
+namespace Thriot.Objects.Operations.Azure.DataAccess
 {
     public class SettingRepository : Repository<SettingTableEntity>
     {

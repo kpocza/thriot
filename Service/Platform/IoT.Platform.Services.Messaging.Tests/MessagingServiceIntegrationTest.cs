@@ -1,9 +1,9 @@
-﻿using IoT.Framework;
-using IoT.Platform.Model.Messaging;
-using IoT.UnitTestHelpers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Thriot.Framework;
+using Thriot.Platform.Model.Messaging;
+using Thriot.TestHelpers;
 
-namespace IoT.Platform.Services.Messaging.Tests
+namespace Thriot.Platform.Services.Messaging.Tests
 {
     [TestClass]
     public class MessagingServiceIntegrationTest : TestBase

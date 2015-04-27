@@ -3,7 +3,7 @@ using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
-namespace IoT.Framework.Sql
+namespace Thriot.Framework.Sql
 {
     public class ForeignKeyNamingConvention : IStoreModelConvention<AssociationType>
     {

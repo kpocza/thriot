@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace IoT.Framework.Sql
+namespace Thriot.Framework.Sql
 {
     public interface IGenericQueryRepository<T> where T : class
     {

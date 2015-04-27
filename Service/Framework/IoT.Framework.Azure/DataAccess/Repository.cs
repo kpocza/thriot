@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using IoT.Framework.Azure.TableOperations;
+using Thriot.Framework.Azure.TableOperations;
 
-namespace IoT.Framework.Azure.DataAccess
+namespace Thriot.Framework.Azure.DataAccess
 {
     public abstract class Repository<T>
         where T : PreparableTableEntity, new()

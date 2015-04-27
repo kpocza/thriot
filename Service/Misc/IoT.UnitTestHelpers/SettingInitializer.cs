@@ -1,8 +1,8 @@
-﻿using IoT.Framework;
-using IoT.Management.Model;
-using IoT.Management.Model.Operations;
+﻿using Thriot.Framework;
+using Thriot.Management.Model;
+using Thriot.Management.Model.Operations;
 
-namespace IoT.UnitTestHelpers
+namespace Thriot.TestHelpers
 {
     public static class SettingInitializer
     {

@@ -1,11 +1,11 @@
-﻿using IoT.Objects.Common.CachingOperations;
-using IoT.Objects.Model;
-using IoT.Objects.Model.Operations;
-using IoT.UnitTestHelpers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using Thriot.Objects.Common.CachingOperations;
+using Thriot.Objects.Model;
+using Thriot.Objects.Model.Operations;
+using Thriot.TestHelpers;
 
-namespace IoT.Objects.Common.Tests
+namespace Thriot.Objects.Common.Tests
 {
     [TestClass]
     public class CachingOperationsTest

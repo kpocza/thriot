@@ -1,13 +1,13 @@
 ﻿using System.Security.Authentication;
-using IoT.Framework;
-using IoT.Framework.Exceptions;
-using IoT.Management.Dto;
-using IoT.Management.Model.Exceptions;
-using IoT.UnitTestHelpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using Thriot.Framework;
+using Thriot.Framework.Exceptions;
+using Thriot.Management.Dto;
+using Thriot.Management.Model.Exceptions;
+using Thriot.TestHelpers;
 
-namespace IoT.Management.Services.Tests
+namespace Thriot.Management.Services.Tests
 {
     [TestClass]
     public class UserServiceTest

@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace IoT.Platform.WebsocketService
+namespace Thriot.Platform.WebsocketService
 {
     class ConsoleRunner
     {

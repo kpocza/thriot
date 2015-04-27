@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Net.Mail;
 
-namespace IoT.Framework.Mails
+namespace Thriot.Framework.Mails
 {
     public interface IMailSettings
     {

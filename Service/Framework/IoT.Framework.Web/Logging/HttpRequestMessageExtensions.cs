@@ -1,7 +1,7 @@
 using System;
 using System.Net.Http;
 
-namespace IoT.Framework.Web.Logging
+namespace Thriot.Framework.Web.Logging
 {
     public static class HttpRequestMessageExtensions
     {

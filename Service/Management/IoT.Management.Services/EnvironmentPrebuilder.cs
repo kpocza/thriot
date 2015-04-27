@@ -1,8 +1,8 @@
 ﻿using System.Security.Authentication;
-using IoT.Management.Dto;
-using IoT.Management.Model;
+using Thriot.Management.Dto;
+using Thriot.Management.Model;
 
-namespace IoT.Management.Services
+namespace Thriot.Management.Services
 {
     public class EnvironmentPrebuilder : IEnvironmentPrebuilder
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IoT.Framework
+namespace Thriot.Framework
 {
     public interface IDateTimeProvider
     {

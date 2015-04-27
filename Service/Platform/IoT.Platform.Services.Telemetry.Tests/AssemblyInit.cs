@@ -1,7 +1,7 @@
-﻿using IoT.UnitTestHelpers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Thriot.TestHelpers;
 
-namespace IoT.Platform.Services.Telemetry.Tests
+namespace Thriot.Platform.Services.Telemetry.Tests
 {
     [TestClass]
     public class AssemblyInit

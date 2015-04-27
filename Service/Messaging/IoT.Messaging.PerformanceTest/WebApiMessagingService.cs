@@ -1,6 +1,6 @@
-﻿using IoT.ServiceClient.Messaging;
+﻿using Thriot.ServiceClient.Messaging;
 
-namespace IoT.Messaging.PerformanceTest
+namespace Thriot.Messaging.PerformanceTest
 {
     public class WebApiMessagingService : IMessagingService
     {

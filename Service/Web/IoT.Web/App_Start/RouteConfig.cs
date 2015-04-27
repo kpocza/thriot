@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace IoT.Management.Web
+namespace Thriot.Management.Web
 {
     public class RouteConfig
     {

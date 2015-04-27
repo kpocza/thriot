@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using IoT.Framework.Azure.DataAccess;
 using Microsoft.WindowsAzure.Storage.Table;
+using Thriot.Framework.Azure.DataAccess;
 
-namespace IoT.Framework.Azure.TableOperations
+namespace Thriot.Framework.Azure.TableOperations
 {
     public interface ITableEntityOperation
     {

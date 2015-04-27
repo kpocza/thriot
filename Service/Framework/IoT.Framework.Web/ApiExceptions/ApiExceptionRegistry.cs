@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Security.Authentication;
-using IoT.Framework.Exceptions;
+using Thriot.Framework.Exceptions;
 
-namespace IoT.Framework.Web.ApiExceptions
+namespace Thriot.Framework.Web.ApiExceptions
 {
     public static class ApiExceptionRegistry
     {

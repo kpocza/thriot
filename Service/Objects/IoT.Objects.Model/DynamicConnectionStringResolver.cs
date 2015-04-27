@@ -1,9 +1,9 @@
 ﻿using System.Collections.Concurrent;
 using System.Configuration;
-using IoT.Framework.DataAccess;
-using IoT.Objects.Model.Operations;
+using Thriot.Framework.DataAccess;
+using Thriot.Objects.Model.Operations;
 
-namespace IoT.Objects.Model
+namespace Thriot.Objects.Model
 {
     public class DynamicConnectionStringResolver : IDynamicConnectionStringResolver
     {

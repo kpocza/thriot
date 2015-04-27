@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace IoT.Platform.Services.Telemetry.Configuration
+namespace Thriot.Platform.Services.Telemetry.Configuration
 {
     public class TelemetryDataSection : ConfigurationSection
     {

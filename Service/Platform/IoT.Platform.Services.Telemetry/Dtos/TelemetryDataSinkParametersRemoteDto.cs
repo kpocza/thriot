@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace IoT.Platform.Services.Telemetry.Dtos
+namespace Thriot.Platform.Services.Telemetry.Dtos
 {
     public class TelemetryDataSinkParametersRemoteDto
     {

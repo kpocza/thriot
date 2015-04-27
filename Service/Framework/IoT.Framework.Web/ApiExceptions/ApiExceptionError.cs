@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace IoT.Framework.Web.ApiExceptions
+namespace Thriot.Framework.Web.ApiExceptions
 {
     public class ApiExceptionError
     {

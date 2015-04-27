@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 
-namespace IoT.Reporting.Dto
+namespace Thriot.Reporting.Dto
 {
     public class CurrentDataDeviceDto
     {

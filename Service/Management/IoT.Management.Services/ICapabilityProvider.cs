@@ -1,4 +1,4 @@
-﻿namespace IoT.Management.Services
+﻿namespace Thriot.Management.Services
 {
     public interface ICapabilityProvider
     {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using IoT.Platform.Model;
-using IoT.Platform.Model.Messaging;
+using Thriot.Platform.Model;
+using Thriot.Platform.Model.Messaging;
 
-namespace IoT.Platform.PersistentConnections
+namespace Thriot.Platform.PersistentConnections
 {
     public class PersistentConnectionReceiveAndForgetWorker : PersistentConnectionWorker
     {

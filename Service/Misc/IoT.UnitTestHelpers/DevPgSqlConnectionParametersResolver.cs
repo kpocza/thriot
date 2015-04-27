@@ -1,7 +1,7 @@
 ﻿using System;
-using IoT.Framework.DataAccess;
+using Thriot.Framework.DataAccess;
 
-namespace IoT.UnitTestHelpers
+namespace Thriot.TestHelpers
 {
     public class DevPgSqlConnectionParametersResolver : IConnectionParametersResolver
     {

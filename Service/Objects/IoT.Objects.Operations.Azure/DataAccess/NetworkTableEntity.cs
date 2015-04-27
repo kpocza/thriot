@@ -1,8 +1,8 @@
-﻿using IoT.Framework;
-using IoT.Framework.Azure.DataAccess;
-using IoT.Objects.Model;
+﻿using Thriot.Framework;
+using Thriot.Framework.Azure.DataAccess;
+using Thriot.Objects.Model;
 
-namespace IoT.Objects.Operations.Azure.DataAccess
+namespace Thriot.Objects.Operations.Azure.DataAccess
 {
     public class NetworkTableEntity : PreparableTableEntity
     {

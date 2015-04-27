@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading;
 
-namespace IoT.Framework.Batching
+namespace Thriot.Framework.Batching
 {
     public class MultiWaitHandler
     {

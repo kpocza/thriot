@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace IoT.Plugins.Core
+namespace Thriot.Plugins.Core
 {
     public class TelemetryData
     {

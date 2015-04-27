@@ -1,4 +1,4 @@
-﻿namespace IoT.Management.Dto
+﻿namespace Thriot.Management.Dto
 {
     public class RegistrationResultDto
     {

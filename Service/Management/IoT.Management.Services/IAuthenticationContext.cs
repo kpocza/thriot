@@ -1,6 +1,6 @@
 ﻿using System.Security.Principal;
 
-namespace IoT.Management.Services
+namespace Thriot.Management.Services
 {
     public interface IAuthenticationContext
     {

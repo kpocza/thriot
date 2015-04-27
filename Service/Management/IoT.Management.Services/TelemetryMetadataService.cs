@@ -1,8 +1,11 @@
-﻿using IoT.Management.Model.Operations;
-using IoT.ServiceClient.TelemetrySetup;
-using Mgmt = IoT.Management.Dto;
+﻿using Thriot.Management.Dto;
+using Thriot.Management.Model.Operations;
+using Thriot.ServiceClient.TelemetrySetup;
+using Mgmt = Thriot.Management.Dto;
+using TelemetryDataSinkMetadataDto = Thriot.Management.Dto.TelemetryDataSinkMetadataDto;
+using TelemetryDataSinksMetadataDto = Thriot.Management.Dto.TelemetryDataSinksMetadataDto;
 
-namespace IoT.Management.Services
+namespace Thriot.Management.Services
 {
     public class TelemetryMetadataService : ManagementServiceBase
     {
@@ -15,17 +18,17 @@ namespace IoT.Management.Services
             _telemetryDataSinkSetupService = telemetryDataSinkSetupService;
         }
 
-        public Mgmt.TelemetryDataSinksMetadataDto GetIncomingTelemetryDataSinksMetadata()
+        public TelemetryDataSinksMetadataDto GetIncomingTelemetryDataSinksMetadata()
         {
             Authenticate();
 
             var result = _telemetryDataSinkSetupService.GetTelemetryDataSinksMetadata();
-            return new Mgmt.TelemetryDataSinksMetadataDto
+            return new TelemetryDataSinksMetadataDto
             {
                 Incoming =
                     result.Incoming.ConvertAll(
                         i =>
-                            new Mgmt.TelemetryDataSinkMetadataDto
+                            new TelemetryDataSinkMetadataDto
                             {
                                 Name = i.Name,
                                 Description = i.Description,

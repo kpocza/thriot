@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using IoT.Objects.Model;
-using IoT.Platform.Services.Telemetry.Metadata;
-using IoT.Plugins.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using Thriot.Objects.Model;
+using Thriot.Platform.Services.Telemetry.Metadata;
+using Thriot.Plugins.Core;
 
-namespace IoT.Platform.Services.Telemetry.Tests
+namespace Thriot.Platform.Services.Telemetry.Tests
 {
     [TestClass]
     public class TelemetryDataSinkPreparatorTest

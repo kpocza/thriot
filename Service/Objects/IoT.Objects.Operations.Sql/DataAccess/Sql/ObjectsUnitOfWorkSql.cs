@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
 
-namespace IoT.Objects.Operations.Sql.DataAccess.Sql
+namespace Thriot.Objects.Operations.Sql.DataAccess.Sql
 {
     public class ObjectsUnitOfWorkSql : ObjectsUnitOfWork
     {

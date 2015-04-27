@@ -4,12 +4,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Filters;
 using System.Web.Http.Results;
-using IoT.Framework.Logging;
-using IoT.Framework.Web;
-using IoT.Framework.Web.Logging;
-using IoT.Objects.Model;
+using Thriot.Framework.Web.Logging;
+using Thriot.Framework.Logging;
+using Thriot.Framework.Web;
+using Thriot.Objects.Model;
 
-namespace IoT.Reporting.WebApi.Auth
+namespace Thriot.Reporting.WebApi.Auth
 {
     public class WebApiDeviceAuthenticatorAttribute : Attribute, IAuthenticationFilter
     {

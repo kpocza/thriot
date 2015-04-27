@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace IoT.Framework.Tests
+namespace Thriot.Framework.Tests
 {
     [TestClass]
     public class CryptoTest

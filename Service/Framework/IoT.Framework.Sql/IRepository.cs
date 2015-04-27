@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace IoT.Framework.Sql
+namespace Thriot.Framework.Sql
 {
     public interface IRepository<T>: IGenericQueryRepository<T>
         where T : class, IEntity

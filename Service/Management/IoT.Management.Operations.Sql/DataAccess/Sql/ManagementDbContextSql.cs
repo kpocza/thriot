@@ -1,7 +1,7 @@
 ﻿using System.Data.Common;
 using System.Data.Entity;
 
-namespace IoT.Management.Operations.Sql.DataAccess.Sql
+namespace Thriot.Management.Operations.Sql.DataAccess.Sql
 {
     public class ManagementDbContextSql : ManagementDbContext
     {

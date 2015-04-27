@@ -1,11 +1,12 @@
-﻿using IoT.Management.Operations.Sql.DataAccess;
-using IoT.Management.Operations.Sql.DataAccess.Sql;
-using IoT.Objects.Operations.Sql.DataAccess;
-using IoT.Objects.Operations.Sql.DataAccess.Sql;
-using IoT.Plugins.Core;
-using IoT.ServiceClient.Messaging;
+﻿using Thriot.Management.Operations.Sql.DataAccess;
+using Thriot.Management.Operations.Sql.DataAccess.Sql;
+using Thriot.Objects.Operations.Sql.DataAccess;
+using Thriot.Objects.Operations.Sql.DataAccess.Sql;
+using Thriot.Plugins.Core;
+using Thriot.Plugins.Sql;
+using Thriot.ServiceClient.Messaging;
 
-namespace IoT.UnitTestHelpers
+namespace Thriot.TestHelpers
 {
     public class SqlEnvironmentFactory : IEnvironmentFactory
     {
@@ -90,12 +91,12 @@ namespace IoT.UnitTestHelpers
 
         public ITelemetryDataSinkCurrent TelemetryDataSinkCurrent
         {
-            get { return new IoT.Plugins.Sql.TelemetryDataSinkCurrent(); }
+            get { return new TelemetryDataSinkCurrent(); }
         }
 
         public ITelemetryDataSinkTimeSeries TelemetryDataSinkTimeSeries
         {
-            get { return new IoT.Plugins.Sql.TelemetryDataSinkTimeSeries(); }
+            get { return new TelemetryDataSinkTimeSeries(); }
         }
     }
 } 

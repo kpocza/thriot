@@ -1,9 +1,9 @@
 ﻿using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using IoT.Management.Web;
+using Thriot.Management.Web;
 
-namespace IoT.Web
+namespace Thriot.Web
 {
     public class MvcApplication : System.Web.HttpApplication
     {

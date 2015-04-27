@@ -1,4 +1,4 @@
-﻿namespace IoT.Messaging.Services.Storage
+﻿namespace Thriot.Messaging.Services.Storage
 {
     public class EnqueueResult : DeviceEntry
     {

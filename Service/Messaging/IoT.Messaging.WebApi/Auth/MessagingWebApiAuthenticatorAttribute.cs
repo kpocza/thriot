@@ -6,12 +6,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Filters;
 using System.Web.Http.Results;
-using IoT.Framework.Logging;
-using IoT.Framework.Web.Logging;
-using IoT.Objects.Model;
-using IoT.Objects.Model.Operations;
+using Thriot.Framework.Web.Logging;
+using Thriot.Framework.Logging;
+using Thriot.Objects.Model;
+using Thriot.Objects.Model.Operations;
 
-namespace IoT.Messaging.WebApi.Auth
+namespace Thriot.Messaging.WebApi.Auth
 {
     public class MessagingWebApiAuthenticatorAttribute : Attribute, IAuthenticationFilter
     {

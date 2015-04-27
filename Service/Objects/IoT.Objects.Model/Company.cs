@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using IoT.Framework;
+using Thriot.Framework;
 
-namespace IoT.Objects.Model
+namespace Thriot.Objects.Model
 {
     public class Company : IEntity, ITelemetrySinkSettingsOwner
     {

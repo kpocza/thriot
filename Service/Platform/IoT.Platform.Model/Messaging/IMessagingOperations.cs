@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace IoT.Platform.Model.Messaging
+namespace Thriot.Platform.Model.Messaging
 {
     public interface IMessagingOperations
     {

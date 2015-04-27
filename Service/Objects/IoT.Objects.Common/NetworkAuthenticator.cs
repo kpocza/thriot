@@ -1,8 +1,7 @@
-﻿
-using IoT.Objects.Model;
-using IoT.Objects.Model.Operations;
+﻿using Thriot.Objects.Model;
+using Thriot.Objects.Model.Operations;
 
-namespace IoT.Objects.Common
+namespace Thriot.Objects.Common
 {
     public class NetworkAuthenticator : INetworkAuthenticator
     {

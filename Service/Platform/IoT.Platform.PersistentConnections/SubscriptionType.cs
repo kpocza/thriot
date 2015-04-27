@@ -1,4 +1,4 @@
-﻿namespace IoT.Platform.PersistentConnections
+﻿namespace Thriot.Platform.PersistentConnections
 {
     public enum SubscriptionType
     {

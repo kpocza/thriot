@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using IoT.Framework;
-using IoT.Messaging.Dto;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Thriot.Framework;
+using Thriot.Messaging.Dto;
 
-namespace IoT.Messaging.Services.Tests
+namespace Thriot.Messaging.Services.Tests
 {
     [TestClass]
     public class DequeueTest : TestBase

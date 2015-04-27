@@ -2,7 +2,7 @@
 using System.Net;
 using System.ServiceProcess;
 
-namespace IoT.Platform.WebsocketService
+namespace Thriot.Platform.WebsocketService
 {
     static class Program
     {

@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
-using IoT.Framework.Logging;
-using IoT.Management.Dto;
-using IoT.Management.Services;
-using IoT.Management.WebApi.Auth;
+using Thriot.Framework.Logging;
+using Thriot.Management.Dto;
+using Thriot.Management.Services;
+using Thriot.Management.WebApi.Auth;
 
-namespace IoT.Management.WebApi.Controllers
+namespace Thriot.Management.WebApi.Controllers
 {
     [RoutePrefix("v1/companies")]
     [WebApiAuthenticator]

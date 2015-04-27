@@ -1,9 +1,9 @@
-﻿using IoT.Framework.Azure.TableOperations;
-using IoT.Framework.DataAccess;
-using Microsoft.WindowsAzure.Storage;
+﻿using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
+using Thriot.Framework.Azure.TableOperations;
+using Thriot.Framework.DataAccess;
 
-namespace IoT.Framework.Azure.DataAccess
+namespace Thriot.Framework.Azure.DataAccess
 {
     public class AzureCloudStorageClientFactory : ICloudStorageClientFactory
     {

@@ -1,6 +1,6 @@
 ﻿using System.ServiceProcess;
 
-namespace IoT.Platform.WebsocketService
+namespace Thriot.Platform.WebsocketService
 {
     public partial class WebSocketServiceInstance : ServiceBase
     {

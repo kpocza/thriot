@@ -1,33 +1,34 @@
-﻿using IoT.Plugins.Core;
-using IoT.ServiceClient.Messaging;
-using MgmtOp = IoT.Management.Model.Operations;
-using ObjOp = IoT.Objects.Model.Operations;
+﻿using Thriot.Management.Model.Operations;
+using Thriot.Plugins.Core;
+using Thriot.ServiceClient.Messaging;
+using MgmtOp = Thriot.Management.Model.Operations;
+using ObjOp = Thriot.Objects.Model.Operations;
 
-namespace IoT.UnitTestHelpers
+namespace Thriot.TestHelpers
 {
     public interface IEnvironmentFactory
     {
-        MgmtOp.IUserOperations MgmtUserOperations { get; }
+        IUserOperations MgmtUserOperations { get; }
 
-        MgmtOp.ICompanyOperations MgmtCompanyOperations { get; }
+        ICompanyOperations MgmtCompanyOperations { get; }
 
-        MgmtOp.IServiceOperations MgmtServiceOperations { get; }
+        IServiceOperations MgmtServiceOperations { get; }
 
-        MgmtOp.INetworkOperations MgmtNetworkOperations { get; }
+        INetworkOperations MgmtNetworkOperations { get; }
 
-        MgmtOp.IDeviceOperations MgmtDeviceOperations { get; }
+        IDeviceOperations MgmtDeviceOperations { get; }
 
-        MgmtOp.ISettingOperations MgmtSettingOperations { get; }
+        ISettingOperations MgmtSettingOperations { get; }
 
-        ObjOp.ICompanyOperations ObjCompanyOperations { get; }
+        Objects.Model.Operations.ICompanyOperations ObjCompanyOperations { get; }
 
-        ObjOp.IServiceOperations ObjServiceOperations { get; }
+        Objects.Model.Operations.IServiceOperations ObjServiceOperations { get; }
 
-        ObjOp.INetworkOperations ObjNetworkOperations { get; }
+        Objects.Model.Operations.INetworkOperations ObjNetworkOperations { get; }
 
-        ObjOp.IDeviceOperations ObjDeviceOperations { get; }
+        Objects.Model.Operations.IDeviceOperations ObjDeviceOperations { get; }
 
-        ObjOp.ISettingOperations ObjSettingOperations { get; }
+        Objects.Model.Operations.ISettingOperations ObjSettingOperations { get; }
 
         IMessagingService MessagingService { get; }
 

@@ -1,7 +1,7 @@
 ﻿using System.Runtime.Serialization.Formatters;
 using Newtonsoft.Json;
 
-namespace IoT.Framework
+namespace Thriot.Framework
 {
     public static class Serializers
     {

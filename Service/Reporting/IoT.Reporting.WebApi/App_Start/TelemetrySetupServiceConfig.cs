@@ -1,9 +1,9 @@
-﻿using IoT.Framework;
-using IoT.Objects.Model;
-using IoT.Objects.Model.Operations;
-using IoT.ServiceClient.TelemetrySetup;
+﻿using Thriot.Framework;
+using Thriot.Objects.Model;
+using Thriot.Objects.Model.Operations;
+using Thriot.ServiceClient.TelemetrySetup;
 
-namespace IoT.Reporting.WebApi
+namespace Thriot.Reporting.WebApi
 {
     public class TelemetrySetupServiceConfig
     {

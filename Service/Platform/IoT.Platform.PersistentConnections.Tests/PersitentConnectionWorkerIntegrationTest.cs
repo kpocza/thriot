@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Threading;
-using IoT.Framework;
-using IoT.Platform.Model;
-using IoT.Platform.Model.Messaging;
-using IoT.Platform.PersistentConnections.Commands;
-using IoT.Platform.Services.Messaging;
-using IoT.UnitTestHelpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using NSubstitute.Exceptions;
+using Thriot.Framework;
+using Thriot.Platform.Model;
+using Thriot.Platform.Model.Messaging;
+using Thriot.Platform.PersistentConnections.Commands;
+using Thriot.Platform.Services.Messaging;
+using Thriot.TestHelpers;
 
-namespace IoT.Platform.PersistentConnections.Tests
+namespace Thriot.Platform.PersistentConnections.Tests
 {
     [TestClass]
     public class PersitentConnectionWorkerIntegrationTest : TestBase

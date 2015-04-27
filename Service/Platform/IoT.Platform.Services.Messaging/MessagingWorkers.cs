@@ -1,9 +1,9 @@
-﻿using IoT.Framework.Batching;
-using IoT.Platform.Model;
-using IoT.Platform.Model.Messaging;
-using IoT.ServiceClient.Messaging;
+﻿using Thriot.Framework.Batching;
+using Thriot.Platform.Model;
+using Thriot.Platform.Model.Messaging;
+using Thriot.ServiceClient.Messaging;
 
-namespace IoT.Platform.Services.Messaging
+namespace Thriot.Platform.Services.Messaging
 {
     public static class MessagingWorkers
     {

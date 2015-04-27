@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IoT.Management.Model.Exceptions
+namespace Thriot.Management.Model.Exceptions
 {
     public class ActivationRequiredException : Exception
     {

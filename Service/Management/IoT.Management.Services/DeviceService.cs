@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using IoT.Framework;
-using IoT.Framework.Exceptions;
-using IoT.Management.Dto;
-using IoT.Management.Model;
-using IoT.Management.Model.Operations;
-using IoT.ServiceClient.Messaging;
+using Thriot.Framework;
+using Thriot.Framework.Exceptions;
+using Thriot.Management.Dto;
+using Thriot.Management.Model;
+using Thriot.Management.Model.Operations;
+using Thriot.ServiceClient.Messaging;
 
-namespace IoT.Management.Services
+namespace Thriot.Management.Services
 {
     public class DeviceService : ManagementServiceBase
     {

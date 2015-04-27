@@ -1,4 +1,4 @@
-﻿namespace IoT.Messaging.Services.Caching
+﻿namespace Thriot.Messaging.Services.Caching
 {
     public class CacheIndex
     {

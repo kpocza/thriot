@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using IoT.Framework;
-using IoT.Objects.Model;
-using IoT.Objects.Model.Operations;
-using IoT.Platform.Model;
-using IoT.Platform.Model.Messaging;
-using IoT.Platform.PersistentConnections.Commands;
-using IoT.Platform.Services.Messaging;
-using IoT.Platform.Services.Telemetry;
-using IoT.Plugins.Core;
-using IoT.UnitTestHelpers;
+using Thriot.Platform.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using Thriot.Framework;
+using Thriot.Objects.Model;
+using Thriot.Objects.Model.Operations;
+using Thriot.Platform.Model.Messaging;
+using Thriot.Platform.PersistentConnections.Commands;
+using Thriot.Platform.Services.Messaging;
+using Thriot.Platform.Services.Telemetry;
+using Thriot.Plugins.Core;
+using Thriot.TestHelpers;
 
-namespace IoT.Platform.PersistentConnections.Tests
+namespace Thriot.Platform.PersistentConnections.Tests
 {
     [TestClass]
     public class CommandExecutorTest

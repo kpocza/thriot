@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using IoT.Framework;
-using IoT.Objects.Model;
-using IoT.Objects.Model.Operations;
-using IoT.Platform.Services.Telemetry.Metadata;
-using IoT.Plugins.Core;
+using Thriot.Framework;
+using Thriot.Objects.Model;
+using Thriot.Objects.Model.Operations;
+using Thriot.Platform.Services.Telemetry.Metadata;
+using Thriot.Plugins.Core;
 
-namespace IoT.Platform.Services.Telemetry
+namespace Thriot.Platform.Services.Telemetry
 {
     public class TelemetryDataSinkResolver : ITelemetryDataSinkResolver
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Caching;
 
-namespace IoT.Objects.Common.CachingOperations
+namespace Thriot.Objects.Common.CachingOperations
 {
     public abstract class CachingBase<T>
         where T: class

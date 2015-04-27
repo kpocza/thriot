@@ -1,13 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Security.Authentication;
-using IoT.Framework;
-using IoT.Management.Dto;
-using TelemetrySetup = IoT.ServiceClient.TelemetrySetup;
-using IoT.UnitTestHelpers;
+using Thriot.Framework;
+using Thriot.Management.Dto;
+using Thriot.ServiceClient.TelemetrySetup;
+using Thriot.TestHelpers;
+using TelemetrySetup = Thriot.ServiceClient.TelemetrySetup;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using TelemetryDataSinkMetadataDto = Thriot.ServiceClient.TelemetrySetup.TelemetryDataSinkMetadataDto;
+using TelemetryDataSinksMetadataDto = Thriot.ServiceClient.TelemetrySetup.TelemetryDataSinksMetadataDto;
 
-namespace IoT.Management.Services.Tests
+namespace Thriot.Management.Services.Tests
 {
     [TestClass]
     public class TelemetryMetadataServiceTest
@@ -24,9 +27,9 @@ namespace IoT.Management.Services.Tests
         [TestMethod]
         public void GetIncomingTest()
         {
-            var telemetryDataSinkSetupService = Substitute.For<TelemetrySetup.ITelemetryDataSinkSetupService>();
+            var telemetryDataSinkSetupService = Substitute.For<ITelemetryDataSinkSetupService>();
 
-            var msm = new TelemetrySetup.TelemetryDataSinksMetadataDto { Incoming = new List<TelemetrySetup.TelemetryDataSinkMetadataDto>() };
+            var msm = new TelemetryDataSinksMetadataDto { Incoming = new List<TelemetryDataSinkMetadataDto>() };
 
             telemetryDataSinkSetupService.GetTelemetryDataSinksMetadata().Returns(msm);
 
@@ -42,7 +45,7 @@ namespace IoT.Management.Services.Tests
         {
             _authenticationContext.GetContextUser().Returns((string)null);
 
-            var telemetryDataSinkSetupService = Substitute.For<TelemetrySetup.ITelemetryDataSinkSetupService>();
+            var telemetryDataSinkSetupService = Substitute.For<ITelemetryDataSinkSetupService>();
 
             var telemetryMetadataService = new TelemetryMetadataService(telemetryDataSinkSetupService, null, _authenticationContext);
 

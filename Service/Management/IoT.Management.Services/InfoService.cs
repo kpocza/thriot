@@ -1,7 +1,7 @@
 ﻿using System.Security.Authentication;
-using IoT.Management.Dto;
+using Thriot.Management.Dto;
 
-namespace IoT.Management.Services
+namespace Thriot.Management.Services
 {
     public class InfoService
     {

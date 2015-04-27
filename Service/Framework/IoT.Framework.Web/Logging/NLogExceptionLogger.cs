@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.ExceptionHandling;
-using IoT.Framework.Logging;
+using Thriot.Framework.Logging;
 
-namespace IoT.Framework.Web.Logging
+namespace Thriot.Framework.Web.Logging
 {
     public class NLogExceptionLogger : IExceptionLogger
     {

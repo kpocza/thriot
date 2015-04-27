@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using IoT.Framework;
-using IoT.Framework.Azure.DataAccess;
-using IoT.Management.Model;
+using Thriot.Framework;
+using Thriot.Framework.Azure.DataAccess;
+using Thriot.Management.Model;
 
-namespace IoT.Management.Operations.Azure.DataAccess
+namespace Thriot.Management.Operations.Azure.DataAccess
 {
     public class CompanyTableEntity : PreparableTableEntity
     {

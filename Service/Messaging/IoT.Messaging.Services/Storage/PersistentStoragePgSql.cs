@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 using Npgsql;
 using NpgsqlTypes;
 
-namespace IoT.Messaging.Services.Storage
+namespace Thriot.Messaging.Services.Storage
 {
     public class PersistentStoragePgSql : IPersistentStorage
     {

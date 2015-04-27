@@ -1,7 +1,7 @@
 ﻿using System.Configuration;
-using IoT.Messaging.Services.Storage;
+using Thriot.Messaging.Services.Storage;
 
-namespace IoT.Messaging.WebApi
+namespace Thriot.Messaging.WebApi
 {
     public class ConnectionStringResolver : IConnectionStringResolver
     {

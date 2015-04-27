@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IoT.Framework.DataAccess
+namespace Thriot.Framework.DataAccess
 {
     public class OptimisticConcurrencyException : Exception
     {

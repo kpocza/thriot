@@ -1,8 +1,8 @@
 ﻿using System.Data.Common;
 using System.Data.Entity;
-using IoT.Framework.Sql;
+using Thriot.Framework.Sql;
 
-namespace IoT.Management.Operations.Sql.DataAccess
+namespace Thriot.Management.Operations.Sql.DataAccess
 {
     public abstract class ManagementUnitOfWork : UnitOfWork, IManagementUnitOfWork
     {

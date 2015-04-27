@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace IoT.Web.Controllers
+namespace Thriot.Web.Controllers
 {
     public class HomeController : Controller
     {

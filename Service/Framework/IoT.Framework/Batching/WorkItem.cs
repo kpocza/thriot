@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 
-namespace IoT.Framework.Batching
+namespace Thriot.Framework.Batching
 {
     public class WorkItem<TParameter, TResult>
     {

@@ -1,6 +1,6 @@
-﻿using IoT.Objects.Model;
+﻿using Thriot.Objects.Model;
 
-namespace IoT.UnitTestHelpers
+namespace Thriot.TestHelpers
 {
     public static class TestDataCreator
     {

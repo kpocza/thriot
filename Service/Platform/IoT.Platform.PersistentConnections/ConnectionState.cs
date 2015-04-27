@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IoT.Platform.PersistentConnections
+namespace Thriot.Platform.PersistentConnections
 {
     [Flags]
     public enum ConnectionState

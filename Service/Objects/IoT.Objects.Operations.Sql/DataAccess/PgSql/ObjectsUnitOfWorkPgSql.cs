@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
 
-namespace IoT.Objects.Operations.Sql.DataAccess.PgSql
+namespace Thriot.Objects.Operations.Sql.DataAccess.PgSql
 {
     public class ObjectsUnitOfWorkPgSql : ObjectsUnitOfWork
     {

@@ -1,8 +1,8 @@
 ﻿using System.Data.Entity;
-using IoT.Framework.Sql;
-using IoT.Objects.Model;
+using Thriot.Framework.Sql;
+using Thriot.Objects.Model;
 
-namespace IoT.Objects.Operations.Sql.DataAccess
+namespace Thriot.Objects.Operations.Sql.DataAccess
 {
     public class NetworkRepository : Repository<Network>
     {

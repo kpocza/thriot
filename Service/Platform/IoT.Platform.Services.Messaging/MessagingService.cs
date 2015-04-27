@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Text;
-using IoT.Framework.Exceptions;
-using IoT.Objects.Model.Operations;
-using IoT.Platform.Model.Messaging;
+using Thriot.Framework.Exceptions;
+using Thriot.Objects.Model.Operations;
+using Thriot.Platform.Model.Messaging;
 
-namespace IoT.Platform.Services.Messaging
+namespace Thriot.Platform.Services.Messaging
 {
     public class MessagingService
     {

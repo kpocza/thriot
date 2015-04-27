@@ -1,11 +1,12 @@
-﻿using IoT.Management.Operations.Sql.DataAccess;
-using IoT.Management.Operations.Sql.DataAccess.PgSql;
-using IoT.Objects.Operations.Sql.DataAccess;
-using IoT.Objects.Operations.Sql.DataAccess.PgSql;
-using IoT.Plugins.Core;
-using IoT.ServiceClient.Messaging;
+﻿using Thriot.Management.Operations.Sql.DataAccess;
+using Thriot.Management.Operations.Sql.DataAccess.PgSql;
+using Thriot.Objects.Operations.Sql.DataAccess;
+using Thriot.Objects.Operations.Sql.DataAccess.PgSql;
+using Thriot.Plugins.Core;
+using Thriot.Plugins.PgSql;
+using Thriot.ServiceClient.Messaging;
 
-namespace IoT.UnitTestHelpers
+namespace Thriot.TestHelpers
 {
     public class PgSqlEnvironmentFactory : IEnvironmentFactory
     {
@@ -94,12 +95,12 @@ namespace IoT.UnitTestHelpers
 
         public ITelemetryDataSinkCurrent TelemetryDataSinkCurrent
         {
-            get { return new IoT.Plugins.PgSql.TelemetryDataSinkCurrent(); }
+            get { return new TelemetryDataSinkCurrent(); }
         }
 
         public ITelemetryDataSinkTimeSeries TelemetryDataSinkTimeSeries
         {
-            get { return new IoT.Plugins.PgSql.TelemetryDataSinkTimeSeries(); }
+            get { return new TelemetryDataSinkTimeSeries(); }
         }
     }
 } 

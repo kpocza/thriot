@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 
-namespace IoT.Platform.PersistentConnections.Commands
+namespace Thriot.Platform.PersistentConnections.Commands
 {
     public class TelemetryDataCommand : Command
     {

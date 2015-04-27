@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using NLog;
 
-namespace IoT.Framework.Logging
+namespace Thriot.Framework.Logging
 {
     public static class LoggerFactory
     {

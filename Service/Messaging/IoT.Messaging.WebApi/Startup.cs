@@ -1,15 +1,15 @@
 ﻿using System.Web.Http;
-using IoT.Framework;
-using IoT.Framework.Web;
-using IoT.Framework.Web.ApiExceptions;
-using IoT.Framework.Web.Logging;
-using IoT.Messaging.WebApi;
+using Thriot.Messaging.WebApi;
 using Microsoft.Owin;
 using Owin;
+using Thriot.Framework;
+using Thriot.Framework.Web;
+using Thriot.Framework.Web.ApiExceptions;
+using Thriot.Framework.Web.Logging;
 
 [assembly: OwinStartup(typeof(Startup))] 
 
-namespace IoT.Messaging.WebApi
+namespace Thriot.Messaging.WebApi
 {
     public  class Startup
     {

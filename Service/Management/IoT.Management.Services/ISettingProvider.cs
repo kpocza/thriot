@@ -1,6 +1,6 @@
-using IoT.Management.Model;
+using Thriot.Management.Model;
 
-namespace IoT.Management.Services
+namespace Thriot.Management.Services
 {
     public interface ISettingProvider
     {

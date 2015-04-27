@@ -1,9 +1,9 @@
 ﻿using System;
-using IoT.Platform.PersistentConnections.Commands;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using Thriot.Platform.PersistentConnections.Commands;
 
-namespace IoT.Platform.PersistentConnections.Tests
+namespace Thriot.Platform.PersistentConnections.Tests
 {
     [TestClass]
     public class CommandsTest

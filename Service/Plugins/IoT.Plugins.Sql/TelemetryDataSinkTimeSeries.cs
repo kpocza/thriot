@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
-using IoT.Framework.DataAccess;
-using IoT.Plugins.Core;
+using Thriot.Framework.DataAccess;
+using Thriot.Plugins.Core;
 
-namespace IoT.Plugins.Sql
+namespace Thriot.Plugins.Sql
 {
     public class TelemetryDataSinkTimeSeries : TelemetryDataSinkBase, ITelemetryDataSinkTimeSeries
     {

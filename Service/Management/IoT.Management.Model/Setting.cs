@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace IoT.Management.Model
+namespace Thriot.Management.Model
 {
     public class Setting
     {

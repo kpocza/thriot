@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Caching;
 
-namespace IoT.Messaging.Services.Caching
+namespace Thriot.Messaging.Services.Caching
 {
     public class MessageCache : IMessageCache
     {

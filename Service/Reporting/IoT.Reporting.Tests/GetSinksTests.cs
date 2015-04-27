@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using IoT.Objects.Model;
-using IoT.Objects.Model.Operations;
-using IoT.Reporting.Dto;
-using IoT.Reporting.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using Thriot.Objects.Model;
+using Thriot.Objects.Model.Operations;
+using Thriot.Reporting.Dto;
+using Thriot.Reporting.Services;
 
-namespace IoT.Reporting.Tests
+namespace Thriot.Reporting.Tests
 {
     [TestClass]
     public class GetSinksTests

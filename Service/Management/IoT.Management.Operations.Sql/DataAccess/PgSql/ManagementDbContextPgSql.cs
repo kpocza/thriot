@@ -1,8 +1,8 @@
 ﻿using System.Data.Common;
 using System.Data.Entity;
-using IoT.Management.Model;
+using Thriot.Management.Model;
 
-namespace IoT.Management.Operations.Sql.DataAccess.PgSql
+namespace Thriot.Management.Operations.Sql.DataAccess.PgSql
 {
     public class ManagementDbContextPgSql : ManagementDbContext
     {

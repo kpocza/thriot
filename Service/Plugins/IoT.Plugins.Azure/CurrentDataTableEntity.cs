@@ -1,7 +1,7 @@
 ﻿using System;
-using IoT.Framework.Azure.DataAccess;
+using Thriot.Framework.Azure.DataAccess;
 
-namespace IoT.Plugins.Azure
+namespace Thriot.Plugins.Azure
 {
     public class CurrentDataTableEntity : PreparableTableEntity
     {

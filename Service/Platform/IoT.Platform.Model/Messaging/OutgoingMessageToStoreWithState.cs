@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Text;
-using IoT.Framework;
+using Thriot.Framework;
 
-namespace IoT.Platform.Model.Messaging
+namespace Thriot.Platform.Model.Messaging
 {
     public class OutgoingMessageToStoreWithState
     {

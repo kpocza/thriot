@@ -1,11 +1,11 @@
-﻿using IoT.Framework;
-using IoT.Management.Model;
-using IoT.Management.Model.Operations;
-using IoT.UnitTestHelpers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using Thriot.Framework;
+using Thriot.Management.Model;
+using Thriot.Management.Model.Operations;
+using Thriot.TestHelpers;
 
-namespace IoT.Management.Services.Tests
+namespace Thriot.Management.Services.Tests
 {
     [TestClass]
     public class SettingProviderTest

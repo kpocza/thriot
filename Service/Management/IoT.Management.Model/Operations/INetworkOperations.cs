@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace IoT.Management.Model.Operations
+namespace Thriot.Management.Model.Operations
 {
     public interface INetworkOperations
     {

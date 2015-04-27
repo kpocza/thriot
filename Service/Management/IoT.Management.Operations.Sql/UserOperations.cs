@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using IoT.Framework;
-using IoT.Framework.Exceptions;
-using IoT.Management.Model;
-using IoT.Management.Model.Operations;
-using IoT.Management.Operations.Sql.DataAccess;
+using Thriot.Framework;
+using Thriot.Framework.Exceptions;
+using Thriot.Management.Model;
+using Thriot.Management.Model.Operations;
+using Thriot.Management.Operations.Sql.DataAccess;
 
-namespace IoT.Management.Operations.Sql
+namespace Thriot.Management.Operations.Sql
 {
     public class UserOperations : IUserOperations
     {

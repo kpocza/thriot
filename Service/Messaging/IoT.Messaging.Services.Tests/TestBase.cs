@@ -1,8 +1,8 @@
-﻿using IoT.Framework;
-using IoT.Messaging.Services.Caching;
-using IoT.Messaging.Services.Storage;
+﻿using Thriot.Framework;
+using Thriot.Messaging.Services.Caching;
+using Thriot.Messaging.Services.Storage;
 
-namespace IoT.Messaging.Services.Tests
+namespace Thriot.Messaging.Services.Tests
 {
     public class TestBase
     {

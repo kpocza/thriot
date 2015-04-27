@@ -1,6 +1,6 @@
-﻿using IoT.Framework.Azure.TableOperations;
+﻿using Thriot.Framework.Azure.TableOperations;
 
-namespace IoT.Framework.Azure.DataAccess
+namespace Thriot.Framework.Azure.DataAccess
 {
     public class GenericRepository<T> : Repository<T>
         where T : PreparableTableEntity, new()

@@ -2,7 +2,7 @@
 using System.Net.Mail;
 using System.Text.RegularExpressions;
 
-namespace IoT.Framework
+namespace Thriot.Framework
 {
     public static class Validator
     {

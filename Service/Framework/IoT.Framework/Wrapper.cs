@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace IoT.Framework
+namespace Thriot.Framework
 {
     public class Wrapper<T>
         where T : class

@@ -1,6 +1,6 @@
-using IoT.Messaging.Services.Storage;
+using Thriot.Messaging.Services.Storage;
 
-namespace IoT.Messaging.PerformanceTest
+namespace Thriot.Messaging.PerformanceTest
 {
     internal class ConnectionStringResolverPgSql : IConnectionStringResolver
     {

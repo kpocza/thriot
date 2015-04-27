@@ -2,7 +2,7 @@
 using System.Text;
 using Newtonsoft.Json;
 
-namespace IoT.ServiceClient.Messaging
+namespace Thriot.ServiceClient.Messaging
 {
     public class MessagingService : IMessagingService
     {

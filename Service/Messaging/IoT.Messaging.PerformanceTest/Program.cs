@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using IoT.Framework;
-using IoT.ServiceClient.Messaging;
+using Thriot.Framework;
+using Thriot.ServiceClient.Messaging;
 
-namespace IoT.Messaging.PerformanceTest
+namespace Thriot.Messaging.PerformanceTest
 {
     class Program
     {

@@ -2,7 +2,7 @@
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
 
-namespace IoT.Framework
+namespace Thriot.Framework
 {
     public class SingleContainer
     {

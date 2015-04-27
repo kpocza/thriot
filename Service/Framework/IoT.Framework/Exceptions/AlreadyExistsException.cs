@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IoT.Framework.Exceptions
+namespace Thriot.Framework.Exceptions
 {
     public class AlreadyExistsException : Exception
     {

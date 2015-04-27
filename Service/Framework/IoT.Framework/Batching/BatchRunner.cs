@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using IoT.Framework.Logging;
+using Thriot.Framework.Logging;
 
-namespace IoT.Framework.Batching
+namespace Thriot.Framework.Batching
 {
     public class BatchRunner<TParameter, TResult>
     {

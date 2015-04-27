@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
-using IoT.Web.Models;
+using Thriot.Web.Models;
 
-namespace IoT.Web.Controllers
+namespace Thriot.Web.Controllers
 {
     public class MgmtController : Controller
     {

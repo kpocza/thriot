@@ -1,7 +1,7 @@
 ﻿using System;
-using IoT.Platform.Model;
+using Thriot.Platform.Model;
 
-namespace IoT.Platform.Services.Messaging
+namespace Thriot.Platform.Services.Messaging
 {
     public class BatchParameters : IBatchParameters
     {

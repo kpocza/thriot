@@ -1,17 +1,17 @@
 ﻿using System.Net;
 using System.Web.Http;
-using IoT.Framework;
-using IoT.Framework.Web;
-using IoT.Framework.Web.ApiExceptions;
-using IoT.Framework.Web.Logging;
-using IoT.Management.Model.Exceptions;
 using Microsoft.Owin;
 using Microsoft.Owin.Cors;
 using Owin;
+using Thriot.Framework;
+using Thriot.Framework.Web;
+using Thriot.Framework.Web.ApiExceptions;
+using Thriot.Framework.Web.Logging;
+using Thriot.Management.Model.Exceptions;
 
-[assembly: OwinStartup(typeof(IoT.Management.WebApi.Startup))] 
+[assembly: OwinStartup(typeof(Thriot.Management.WebApi.Startup))] 
 
-namespace IoT.Management.WebApi
+namespace Thriot.Management.WebApi
 {
     public  class Startup
     {

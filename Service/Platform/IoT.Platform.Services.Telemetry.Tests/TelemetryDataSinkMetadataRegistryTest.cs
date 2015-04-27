@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using IoT.Platform.Services.Telemetry.Configuration;
-using IoT.Platform.Services.Telemetry.Metadata;
-using IoT.Plugins.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Thriot.Platform.Services.Telemetry.Configuration;
+using Thriot.Platform.Services.Telemetry.Metadata;
+using Thriot.Plugins.Core;
 
-namespace IoT.Platform.Services.Telemetry.Tests
+namespace Thriot.Platform.Services.Telemetry.Tests
 {
     [TestClass]
     public class TelemetryDataSinkMetadataRegistryTest

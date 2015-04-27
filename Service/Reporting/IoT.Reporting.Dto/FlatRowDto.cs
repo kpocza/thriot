@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace IoT.Reporting.Dto
+namespace Thriot.Reporting.Dto
 {
     public class FlatRowDto
     {

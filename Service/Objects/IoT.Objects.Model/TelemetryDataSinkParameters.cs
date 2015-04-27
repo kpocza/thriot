@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace IoT.Objects.Model
+namespace Thriot.Objects.Model
 {
     public class TelemetryDataSinkParameters
     {

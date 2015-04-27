@@ -1,4 +1,4 @@
-﻿namespace IoT.Platform.WebsocketService
+﻿namespace Thriot.Platform.WebsocketService
 {
     partial class ProjectInstaller
     {

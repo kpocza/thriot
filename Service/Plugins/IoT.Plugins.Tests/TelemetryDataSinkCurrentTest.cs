@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using IoT.Framework;
-using IoT.Management.Dto;
-using IoT.Plugins.Core;
-using IoT.UnitTestHelpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Thriot.Framework;
+using Thriot.Management.Dto;
+using Thriot.Plugins.Core;
+using Thriot.TestHelpers;
 
-namespace IoT.Plugins.Tests
+namespace Thriot.Plugins.Tests
 {
     [TestClass]
     public class TelemetryDataSinkCurrentTest : TestBase

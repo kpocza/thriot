@@ -1,13 +1,13 @@
 ﻿using System;
-using IoT.Framework;
-using IoT.Framework.Logging;
-using IoT.Platform.Model.Messaging;
-using IoT.Platform.PersistentConnections;
 using SuperSocket.SocketBase;
 using SuperSocket.WebSocket;
 using SuperSocket.WebSocket.SubProtocol;
+using Thriot.Framework;
+using Thriot.Framework.Logging;
+using Thriot.Platform.Model.Messaging;
+using Thriot.Platform.PersistentConnections;
 
-namespace IoT.Platform.WebsocketService
+namespace Thriot.Platform.WebsocketService
 {
     class IotSession : WebSocketSession<IotSession>, IPersistentConnection
     {

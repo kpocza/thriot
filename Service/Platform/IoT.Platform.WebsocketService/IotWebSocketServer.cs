@@ -1,6 +1,6 @@
 ﻿using SuperSocket.WebSocket;
 
-namespace IoT.Platform.WebsocketService
+namespace Thriot.Platform.WebsocketService
 {
     class IotWebSocketServer : WebSocketServer<IotSession>
     {

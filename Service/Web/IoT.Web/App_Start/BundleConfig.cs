@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace IoT.Management.Web
+namespace Thriot.Management.Web
 {
     public class BundleConfig
     {

@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using IoT.Framework.Azure.DataAccess;
-using IoT.Framework.Azure.TableOperations;
-using IoT.Framework.Exceptions;
-using IoT.Objects.Model;
-using IoT.Objects.Model.Operations;
-using IoT.Objects.Operations.Azure.DataAccess;
+using Thriot.Framework.Azure.DataAccess;
+using Thriot.Framework.Azure.TableOperations;
+using Thriot.Framework.Exceptions;
+using Thriot.Objects.Model;
+using Thriot.Objects.Model.Operations;
+using Thriot.Objects.Operations.Azure.DataAccess;
 
-namespace IoT.Objects.Operations.Azure
+namespace Thriot.Objects.Operations.Azure
 {
     public class NetworkOperations : INetworkOperations
     {

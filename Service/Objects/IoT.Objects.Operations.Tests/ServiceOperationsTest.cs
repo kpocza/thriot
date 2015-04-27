@@ -1,14 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using IoT.Framework;
-using IoT.Management.Dto;
-using IoT.Management.Services;
-using IoT.UnitTestHelpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-using TelemetrySetup = IoT.ServiceClient.TelemetrySetup;
+using Thriot.Framework;
+using Thriot.Management.Dto;
+using Thriot.Management.Services;
+using Thriot.ServiceClient.TelemetrySetup;
+using Thriot.TestHelpers;
+using TelemetryDataSinkMetadataDto = Thriot.ServiceClient.TelemetrySetup.TelemetryDataSinkMetadataDto;
+using TelemetryDataSinksMetadataDto = Thriot.ServiceClient.TelemetrySetup.TelemetryDataSinksMetadataDto;
+using TelemetrySetup = Thriot.ServiceClient.TelemetrySetup;
 
-namespace IoT.Objects.Operations.Tests
+namespace Thriot.Objects.Operations.Tests
 {
     [TestClass]
     public class ServiceOperationsTest
@@ -81,13 +84,13 @@ namespace IoT.Objects.Operations.Tests
             _companyId = companyService.Create("new company");
 
             var serviceOperations = environmentFactory.MgmtServiceOperations;
-            var telemetryDataSinkSetupService = Substitute.For<TelemetrySetup.ITelemetryDataSinkSetupService>();
+            var telemetryDataSinkSetupService = Substitute.For<ITelemetryDataSinkSetupService>();
             telemetryDataSinkSetupService.GetTelemetryDataSinksMetadata().Returns(
-                new TelemetrySetup.TelemetryDataSinksMetadataDto
+                new TelemetryDataSinksMetadataDto
                 {
-                    Incoming = new List<TelemetrySetup.TelemetryDataSinkMetadataDto>
+                    Incoming = new List<TelemetryDataSinkMetadataDto>
                     {
-                        new TelemetrySetup.TelemetryDataSinkMetadataDto
+                        new TelemetryDataSinkMetadataDto
                         {
                             Name = "test",
                             Description = null,

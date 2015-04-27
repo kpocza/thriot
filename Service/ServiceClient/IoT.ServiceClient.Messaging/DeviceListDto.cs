@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace IoT.ServiceClient.Messaging
+namespace Thriot.ServiceClient.Messaging
 {
     public class DeviceListDto
     {

@@ -1,8 +1,8 @@
 ﻿using System.Data.Entity;
 using System.Linq;
-using IoT.Management.Model;
+using Thriot.Management.Model;
 
-namespace IoT.Management.Operations.Sql.DataAccess
+namespace Thriot.Management.Operations.Sql.DataAccess
 {
     public class LoginUserRepository
     {

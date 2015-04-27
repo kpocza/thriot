@@ -2,11 +2,11 @@
 using System.Configuration;
 using System.Data.Entity.Migrations;
 using System.IO;
-using IoT.Framework;
-using IoT.Management.Model;
-using IoT.Management.Operations.Sql.DataAccess;
+using Thriot.Framework;
+using Thriot.Management.Model;
+using Thriot.Management.Operations.Sql.DataAccess;
 
-namespace IoT.CreateSqlStorage
+namespace Thriot.CreateSqlStorage
 {
     class Program
     {

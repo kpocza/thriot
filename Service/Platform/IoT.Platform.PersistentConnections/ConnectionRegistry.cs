@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using IoT.Framework;
-using IoT.Framework.Logging;
+using Thriot.Framework;
+using Thriot.Framework.Logging;
 
-namespace IoT.Platform.PersistentConnections
+namespace Thriot.Platform.PersistentConnections
 {
     public class ConnectionRegistry
     {

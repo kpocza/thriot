@@ -1,18 +1,18 @@
 ﻿using System.Web.Http;
-using IoT.Framework.Logging;
-using IoT.Platform.Services.Telemetry.Dtos;
-using IoT.Platform.WebApi.Auth;
-using TelemetryDataSinkSetupService = IoT.Platform.Services.Telemetry.TelemetryDataSinkSetupService;
+using Thriot.Framework.Logging;
+using Thriot.Platform.Services.Telemetry.Dtos;
+using Thriot.Platform.WebApi.Auth;
+using TelemetryDataSinkSetupService = Thriot.Platform.Services.Telemetry.TelemetryDataSinkSetupService;
 
-namespace IoT.Platform.WebApi.Controllers
+namespace Thriot.Platform.WebApi.Controllers
 {
     [RoutePrefix("v1/telemetryDataSinkSetup")]
     [TelemetryWebApiAuthenticator]
     public class TelemetryDataSinkSetupServiceV1Controller : ApiController, ILoggerOwner
     {
-        private readonly TelemetryDataSinkSetupService _telemetryDataSinkSetupService;
+        private readonly Services.Telemetry.TelemetryDataSinkSetupService _telemetryDataSinkSetupService;
 
-        public TelemetryDataSinkSetupServiceV1Controller(TelemetryDataSinkSetupService telemetryDataSinkSetupService)
+        public TelemetryDataSinkSetupServiceV1Controller(Services.Telemetry.TelemetryDataSinkSetupService telemetryDataSinkSetupService)
         {
             _telemetryDataSinkSetupService = telemetryDataSinkSetupService;
         }

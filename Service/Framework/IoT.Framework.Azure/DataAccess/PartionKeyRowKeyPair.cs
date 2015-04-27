@@ -1,4 +1,4 @@
-﻿namespace IoT.Framework.Azure.DataAccess
+﻿namespace Thriot.Framework.Azure.DataAccess
 {
     public class PartionKeyRowKeyPair
     {

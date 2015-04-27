@@ -1,6 +1,6 @@
 using System.Configuration;
 
-namespace IoT.Framework.DataAccess
+namespace Thriot.Framework.DataAccess
 {
     public interface IDynamicConnectionStringResolver
     {

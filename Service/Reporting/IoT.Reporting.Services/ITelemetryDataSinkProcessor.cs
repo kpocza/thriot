@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using IoT.Plugins.Core;
+using Thriot.Plugins.Core;
 
-namespace IoT.Reporting.Services
+namespace Thriot.Reporting.Services
 {
     public interface ITelemetryDataSinkProcessor
     {

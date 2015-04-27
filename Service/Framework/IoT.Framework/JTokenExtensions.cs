@@ -2,7 +2,7 @@
 using System.Linq;
 using Newtonsoft.Json.Linq;
 
-namespace IoT.Framework
+namespace Thriot.Framework
 {
     public static class JTokenExtensions
     {

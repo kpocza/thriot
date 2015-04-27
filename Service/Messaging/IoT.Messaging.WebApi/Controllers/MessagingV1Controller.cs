@@ -1,10 +1,10 @@
 ﻿using System.Web.Http;
-using IoT.Framework.Logging;
-using IoT.Messaging.Dto;
-using IoT.Messaging.Services;
-using IoT.Messaging.WebApi.Auth;
+using Thriot.Framework.Logging;
+using Thriot.Messaging.Dto;
+using Thriot.Messaging.Services;
+using Thriot.Messaging.WebApi.Auth;
 
-namespace IoT.Messaging.WebApi.Controllers
+namespace Thriot.Messaging.WebApi.Controllers
 {
     [RoutePrefix("v1/messaging")]
     [MessagingWebApiAuthenticator]

@@ -1,8 +1,8 @@
-﻿using IoT.Management.Services;
-using IoT.UnitTestHelpers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Thriot.Management.Services;
+using Thriot.TestHelpers;
 
-namespace IoT.Objects.Operations.Tests
+namespace Thriot.Objects.Operations.Tests
 {
     [TestClass]
     public class AssemblyInitTest

@@ -1,10 +1,10 @@
 ﻿using System.Web.Http;
-using IoT.Framework.Logging;
-using IoT.Platform.Services.Telemetry;
-using IoT.Platform.WebApi.Auth;
 using Newtonsoft.Json.Linq;
+using Thriot.Framework.Logging;
+using Thriot.Platform.Services.Telemetry;
+using Thriot.Platform.WebApi.Auth;
 
-namespace IoT.Platform.WebApi.Controllers
+namespace Thriot.Platform.WebApi.Controllers
 {
     [RoutePrefix("v1/telemetry")]
     [WebApiDeviceAuthenticator]

@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 
-namespace IoT.Framework.Tests
+namespace Thriot.Framework.Tests
 {
     [TestClass]
     public class JTokenExtensionsTest

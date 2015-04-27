@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IoT.ServiceClient.Messaging
+namespace Thriot.ServiceClient.Messaging
 {
     public class DequeueMessageDto
     {

@@ -1,8 +1,8 @@
-﻿using IoT.Framework;
-using IoT.Management.Services;
-using IoT.ServiceClient.Messaging;
+﻿using Thriot.Framework;
+using Thriot.Management.Services;
+using Thriot.ServiceClient.Messaging;
 
-namespace IoT.Management.WebApi
+namespace Thriot.Management.WebApi
 {
     public class MessagingServiceConfig
     {

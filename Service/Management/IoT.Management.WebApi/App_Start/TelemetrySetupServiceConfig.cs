@@ -1,8 +1,8 @@
-﻿using IoT.Framework;
-using IoT.Management.Services;
-using IoT.ServiceClient.TelemetrySetup;
+﻿using Thriot.Framework;
+using Thriot.Management.Services;
+using Thriot.ServiceClient.TelemetrySetup;
 
-namespace IoT.Management.WebApi
+namespace Thriot.Management.WebApi
 {
     public class TelemetrySetupServiceConfig
     {

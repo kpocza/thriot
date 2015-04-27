@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using IoT.Framework.Azure.DataAccess;
-using IoT.Framework.DataAccess;
-using IoT.Plugins.Core;
+using Thriot.Framework.Azure.DataAccess;
+using Thriot.Framework.DataAccess;
+using Thriot.Plugins.Core;
 
-namespace IoT.Plugins.Azure
+namespace Thriot.Plugins.Azure
 {
     public class TelemetryDataSinkCurrent : TelemetryDataSinkBase, ITelemetryDataSinkCurrent
     {

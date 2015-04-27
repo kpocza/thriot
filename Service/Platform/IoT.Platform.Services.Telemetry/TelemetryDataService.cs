@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
-using IoT.Framework;
-using IoT.Framework.Exceptions;
-using IoT.Plugins.Core;
+using Thriot.Framework;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Thriot.Framework.Exceptions;
+using Thriot.Plugins.Core;
 
-namespace IoT.Platform.Services.Telemetry
+namespace Thriot.Platform.Services.Telemetry
 {
     public class TelemetryDataService
     {

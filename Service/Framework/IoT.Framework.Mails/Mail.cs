@@ -6,7 +6,7 @@ using System.Net.Mime;
 using System.Text.RegularExpressions;
 using RazorEngine;
 
-namespace IoT.Framework.Mails
+namespace Thriot.Framework.Mails
 {
     public class Mail
     {

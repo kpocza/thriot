@@ -1,22 +1,24 @@
-﻿using IoT.Messaging.Services.Caching;
-using IoT.Messaging.Services.Storage;
-using IoT.ServiceClient.Messaging;
-using DequeueMessageDto = IoT.ServiceClient.Messaging.DequeueMessageDto;
-using DequeueMessagesDto = IoT.ServiceClient.Messaging.DequeueMessagesDto;
-using DeviceListDto = IoT.ServiceClient.Messaging.DeviceListDto;
-using EnqueueMessagesDto = IoT.ServiceClient.Messaging.EnqueueMessagesDto;
-using MSvc = IoT.Messaging.Services;
+﻿using Thriot.Messaging.Services;
+using Thriot.Messaging.Services.Caching;
+using Thriot.Messaging.Services.Storage;
+using Thriot.ServiceClient.Messaging;
+using DequeueMessageDto = Thriot.ServiceClient.Messaging.DequeueMessageDto;
+using DequeueMessagesDto = Thriot.ServiceClient.Messaging.DequeueMessagesDto;
+using DeviceListDto = Thriot.ServiceClient.Messaging.DeviceListDto;
+using EnqueueMessagesDto = Thriot.ServiceClient.Messaging.EnqueueMessagesDto;
+using MessagingService = Thriot.Messaging.Services.MessagingService;
+using MSvc = Thriot.Messaging.Services;
 
-namespace IoT.UnitTestHelpers
+namespace Thriot.TestHelpers
 {
     public class InMemoryMessagingService : IMessagingService
     {
         public static readonly IMessagingService Instance = new InMemoryMessagingService();
-        private readonly MSvc.MessagingService _messagingService;
+        private readonly MessagingService _messagingService;
 
         private InMemoryMessagingService()
         {
-            _messagingService = new MSvc.MessagingService(new MessageCache(), new PersistentStorageStub());
+            _messagingService = new MessagingService(new MessageCache(), new PersistentStorageStub());
         }
 
         public void Setup(string serviceUrl, string apiKey)
@@ -28,9 +30,9 @@ namespace IoT.UnitTestHelpers
             return _messagingService.Initialize(deviceId);
         }
 
-        public DeviceListDto Enqueue(EnqueueMessagesDto enqueueMessages)
+        public ServiceClient.Messaging.DeviceListDto Enqueue(ServiceClient.Messaging.EnqueueMessagesDto enqueueMessages)
         {
-            return new DeviceListDto
+            return new ServiceClient.Messaging.DeviceListDto
             {
                 DeviceIds =
                     _messagingService.Enqueue(new Messaging.Dto.EnqueueMessagesDto
@@ -45,13 +47,13 @@ namespace IoT.UnitTestHelpers
             };
         }
 
-        public DequeueMessagesDto Dequeue(DeviceListDto deviceList)
+        public ServiceClient.Messaging.DequeueMessagesDto Dequeue(ServiceClient.Messaging.DeviceListDto deviceList)
         {
-            return new DequeueMessagesDto
+            return new ServiceClient.Messaging.DequeueMessagesDto
             {
                 Messages =
                     _messagingService.Dequeue(new Messaging.Dto.DeviceListDto {DeviceIds = deviceList.DeviceIds})
-                        .Messages.ConvertAll(m => new DequeueMessageDto
+                        .Messages.ConvertAll(m => new ServiceClient.Messaging.DequeueMessageDto
                         {
                             DeviceId = m.DeviceId,
                             MessageId = m.MessageId,
@@ -61,13 +63,13 @@ namespace IoT.UnitTestHelpers
             };
         }
 
-        public DequeueMessagesDto Peek(DeviceListDto deviceList)
+        public ServiceClient.Messaging.DequeueMessagesDto Peek(ServiceClient.Messaging.DeviceListDto deviceList)
         {
-            return new DequeueMessagesDto
+            return new ServiceClient.Messaging.DequeueMessagesDto
             {
                 Messages =
                     _messagingService.Peek(new Messaging.Dto.DeviceListDto { DeviceIds = deviceList.DeviceIds })
-                        .Messages.ConvertAll(m => new DequeueMessageDto
+                        .Messages.ConvertAll(m => new ServiceClient.Messaging.DequeueMessageDto
                         {
                             DeviceId = m.DeviceId,
                             MessageId = m.MessageId,
@@ -77,9 +79,9 @@ namespace IoT.UnitTestHelpers
             };
         }
 
-        public DeviceListDto Commit(DeviceListDto deviceList)
+        public ServiceClient.Messaging.DeviceListDto Commit(ServiceClient.Messaging.DeviceListDto deviceList)
         {
-            return new DeviceListDto
+            return new ServiceClient.Messaging.DeviceListDto
             {
                 DeviceIds =
                     _messagingService.Commit(new Messaging.Dto.DeviceListDto {DeviceIds = deviceList.DeviceIds})

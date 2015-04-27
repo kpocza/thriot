@@ -1,7 +1,7 @@
 using System;
 using System.Net;
 
-namespace IoT.Framework.DataAccess
+namespace Thriot.Framework.DataAccess
 {
     public class StorageAccessException : Exception
     {

@@ -1,6 +1,6 @@
-﻿using IoT.Reporting.Dto;
+﻿using Thriot.Reporting.Dto;
 
-namespace IoT.Reporting.Services
+namespace Thriot.Reporting.Services
 {
     public class SinkInfo
     {

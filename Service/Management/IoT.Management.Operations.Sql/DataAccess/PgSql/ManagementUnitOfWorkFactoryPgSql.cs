@@ -1,6 +1,6 @@
-﻿using IoT.Framework.DataAccess;
+﻿using Thriot.Framework.DataAccess;
 
-namespace IoT.Management.Operations.Sql.DataAccess.PgSql
+namespace Thriot.Management.Operations.Sql.DataAccess.PgSql
 {
     public class ManagementUnitOfWorkFactoryPgSql : ManagementUnitOfWorkFactory
     {

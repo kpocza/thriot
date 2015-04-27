@@ -1,7 +1,7 @@
-﻿using IoT.Objects.Model;
-using IoT.Objects.Model.Operations;
+﻿using Thriot.Objects.Model;
+using Thriot.Objects.Model.Operations;
 
-namespace IoT.Objects.Common.CachingOperations
+namespace Thriot.Objects.Common.CachingOperations
 {
     public class ServiceOperations : CachingBase<Service>, IServiceOperations
     {

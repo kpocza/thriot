@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using IoT.Platform.Model.Messaging;
+using Thriot.Platform.Model.Messaging;
 
-namespace IoT.Platform.Services.Messaging
+namespace Thriot.Platform.Services.Messaging
 {
     public class MessagingOperations : IMessagingOperations
     {

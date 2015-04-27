@@ -1,4 +1,4 @@
-﻿namespace IoT.Objects.Model.Operations
+﻿namespace Thriot.Objects.Model.Operations
 {
     public interface ICompanyOperations
     {

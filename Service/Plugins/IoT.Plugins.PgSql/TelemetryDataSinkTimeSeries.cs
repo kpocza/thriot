@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using IoT.Framework.DataAccess;
-using IoT.Plugins.Core;
 using Npgsql;
+using Thriot.Framework.DataAccess;
+using Thriot.Plugins.Core;
 
-namespace IoT.Plugins.PgSql
+namespace Thriot.Plugins.PgSql
 {
     public class TelemetryDataSinkTimeSeries : TelemetryDataSinkBase, ITelemetryDataSinkTimeSeries
     {

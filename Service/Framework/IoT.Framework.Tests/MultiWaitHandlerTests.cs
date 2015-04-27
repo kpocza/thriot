@@ -2,10 +2,10 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
-using IoT.Framework.Batching;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Thriot.Framework.Batching;
 
-namespace IoT.Framework.Tests
+namespace Thriot.Framework.Tests
 {
     [TestClass]
     public class MultiWaitHandlerTests

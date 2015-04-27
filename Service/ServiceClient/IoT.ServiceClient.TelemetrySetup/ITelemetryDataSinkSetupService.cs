@@ -1,4 +1,4 @@
-﻿namespace IoT.ServiceClient.TelemetrySetup
+﻿namespace Thriot.ServiceClient.TelemetrySetup
 {
     public interface ITelemetryDataSinkSetupService
     {

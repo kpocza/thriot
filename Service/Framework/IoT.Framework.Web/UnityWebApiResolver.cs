@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Web.Http.Dependencies;
 
-namespace IoT.Framework.Web
+namespace Thriot.Framework.Web
 {
     public class UnityWebApiResolver : IDependencyResolver
     {

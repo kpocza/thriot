@@ -2,24 +2,24 @@
 using System.Net;
 using System.Threading;
 using System.Web.Http;
-using IoT.Framework;
-using IoT.Framework.Web;
-using IoT.Framework.Web.ApiExceptions;
-using IoT.Framework.Web.Logging;
-using IoT.Platform.Model;
-using IoT.Platform.Services.Messaging;
-using IoT.Platform.Services.Telemetry;
-using IoT.Platform.Services.Telemetry.Configuration;
-using IoT.Platform.Services.Telemetry.Metadata;
-using IoT.Platform.WebApi;
+using Thriot.Platform.WebApi;
 using Microsoft.Owin;
 using Microsoft.Owin.BuilderProperties;
 using Microsoft.Owin.Cors;
 using Owin;
+using Thriot.Framework;
+using Thriot.Framework.Web;
+using Thriot.Framework.Web.ApiExceptions;
+using Thriot.Framework.Web.Logging;
+using Thriot.Platform.Model;
+using Thriot.Platform.Services.Messaging;
+using Thriot.Platform.Services.Telemetry;
+using Thriot.Platform.Services.Telemetry.Configuration;
+using Thriot.Platform.Services.Telemetry.Metadata;
 
 [assembly: OwinStartup(typeof(Startup))] 
 
-namespace IoT.Platform.WebApi
+namespace Thriot.Platform.WebApi
 {
     public  class Startup
     {

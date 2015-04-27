@@ -1,12 +1,12 @@
 ﻿using System;
-using IoT.Framework.Exceptions;
-using IoT.Objects.Model.Operations;
-using IoT.Platform.Model.Messaging;
-using IoT.UnitTestHelpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using Thriot.Framework.Exceptions;
+using Thriot.Objects.Model.Operations;
+using Thriot.Platform.Model.Messaging;
+using Thriot.TestHelpers;
 
-namespace IoT.Platform.Services.Messaging.Tests
+namespace Thriot.Platform.Services.Messaging.Tests
 {
     [TestClass]
     public class MessagingServiceTest

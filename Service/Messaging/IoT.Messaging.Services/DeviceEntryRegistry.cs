@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using IoT.Messaging.Services.Storage;
+using Thriot.Messaging.Services.Storage;
 
-namespace IoT.Messaging.Services
+namespace Thriot.Messaging.Services
 {
     public class DeviceEntryRegistry
     {

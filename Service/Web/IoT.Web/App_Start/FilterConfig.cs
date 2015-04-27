@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace IoT.Management.Web
+namespace Thriot.Management.Web
 {
     public class FilterConfig
     {

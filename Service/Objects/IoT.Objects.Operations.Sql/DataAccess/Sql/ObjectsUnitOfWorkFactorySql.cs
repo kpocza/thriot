@@ -1,6 +1,6 @@
-﻿using IoT.Framework.DataAccess;
+﻿using Thriot.Framework.DataAccess;
 
-namespace IoT.Objects.Operations.Sql.DataAccess.Sql
+namespace Thriot.Objects.Operations.Sql.DataAccess.Sql
 {
     public class ObjectsUnitOfWorkFactorySql : ObjectsUnitOfWorkFactory
     {

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using IoT.Objects.Model;
-using IoT.Objects.Model.Operations;
-using IoT.Plugins.Core;
-using IoT.Reporting.Dto;
+using Thriot.Objects.Model;
+using Thriot.Objects.Model.Operations;
+using Thriot.Plugins.Core;
+using Thriot.Reporting.Dto;
 
-namespace IoT.Reporting.Services
+namespace Thriot.Reporting.Services
 {
     public class DeviceReportingService
     {

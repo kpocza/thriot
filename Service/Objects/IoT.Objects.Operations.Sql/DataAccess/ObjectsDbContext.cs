@@ -1,10 +1,10 @@
 ﻿using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using IoT.Framework.Sql;
-using IoT.Objects.Model;
+using Thriot.Framework.Sql;
+using Thriot.Objects.Model;
 
-namespace IoT.Objects.Operations.Sql.DataAccess
+namespace Thriot.Objects.Operations.Sql.DataAccess
 {
     public abstract class ObjectsDbContext : DbContext
     {

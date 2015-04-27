@@ -1,4 +1,4 @@
-﻿namespace IoT.Reporting.Dto
+﻿namespace Thriot.Reporting.Dto
 {
     public enum SinkType
     {

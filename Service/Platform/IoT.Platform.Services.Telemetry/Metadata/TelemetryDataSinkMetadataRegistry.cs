@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using IoT.Platform.Services.Telemetry.Configuration;
-using IoT.Plugins.Core;
+using Thriot.Platform.Services.Telemetry.Configuration;
+using Thriot.Plugins.Core;
 
-namespace IoT.Platform.Services.Telemetry.Metadata
+namespace Thriot.Platform.Services.Telemetry.Metadata
 {
     public class TelemetryDataSinkMetadataRegistry : ITelemetryDataSinkMetadataRegistry
     {

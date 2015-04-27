@@ -1,9 +1,10 @@
-﻿using IoT.Framework.Azure.DataAccess;
-using IoT.Framework.Azure.TableOperations;
-using IoT.Plugins.Core;
-using IoT.ServiceClient.Messaging;
+﻿using Thriot.Framework.Azure.DataAccess;
+using Thriot.Framework.Azure.TableOperations;
+using Thriot.Plugins.Azure;
+using Thriot.Plugins.Core;
+using Thriot.ServiceClient.Messaging;
 
-namespace IoT.UnitTestHelpers
+namespace Thriot.TestHelpers
 {
     public class AzureEnvironmentFactory : IEnvironmentFactory
     {
@@ -83,12 +84,12 @@ namespace IoT.UnitTestHelpers
 
         public ITelemetryDataSinkCurrent TelemetryDataSinkCurrent
         {
-            get { return new IoT.Plugins.Azure.TelemetryDataSinkCurrent(); }
+            get { return new TelemetryDataSinkCurrent(); }
         }
 
         public ITelemetryDataSinkTimeSeries TelemetryDataSinkTimeSeries
         {
-            get { return new IoT.Plugins.Azure.TelemetryDataSinkTimeSeries(); }
+            get { return new TelemetryDataSinkTimeSeries(); }
         }
 
         private static volatile bool _created = false;

@@ -1,9 +1,9 @@
 using System;
 using System.Net;
-using IoT.Framework.DataAccess;
 using Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling;
+using Thriot.Framework.DataAccess;
 
-namespace IoT.Framework.Azure.TableOperations
+namespace Thriot.Framework.Azure.TableOperations
 {
     public class StorageTransientErrorDetectionStrategyWithConcurrency :
         StorageTransientErrorDetectionStrategy

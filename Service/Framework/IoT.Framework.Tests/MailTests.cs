@@ -1,10 +1,10 @@
 ﻿using System.IO;
 using System.Net.Mail;
 using System.Text;
-using IoT.Framework.Mails;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Thriot.Framework.Mails;
 
-namespace IoT.Framework.Tests
+namespace Thriot.Framework.Tests
 {
     [TestClass]
     public class MailTest

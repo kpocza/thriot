@@ -2,9 +2,9 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
-using IoT.Framework;
+using Thriot.Framework;
 
-namespace IoT.Platform.PersistentConnections
+namespace Thriot.Platform.PersistentConnections
 {
     public class PusherRegistry
     {

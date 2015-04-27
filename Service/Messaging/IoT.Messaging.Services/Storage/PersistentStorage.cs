@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 
-namespace IoT.Messaging.Services.Storage
+namespace Thriot.Messaging.Services.Storage
 {
     public class PersistentStorage : IPersistentStorage
     {

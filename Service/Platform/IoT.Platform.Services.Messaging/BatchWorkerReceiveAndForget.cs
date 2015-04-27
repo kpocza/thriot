@@ -1,6 +1,6 @@
-using IoT.ServiceClient.Messaging;
+using Thriot.ServiceClient.Messaging;
 
-namespace IoT.Platform.Services.Messaging
+namespace Thriot.Platform.Services.Messaging
 {
     internal class BatchWorkerReceiveAndForget : BatchWorkerReceive
     {

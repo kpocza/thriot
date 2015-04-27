@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IoT.Messaging.Dto
+namespace Thriot.Messaging.Dto
 {
     public class EnqueueMessageDto
     {

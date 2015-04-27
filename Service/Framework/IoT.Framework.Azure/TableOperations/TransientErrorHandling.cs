@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling;
 
-namespace IoT.Framework.Azure.TableOperations
+namespace Thriot.Framework.Azure.TableOperations
 {
     public static class TransientErrorHandling
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace IoT.Framework.Batching
+namespace Thriot.Framework.Batching
 {
     public interface IBatchWorker<TParameter, TResult>
     {

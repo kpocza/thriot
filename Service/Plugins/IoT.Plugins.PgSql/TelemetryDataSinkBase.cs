@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using IoT.Framework.DataAccess;
-using IoT.Plugins.Core;
 using Npgsql;
+using Thriot.Framework.DataAccess;
+using Thriot.Plugins.Core;
 
-namespace IoT.Plugins.PgSql
+namespace Thriot.Plugins.PgSql
 {
     public abstract class TelemetryDataSinkBase : ITelemetryDataSink
     {

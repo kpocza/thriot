@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using IoT.Reporting.Dto;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Thriot.Reporting.Dto;
 
-namespace IoT.Reporting.Tests
+namespace Thriot.Reporting.Tests
 {
     [TestClass]
     public class TimeSeriesNetworkTests : NetworkTestBase

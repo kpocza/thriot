@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Security.Principal;
-using IoT.Framework;
-using IoT.Framework.Exceptions;
-using IoT.Management.Dto;
-using IoT.Management.Model;
-using IoT.UnitTestHelpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Thriot.Framework;
+using Thriot.Framework.Exceptions;
+using Thriot.Management.Dto;
+using Thriot.Management.Model;
+using Thriot.TestHelpers;
 
-namespace IoT.Management.Services.Tests
+namespace Thriot.Management.Services.Tests
 {
     [TestClass]
     public class SingleCompanyTest

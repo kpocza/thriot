@@ -1,4 +1,4 @@
-﻿namespace IoT.Framework.Logging
+﻿namespace Thriot.Framework.Logging
 {
     public interface ILoggerOwner
     {

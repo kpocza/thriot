@@ -2,9 +2,9 @@
 using System.Security.Principal;
 using System.Text;
 using System.Web.Security;
-using IoT.Management.Services;
+using Thriot.Management.Services;
 
-namespace IoT.Management.WebApi.Auth
+namespace Thriot.Management.WebApi.Auth
 {
     public class AuthTokenHandler
     {

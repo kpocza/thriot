@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
-using IoT.Framework.Logging;
+using Thriot.Framework.Logging;
 
-namespace IoT.Framework.Web.Logging
+namespace Thriot.Framework.Web.Logging
 {
     public class LogActionsAttribute : ActionFilterAttribute
     {

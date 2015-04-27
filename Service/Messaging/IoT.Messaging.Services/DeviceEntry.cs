@@ -1,4 +1,4 @@
-﻿namespace IoT.Messaging.Services
+﻿namespace Thriot.Messaging.Services
 {
     public class DeviceEntry
     {

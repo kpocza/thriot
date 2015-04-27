@@ -1,11 +1,11 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Net;
-using IoT.Framework.Azure.DataAccess;
-using IoT.Framework.DataAccess;
 using Microsoft.WindowsAzure.Storage.Table;
+using Thriot.Framework.Azure.DataAccess;
+using Thriot.Framework.DataAccess;
 
-namespace IoT.Framework.Azure.TableOperations
+namespace Thriot.Framework.Azure.TableOperations
 {
     public class InMemoryTable
     {

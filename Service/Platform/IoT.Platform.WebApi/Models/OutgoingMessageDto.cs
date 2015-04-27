@@ -1,8 +1,8 @@
 ﻿using System;
-using IoT.Framework;
-using IoT.Platform.Model.Messaging;
+using Thriot.Framework;
+using Thriot.Platform.Model.Messaging;
 
-namespace IoT.Platform.WebApi.Models
+namespace Thriot.Platform.WebApi.Models
 {
     public class OutgoingMessageDto
     {

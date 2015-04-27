@@ -1,7 +1,7 @@
 ﻿using System.Web;
-using IoT.Framework.Mails;
+using Thriot.Framework.Mails;
 
-namespace IoT.Management.WebApi
+namespace Thriot.Management.WebApi
 {
     public class MailTemplateConfig
     {

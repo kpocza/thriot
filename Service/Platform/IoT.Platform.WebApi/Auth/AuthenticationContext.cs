@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Security.Claims;
 
-namespace IoT.Platform.WebApi.Auth
+namespace Thriot.Platform.WebApi.Auth
 {
     public class AuthenticationContext
     {

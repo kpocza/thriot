@@ -1,13 +1,13 @@
 ﻿using System;
-using IoT.Framework.Logging;
-using IoT.Objects.Model;
-using IoT.Objects.Model.Operations;
-using IoT.Platform.Model.Messaging;
-using IoT.Platform.PersistentConnections.Commands;
-using IoT.Platform.Services.Messaging;
-using IoT.Platform.Services.Telemetry;
+using Thriot.Framework.Logging;
+using Thriot.Objects.Model;
+using Thriot.Objects.Model.Operations;
+using Thriot.Platform.Model.Messaging;
+using Thriot.Platform.PersistentConnections.Commands;
+using Thriot.Platform.Services.Messaging;
+using Thriot.Platform.Services.Telemetry;
 
-namespace IoT.Platform.PersistentConnections
+namespace Thriot.Platform.PersistentConnections
 {
     public class CommandExecutor
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using IoT.Messaging.Services.Caching;
+using Thriot.Messaging.Services.Caching;
 
-namespace IoT.Messaging.Services
+namespace Thriot.Messaging.Services
 {
     public class DequeueHint
     {

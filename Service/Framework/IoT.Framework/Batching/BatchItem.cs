@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IoT.Framework.Batching
+namespace Thriot.Framework.Batching
 {
     public class BatchItem<TParameter>
     {

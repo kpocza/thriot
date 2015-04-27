@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using IoT.Framework.Logging;
-using IoT.Platform.Model.Messaging;
+using Thriot.Framework.Logging;
+using Thriot.Platform.Model.Messaging;
 
-namespace IoT.Platform.PersistentConnections
+namespace Thriot.Platform.PersistentConnections
 {
     public abstract class PersistentConnectionWorker
     {

@@ -1,7 +1,7 @@
-﻿using IoT.Framework.Azure.DataAccess;
-using Microsoft.WindowsAzure.Storage.Table;
+﻿using Microsoft.WindowsAzure.Storage.Table;
+using Thriot.Framework.Azure.DataAccess;
 
-namespace IoT.Management.Operations.Azure.DataAccess
+namespace Thriot.Management.Operations.Azure.DataAccess
 {
     public class LoginUserTableEntity : PreparableTableEntity
     {

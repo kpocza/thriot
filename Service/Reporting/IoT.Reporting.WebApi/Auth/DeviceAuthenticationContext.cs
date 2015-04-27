@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Security.Claims;
 
-namespace IoT.Reporting.WebApi.Auth
+namespace Thriot.Reporting.WebApi.Auth
 {
     public class DeviceAuthenticationContext
     {

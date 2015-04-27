@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using IoT.Framework.Batching;
-using IoT.Framework.Logging;
-using IoT.Platform.Model.Messaging;
-using IoT.ServiceClient.Messaging;
+using Thriot.Framework.Batching;
+using Thriot.Framework.Logging;
+using Thriot.Platform.Model.Messaging;
+using Thriot.ServiceClient.Messaging;
 
-namespace IoT.Platform.Services.Messaging
+namespace Thriot.Platform.Services.Messaging
 {
     internal class BatchWorkerRecord : IBatchWorker<OutgoingMessageToStore, OutgoingState>
     {

@@ -1,7 +1,7 @@
 ﻿using System;
-using IoT.Framework;
+using Thriot.Framework;
 
-namespace IoT.UnitTestHelpers
+namespace Thriot.TestHelpers
 {
     public class EmailHelper
     {

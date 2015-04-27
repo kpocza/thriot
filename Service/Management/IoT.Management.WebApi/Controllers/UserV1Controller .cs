@@ -3,13 +3,13 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
-using IoT.Framework.Logging;
-using IoT.Management.Dto;
-using IoT.Management.Services;
-using IoT.Management.WebApi.Auth;
-using IoT.Management.WebApi.WebFunctions;
+using Thriot.Framework.Logging;
+using Thriot.Management.Dto;
+using Thriot.Management.Services;
+using Thriot.Management.WebApi.Auth;
+using Thriot.Management.WebApi.WebFunctions;
 
-namespace IoT.Management.WebApi.Controllers
+namespace Thriot.Management.WebApi.Controllers
 {
     [RoutePrefix("v1/users")]
     public class UsersV1Controller : ApiController, ILoggerOwner

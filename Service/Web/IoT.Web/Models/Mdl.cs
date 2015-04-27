@@ -1,4 +1,4 @@
-﻿namespace IoT.Web.Models
+﻿namespace Thriot.Web.Models
 {
     public class Mdl
     {

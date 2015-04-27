@@ -1,6 +1,6 @@
-﻿using IoT.Messaging.Services.Storage;
+﻿using Thriot.Messaging.Services.Storage;
 
-namespace IoT.Messaging.Services.Tests
+namespace Thriot.Messaging.Services.Tests
 {
     public class ConnectionStringResolver : IConnectionStringResolver
     {

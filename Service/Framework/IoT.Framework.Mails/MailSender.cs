@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Net.Mail;
-using IoT.Framework.Logging;
+using Thriot.Framework.Logging;
 
-namespace IoT.Framework.Mails
+namespace Thriot.Framework.Mails
 {
     public class MailSender : IMailSender
     {

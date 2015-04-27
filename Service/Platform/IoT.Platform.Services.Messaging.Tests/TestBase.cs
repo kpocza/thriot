@@ -1,11 +1,11 @@
-﻿using IoT.Framework;
-using IoT.Management.Dto;
-using IoT.Management.Services;
-using IoT.ServiceClient.Messaging;
-using IoT.UnitTestHelpers;
-using NSubstitute;
+﻿using NSubstitute;
+using Thriot.Framework;
+using Thriot.Management.Dto;
+using Thriot.Management.Services;
+using Thriot.ServiceClient.Messaging;
+using Thriot.TestHelpers;
 
-namespace IoT.Platform.Services.Messaging.Tests
+namespace Thriot.Platform.Services.Messaging.Tests
 {
     public abstract class TestBase
     {

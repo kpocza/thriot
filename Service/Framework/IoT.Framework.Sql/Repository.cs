@@ -3,7 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace IoT.Framework.Sql
+namespace Thriot.Framework.Sql
 {
     public abstract class Repository<T> : GenericQueryRepository<T>, IRepository<T> where T: class, IEntity
     {

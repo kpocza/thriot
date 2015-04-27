@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IoT.Platform.Model
+namespace Thriot.Platform.Model
 {
     public interface IBatchParameters
     {

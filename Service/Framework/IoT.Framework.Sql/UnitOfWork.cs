@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 
-namespace IoT.Framework.Sql
+namespace Thriot.Framework.Sql
 {
     public abstract class UnitOfWork : IUnitOfWork
     {

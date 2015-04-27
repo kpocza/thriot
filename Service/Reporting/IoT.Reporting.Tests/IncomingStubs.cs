@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using IoT.Plugins.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Thriot.Plugins.Core;
 
-namespace IoT.Reporting.Tests
+namespace Thriot.Reporting.Tests
 {
     public static class IncomingStubs
     {

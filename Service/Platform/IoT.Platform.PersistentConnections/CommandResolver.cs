@@ -1,6 +1,6 @@
-﻿using IoT.Platform.PersistentConnections.Commands;
+﻿using Thriot.Platform.PersistentConnections.Commands;
 
-namespace IoT.Platform.PersistentConnections
+namespace Thriot.Platform.PersistentConnections
 {
     public class CommandResolver
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using IoT.Plugins.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
+using Thriot.Plugins.Core;
 
-namespace IoT.Platform.Services.Telemetry.Tests
+namespace Thriot.Platform.Services.Telemetry.Tests
 {
     public static class IncomingStubs
     {

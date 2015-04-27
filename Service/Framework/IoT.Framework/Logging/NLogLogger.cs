@@ -1,6 +1,6 @@
 ﻿using NLog;
 
-namespace IoT.Framework.Logging
+namespace Thriot.Framework.Logging
 {
     public class NLogLogger : ILogger
     {

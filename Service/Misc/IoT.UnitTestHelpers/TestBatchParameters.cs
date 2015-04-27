@@ -1,7 +1,7 @@
 ﻿using System;
-using IoT.Platform.Model;
+using Thriot.Platform.Model;
 
-namespace IoT.UnitTestHelpers
+namespace Thriot.TestHelpers
 {
     public class TestBatchParameters : IBatchParameters
     {

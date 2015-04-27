@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace IoT.Framework.Mails
+namespace Thriot.Framework.Mails
 {
     public class MailTemplateStore
     {

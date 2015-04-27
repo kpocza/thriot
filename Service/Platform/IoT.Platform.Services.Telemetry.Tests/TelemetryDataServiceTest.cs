@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using IoT.Framework;
-using IoT.Framework.Exceptions;
-using IoT.Plugins.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 using NSubstitute;
+using Thriot.Framework;
+using Thriot.Framework.Exceptions;
+using Thriot.Plugins.Core;
 
-namespace IoT.Platform.Services.Telemetry.Tests
+namespace Thriot.Platform.Services.Telemetry.Tests
 {
     [TestClass]
     public class TelemetryDataServiceTest

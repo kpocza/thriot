@@ -1,13 +1,13 @@
 ﻿using System.Linq;
-using IoT.Framework;
-using IoT.Management.Dto;
-using IoT.Management.Services;
-using IoT.ServiceClient.Messaging;
-using IoT.UnitTestHelpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using Thriot.Framework;
+using Thriot.Management.Dto;
+using Thriot.Management.Services;
+using Thriot.ServiceClient.Messaging;
+using Thriot.TestHelpers;
 
-namespace IoT.Objects.Operations.Tests
+namespace Thriot.Objects.Operations.Tests
 {
     [TestClass]
     public class DeviceOperationsTest

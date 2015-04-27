@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using System.Security.Authentication;
-using IoT.Framework.Exceptions;
-using IoT.Management.Model.Operations;
+using Thriot.Framework.Exceptions;
+using Thriot.Management.Model.Operations;
 
-namespace IoT.Management.Services
+namespace Thriot.Management.Services
 {
     public abstract class ManagementServiceBase
     {

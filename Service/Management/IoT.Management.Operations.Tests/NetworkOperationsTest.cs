@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using IoT.Framework;
-using IoT.Framework.Exceptions;
-using IoT.Management.Model;
-using IoT.Management.Model.Operations;
-using IoT.UnitTestHelpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Thriot.Framework;
+using Thriot.Framework.Exceptions;
+using Thriot.Management.Model;
+using Thriot.Management.Model.Operations;
+using Thriot.TestHelpers;
 
-namespace IoT.Management.Operations.Tests
+namespace Thriot.Management.Operations.Tests
 {
     [TestClass]
     public class NetworkOperationsTest
