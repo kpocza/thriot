@@ -60,7 +60,7 @@ if($config -eq "DevSql" -or $config -eq "ProdSql") {
 }
 
 if($config -eq "DevPgSql" -or $config -eq "ProdPgSql") {
-	#cp $solutionRoot\Build\templates\config\pgsql\* $targetRoot\install\configtemplates
+	cp $solutionRoot\Build\templates\config\pgsql\* $targetRoot\install\configtemplates
 	cp $solutionRoot\Messaging\Scripts\PgSql\* $targetRoot\install\storage\messaging
-	#cp -Recu $solutionRoot\Misc\Thriot.CreatePgSqlStorage\bin\Debug\* $targetRoot\install\storage\management
+	cp -Recu $solutionRoot\Misc\Thriot.CreateSqlStorage\bin\DevPgSql\* $targetRoot\install\storage\management
 }

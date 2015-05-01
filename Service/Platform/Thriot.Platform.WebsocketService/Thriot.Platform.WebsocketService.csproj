@@ -217,6 +217,10 @@
       <Project>{65436ff0-e291-429c-8fb3-d914c1ffaaa6}</Project>
       <Name>Thriot.Plugins.Azure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Plugins\Thriot.Plugins.PgSql\Thriot.Plugins.PgSql.csproj">
+      <Project>{6c1f185c-bbd2-4a90-b565-58f03d46cabe}</Project>
+      <Name>Thriot.Plugins.PgSql</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Plugins\Thriot.Plugins.Sql\Thriot.Plugins.Sql.csproj">
       <Project>{fe9571d9-2b37-4e4c-a838-955a3ca5235f}</Project>
       <Name>Thriot.Plugins.Sql</Name>
