@@ -82,6 +82,18 @@ namespace Thriot.Management.Operations.Azure
             userRepository.Update(userEntity);
         }
 
+        public void Update(LoginUser loginUser)
+        {
+            var loginUserRepository = new LoginUserRepository(_tableEntityOperation);
+
+            var loginUserTableEntity = loginUserRepository.Get(new PartionKeyRowKeyPair(PartitionKey(loginUser.Email), loginUser.Email));
+
+            loginUserTableEntity.PasswordHash = loginUser.PasswordHash;
+            loginUserTableEntity.Salt = loginUser.Salt;
+
+            loginUserRepository.Update(loginUserTableEntity);
+        }
+
         public IList<Small> ListCompanies(string userIdentity)
         {
             var userKey = PartionKeyRowKeyPair.CreateFromIdentity(userIdentity);

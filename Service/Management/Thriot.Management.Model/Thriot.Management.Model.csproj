@@ -44,8 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChangePasswordDto.cs" />
     <Compile Include="Company.cs" />
     <Compile Include="Device.cs" />
+    <Compile Include="Exceptions\ConfirmationException.cs" />
     <Compile Include="Exceptions\ActivationException.cs" />
     <Compile Include="Exceptions\ActivationRequiredException.cs" />
     <Compile Include="ITelemetrySinkSettingsOwner.cs" />

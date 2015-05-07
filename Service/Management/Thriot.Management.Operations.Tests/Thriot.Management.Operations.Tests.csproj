@@ -102,7 +102,7 @@
       <Project>{72721CBB-098D-499B-B037-1CCEACBC4524}</Project>
       <Name>Thriot.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Misc\Thriot.UnitTestHelpers\Thriot.TestHelpers.csproj">
+    <ProjectReference Include="..\..\Misc\Thriot.TestHelpers\Thriot.TestHelpers.csproj">
       <Project>{F554A376-529D-4FA6-9E4F-AFBE87C32861}</Project>
       <Name>Thriot.TestHelpers</Name>
     </ProjectReference>

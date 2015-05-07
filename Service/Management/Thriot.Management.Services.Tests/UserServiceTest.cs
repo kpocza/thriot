@@ -4,6 +4,7 @@ using NSubstitute;
 using Thriot.Framework;
 using Thriot.Framework.Exceptions;
 using Thriot.Management.Dto;
+using Thriot.Management.Model;
 using Thriot.Management.Model.Exceptions;
 using Thriot.TestHelpers;
 
@@ -12,6 +13,8 @@ namespace Thriot.Management.Services.Tests
     [TestClass]
     public class UserServiceTest
     {
+        #region Register
+
         [TestMethod]
         public void RegisterTest()
         {
@@ -90,6 +93,9 @@ namespace Thriot.Management.Services.Tests
             userService.Register(new RegisterDto() { Name = "new user", Email = email.ToUpper() }, "password", null);
         }
 
+        #endregion
+
+        #region Login
         [TestMethod]
         public void LoginTest()
         {
@@ -165,6 +171,10 @@ namespace Thriot.Management.Services.Tests
             userService.Login(email, "password");
         }
 
+        #endregion
+
+        #region Activation
+
         [TestMethod]
         public void ActivationTest()
         {
@@ -196,7 +206,7 @@ namespace Thriot.Management.Services.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ActivationException))]
+        [ExpectedException(typeof(AuthenticationException))]
         public void ActivationAlreadyLoggedInFailTest()
         {
             var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
@@ -211,7 +221,7 @@ namespace Thriot.Management.Services.Tests
 
             var email = EmailHelper.Generate();
             string activationCode = null;
-            
+
             mailer.When(
                 m => m.SendActivationMail(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()))
                 .Do(call => { activationCode = (string)call.Args()[3]; });
@@ -249,7 +259,9 @@ namespace Thriot.Management.Services.Tests
             var authenticationContext = Substitute.For<IAuthenticationContext>();
             authenticationContext.GetContextUser().Returns((string)null);
             var userOperations = environmentFactory.MgmtUserOperations;
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+
+            var settingProvider = Substitute.For<ISettingProvider>();
+            settingProvider.EmailActivation.Returns(false);
 
             var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
 
@@ -281,6 +293,269 @@ namespace Thriot.Management.Services.Tests
             userService.Activate(userId, Identity.Next());
         }
 
+        #endregion
+
+        #region ChangePassword
+
+        [TestMethod]
+        public void ChangePasswordTest()
+        {
+            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var authenticationContext = Substitute.For<IAuthenticationContext>();
+
+            var userOperations = environmentFactory.MgmtUserOperations;
+            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+
+            var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
+
+            var email = EmailHelper.Generate();
+
+            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+
+            authenticationContext.GetContextUser().Returns(userId);
+            
+            userService.ChangePassword(new ChangePasswordDto {OldPassword = "password", NewPassword = "password2"});
+
+            AssertionHelper.AssertThrows<AuthenticationException>(
+                () =>
+                    userService.ChangePassword(new ChangePasswordDto
+                    {
+                        OldPassword = "passwordinvalid",
+                        NewPassword = "password2"
+                    }));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(AuthenticationException))]
+        public void ChangePasswordNotLoggedInTest()
+        {
+            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var authenticationContext = Substitute.For<IAuthenticationContext>();
+
+            var userOperations = environmentFactory.MgmtUserOperations;
+            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+
+            var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
+
+            authenticationContext.GetContextUser().Returns((string) null);
+
+            userService.ChangePassword(new ChangePasswordDto { OldPassword = "password", NewPassword = "password2" });
+        }
+
+        #endregion
+
+        #region ResendActivationEmail
+
+        [TestMethod]
+        public void ResendActivationEmail()
+        {
+            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var mailer = Substitute.For<IMailer>();
+            var authenticationContext = Substitute.For<IAuthenticationContext>();
+            authenticationContext.GetContextUser().Returns((string)null);
+            var userOperations = environmentFactory.MgmtUserOperations;
+
+            var settingProvider = Substitute.For<ISettingProvider>();
+            settingProvider.EmailActivation.Returns(true);
+
+            var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
+
+            var email = EmailHelper.Generate();
+
+            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", mailer);
+            
+            userService.ResendActivationEmail(email, mailer);
+
+            mailer.DidNotReceiveWithAnyArgs().SendForgotPasswordEmail(null, null, null, null, null);
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(AuthenticationException))]
+        public void ResendActivationEmailAlreadyActivated()
+        {
+            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var authenticationContext = Substitute.For<IAuthenticationContext>();
+
+            var userOperations = environmentFactory.MgmtUserOperations;
+            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+
+            var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
+
+            var email = EmailHelper.Generate();
+
+            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+
+            userService.ResendActivationEmail(email, null);
+        }
+
+        #endregion
+
+        #region ForgotPassword flow
+
+        [TestMethod]
+        public void SendForgotPasswordEmail()
+        {
+            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var authenticationContext = Substitute.For<IAuthenticationContext>();
+
+            var userOperations = environmentFactory.MgmtUserOperations;
+            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+
+            var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
+
+            var mailer = Substitute.For<IMailer>();
+         
+            var email = EmailHelper.Generate();
+
+            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+
+            authenticationContext.GetContextUser().Returns((string)null);
+
+            userService.SendForgotPasswordEmail(email, mailer);
+
+            mailer.Received().SendForgotPasswordEmail(userId, "new user", email, Arg.Any<string>(), Arg.Any<string>());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(AuthenticationException))]
+        public void TrySendForgotPasswordEmailLoggedIn()
+        {
+            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var authenticationContext = Substitute.For<IAuthenticationContext>();
+
+            var userOperations = environmentFactory.MgmtUserOperations;
+            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+
+            var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
+
+            var email = EmailHelper.Generate();
+
+            userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+
+            userService.SendForgotPasswordEmail(email, null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ActivationException))]
+        public void TrySendForgotPasswordEmailNotActivated()
+        {
+            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var mailer = Substitute.For<IMailer>();
+            var authenticationContext = Substitute.For<IAuthenticationContext>();
+            authenticationContext.GetContextUser().Returns((string)null);
+            var userOperations = environmentFactory.MgmtUserOperations;
+
+            var settingProvider = Substitute.For<ISettingProvider>();
+            settingProvider.EmailActivation.Returns(true);
+
+            var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
+
+            var email = EmailHelper.Generate();
+
+            userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", mailer);
+
+            authenticationContext.GetContextUser().Returns((string)null);
+
+            userService.SendForgotPasswordEmail(email, null);
+        }
+
+        [TestMethod]
+        public void ResetPassword()
+        {
+            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var authenticationContext = Substitute.For<IAuthenticationContext>();
+
+            var userOperations = environmentFactory.MgmtUserOperations;
+            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+
+            var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
+
+            var mailer = Substitute.For<IMailer>();
+
+            var email = EmailHelper.Generate();
+
+            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+
+            authenticationContext.GetContextUser().Returns((string)null);
+
+            string confirmationCode = null;
+            mailer.When(
+                m => m.SendForgotPasswordEmail(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()))
+                .Do(call => { confirmationCode = (string)call.Args()[3]; });
+
+            userService.SendForgotPasswordEmail(email, mailer);
+
+            userService.ResetPassword(new ResetPasswordDto
+            {
+                ConfirmationCode = confirmationCode,
+                Password = "password2",
+                UserId = userId
+            });
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ConfirmationException))]
+        public void TryResetPasswordBadConfirmationCode()
+        {
+            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var authenticationContext = Substitute.For<IAuthenticationContext>();
+
+            var userOperations = environmentFactory.MgmtUserOperations;
+            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+
+            var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
+
+            var mailer = Substitute.For<IMailer>();
+
+            var email = EmailHelper.Generate();
+
+            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+
+            authenticationContext.GetContextUser().Returns((string)null);
+
+            userService.SendForgotPasswordEmail(email, mailer);
+
+            userService.ResetPassword(new ResetPasswordDto
+            {
+                ConfirmationCode = "fck",
+                Password = "password2",
+                UserId = userId
+            });
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ActivationException))]
+        public void TryResetPasswordEmailNotActivated()
+        {
+            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var mailer = Substitute.For<IMailer>();
+            var authenticationContext = Substitute.For<IAuthenticationContext>();
+            authenticationContext.GetContextUser().Returns((string)null);
+            var userOperations = environmentFactory.MgmtUserOperations;
+
+            var settingProvider = Substitute.For<ISettingProvider>();
+            settingProvider.EmailActivation.Returns(true);
+
+            var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
+
+            var email = EmailHelper.Generate();
+
+            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", mailer);
+
+            authenticationContext.GetContextUser().Returns((string)null);
+
+            userService.ResetPassword(new ResetPasswordDto
+            {
+                ConfirmationCode = "fck",
+                Password = "password2",
+                UserId = userId
+            });
+        }
+
+        #endregion
+
+        #region ListCompanies
         [TestMethod]
         public void ListCompaniesTest()
         {
@@ -322,6 +597,9 @@ namespace Thriot.Management.Services.Tests
             userService.ListCompanies();
         }
 
+        #endregion
+
+        #region GetMe
         [TestMethod]
         public void GetMeTest()
         {
@@ -362,7 +640,11 @@ namespace Thriot.Management.Services.Tests
             userService.GetMe();
         }
 
-        [TestMethod]
+        #endregion
+
+        #region FindUser
+
+		[TestMethod]
         public void FindUserTest()
         {
             var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
@@ -411,5 +693,7 @@ namespace Thriot.Management.Services.Tests
             var userService = new UserService(null, authenticationContext, null, null);
             userService.FindUser("asdfasfd");
         }
+
+	    #endregion    
     }
 }

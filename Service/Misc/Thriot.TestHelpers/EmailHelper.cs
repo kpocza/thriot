@@ -7,7 +7,7 @@ namespace Thriot.TestHelpers
     {
         public static string Generate()
         {
-            return "kpocza+iottest_" + Identity.Next() + "@gmail.com";
+            return ("kpocza+iottest_" + Identity.Next() + "@gmail.com").ToLowerInvariant();
         }
     }
 }

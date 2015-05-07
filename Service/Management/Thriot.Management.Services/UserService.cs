@@ -105,9 +105,7 @@ namespace Thriot.Management.Services
             Validator.ValidateId(userId);
             Validator.ValidateId(activationCode);
 
-            var currentUserId = _authenticationContext.GetContextUser();
-            if (currentUserId != null)
-                throw new ActivationException("Please logoff");
+            EnsureLoggedOff();
 
             var user = _userOperations.Get(userId);
 
@@ -118,11 +116,94 @@ namespace Thriot.Management.Services
                 throw new ActivationException("Unable to activate user");
 
             user.Activated = true;
+            user.ActivationCode = Identity.Next();
             _userOperations.Update(user);
 
             _authenticationContext.SetContextUser(userId);
 
             EnsureEnvironment();
+        }
+
+        public void ChangePassword(ChangePasswordDto changePassword)
+        {
+            var currentUserId = GetCurrentUser();
+
+            Validator.ValidatePassword(changePassword.NewPassword);
+
+            var user = _userOperations.Get(currentUserId);
+            var loginUser = _userOperations.GetLoginUser(user.Email);
+
+            var hash = Crypto.CalcualteHash(changePassword.OldPassword, loginUser.Salt);
+            if (hash != loginUser.PasswordHash)
+                throw new AuthenticationException("Invalid old password");
+
+            var salt = Crypto.GenerateSalt();
+            var passwordHash = Crypto.CalcualteHash(changePassword.NewPassword, salt);
+
+            _userOperations.Update(new LoginUser
+            {
+                Email = user.Email,
+                PasswordHash = passwordHash,
+                Salt = salt,
+                UserId = user.Id
+            });
+        }
+
+        public void ResendActivationEmail(string email, IMailer mailer)
+        {
+            EnsureLoggedOff();
+
+            var targetEmail = Validator.ValidateEmail(email).ToLower();
+            var loginUser = _userOperations.GetLoginUser(targetEmail);
+
+            var user = _userOperations.Get(loginUser.UserId);
+
+            mailer.SendActivationMail(user.Id, user.Name, user.Email, user.ActivationCode, _settingProvider.ManagementApiUrl);
+        }
+
+        public void SendForgotPasswordEmail(string email, IMailer mailer)
+        {
+            EnsureLoggedOff();
+
+            var targetEmail = Validator.ValidateEmail(email).ToLower();
+            var loginUser = _userOperations.GetLoginUser(targetEmail);
+
+            var user = _userOperations.Get(loginUser.UserId);
+            if (!user.Activated)
+                throw new ActivationException("Please activate the user first");
+
+            user.ActivationCode = Identity.Next();
+            _userOperations.Update(user);
+
+            mailer.SendForgotPasswordEmail(user.Id, user.Name, user.Email, user.ActivationCode, _settingProvider.WebsiteUrl);
+        }
+
+        public void ResetPassword(ResetPasswordDto resetPassword)
+        {
+            EnsureLoggedOff();
+
+            Validator.ValidatePassword(resetPassword.Password);
+
+            var user = _userOperations.Get(resetPassword.UserId);
+            if (!user.Activated)
+                throw new ActivationException("Please activate the user first");
+
+            if (user.ActivationCode != resetPassword.ConfirmationCode)
+                throw new ConfirmationException("Unable to reset password due to bad confirmation code");
+
+            user.ActivationCode = Identity.Next();
+
+            var salt = Crypto.GenerateSalt();
+            var passwordHash = Crypto.CalcualteHash(resetPassword.Password, salt);
+
+            _userOperations.Update(new LoginUser
+            {
+                Email = user.Email,
+                PasswordHash = passwordHash,
+                Salt = salt,
+                UserId = user.Id
+            });
+            _userOperations.Update(user);
         }
 
         public IList<SmallDto> ListCompanies()
@@ -168,6 +249,13 @@ namespace Thriot.Management.Services
             if (userId == null)
                 throw new AuthenticationException();
             return userId;
+        }
+
+        private void EnsureLoggedOff()
+        {
+            var currentUserId = _authenticationContext.GetContextUser();
+            if (currentUserId != null)
+                throw new AuthenticationException("Please logoff");
         }
 
         private void EnsureEnvironment()

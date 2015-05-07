@@ -23,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Framework.Azure", "F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Framework.Tests", "Framework\Thriot.Framework.Tests\Thriot.Framework.Tests.csproj", "{7729478D-EC79-41E3-918E-E25C367FD3BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.TestHelpers", "Misc\Thriot.UnitTestHelpers\Thriot.TestHelpers.csproj", "{F554A376-529D-4FA6-9E4F-AFBE87C32861}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.TestHelpers", "Misc\Thriot.TestHelpers\Thriot.TestHelpers.csproj", "{F554A376-529D-4FA6-9E4F-AFBE87C32861}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Management.WebApi", "Management\Thriot.Management.WebApi\Thriot.Management.WebApi.csproj", "{4B3CFD31-7BF9-4262-9572-F0924A83CC1B}"
 EndProject

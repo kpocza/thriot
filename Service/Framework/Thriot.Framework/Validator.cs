@@ -53,7 +53,7 @@ namespace Thriot.Framework
 
         public static void ValidatePassword(string password)
         {
-            if(string.IsNullOrWhiteSpace(password) || password.Length < 5)
+            if(string.IsNullOrWhiteSpace(password) || password.Trim().Length < 5)
                 throw new ArgumentOutOfRangeException("password");
         }
     }

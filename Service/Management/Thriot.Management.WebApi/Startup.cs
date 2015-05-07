@@ -33,6 +33,7 @@ namespace Thriot.Management.WebApi
 
             ApiExceptionRegistry.AddItem(typeof(ActivationRequiredException), HttpStatusCode.Forbidden);
             ApiExceptionRegistry.AddItem(typeof(ActivationException), HttpStatusCode.Forbidden);
+            ApiExceptionRegistry.AddItem(typeof(ConfirmationException), HttpStatusCode.Forbidden);
 
             AutoMapperConfig.Register();
             MailTemplateConfig.Register();

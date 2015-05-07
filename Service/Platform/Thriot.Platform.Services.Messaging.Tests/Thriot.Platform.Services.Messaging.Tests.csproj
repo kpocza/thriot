@@ -116,7 +116,7 @@
       <Project>{74101052-2463-4AAA-BEC2-76F239D9B77C}</Project>
       <Name>Thriot.Management.Services</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Misc\Thriot.UnitTestHelpers\Thriot.TestHelpers.csproj">
+    <ProjectReference Include="..\..\Misc\Thriot.TestHelpers\Thriot.TestHelpers.csproj">
       <Project>{F554A376-529D-4FA6-9E4F-AFBE87C32861}</Project>
       <Name>Thriot.TestHelpers</Name>
     </ProjectReference>

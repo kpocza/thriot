@@ -12,6 +12,8 @@ namespace Thriot.Management.Model.Operations
 
         void Update(User user);
 
+        void Update(LoginUser loginUser);
+
         IList<Small> ListCompanies(string userIdentity);
 
         LoginUser GetLoginUser(string email);

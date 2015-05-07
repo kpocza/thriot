@@ -104,5 +104,36 @@ namespace Thriot.Management.Operations.Tests
             Assert.AreEqual(false, user.Activated);
             Assert.AreEqual("54321", user.ActivationCode);
         }
+
+
+        [TestMethod]
+        public void UpdateLoginUserTest()
+        {
+            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var userOperations = environmentFactory.MgmtUserOperations;
+
+            var email = EmailHelper.Generate();
+
+            var salt = Crypto.GenerateSalt();
+            var passwordHash = Crypto.CalcualteHash("password", salt);
+            var id = userOperations.Create(new User() { Name = "new user", Email = email, Activated = true, ActivationCode = "12345" }, passwordHash, salt);
+
+            var loginUser = userOperations.GetLoginUser(email);
+
+            var salt2 = Crypto.GenerateSalt();
+            var passwordHash2 = Crypto.CalcualteHash("password2", salt);
+
+            loginUser.PasswordHash = passwordHash2;
+            loginUser.Salt = salt2;
+
+            userOperations.Update(loginUser);
+
+            var loginUser2 = userOperations.GetLoginUser(email);
+
+            Assert.AreEqual(id, loginUser2.UserId);
+            Assert.AreEqual(email, loginUser2.Email);
+            Assert.AreEqual(passwordHash2, loginUser2.PasswordHash);
+            Assert.AreEqual(salt2, loginUser2.Salt);
+        }
     }
 }

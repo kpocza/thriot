@@ -46,6 +46,7 @@
     <Compile Include="CompanyDto.cs" />
     <Compile Include="CompanyUserDto.cs" />
     <Compile Include="DeviceDto.cs" />
+    <Compile Include="ResetPasswordDto.cs" />
     <Compile Include="InfoDto.cs" />
     <Compile Include="LoginDto.cs" />
     <Compile Include="NetworkDto.cs" />

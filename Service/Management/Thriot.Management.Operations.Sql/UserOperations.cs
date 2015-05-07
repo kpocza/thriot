@@ -79,6 +79,19 @@ namespace Thriot.Management.Operations.Sql
             }
         }
 
+        public void Update(LoginUser loginUser)
+        {
+            using (var unitOfWork = _managementUnitOfWorkFactory.Create())
+            {
+                var loginUserEntity = unitOfWork.GetLoginUserRepository().GetByEmail(loginUser.Email);
+
+                loginUserEntity.PasswordHash = loginUser.PasswordHash;
+                loginUserEntity.Salt = loginUser.Salt;
+
+                unitOfWork.Commit();
+            }
+        }
+
         public IList<Small> ListCompanies(string userIdentity)
         {
             using (var unitOfWork = _managementUnitOfWorkFactory.Create())

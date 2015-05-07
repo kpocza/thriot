@@ -127,6 +127,8 @@
     <Compile Include="WebFunctions\Mailer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="MailTemplates\ResetPassword.html" />
+    <Content Include="MailTemplates\ResetPassword.txt" />
     <Content Include="MailTemplates\Activation.subject" />
     <Content Include="MailTemplates\Activation.html" />
     <Content Include="MailTemplates\Activation.txt" />
@@ -142,6 +144,7 @@
     <Content Include="Web.ProdAzure.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+    <Content Include="MailTemplates\ResetPassword.subject" />
     <None Include="Web.DevPgSql.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
