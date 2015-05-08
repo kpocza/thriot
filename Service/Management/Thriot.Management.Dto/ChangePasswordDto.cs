@@ -1,4 +1,4 @@
-﻿namespace Thriot.Management.Model
+﻿namespace Thriot.Management.Dto
 {
     public class ChangePasswordDto
     {

@@ -275,6 +275,10 @@
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Report\Network.cshtml" />
     <Content Include="Views\Report\Device.cshtml" />
+    <Content Include="Views\User\ForgotPasswordSend.cshtml" />
+    <Content Include="Views\User\ActivationResend.cshtml" />
+    <Content Include="Views\User\ResetPassword.cshtml" />
+    <Content Include="Views\User\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

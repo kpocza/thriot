@@ -8,6 +8,7 @@ namespace Thriot.Management.WebApi
         public static void Register()
         {
             MailTemplateStore.Instance.Add(GetTemplate("Activation"));
+            MailTemplateStore.Instance.Add(GetTemplate("ResetPassword"));
         }
 
         private static MailTemplate GetTemplate(string name)

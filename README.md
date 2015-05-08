@@ -14,7 +14,7 @@ There are several IoT platforms on the market. Most of them aims to handle sever
 
 The following facts make Thriot special:
 - The main goal of Thriot is to satisfy the IoT needs of smart home users and individual companies so that they can install Thriot on their own and it’s not necessary to buy an IoT service from a service provider. Of course there is the possibility for service providers to provide Thriot as a SaaS solution (although it’s not yet recommended).
-- Thriot achieves this flexibility with its loosely coupled plugable architecture so that besides cloud storage providers, on-premise storages can be also added to the system. (Currently Azure Table Storage and MS SQL (Express) is supported)
+- Thriot achieves this flexibility with its loosely coupled plugable architecture so that besides cloud storage providers, on-premise storages can be also added to the system. (Currently Azure Table Storage, MS SQL (Express) and PostgreSql is supported)
 - Thriot is completely open source. Everybody is welcome the contribute. 
 
 ## Basic concepts and architecture
@@ -33,7 +33,8 @@ http://portal.thriot.io/net-client-library-reference/ describes the basic concep
 
 ## Hosting environments
 
-Currently Thirot Service is able to run on a Windows-based hosting environment and store data in Azure Table Storage or in  Microsoft SQL (Express).
+Currently Thirot Service is able to run on a Windows-based hosting environment and store data in Azure Table Storagem in Microsoft SQL (Express) or Postgresql.
 
 Page http://portal.thriot.io/sql-backed-hosting-environment/ describes the steps to create a SQL-backed hosting environment while page http://portal.thriot.io/azure-environment/ describes the steps of how to create a hosting environment in Azure with ATS backend storage.
 
+The aim is to provide hosting capabilities on Linux using CoreCLR and CoreFX.

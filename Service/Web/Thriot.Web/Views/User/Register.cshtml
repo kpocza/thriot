@@ -10,3 +10,7 @@
     <label for="password" class="labelwidth">Password</label><input type="password" name="password" ng-model="userInfo.password" /><br />
     <input type="submit" value="Register" />
 </form>
+<div>&nbsp;</div>
+<div>
+    @Html.ActionLink("Resend activation email", "ActivationResend") &nbsp; @Html.ActionLink("Forgot password", "ForgotPasswordSend")
+</div>

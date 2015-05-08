@@ -6,7 +6,8 @@
         network: '/Mgmt/Network',
         device: '/Mgmt/Device',
         networkReport: '/Report/Network',
-        errorPage: '/Home/Error'
+        errorPage: '/Home/Error',
+        changePasswordPage: '/User/ChangePassword'
     });
 
 app.service('mgmtApiUrls', function mgmtApiUrls(siteRoots) {

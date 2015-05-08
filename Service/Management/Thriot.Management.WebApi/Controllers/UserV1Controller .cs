@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
-using System.Web;
 using System.Web.Http;
 using Thriot.Framework.Logging;
 using Thriot.Management.Dto;
 using Thriot.Management.Services;
 using Thriot.Management.WebApi.Auth;
 using Thriot.Management.WebApi.WebFunctions;
+using Thriot.Web.Models;
 
 namespace Thriot.Management.WebApi.Controllers
 {
@@ -54,6 +54,43 @@ namespace Thriot.Management.WebApi.Controllers
             var response = new HttpResponseMessage(HttpStatusCode.Redirect);
             response.Headers.Location = new Uri(_settingProvider.WebsiteUrl);
             return response;
+        }
+
+        [Route("resendActivationEmail")]
+        [HttpPost]
+        public HttpResponseMessage ResendActivationEmail(EmailWrapper emailWrapper)
+        {
+            _userService.ResendActivationEmail(emailWrapper.Email, new Mailer());
+
+            return new HttpResponseMessage(HttpStatusCode.NoContent);
+        }
+
+        [Route("sendForgotPasswordEmail")]
+        [HttpPost]
+        public HttpResponseMessage SendForgotPasswordEmail(EmailWrapper emailWrapper)
+        {
+            _userService.SendForgotPasswordEmail(emailWrapper.Email, new Mailer());
+
+            return new HttpResponseMessage(HttpStatusCode.NoContent);
+        }
+
+        [Route("resetPassword")]
+        [HttpPost]
+        public HttpResponseMessage ResetPassword(ResetPasswordDto resetPassword)
+        {
+            _userService.ResetPassword(resetPassword);
+
+            return new HttpResponseMessage(HttpStatusCode.NoContent);
+        }
+
+        [Route("changePassword")]
+        [HttpPost]
+        [WebApiAuthenticator]
+        public HttpResponseMessage ChangePassword(ChangePasswordDto changePassword)
+        {
+            _userService.ChangePassword(changePassword);
+
+            return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
 
         [Route("login")]

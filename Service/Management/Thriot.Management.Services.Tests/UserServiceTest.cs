@@ -369,9 +369,27 @@ namespace Thriot.Management.Services.Tests
             mailer.DidNotReceiveWithAnyArgs().SendForgotPasswordEmail(null, null, null, null, null);
         }
 
-
         [TestMethod]
         [ExpectedException(typeof(AuthenticationException))]
+        public void ResendActivationEmailAuthenticated()
+        {
+            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var authenticationContext = Substitute.For<IAuthenticationContext>();
+
+            var userOperations = environmentFactory.MgmtUserOperations;
+            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+
+            var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
+
+            var email = EmailHelper.Generate();
+
+            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+
+            userService.ResendActivationEmail(email, null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ActivationException))]
         public void ResendActivationEmailAlreadyActivated()
         {
             var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
@@ -385,6 +403,7 @@ namespace Thriot.Management.Services.Tests
             var email = EmailHelper.Generate();
 
             var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+            authenticationContext.GetContextUser().Returns((string)null);
 
             userService.ResendActivationEmail(email, null);
         }

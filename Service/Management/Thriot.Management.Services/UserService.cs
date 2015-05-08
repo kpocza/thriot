@@ -157,6 +157,8 @@ namespace Thriot.Management.Services
             var loginUser = _userOperations.GetLoginUser(targetEmail);
 
             var user = _userOperations.Get(loginUser.UserId);
+            if (user.Activated)
+                throw new ActivationException("User already activated");
 
             mailer.SendActivationMail(user.Id, user.Name, user.Email, user.ActivationCode, _settingProvider.ManagementApiUrl);
         }

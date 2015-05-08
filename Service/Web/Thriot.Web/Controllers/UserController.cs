@@ -13,5 +13,25 @@ namespace Thriot.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult ForgotPasswordSend()
+        {
+            return View();
+        }
+
+        public ActionResult ActivationResend()
+        {
+            return View();
+        }
+
+        public ActionResult ResetPassword()
+        {
+            return View();
+        }
+
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
     }
 }
