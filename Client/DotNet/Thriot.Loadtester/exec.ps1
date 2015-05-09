@@ -17,7 +17,7 @@ $batchCnt = 0;
 
 	if($batchCnt -eq $batch) {
 
-		Start-Process .\IoT.Loadtester -Argumentlist "$env /$operation $devices $inbatch $sleep $extra"
+		Start-Process .\Thriot.Loadtester -Argumentlist "$env /$operation $devices $inbatch $sleep $extra"
 		$inbatch="";
 		$batchCnt=0
 		sleep 2
@@ -25,7 +25,7 @@ $batchCnt = 0;
 }
 
 if($batchCnt -gt 0) {
-	Start-Process .\IoT.Loadtester -Argumentlist "$env /$operation $devices $inbatch $sleep $extra"
+	Start-Process .\Thriot.Loadtester -Argumentlist "$env /$operation $devices $inbatch $sleep $extra"
  }
 
 ## Examples:

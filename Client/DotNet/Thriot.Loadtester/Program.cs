@@ -488,18 +488,27 @@ namespace Thriot.Loadtester
 
         private static void Log(Exception ex)
         {
-            if (ex is WebException)
+            try
             {
-                using (var stream = (ex as WebException).Response.GetResponseStream())
+                if (ex is WebException)
                 {
-                    var reader = new StreamReader(stream);
+                    using (var stream = (ex as WebException).Response.GetResponseStream())
+                    {
+                        using (var reader = new StreamReader(stream))
+                        {
+                            Log(ex.ToString());
+                            Log(reader.ReadToEnd());
+                        }
+                    }
+                }
+                else
+                {
                     Log(ex.ToString());
-                    Log(reader.ReadToEnd());
                 }
             }
-            else
+            catch (Exception lex)
             {
-                Log(ex.ToString());
+                Console.WriteLine("Error logging: " + lex.ToString());
             }
         }
 

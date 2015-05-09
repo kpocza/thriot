@@ -72,7 +72,6 @@ BEGIN TRAN
 		alter table [dbo].[UserCompany] add constraint [User_Companies_Source] foreign key ([UserId]) references [dbo].[User]([Id]);
 		alter table [dbo].[UserCompany] add constraint [User_Companies_Target] foreign key ([CompanyId]) references [dbo].[Company]([Id]);
 
-		INSERT INTO Setting(Category, Config, Value) VALUES('Version', 'System', '0.1');
 		INSERT INTO Setting(Category, Config, Value) VALUES('Version', 'Database', '1');
 	END
 COMMIT TRAN

@@ -54,6 +54,9 @@
     <None Include="env.devazureexpress.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="env.devpgsql.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="env.devsql.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

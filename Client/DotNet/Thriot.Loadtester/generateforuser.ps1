@@ -5,4 +5,4 @@
 	[string]$password
  )
 
-.\IoT.Loadtester.exe env.config /generateforuser $devices $cnt $email $password
+.\Thriot.Loadtester.exe env.config /generateforuser $devices $cnt $email $password
