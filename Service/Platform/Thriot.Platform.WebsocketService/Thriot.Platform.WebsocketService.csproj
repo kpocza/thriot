@@ -104,6 +104,16 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ProdPgSql|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ProdPgSql\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net">
       <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
@@ -176,16 +186,19 @@
     <Content Include="App.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="App.ProdAzure.config">
+    <Content Include="App.DevSql.config">
       <DependentUpon>App.config</DependentUpon>
     </Content>
-    <Content Include="App.DevSql.config">
+    <Content Include="App.DevPgSql.config">
+      <DependentUpon>App.config</DependentUpon>
+    </Content>
+    <Content Include="App.ProdAzure.config">
       <DependentUpon>App.config</DependentUpon>
     </Content>
     <Content Include="App.ProdSql.config">
       <DependentUpon>App.config</DependentUpon>
     </Content>
-    <Content Include="App.DevPgSql.config">
+    <Content Include="App.ProdPgSql.config">
       <DependentUpon>App.config</DependentUpon>
     </Content>
   </ItemGroup>

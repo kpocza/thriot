@@ -63,4 +63,5 @@ if($config -eq "DevPgSql" -or $config -eq "ProdPgSql") {
 	cp $solutionRoot\Build\templates\config\pgsql\* $targetRoot\install\configtemplates
 	cp $solutionRoot\Messaging\Scripts\PgSql\* $targetRoot\install\storage\messaging
 	cp -Recu $solutionRoot\Misc\Thriot.CreateSqlStorage\bin\DevPgSql\* $targetRoot\install\storage\management
+	cp -Force $targetRoot\papi\bin\Npgsql.EntityFramework.dll $targetRoot\websocketservice
 }

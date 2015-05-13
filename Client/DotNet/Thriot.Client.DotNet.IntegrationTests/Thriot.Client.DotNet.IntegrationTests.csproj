@@ -92,6 +92,15 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'IIS-ProdPgSql|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\IIS-ProdPgSql\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -135,13 +144,16 @@
     <Content Include="App.IIS-DevSql.config">
       <DependentUpon>App.config</DependentUpon>
     </Content>
+    <Content Include="App.IIS-DevPgSql.config">
+      <DependentUpon>App.config</DependentUpon>
+    </Content>
     <Content Include="App.IIS-ProdAzure.config">
       <DependentUpon>App.config</DependentUpon>
     </Content>
     <Content Include="App.IIS-ProdSql.config">
       <DependentUpon>App.config</DependentUpon>
     </Content>
-    <Content Include="App.IIS-DevPgSql.config">
+    <Content Include="App.IIS-ProdPgSql.config">
       <DependentUpon>App.config</DependentUpon>
     </Content>
   </ItemGroup>

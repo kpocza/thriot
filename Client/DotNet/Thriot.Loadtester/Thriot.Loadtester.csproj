@@ -63,6 +63,7 @@
     <None Include="env.devazure.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="env.prodpgsql.config" />
     <None Include="env.prodsql.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
