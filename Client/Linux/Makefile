@@ -1,7 +1,7 @@
 EXTERNALS=externals
 LIBWEBSOCKETS=libwebsockets
 ARDUINOJSON=ArduinoJson
-GTEST=google-test
+GTEST=gtest-1.7.0
 DEPS=deps
 LIB=lib
 TEST=test
@@ -146,7 +146,8 @@ gtest:
 	mkdir -p $(EXTERNALS)
 	cd $(EXTERNALS) && \
 	rm -R -f $(GTEST) && \
-	git clone https://github.com/voormedia/google-test.git && \
+	wget http://googletest.googlecode.com/files/gtest-1.7.0.zip && \
+	unzip gtest-1.7.0.zip && \
 	cd $(GTEST) && \
 	cmake . && \
 	make
@@ -158,6 +159,7 @@ copydeps:
 	mkdir -p $(DEPS)/$(TEST)/$(LIB)
 	mkdir -p $(DEPS)/$(TEST)/$(INC)
 	cp $(EXTERNALS)/$(LIBWEBSOCKETS)/lib/libwebsockets.h $(DEPS)/$(INC)
+	cp $(EXTERNALS)/$(LIBWEBSOCKETS)/build/lws_config.h $(DEPS)/$(INC)
 	cp $(EXTERNALS)/$(LIBWEBSOCKETS)/build/lib/libwebsockets.so $(DEPS)/$(LIB)
 	cp $(EXTERNALS)/$(LIBWEBSOCKETS)/build/lib/libwebsockets.so $(OUT)
 	ln -f -s libwebsockets.so $(OUT)/libwebsockets.so.5.0.0

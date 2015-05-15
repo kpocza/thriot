@@ -22,7 +22,7 @@ Instructs the client to query telemetry data for the device in the parameter
 @param deviceId 32-charcters long device id
 @param deviceKey device API key, or encapsulating network or service API key
 */
-DeviceClient::SetDevice(const string& deviceId, const string& deviceKey)
+void DeviceClient::SetDevice(const string& deviceId, const string& deviceKey)
 {
 	_restConnection->ClearRequestHeaders();
 	_restConnection->AddRequestHeader("X-DeviceId", deviceId);
