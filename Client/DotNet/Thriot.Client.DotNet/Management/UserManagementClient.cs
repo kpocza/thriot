@@ -51,6 +51,89 @@ namespace Thriot.Client.DotNet.Management
         }
 
         /// <summary>
+        /// Log in the current user. On successfull login all subsequent management operations will run in the context of the logged in user.
+        /// 
+        /// Send POST request to APIROOT/users/login
+        /// </summary>
+        /// <param name="login">The user's email address and password</param>
+        /// <exception cref="WebException">In case of any service side error an exception will be thrown. Please refer to the HTTP error code for more information</exception>
+        public void Login(Login login)
+        {
+            var response = RestConnection.Post("users/login", JsonSerializer.Serialize(login));
+
+            RestConnection.Setup(_baseUrl,
+                new Dictionary<string, string>
+                {
+                    {
+                        HttpRequestHeader.Authorization.ToString(), "Basic " + JsonSerializer.Deserialize<string>(response)
+                    }
+                });
+            _isLoggedIn = true;
+        }
+
+        /// <summary>
+        /// Activate the given user with the activation code
+        /// 
+        /// Send GET request to APIROOT/users/activate/{userId}/{activationCode}
+        /// </summary>
+        /// <param name="userId">Identifier of the user to activate</param>
+        /// <param name="activationCode">Activation code of the user</param>
+        public void Activate(string userId, string activationCode)
+        {
+            RestConnection.Get(string.Format("users/activate/{0}/{1}", userId, activationCode));
+        }
+
+        /// <summary>
+        /// Resend activation email for the given email address
+        /// 
+        /// Send POST request to APIROOT/users/resendActivationEmail
+        /// </summary>
+        /// <param name="email">Email address to send activation email for</param>
+        public void ResendActivationEmail(EmailWrapper email)
+        {
+            RestConnection.Post("users/resendActivationEmail",
+                JsonSerializer.Serialize(email));
+        }
+
+        /// <summary>
+        /// Send email about forgotten password to the user having the email address in the parameter
+        /// 
+        /// Send POST request to APIROOT/users/sendForgotPasswordEmail
+        /// </summary>
+        /// <param name="email">Email address to send forgot password email for</param>
+        public void SendForgotPasswordEmail(EmailWrapper email)
+        {
+            RestConnection.Post("users/sendForgotPasswordEmail",
+                JsonSerializer.Serialize(email));
+        }
+
+        /// <summary>
+        /// Reset the password specifid by the resetPassword dto. It will contain the userid, the confirmation code and the new password
+        /// The first two parameters are sent out by the sendForgotPasswordEmail operation
+        /// 
+        /// Send POST request to APIROOT/users/resetPassword
+        /// </summary>
+        /// <param name="resetPassword">Parameters for resetting password</param>
+        public void ResetPassword(ResetPassword resetPassword)
+        {
+            RestConnection.Post("users/resetPassword",
+                JsonSerializer.Serialize(resetPassword));
+        }
+
+        /// <summary>
+        /// Change password of the currently logged in
+        /// You must specify the current and the new passwords
+        /// 
+        /// Send POST request to APIROOT/users/changePassword
+        /// </summary>
+        /// <param name="changePassword">Change password parameters</param>
+        public void ChangePassword(ChangePassword changePassword)
+        {
+            RestConnection.Post("users/changePassword",
+                JsonSerializer.Serialize(changePassword));
+        }
+
+        /// <summary>
         /// Query the currently logged in user
         /// 
         /// Send GET request to APIROOT/users/me
@@ -77,27 +160,6 @@ namespace Thriot.Client.DotNet.Management
             var userStr = RestConnection.Get("users/byemail/" + HttpUtility.UrlEncode(email) + "/");
 
             return JsonSerializer.Deserialize<User>(userStr);
-        }
-
-        /// <summary>
-        /// Log in the current user. On successfull login all subsequent management operations will run in the context of the logged in user.
-        /// 
-        /// Send POST request to APIROOT/users/login
-        /// </summary>
-        /// <param name="login">The user's email address and password</param>
-        /// <exception cref="WebException">In case of any service side error an exception will be thrown. Please refer to the HTTP error code for more information</exception>
-        public void Login(Login login)
-        {
-            var response = RestConnection.Post("users/login", JsonSerializer.Serialize(login));
-
-            RestConnection.Setup(_baseUrl,
-                new Dictionary<string, string>
-                {
-                    {
-                        HttpRequestHeader.Authorization.ToString(), "Basic " + JsonSerializer.Deserialize<string>(response)
-                    }
-                });
-            _isLoggedIn = true;
         }
 
         /// <summary>

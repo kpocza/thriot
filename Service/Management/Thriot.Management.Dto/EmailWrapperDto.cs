@@ -1,6 +1,6 @@
 ﻿namespace Thriot.Web.Models
 {
-    public class EmailWrapper
+    public class EmailWrapperDto
     {
         public string Email { get; set; }
     }

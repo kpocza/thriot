@@ -314,13 +314,13 @@ namespace Thriot.Management.Services.Tests
 
             authenticationContext.GetContextUser().Returns(userId);
             
-            userService.ChangePassword(new ChangePasswordDto {OldPassword = "password", NewPassword = "password2"});
+            userService.ChangePassword(new ChangePasswordDto {CurrentPassword = "password", NewPassword = "password2"});
 
             AssertionHelper.AssertThrows<AuthenticationException>(
                 () =>
                     userService.ChangePassword(new ChangePasswordDto
                     {
-                        OldPassword = "passwordinvalid",
+                        CurrentPassword = "passwordinvalid",
                         NewPassword = "password2"
                     }));
         }
@@ -339,7 +339,7 @@ namespace Thriot.Management.Services.Tests
 
             authenticationContext.GetContextUser().Returns((string) null);
 
-            userService.ChangePassword(new ChangePasswordDto { OldPassword = "password", NewPassword = "password2" });
+            userService.ChangePassword(new ChangePasswordDto { CurrentPassword = "password", NewPassword = "password2" });
         }
 
         #endregion

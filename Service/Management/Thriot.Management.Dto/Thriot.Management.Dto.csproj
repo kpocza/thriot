@@ -47,7 +47,7 @@
     <Compile Include="CompanyDto.cs" />
     <Compile Include="CompanyUserDto.cs" />
     <Compile Include="DeviceDto.cs" />
-    <Compile Include="EmailWrapper.cs" />
+    <Compile Include="EmailWrapperDto.cs" />
     <Compile Include="ResetPasswordDto.cs" />
     <Compile Include="InfoDto.cs" />
     <Compile Include="LoginDto.cs" />

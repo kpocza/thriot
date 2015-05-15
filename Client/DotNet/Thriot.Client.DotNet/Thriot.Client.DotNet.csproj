@@ -41,10 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Management\ActivationRequiredException.cs" />
+    <Compile Include="Management\Dto\ChangePassword.cs" />
     <Compile Include="Management\Dto\Company.cs" />
     <Compile Include="Management\Dto\CompanyUser.cs" />
     <Compile Include="Management\Dto\Device.cs" />
+    <Compile Include="Management\Dto\EmailWrapper.cs" />
     <Compile Include="Management\Dto\Login.cs" />
+    <Compile Include="Management\Dto\ResetPassword.cs" />
     <Compile Include="Management\Dto\TelemetryDataSinkMetadata.cs" />
     <Compile Include="Management\Dto\TelemetryDataSinksMetadata.cs" />
     <Compile Include="Management\Dto\TelemetryDataSinkParameters.cs" />

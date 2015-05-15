@@ -58,18 +58,18 @@ namespace Thriot.Management.WebApi.Controllers
 
         [Route("resendActivationEmail")]
         [HttpPost]
-        public HttpResponseMessage ResendActivationEmail(EmailWrapper emailWrapper)
+        public HttpResponseMessage ResendActivationEmail(EmailWrapperDto emailWrapperDto)
         {
-            _userService.ResendActivationEmail(emailWrapper.Email, new Mailer());
+            _userService.ResendActivationEmail(emailWrapperDto.Email, new Mailer());
 
             return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
 
         [Route("sendForgotPasswordEmail")]
         [HttpPost]
-        public HttpResponseMessage SendForgotPasswordEmail(EmailWrapper emailWrapper)
+        public HttpResponseMessage SendForgotPasswordEmail(EmailWrapperDto emailWrapperDto)
         {
-            _userService.SendForgotPasswordEmail(emailWrapper.Email, new Mailer());
+            _userService.SendForgotPasswordEmail(emailWrapperDto.Email, new Mailer());
 
             return new HttpResponseMessage(HttpStatusCode.NoContent);
         }

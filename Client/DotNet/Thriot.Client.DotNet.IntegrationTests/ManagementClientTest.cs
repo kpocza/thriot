@@ -49,6 +49,134 @@ namespace Thriot.Client.DotNet.IntegrationTests
         }
 
         [TestMethod]
+        [ExpectedHttpStatusCode(HttpStatusCode.Forbidden)]
+        public void TryActiavateTest()
+        {
+            var managementClient = new ManagementClient(ManagementApi);
+
+            var email = Guid.NewGuid() + "@test.hu";
+
+            managementClient.User.Register(new Register { Email = email, Name = "test user", Password = "p@ssw0rd" });
+            var user = managementClient.User.Get();
+            managementClient.User.Logoff();
+
+            // will return with HTTP status code forbidden because activation is not required
+            managementClient.User.Activate(user.Id, "12345678901234567890123456789012");
+        }
+
+        [TestMethod]
+        [ExpectedHttpStatusCode(HttpStatusCode.Forbidden)]
+        public void TryResendActivationEmailTest()
+        {
+            var managementClient = new ManagementClient(ManagementApi);
+
+            var email = Guid.NewGuid() + "@test.hu";
+
+            managementClient.User.Register(new Register { Email = email, Name = "test user", Password = "p@ssw0rd" });
+            managementClient.User.Logoff();
+
+            // will return with HTTP status code forbidden because activation is not required
+            managementClient.User.ResendActivationEmail(new EmailWrapper { Email = email});
+        }
+
+        [TestMethod]
+        [ExpectedHttpStatusCode(HttpStatusCode.BadRequest)]
+        public void TryResendActivationWithInvalidEmailTest()
+        {
+            var managementClient = new ManagementClient(ManagementApi);
+
+            managementClient.User.ResendActivationEmail(new EmailWrapper { Email = "invalidemailaddress" });
+        }
+
+        // can't suppose that we have email sending capabilities for now
+        //[TestMethod]
+        //public void SendForgotPasswordEmailTest()
+        //{
+        //    var managementClient = new ManagementClient(ManagementApi);
+
+        //    var email = Guid.NewGuid() + "@test.hu";
+
+        //    managementClient.User.Register(new Register { Email = email, Name = "test user", Password = "p@ssw0rd" });
+        //    managementClient.User.Logoff();
+
+        //    managementClient.User.SendForgotPasswordEmail(new EmailWrapper { Email = email });
+        //}
+
+        [TestMethod]
+        [ExpectedHttpStatusCode(HttpStatusCode.Forbidden)]
+        public void ResetPasswordTest()
+        {
+            var managementClient = new ManagementClient(ManagementApi);
+
+            var email = Guid.NewGuid() + "@test.hu";
+
+            managementClient.User.Register(new Register { Email = email, Name = "test user", Password = "p@ssw0rd" });
+            var user = managementClient.User.Get();
+            managementClient.User.Logoff();
+
+            // invalid confirmation code results forbidden
+            managementClient.User.ResetPassword(new ResetPassword
+            {
+                UserId = user.Id,
+                ConfirmationCode = "12345678901234567890123456789012",
+                Password = "pa@swd2"
+            });
+        }
+
+        [TestMethod]
+        [ExpectedHttpStatusCode(HttpStatusCode.NotFound)]
+        public void TryResetPasswordIvalidUserTest()
+        {
+            var managementClient = new ManagementClient(ManagementApi);
+
+            // invalid user id results not found
+            managementClient.User.ResetPassword(new ResetPassword
+            {
+                UserId = "12345678901234567890123456789012",
+                ConfirmationCode = "12345678901234567890123456789012",
+                Password = "pa@swd2"
+            });
+        }
+
+        [TestMethod]
+        public void ChangePasswordTest()
+        {
+            var managementClient = new ManagementClient(ManagementApi);
+
+            var email = Guid.NewGuid() + "@test.hu";
+
+            managementClient.User.Register(new Register { Email = email, Name = "test user", Password = "p@ssw0rd" });
+
+            managementClient.User.ChangePassword(new ChangePassword
+            {
+                CurrentPassword = "p@ssw0rd",
+                NewPassword = "p@ssw0rd2"
+            });
+
+            managementClient.User.Logoff();
+
+            managementClient.User.Login(new Login { Email = email, Password = "p@ssw0rd2" });
+            Assert.IsTrue(managementClient.User.IsLoggedIn);
+        }
+
+        [TestMethod]
+        [ExpectedHttpStatusCode(HttpStatusCode.Unauthorized)]
+        public void TryChangePasswordInvalidCurrentPasswordTest()
+        {
+            var managementClient = new ManagementClient(ManagementApi);
+
+            var email = Guid.NewGuid() + "@test.hu";
+
+            managementClient.User.Register(new Register { Email = email, Name = "test user", Password = "p@ssw0rd" });
+
+            managementClient.User.ChangePassword(new ChangePassword
+            {
+                CurrentPassword = "p@ssw0rdwqeroiweriutywetui",
+                NewPassword = "p@ssw0rd2"
+            });
+        }
+
+        [TestMethod]
         [ExpectedHttpStatusCode(HttpStatusCode.Unauthorized)]
         public void GetUserNotAuthTest()
         {

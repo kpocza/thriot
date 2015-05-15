@@ -1,6 +1,6 @@
-﻿namespace Thriot.Management.Dto
+﻿namespace Thriot.Client.DotNet.Management
 {
-    public class ChangePasswordDto
+    public class ChangePassword
     {
         public string CurrentPassword { get; set; }
 

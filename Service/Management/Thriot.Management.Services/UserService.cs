@@ -133,7 +133,7 @@ namespace Thriot.Management.Services
             var user = _userOperations.Get(currentUserId);
             var loginUser = _userOperations.GetLoginUser(user.Email);
 
-            var hash = Crypto.CalcualteHash(changePassword.OldPassword, loginUser.Salt);
+            var hash = Crypto.CalcualteHash(changePassword.CurrentPassword, loginUser.Salt);
             if (hash != loginUser.PasswordHash)
                 throw new AuthenticationException("Invalid old password");
 
