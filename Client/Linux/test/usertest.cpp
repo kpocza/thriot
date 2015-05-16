@@ -81,6 +81,176 @@ TEST(UserTest, loginLogoff)
 	ASSERT_EQ(regUserId, loginUserId);
 }
 
+TEST(UserTest, tryActivate)
+{
+	ManagementClient*  managementClient = new ManagementClient(APIURL);
+
+	UserManagementClient* userManagementClient = managementClient->User();
+
+	string email = getRandomEmail();
+
+	RegisterInfo reg;
+	reg.Name = "Linux test user";
+	reg.Email = email;
+	reg.Password = "P@ssw0rd";
+	userManagementClient->Register(reg);
+
+	string regUserId = userManagementClient->Get().Id;
+
+	userManagementClient->Logoff();
+	
+	ActivateInfo activate;
+	activate.UserId = regUserId;
+	activate.ActivationCode = "12345678901234567890123456789012";
+
+	int returnCode = userManagementClient->Activate(activate);
+	
+	ASSERT_EQ(403, returnCode);
+}
+
+TEST(UserTest, tryResendActivationEmail)
+{
+	ManagementClient*  managementClient = new ManagementClient(APIURL);
+
+	UserManagementClient* userManagementClient = managementClient->User();
+
+	string email = getRandomEmail();
+
+	RegisterInfo reg;
+	reg.Name = "Linux test user";
+	reg.Email = email;
+	reg.Password = "P@ssw0rd";
+	userManagementClient->Register(reg);
+
+	string regUserId = userManagementClient->Get().Id;
+
+	userManagementClient->Logoff();
+	
+	int returnCode = userManagementClient->ResendActivationEmail(email);
+	
+	ASSERT_EQ(403, returnCode);
+}
+
+//TEST(UserTest, SendForgotPasswordEmail)
+//{
+//	ManagementClient*  managementClient = new ManagementClient(APIURL);
+//
+//	UserManagementClient* userManagementClient = managementClient->User();
+//
+//	string email = getRandomEmail();
+//
+//	RegisterInfo reg;
+//	reg.Name = "Linux test user";
+//	reg.Email = email;
+//	reg.Password = "P@ssw0rd";
+//	userManagementClient->Register(reg);
+//
+//	string regUserId = userManagementClient->Get().Id;
+//
+//	userManagementClient->Logoff();
+//	
+//	int returnCode = userManagementClient->SendForgotPasswordEmail(email);
+//	
+//	ASSERT_EQ(0, returnCode);
+//}
+
+TEST(UserTest, tryResetPassword)
+{
+	ManagementClient*  managementClient = new ManagementClient(APIURL);
+
+	UserManagementClient* userManagementClient = managementClient->User();
+
+	string email = getRandomEmail();
+
+	RegisterInfo reg;
+	reg.Name = "Linux test user";
+	reg.Email = email;
+	reg.Password = "P@ssw0rd";
+	userManagementClient->Register(reg);
+
+	string regUserId = userManagementClient->Get().Id;
+
+	userManagementClient->Logoff();
+	
+	ResetPasswordInfo resetPassword;
+	resetPassword.UserId = regUserId;
+	resetPassword.ConfirmationCode = "12345678901234567890123456789012";
+	resetPassword.Password = "p@asswd2";
+
+	int returnCode = userManagementClient->ResetPassword(resetPassword);
+	
+	ASSERT_EQ(403, returnCode);
+}
+
+TEST(UserTest, tryResetPasswordInvalidUser)
+{
+	ManagementClient*  managementClient = new ManagementClient(APIURL);
+
+	UserManagementClient* userManagementClient = managementClient->User();
+	
+	ResetPasswordInfo resetPassword;
+	resetPassword.UserId = "12345678901234567890123456789012";
+	resetPassword.ConfirmationCode = "12345678901234567890123456789012";
+	resetPassword.Password = "p@asswd2";
+
+	int returnCode = userManagementClient->ResetPassword(resetPassword);
+	
+	ASSERT_EQ(404, returnCode);
+}
+
+TEST(UserTest, changePasswordTest)
+{
+	ManagementClient*  managementClient = new ManagementClient(APIURL);
+
+	UserManagementClient* userManagementClient = managementClient->User();
+
+	string email = getRandomEmail();
+
+	RegisterInfo reg;
+	reg.Name = "Linux test user";
+	reg.Email = email;
+	reg.Password = "P@ssw0rd";
+	userManagementClient->Register(reg);
+
+	ChangePasswordInfo changePassword;
+	changePassword.CurrentPassword = reg.Password;
+	changePassword.NewPassword = "P@ssw0rd2";
+	userManagementClient->ChangePassword(changePassword);
+
+	userManagementClient->Logoff();
+	
+	LoginInfo login;
+	login.Email = email;
+	login.Password = changePassword.NewPassword;
+
+	userManagementClient->Login(login);
+	bool isLoggedIn = userManagementClient->IsLoggedIn();
+	
+	ASSERT_TRUE(isLoggedIn);
+}
+
+TEST(UserTest, tryChangePasswordInvalidCurrentPasswordTest)
+{
+	ManagementClient*  managementClient = new ManagementClient(APIURL);
+
+	UserManagementClient* userManagementClient = managementClient->User();
+
+	string email = getRandomEmail();
+
+	RegisterInfo reg;
+	reg.Name = "Linux test user";
+	reg.Email = email;
+	reg.Password = "P@ssw0rd";
+	userManagementClient->Register(reg);
+
+	ChangePasswordInfo changePassword;
+	changePassword.CurrentPassword = "qwioeruasdkjfhaskjfh";
+	changePassword.NewPassword = "P@ssw0rd2";
+	int retCode = userManagementClient->ChangePassword(changePassword);
+
+	ASSERT_EQ(401, retCode);
+}
+
 TEST(UserTest, findUser)
 {
 	ManagementClient*  managementClient = new ManagementClient(APIURL);
