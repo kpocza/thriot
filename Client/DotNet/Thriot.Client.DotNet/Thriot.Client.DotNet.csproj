@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Management\ActivationRequiredException.cs" />
+    <Compile Include="Management\Dto\Activate.cs" />
     <Compile Include="Management\Dto\ChangePassword.cs" />
     <Compile Include="Management\Dto\Company.cs" />
     <Compile Include="Management\Dto\CompanyUser.cs" />

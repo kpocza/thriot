@@ -61,7 +61,11 @@ namespace Thriot.Client.DotNet.IntegrationTests
             managementClient.User.Logoff();
 
             // will return with HTTP status code forbidden because activation is not required
-            managementClient.User.Activate(user.Id, "12345678901234567890123456789012");
+            managementClient.User.Activate(new Activate
+            {
+                UserId = user.Id,
+                ActivationCode = "12345678901234567890123456789012"
+            });
         }
 
         [TestMethod]

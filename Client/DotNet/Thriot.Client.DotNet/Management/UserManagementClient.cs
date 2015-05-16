@@ -76,11 +76,10 @@ namespace Thriot.Client.DotNet.Management
         /// 
         /// Send GET request to APIROOT/users/activate/{userId}/{activationCode}
         /// </summary>
-        /// <param name="userId">Identifier of the user to activate</param>
-        /// <param name="activationCode">Activation code of the user</param>
-        public void Activate(string userId, string activationCode)
+        /// <param name="activate">Identifier of the user secured by the activation code to activate</param>
+        public void Activate(Activate activate)
         {
-            RestConnection.Get(string.Format("users/activate/{0}/{1}", userId, activationCode));
+            RestConnection.Get(string.Format("users/activate/{0}/{1}", activate.UserId, activate.ActivationCode));
         }
 
         /// <summary>
