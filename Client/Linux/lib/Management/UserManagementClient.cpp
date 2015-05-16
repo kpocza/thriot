@@ -91,7 +91,132 @@ int UserManagementClient::Login(const LoginInfo& login)
 
 	_restConnection->SetAuthToken(string(authToken));
 
-	return 0;	
+	return 0;
+}
+
+/**
+Activate the user.
+Generaly this method wouldn't be called from the client sinde the activation link is embedded into the
+email intended to force user activation.
+
+@param activate Activation parameters (userid and activation code)
+
+@return operation status. 0 if Ok*/
+int UserManagementClient::Activate(const ActivateInfo& activate)
+{
+	Response httpResponse =_restConnection->Get("users/activate/" + activate.UserId + "/" + activate.ActivationCode);
+
+	if(httpResponse.Code != 302)
+		return httpResponse.Code;
+
+	return 0;
+}
+
+/**
+Resend activation email
+When the activation email didn't arrive this method can be used to resend it.
+
+@param email Email address to resend activation email to
+
+@return operation status 0 if Ok */
+int UserManagementClient::ResendActivationEmail(const string& email)
+{
+	DynamicJsonBuffer jsonBufferRequest;
+
+	JsonObject& regJson = jsonBufferRequest.createObject();
+
+	regJson["Email"] = email.c_str();
+
+	char jsonBuffer[256];
+	regJson.printTo(jsonBuffer, sizeof(jsonBuffer));
+
+	Response httpResponse =_restConnection->Post("users/resendActivationEmail", "application/json", string(jsonBuffer));
+
+	if(httpResponse.Code != 204)
+		return httpResponse.Code;
+
+	return 0;
+}
+
+/**
+Send reset forgot password email
+When the user forgot the password send an email with a link that can be used to reset the password.
+
+@param email Email address to sent forgot password email
+
+@return operation status 0 if Ok */
+int UserManagementClient::SendForgotPasswordEmail(const string& email)
+{
+	DynamicJsonBuffer jsonBufferRequest;
+
+	JsonObject& regJson = jsonBufferRequest.createObject();
+
+	regJson["Email"] = email.c_str();
+
+	char jsonBuffer[256];
+	regJson.printTo(jsonBuffer, sizeof(jsonBuffer));
+
+	Response httpResponse =_restConnection->Post("users/sendForgotPasswordEmail", "application/json", string(jsonBuffer));
+
+	if(httpResponse.Code != 204)
+		return httpResponse.Code;
+
+	return 0;
+}
+
+/**
+Reset password. 
+This method generaly employs has the parameters that the SendForgotPasswordEmail contained
+
+@param resetPassword Class containing reset password info
+
+@return operation status 0 if Ok */
+int UserManagementClient::ResetPassword(const ResetPasswordInfo& resetPassword)
+{
+	DynamicJsonBuffer jsonBufferRequest;
+
+	JsonObject& regJson = jsonBufferRequest.createObject();
+
+	regJson["UserId"] = resetPassword.UserId.c_str();
+	regJson["ConfirmationCode"] = resetPassword.ConfirmationCode.c_str();
+	regJson["Password"] = resetPassword.Password.c_str();
+
+	char jsonBuffer[256];
+	regJson.printTo(jsonBuffer, sizeof(jsonBuffer));
+
+	Response httpResponse =_restConnection->Post("users/resetPassword", "application/json", string(jsonBuffer));
+
+	if(httpResponse.Code != 204)
+		return httpResponse.Code;
+
+	return 0;
+}
+
+/**
+Change password. 
+Change password of the already logged in user to use a different password in the future.
+
+@param changePassword Class containing change password info
+
+@return operation status 0 if Ok */
+int UserManagementClient::ChangePassword(const ChangePasswordInfo& changePassword)
+{
+	DynamicJsonBuffer jsonBufferRequest;
+
+	JsonObject& regJson = jsonBufferRequest.createObject();
+
+	regJson["CurrentPassword"] = changePassword.CurrentPassword.c_str();
+	regJson["NewPassword"] = changePassword.NewPassword.c_str();
+
+	char jsonBuffer[256];
+	regJson.printTo(jsonBuffer, sizeof(jsonBuffer));
+
+	Response httpResponse =_restConnection->Post("users/changePassword", "application/json", string(jsonBuffer));
+
+	if(httpResponse.Code != 204)
+		return httpResponse.Code;
+
+	return 0;
 }
 
 /** Logoff the currently logged-in user */
@@ -99,7 +224,6 @@ void UserManagementClient::Logoff()
 {
 	_restConnection->ClearAuthToken();
 }
-
 
 /**
 Determines whether the user is logged in

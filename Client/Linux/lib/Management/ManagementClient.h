@@ -38,6 +38,35 @@ struct User
 	string Email;
 };
 
+/** DTO used to activate the user */
+struct ActivateInfo
+{
+	/** Unique user identifier */
+	string UserId;
+	/** Random activation code */
+	string ActivationCode;
+};
+
+/** DTO used to reset user's password */
+struct ResetPasswordInfo
+{
+	/** Unique user identifier */
+	string UserId;
+	/** Random confirmation code */
+	string ConfirmationCode;
+	/** Password */
+	string Password;
+};
+
+/** DTO for changing password */
+struct ChangePasswordInfo
+{
+	/** Current password of the user */
+	string CurrentPassword;
+	/** New password for future use */
+	string NewPassword;
+};
+
 /** A parameterized telemetry data sink entity */
 struct TelemetryDataSinkParameters
 {
@@ -164,6 +193,11 @@ class UserManagementClient
 	public:
 		UserManagementClient(RestConnection* restConnection);
 		int Register(const RegisterInfo& reg);
+		int Activate(const ActivateInfo& activate);
+		int ResendActivationEmail(const string& email);
+		int SendForgotPasswordEmail(const string& email);
+		int ResetPassword(const ResetPasswordInfo& resetPassword);
+		int ChangePassword(const ChangePasswordInfo& changePassword);
 		int Login(const LoginInfo& login);
 		void Logoff();
 		bool IsLoggedIn();
