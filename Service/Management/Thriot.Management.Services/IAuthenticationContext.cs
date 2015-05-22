@@ -4,7 +4,9 @@ namespace Thriot.Management.Services
 {
     public interface IAuthenticationContext
     {
-        IPrincipal GenerateContextUser(string userId);
+        void SetUserPrincipalContext(IUserPrincipalContext userPrincipalContext);
+
+        IPrincipal BuildContextUserPrincipal(string userId);
 
         void SetContextUser(string userId);
 

@@ -9,7 +9,7 @@ namespace Thriot.Management.WebApi.Controllers
 {
     [RoutePrefix("v1/networks")]
     [WebApiAuthenticator]
-    public class NetworksV1Controller : ApiController, ILoggerOwner
+    public class NetworksV1Controller : ApiController, IUserPrincipalContext, ILoggerOwner
     {
         private readonly NetworkService _networkService;
         private readonly IAuthenticationContext _authenticationContext;
@@ -18,6 +18,9 @@ namespace Thriot.Management.WebApi.Controllers
         {
             _networkService = networkService;
             _authenticationContext = authenticationContext;
+
+            _networkService.AuthenticationContext.SetUserPrincipalContext(this);
+            _authenticationContext.SetUserPrincipalContext(this);
         }
 
         [Route("{id}")]

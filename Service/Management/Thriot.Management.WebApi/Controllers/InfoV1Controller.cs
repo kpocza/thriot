@@ -8,7 +8,7 @@ namespace Thriot.Management.WebApi.Controllers
 {
     [RoutePrefix("v1/info")]
     [WebApiAuthenticator]
-    public class InfoV1Controller : ApiController, ILoggerOwner
+    public class InfoV1Controller : ApiController, IUserPrincipalContext, ILoggerOwner
     {
         private readonly InfoService _infoService;
         private readonly IAuthenticationContext _authenticationContext;
@@ -17,6 +17,9 @@ namespace Thriot.Management.WebApi.Controllers
         {
             _infoService = infoService;
             _authenticationContext = authenticationContext;
+
+            _infoService.AuthenticationContext.SetUserPrincipalContext(this);
+            _authenticationContext.SetUserPrincipalContext(this);
         }
 
         [Route("")]

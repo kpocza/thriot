@@ -9,6 +9,7 @@ using System.Web.Http.Filters;
 using System.Web.Http.Results;
 using Thriot.Framework.Web.Logging;
 using Thriot.Framework.Logging;
+using Thriot.Management.Services;
 
 namespace Thriot.Management.WebApi.Auth
 {
@@ -32,16 +33,22 @@ namespace Thriot.Management.WebApi.Auth
                         context.ActionContext.ControllerContext.Configuration.DependencyResolver.GetService(
                             typeof(AuthTokenHandler));
 
-                var authToken = authTokenHandler.ExtractToken(authHeader.Parameter);
-
-                if (authToken != null)
+                var userPrincipalContext = (IUserPrincipalContext) context.ActionContext.ControllerContext.Controller;
+                if (userPrincipalContext != null)
                 {
-                    var principal = authTokenHandler.GenerateContextUser(authToken);
+                    authTokenHandler.AuthenticationContext.SetUserPrincipalContext(userPrincipalContext);
 
-                    if (principal != null)
+                    var authToken = authTokenHandler.ExtractToken(authHeader.Parameter);
+                    if (authToken != null)
                     {
-                        context.Principal = principal;
-                        return Task.FromResult(0);
+                        var principal = authTokenHandler.GenerateContextUser(authToken);
+
+                        if (principal != null)
+                        {
+                            context.Principal = principal;
+                            userPrincipalContext.User = principal;
+                            return Task.FromResult(0);
+                        }
                     }
                 }
             }

@@ -8,7 +8,7 @@ namespace Thriot.Management.WebApi.Controllers
 {
     [RoutePrefix("v1/telemetryMetadata")]
     [WebApiAuthenticator]
-    public class TelemetryMetadataV1Controller : ApiController, ILoggerOwner
+    public class TelemetryMetadataV1Controller : ApiController, IUserPrincipalContext, ILoggerOwner
     {
         private readonly TelemetryMetadataService _telemetryMetadataService;
         private readonly IAuthenticationContext _authenticationContext;
@@ -17,6 +17,9 @@ namespace Thriot.Management.WebApi.Controllers
         {
             _telemetryMetadataService = telemetryMetadataService;
             _authenticationContext = authenticationContext;
+
+            _telemetryMetadataService.AuthenticationContext.SetUserPrincipalContext(this);
+            _authenticationContext.SetUserPrincipalContext(this);
         }
 
         [Route("")]

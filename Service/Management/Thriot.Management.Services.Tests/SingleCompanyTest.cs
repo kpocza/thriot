@@ -34,7 +34,7 @@ namespace Thriot.Management.Services.Tests
         {
             var email = EmailHelper.Generate();
 
-            var userId = _userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+            var userId = _userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, null);
 
             Assert.AreEqual(userId, _settingProvider.UserForPrebuiltEntity);
             Assert.IsNotNull(_settingProvider.PrebuiltCompany);
@@ -47,7 +47,7 @@ namespace Thriot.Management.Services.Tests
         {
             var email = EmailHelper.Generate();
 
-            _userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+            _userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, null);
 
             _companyService.Create("Another Company");
         }
@@ -58,7 +58,7 @@ namespace Thriot.Management.Services.Tests
         {
             var email = EmailHelper.Generate();
 
-            _userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+            _userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, null);
 
             _companyService.Delete(_settingProvider.PrebuiltCompany);
         }
@@ -68,7 +68,7 @@ namespace Thriot.Management.Services.Tests
         {
             var email = EmailHelper.Generate();
 
-            _userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+            _userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, null);
 
             var serviceId = _serviceService.Create(new ServiceDto { CompanyId = _settingProvider.PrebuiltCompany, Name = "Another service"});
 
@@ -82,10 +82,10 @@ namespace Thriot.Management.Services.Tests
         {
             var email = EmailHelper.Generate();
 
-            var userId = _userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+            var userId = _userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, null);
 
             email = EmailHelper.Generate();
-            var user2Id = _userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+            var user2Id = _userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, null);
 
             Assert.AreEqual(userId, _settingProvider.UserForPrebuiltEntity);
             Assert.AreNotEqual(user2Id, _settingProvider.UserForPrebuiltEntity);
@@ -119,7 +119,12 @@ namespace Thriot.Management.Services.Tests
         {
             private string _userId;
 
-            public IPrincipal GenerateContextUser(string userId)
+            public void SetUserPrincipalContext(IUserPrincipalContext userPrincipalContext)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IPrincipal BuildContextUserPrincipal(string userId)
             {
                 throw new System.NotImplementedException();
             }

@@ -60,7 +60,7 @@ namespace Thriot.Management.Services.Tests
             var userOperations = environmentFactory.MgmtUserOperations;
             var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
             var userService = new UserService(userOperations, _authenticationContext, settingProvider, null);
-            _userId = userService.Register(new RegisterDto() { Name = "user", Email = EmailHelper.Generate() }, "password", null);
+            _userId = userService.Register(new RegisterDto() { Name = "user", Email = EmailHelper.Generate(), Password = "password" }, null);
         
             _authenticationContext.GetContextUser().Returns(_userId);
         }

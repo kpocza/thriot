@@ -75,7 +75,7 @@ namespace Thriot.Objects.Operations.Tests
             var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
 
             var userService = new UserService(userOperations, _authenticationContext, settingProvider, null);
-            var userId = userService.Register(new RegisterDto() { Name = "user", Email = EmailHelper.Generate() }, "password", null);
+            var userId = userService.Register(new RegisterDto() { Name = "user", Email = EmailHelper.Generate(), Password = "password" }, null);
 
             var companyService = new CompanyService(companyOperations, _authenticationContext, null, new CapabilityProvider(settingProvider));
 

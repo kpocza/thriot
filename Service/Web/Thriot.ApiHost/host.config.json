@@ -1,0 +1,6 @@
+﻿{
+    "Name": "api",
+    "Application": "../api",
+    "Config": "../api/Web.config",
+    "BaseAddress": "http://localhost:8000"
+}

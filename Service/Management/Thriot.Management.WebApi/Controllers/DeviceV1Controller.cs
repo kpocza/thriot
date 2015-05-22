@@ -8,7 +8,7 @@ namespace Thriot.Management.WebApi.Controllers
 {
     [RoutePrefix("v1/devices")]
     [WebApiAuthenticator]
-    public class DevicesV1Controller : ApiController, ILoggerOwner
+    public class DevicesV1Controller : ApiController, IUserPrincipalContext, ILoggerOwner
     {
         private readonly DeviceService _deviceService;
         private readonly IAuthenticationContext _authenticationContext;
@@ -17,6 +17,9 @@ namespace Thriot.Management.WebApi.Controllers
         {
             _deviceService = deviceService;
             _authenticationContext = authenticationContext;
+        
+            _deviceService.AuthenticationContext.SetUserPrincipalContext(this);
+            _authenticationContext.SetUserPrincipalContext(this);
         }
 
         [Route("{id}")]

@@ -8,13 +8,18 @@ namespace Thriot.Management.Services
     public abstract class ManagementServiceBase
     {
         protected readonly ICompanyOperations _companyOperations;
-        protected readonly IAuthenticationContext _authenticationContext;
+        private readonly IAuthenticationContext _authenticationContext;
         protected string _userId;
 
         protected ManagementServiceBase(ICompanyOperations companyOperations, IAuthenticationContext authenticationContext)
         {
             _companyOperations = companyOperations;
             _authenticationContext = authenticationContext;
+        }
+
+        public IAuthenticationContext AuthenticationContext
+        {
+            get { return _authenticationContext; }
         }
 
         protected void Authenticate()
@@ -30,6 +35,5 @@ namespace Thriot.Management.Services
             if (users.All(u => u.Id != _userId))
                 throw new ForbiddenException();
         }
-
     }
 }

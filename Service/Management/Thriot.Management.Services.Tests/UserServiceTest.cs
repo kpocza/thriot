@@ -28,7 +28,7 @@ namespace Thriot.Management.Services.Tests
 
             var email = EmailHelper.Generate();
 
-            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, null);
 
             Assert.AreEqual(32, userId.Length);
             Assert.IsNull(settingProvider.UserForPrebuiltEntity);
@@ -51,7 +51,7 @@ namespace Thriot.Management.Services.Tests
 
             var email = EmailHelper.Generate();
 
-            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", mailer);
+            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, mailer);
 
             Assert.AreEqual(32, userId.Length);
             mailer.ReceivedWithAnyArgs().SendActivationMail(null, null, null, null, null);
@@ -71,8 +71,8 @@ namespace Thriot.Management.Services.Tests
 
             var email = EmailHelper.Generate();
 
-            userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
-            userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+            userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, null);
+            userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, null);
         }
 
         [TestMethod]
@@ -89,8 +89,8 @@ namespace Thriot.Management.Services.Tests
 
             var email = EmailHelper.Generate();
 
-            userService.Register(new RegisterDto() { Name = "new user", Email = email.ToLower() }, "password", null);
-            userService.Register(new RegisterDto() { Name = "new user", Email = email.ToUpper() }, "password", null);
+            userService.Register(new RegisterDto() { Name = "new user", Email = email.ToLower(), Password = "password" }, null);
+            userService.Register(new RegisterDto() { Name = "new user", Email = email.ToUpper(), Password = "password" }, null);
         }
 
         #endregion
@@ -109,7 +109,7 @@ namespace Thriot.Management.Services.Tests
 
             var email = EmailHelper.Generate();
 
-            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, null);
 
             var loggedInUser = userService.Login(email, "password");
 
@@ -130,7 +130,7 @@ namespace Thriot.Management.Services.Tests
 
             var email = EmailHelper.Generate();
 
-            userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+            userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, null);
 
             userService.Login(email, "password2");
         }
@@ -166,7 +166,7 @@ namespace Thriot.Management.Services.Tests
 
             var email = EmailHelper.Generate();
 
-            userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", mailer);
+            userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, mailer);
 
             userService.Login(email, "password");
         }
@@ -196,7 +196,7 @@ namespace Thriot.Management.Services.Tests
                 m => m.SendActivationMail(Arg.Any<string>(), "new user", email, Arg.Any<string>(), Arg.Any<string>()))
                 .Do(call => { activationCode = (string)call.Args()[3]; });
 
-            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", mailer);
+            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, mailer);
 
             userService.Activate(userId, activationCode);
 
@@ -225,7 +225,7 @@ namespace Thriot.Management.Services.Tests
             mailer.When(
                 m => m.SendActivationMail(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()))
                 .Do(call => { activationCode = (string)call.Args()[3]; });
-            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", mailer);
+            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, mailer);
 
             userService.Activate(userId, activationCode);
         }
@@ -246,7 +246,7 @@ namespace Thriot.Management.Services.Tests
 
             var email = EmailHelper.Generate();
 
-            var regDto = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", mailer);
+            var regDto = userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, mailer);
 
             userService.Activate(Identity.Next(), Identity.Next());
         }
@@ -267,7 +267,7 @@ namespace Thriot.Management.Services.Tests
 
             var email = EmailHelper.Generate();
 
-            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, null);
 
             userService.Activate(userId, Identity.Next());
         }
@@ -288,7 +288,7 @@ namespace Thriot.Management.Services.Tests
 
             var email = EmailHelper.Generate();
 
-            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", mailer);
+            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, mailer);
 
             userService.Activate(userId, Identity.Next());
         }
@@ -310,7 +310,7 @@ namespace Thriot.Management.Services.Tests
 
             var email = EmailHelper.Generate();
 
-            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, null);
 
             authenticationContext.GetContextUser().Returns(userId);
             
@@ -362,7 +362,7 @@ namespace Thriot.Management.Services.Tests
 
             var email = EmailHelper.Generate();
 
-            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", mailer);
+            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, mailer);
             
             userService.ResendActivationEmail(email, mailer);
 
@@ -383,7 +383,7 @@ namespace Thriot.Management.Services.Tests
 
             var email = EmailHelper.Generate();
 
-            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, null);
 
             userService.ResendActivationEmail(email, null);
         }
@@ -402,7 +402,7 @@ namespace Thriot.Management.Services.Tests
 
             var email = EmailHelper.Generate();
 
-            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, null);
             authenticationContext.GetContextUser().Returns((string)null);
 
             userService.ResendActivationEmail(email, null);
@@ -427,7 +427,7 @@ namespace Thriot.Management.Services.Tests
          
             var email = EmailHelper.Generate();
 
-            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, null);
 
             authenticationContext.GetContextUser().Returns((string)null);
 
@@ -450,7 +450,7 @@ namespace Thriot.Management.Services.Tests
 
             var email = EmailHelper.Generate();
 
-            userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+            userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, null);
 
             userService.SendForgotPasswordEmail(email, null);
         }
@@ -472,7 +472,7 @@ namespace Thriot.Management.Services.Tests
 
             var email = EmailHelper.Generate();
 
-            userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", mailer);
+            userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, mailer);
 
             authenticationContext.GetContextUser().Returns((string)null);
 
@@ -494,7 +494,7 @@ namespace Thriot.Management.Services.Tests
 
             var email = EmailHelper.Generate();
 
-            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, null);
 
             authenticationContext.GetContextUser().Returns((string)null);
 
@@ -529,7 +529,7 @@ namespace Thriot.Management.Services.Tests
 
             var email = EmailHelper.Generate();
 
-            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, null);
 
             authenticationContext.GetContextUser().Returns((string)null);
 
@@ -560,7 +560,7 @@ namespace Thriot.Management.Services.Tests
 
             var email = EmailHelper.Generate();
 
-            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", mailer);
+            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, mailer);
 
             authenticationContext.GetContextUser().Returns((string)null);
 
@@ -586,7 +586,7 @@ namespace Thriot.Management.Services.Tests
             var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
 
             var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
-            var userId = userService.Register(new RegisterDto() { Name = "user", Email = EmailHelper.Generate() }, "password", null);
+            var userId = userService.Register(new RegisterDto() { Name = "user", Email = EmailHelper.Generate(), Password = "password" }, null);
 
             var companyService = new CompanyService(companyOperations, authenticationContext, null, new CapabilityProvider(settingProvider));
 
@@ -632,7 +632,7 @@ namespace Thriot.Management.Services.Tests
 
             var email = EmailHelper.Generate();
 
-            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, null);
 
             authenticationContext.GetContextUser().Returns(userId);
 
@@ -676,7 +676,7 @@ namespace Thriot.Management.Services.Tests
 
             var email = EmailHelper.Generate();
 
-            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+            var userId = userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, null);
 
             var foundUser = userService.FindUser(email);
             Assert.AreEqual(userId, foundUser.Id);
@@ -696,7 +696,7 @@ namespace Thriot.Management.Services.Tests
 
             var email = EmailHelper.Generate();
 
-            userService.Register(new RegisterDto() { Name = "new user", Email = email }, "password", null);
+            userService.Register(new RegisterDto() { Name = "new user", Email = email, Password = "password" }, null);
 
             var user = userService.FindUser(email + "asdfasfd");
             Assert.IsNull(user);

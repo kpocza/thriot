@@ -70,7 +70,7 @@ namespace Thriot.Objects.Operations.Tests
             _companyOperations = environmentFactory.MgmtCompanyOperations;
             var userService = new UserService(userOperations, _authenticationContext, settingProvider, null);
 
-            var userId = userService.Register(new RegisterDto() { Name = "user", Email = EmailHelper.Generate() }, "password", null);
+            var userId = userService.Register(new RegisterDto() { Name = "user", Email = EmailHelper.Generate(), Password = "password" }, null);
 
             var telemetryDataSinkSetupService = Substitute.For<ITelemetryDataSinkSetupService>();
             telemetryDataSinkSetupService.GetTelemetryDataSinksMetadata().Returns(

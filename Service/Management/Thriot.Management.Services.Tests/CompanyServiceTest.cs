@@ -275,7 +275,7 @@ namespace Thriot.Management.Services.Tests
         {
             var companyId = _companyService.Create("new company");
 
-            var user2Id = _userService.Register(new RegisterDto() { Name = "user", Email = EmailHelper.Generate() }, "password", null);
+            var user2Id = _userService.Register(new RegisterDto() { Name = "user", Email = EmailHelper.Generate(), Password = "password" }, null);
             
             _companyService.AddUser(new CompanyUserDto {CompanyId = companyId, UserId = user2Id});
 
@@ -299,7 +299,7 @@ namespace Thriot.Management.Services.Tests
         {
             var companyId = _companyService.Create("new company");
 
-            var user2Id = _userService.Register(new RegisterDto() { Name = "user", Email = EmailHelper.Generate() }, "password", null);
+            var user2Id = _userService.Register(new RegisterDto() { Name = "user", Email = EmailHelper.Generate(), Password = "password" }, null);
 
             _authenticationContext.GetContextUser().Returns(user2Id);
 
@@ -327,7 +327,7 @@ namespace Thriot.Management.Services.Tests
             var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
             _userService = new UserService(userOperations, _authenticationContext, settingProvider, null);
 
-            _userId = _userService.Register(new RegisterDto() {Name = "user", Email = EmailHelper.Generate()}, "password", null);
+            _userId = _userService.Register(new RegisterDto() { Name = "user", Email = EmailHelper.Generate(), Password = "password" }, null);
 
             _companyService = new CompanyService(_companyOperations, _authenticationContext, null, new CapabilityProvider(settingProvider));
         

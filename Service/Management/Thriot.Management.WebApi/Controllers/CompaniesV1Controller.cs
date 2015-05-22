@@ -9,7 +9,7 @@ namespace Thriot.Management.WebApi.Controllers
 {
     [RoutePrefix("v1/companies")]
     [WebApiAuthenticator]
-    public class CompaniesV1Controller : ApiController, ILoggerOwner
+    public class CompaniesV1Controller : ApiController, IUserPrincipalContext, ILoggerOwner
     {
         private readonly CompanyService _companyService;
         private readonly UserService _userService;
@@ -20,6 +20,10 @@ namespace Thriot.Management.WebApi.Controllers
             _companyService = companyService;
             _userService = userService;
             _authenticationContext = authenticationContext;
+
+            _companyService.AuthenticationContext.SetUserPrincipalContext(this);
+            _userService.AuthenticationContext.SetUserPrincipalContext(this);
+            _authenticationContext.SetUserPrincipalContext(this);
         }
 
         [Route("")]

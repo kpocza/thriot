@@ -191,6 +191,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Management.Operation
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Objects.Operations.Tests", "Objects\Thriot.Objects.Operations.Tests\Thriot.Objects.Operations.Tests.csproj", "{D90B9D2C-1589-4D62-A9E0-60919B9D66D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.ApiHost", "Web\Thriot.ApiHost\Thriot.ApiHost.csproj", "{E02E667A-23EF-4D93-ACE6-C56DCE6D6AAB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{89919401-0294-4AB2-BCD6-F52047BB6F3D} = {89919401-0294-4AB2-BCD6-F52047BB6F3D}
+		{4B3CFD31-7BF9-4262-9572-F0924A83CC1B} = {4B3CFD31-7BF9-4262-9572-F0924A83CC1B}
+		{3705E2BB-7E58-4745-B3E8-08223E57557A} = {3705E2BB-7E58-4745-B3E8-08223E57557A}
+		{C7275BD4-52B2-444E-A880-2C70A8B79BEF} = {C7275BD4-52B2-444E-A880-2C70A8B79BEF}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -990,6 +998,22 @@ Global
 		{D90B9D2C-1589-4D62-A9E0-60919B9D66D6}.ProdSql|Any CPU.Build.0 = Release|Any CPU
 		{D90B9D2C-1589-4D62-A9E0-60919B9D66D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D90B9D2C-1589-4D62-A9E0-60919B9D66D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E02E667A-23EF-4D93-ACE6-C56DCE6D6AAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E02E667A-23EF-4D93-ACE6-C56DCE6D6AAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E02E667A-23EF-4D93-ACE6-C56DCE6D6AAB}.DevAzure|Any CPU.ActiveCfg = Debug|Any CPU
+		{E02E667A-23EF-4D93-ACE6-C56DCE6D6AAB}.DevAzure|Any CPU.Build.0 = Debug|Any CPU
+		{E02E667A-23EF-4D93-ACE6-C56DCE6D6AAB}.DevPgSql|Any CPU.ActiveCfg = Debug|Any CPU
+		{E02E667A-23EF-4D93-ACE6-C56DCE6D6AAB}.DevPgSql|Any CPU.Build.0 = Debug|Any CPU
+		{E02E667A-23EF-4D93-ACE6-C56DCE6D6AAB}.DevSql|Any CPU.ActiveCfg = Debug|Any CPU
+		{E02E667A-23EF-4D93-ACE6-C56DCE6D6AAB}.DevSql|Any CPU.Build.0 = Debug|Any CPU
+		{E02E667A-23EF-4D93-ACE6-C56DCE6D6AAB}.ProdAzure|Any CPU.ActiveCfg = Release|Any CPU
+		{E02E667A-23EF-4D93-ACE6-C56DCE6D6AAB}.ProdAzure|Any CPU.Build.0 = Release|Any CPU
+		{E02E667A-23EF-4D93-ACE6-C56DCE6D6AAB}.ProdPgSql|Any CPU.ActiveCfg = Release|Any CPU
+		{E02E667A-23EF-4D93-ACE6-C56DCE6D6AAB}.ProdPgSql|Any CPU.Build.0 = Release|Any CPU
+		{E02E667A-23EF-4D93-ACE6-C56DCE6D6AAB}.ProdSql|Any CPU.ActiveCfg = Release|Any CPU
+		{E02E667A-23EF-4D93-ACE6-C56DCE6D6AAB}.ProdSql|Any CPU.Build.0 = Release|Any CPU
+		{E02E667A-23EF-4D93-ACE6-C56DCE6D6AAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E02E667A-23EF-4D93-ACE6-C56DCE6D6AAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1058,6 +1082,7 @@ Global
 		{126163CF-5D88-4CE5-A63C-A84760AD948D} = {BB2778D2-A30A-405C-8002-720BB147EFDC}
 		{1206296C-DA77-428A-853D-7ACD5F99B5E1} = {C0395CFB-B769-4929-87C3-C810EEA036A2}
 		{D90B9D2C-1589-4D62-A9E0-60919B9D66D6} = {8D24CFFE-D232-4281-BBEF-5B30126A4251}
+		{E02E667A-23EF-4D93-ACE6-C56DCE6D6AAB} = {48F5F4BD-FBD0-4FCA-BC51-04025CF979D8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.WindowsAzure.Storage.6.0.1304.1\lib\NET45

@@ -1,14 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 using System.Security.Principal;
-using System.Web;
 using Thriot.Management.Services;
 
 namespace Thriot.Management.WebApi.Auth
 {
     public class WebAuthenticationContext : IAuthenticationContext
     {
-        public IPrincipal GenerateContextUser(string userId)
+        private IUserPrincipalContext _userPrincipalContext;
+
+        public void SetUserPrincipalContext(IUserPrincipalContext userPrincipalContext)
+        {
+            _userPrincipalContext = userPrincipalContext;
+        }
+
+        public IPrincipal BuildContextUserPrincipal(string userId)
         {
             var claims = new List<Claim>()
             {
@@ -22,7 +28,7 @@ namespace Thriot.Management.WebApi.Auth
 
         public void SetContextUser(string userId)
         {
-            HttpContext.Current.User = GenerateContextUser(userId);
+            _userPrincipalContext.User = BuildContextUserPrincipal(userId);
         }
 
         public void RemoveContextUser()
@@ -32,7 +38,7 @@ namespace Thriot.Management.WebApi.Auth
 
         public string GetContextUser()
         {
-            var claimsPrincipal = (HttpContext.Current.User as ClaimsPrincipal);
+            var claimsPrincipal = (_userPrincipalContext.User as ClaimsPrincipal);
             if (claimsPrincipal == null || claimsPrincipal.Identities == null)
                 return null;
 

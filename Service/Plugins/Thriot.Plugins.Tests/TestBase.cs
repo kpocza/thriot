@@ -34,7 +34,7 @@ namespace Thriot.Plugins.Tests
             var userOperations = environmentFactory.MgmtUserOperations;
             var companyOperations = environmentFactory.MgmtCompanyOperations;
             var userService = new UserService(userOperations, _authenticationContext, settingProvider, null);
-            _userId = userService.Register(new RegisterDto() { Name = "user", Email = EmailHelper.Generate() }, "password", null);
+            _userId = userService.Register(new RegisterDto() { Name = "user", Email = EmailHelper.Generate(), Password = "password" }, null);
 
             _companyService = new CompanyService(companyOperations, _authenticationContext, null, new CapabilityProvider(settingProvider));
 

@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using Thriot.Framework.Mails;
 
 namespace Thriot.Management.WebApi
@@ -18,7 +19,7 @@ namespace Thriot.Management.WebApi
 
         private static string LoadContent(string name, string extension)
         {
-            var mailTemplatesPath = HttpContext.Current.Server.MapPath("~/MailTemplates");
+            var mailTemplatesPath = System.IO.Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "MailTemplates");
 
             var pathToRead = System.IO.Path.Combine(mailTemplatesPath, name + "." + extension);
 

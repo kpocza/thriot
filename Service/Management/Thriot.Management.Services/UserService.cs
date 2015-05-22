@@ -25,11 +25,16 @@ namespace Thriot.Management.Services
             _environmentPrebuilder = environmentPrebuilder;
         }
 
-        public string Register(RegisterDto register, string password, IMailer mailer)
+        public IAuthenticationContext AuthenticationContext
+        {
+            get { return _authenticationContext; }
+        }
+
+        public string Register(RegisterDto register, IMailer mailer)
         {
             register.Email = Validator.ValidateEmail(register.Email);
             register.Name = Validator.TrimAndValidateAsName(register.Name);
-            Validator.ValidatePassword(password);
+            Validator.ValidatePassword(register.Password);
 
             var user = Mapper.Map<RegisterDto, User>(register);
 
@@ -51,7 +56,7 @@ namespace Thriot.Management.Services
             }
 
             var salt = Crypto.GenerateSalt();
-            var passwordHash = Crypto.CalcualteHash(password, salt);
+            var passwordHash = Crypto.CalcualteHash(register.Password, salt);
 
             var userId = _userOperations.Create(user, passwordHash, salt);
 

@@ -16,6 +16,11 @@ namespace Thriot.Management.Services
             _capabilityProvider = capabilityProvider;
         }
 
+        public IAuthenticationContext AuthenticationContext
+        {
+            get { return _authenticationContext; }
+        }
+
         public InfoDto Get()
         {
             var userId = _authenticationContext.GetContextUser();

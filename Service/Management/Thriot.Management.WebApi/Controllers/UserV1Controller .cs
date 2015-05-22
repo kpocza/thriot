@@ -12,7 +12,7 @@ using Thriot.Web.Models;
 namespace Thriot.Management.WebApi.Controllers
 {
     [RoutePrefix("v1/users")]
-    public class UsersV1Controller : ApiController, ILoggerOwner
+    public class UsersV1Controller : ApiController, IUserPrincipalContext, ILoggerOwner
     {
         private readonly UserService _userService;
         private readonly AuthTokenHandler _authTokenHandler;
@@ -23,6 +23,9 @@ namespace Thriot.Management.WebApi.Controllers
             _userService = userService;
             _authTokenHandler = authTokenHandler;
             _settingProvider = settingProvider;
+
+            _userService.AuthenticationContext.SetUserPrincipalContext(this);
+            _authTokenHandler.AuthenticationContext.SetUserPrincipalContext(this);
         }
 
         [Route("register")]
@@ -31,7 +34,7 @@ namespace Thriot.Management.WebApi.Controllers
         {
             var needsActivation = _settingProvider.EmailActivation;
 
-            var userId = _userService.Register(register, register.Password, new Mailer());
+            var userId = _userService.Register(register, new Mailer());
 
             if (!needsActivation)
             {
@@ -117,7 +120,6 @@ namespace Thriot.Management.WebApi.Controllers
         {
             return _userService.FindUser(email);
         }
-
 
         private static readonly ILogger _logger = LoggerFactory.GetCurrentClassLogger();
 

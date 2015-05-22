@@ -8,11 +8,11 @@ namespace Thriot.Management.WebApi.Auth
 {
     public class AuthTokenHandler
     {
-        private readonly IAuthenticationContext _authenticationContext;
+        public IAuthenticationContext AuthenticationContext { get; private set; }
 
         public AuthTokenHandler(IAuthenticationContext authenticationContext)
         {
-            _authenticationContext = authenticationContext;
+            AuthenticationContext = authenticationContext;
         }
 
         public string GenerateToken(string userId)
@@ -55,7 +55,7 @@ namespace Thriot.Management.WebApi.Auth
 
             var userId = ticket.Name;
 
-            return _authenticationContext.GenerateContextUser(userId);
+            return AuthenticationContext.BuildContextUserPrincipal(userId);
         }
     }
 }
