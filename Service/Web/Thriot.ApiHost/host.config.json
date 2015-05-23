@@ -1,6 +1,26 @@
-﻿{
-    "Name": "api",
-    "Application": "../api",
-    "Config": "../api/Web.config",
-    "BaseAddress": "http://localhost:8000"
-}
+﻿[
+    {
+        "Name": "api",
+        "Application": "../api",
+        "Config": "../api/Web.config",
+        "BaseAddress": "http://localhost:8000/api"
+    },
+    {
+        "Name": "papi",
+        "Application": "../papi",
+        "Config": "../papi/Web.config",
+        "BaseAddress": "http://localhost:8001/papi"
+    },
+    {
+        "Name": "rapi",
+        "Application": "../rapi",
+        "Config": "../rapi/Web.config",
+        "BaseAddress": "http://localhost:8002/rapi"
+    },
+    {
+        "Name": "msvc",
+        "Application": "../msvc",
+        "Config": "../msvc/Web.config",
+        "BaseAddress": "http://localhost:8003/msvc"
+    }
+]

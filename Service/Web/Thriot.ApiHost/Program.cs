@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -15,17 +16,22 @@ namespace Thriot.ApiHost
             {
                 var baseAddress = args[1];
 
-                Console.WriteLine("Base address: " + args[1]);
-
-                using (WebApp.Start(baseAddress))
-                {
-                    Console.WriteLine("Running...");
-                    Console.ReadLine();
-                }
+                HostSingleSandbox(baseAddress);
             }
             else
             {
                 PrepareSandboxes();
+            }
+        }
+
+        private static void HostSingleSandbox(string baseAddress)
+        {
+            Console.WriteLine("Base address: " + baseAddress);
+
+            using (WebApp.Start(baseAddress))
+            {
+                Console.WriteLine("Running...");
+                Console.ReadLine();
             }
         }
 
@@ -35,9 +41,33 @@ namespace Thriot.ApiHost
 
             var configPath = Path.Combine(rootPath, "host.config.json");
 
-            var host = JsonConvert.DeserializeObject<Host>(File.ReadAllText(configPath));
+            var hosts = JsonConvert.DeserializeObject<List<Host>>(File.ReadAllText(configPath));
             var sandboxPath = Path.Combine(rootPath, "sandbox");
 
+            foreach (var host in hosts)
+            {
+                PrepareSingleSandbox(sandboxPath, host, rootPath);
+            }
+        }
+
+        private static void PrepareSingleSandbox(string sandboxPath, Host host, string rootPath)
+        {
+            var applicationPath = PrepareSandboxDirectory(sandboxPath, host);
+
+            var sourceApplicationPath = Path.Combine(rootPath, host.Application);
+            var sourceAppConfigPath = Path.Combine(rootPath, host.Config);
+
+            DirectoryCopy(sourceApplicationPath, applicationPath, true);
+
+            PrepareBin(applicationPath);
+
+            CopyHostProgram(rootPath, applicationPath, sourceAppConfigPath);
+
+            StartHostProcess(host, applicationPath);
+        }
+
+        private static string PrepareSandboxDirectory(string sandboxPath, Host host)
+        {
             if (!Directory.Exists(sandboxPath))
             {
                 Directory.CreateDirectory(sandboxPath);
@@ -51,33 +81,7 @@ namespace Thriot.ApiHost
             }
 
             Directory.CreateDirectory(applicationPath);
-
-            var sourceApplicationPath = Path.Combine(rootPath, host.Application);
-            var sourceAppConfigPath = Path.Combine(rootPath, host.Config);
-            var appConfigPath = Path.Combine(applicationPath, "Thriot.ApiHost.exe.config");
-
-            DirectoryCopy(sourceApplicationPath, applicationPath, true);
-
-            PrepareBin(applicationPath);
-
-            File.Copy(sourceAppConfigPath, appConfigPath);
-
-            foreach (var file in new DirectoryInfo(rootPath).GetFiles("*.*"))
-            {
-                var ext = Path.GetExtension(file.FullName);
-
-                if (new[] {".exe", ".dll", ".pdb"}.Contains(ext))
-                {
-                    File.Copy(file.FullName, Path.Combine(applicationPath, file.Name), true);
-                }
-            }
-
-            var psi = new ProcessStartInfo
-            {
-                Arguments = string.Format("/run \"{0}\"", host.BaseAddress),
-                FileName = Path.Combine(applicationPath, "Thriot.ApiHost.exe")
-            };
-            Process.Start(psi);
+            return applicationPath;
         }
 
         private static void PrepareBin(string applicationPath)
@@ -120,6 +124,32 @@ namespace Thriot.ApiHost
                     DirectoryCopy(subdir.FullName, temppath, copySubDirs);
                 }
             }
+        }
+
+        private static void CopyHostProgram(string rootPath, string applicationPath, string sourceAppConfigPath)
+        {
+            var appConfigPath = Path.Combine(applicationPath, "Thriot.ApiHost.exe.config");
+            File.Copy(sourceAppConfigPath, appConfigPath);
+
+            foreach (var file in new DirectoryInfo(rootPath).GetFiles("*.*"))
+            {
+                var ext = Path.GetExtension(file.FullName);
+
+                if (new[] { ".exe", ".dll", ".pdb" }.Contains(ext))
+                {
+                    File.Copy(file.FullName, Path.Combine(applicationPath, file.Name), true);
+                }
+            }
+        }
+
+        private static void StartHostProcess(Host host, string applicationPath)
+        {
+            var psi = new ProcessStartInfo
+            {
+                Arguments = string.Format("/run \"{0}\"", host.BaseAddress),
+                FileName = Path.Combine(applicationPath, "Thriot.ApiHost.exe")
+            };
+            Process.Start(psi);
         }
     }
 }

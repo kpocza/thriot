@@ -29,9 +29,11 @@ if(!$targetRoot -or $(![System.IO.Path]::IsPathRooted($targetRoot))) {
 &$msbuild $solutionRoot\Messaging\Thriot.Messaging.WebApi\Thriot.Messaging.WebApi.csproj /p:Configuration=$config /p:DeployOnBuild=true /p:AutoParameterizationWebConfigConnectionStrings=false /p:DeployTarget=Package /p:OutputPath=bin\$config /p:_PackageTempDir=$targetRoot\msvc /p:DebugSymbols=true
 &$msbuild $solutionRoot\Reporting\Thriot.Reporting.WebApi\Thriot.Reporting.WebApi.csproj /p:Configuration=$config /p:DeployOnBuild=true /p:AutoParameterizationWebConfigConnectionStrings=false /p:DeployTarget=Package /p:OutputPath=bin\$config /p:_PackageTempDir=$targetRoot\rapi /p:DebugSymbols=true
 
-EnsureEmptyDirectory $targetRoot\websocketservice;
+EnsureEmptyDirectory $targetRoot\websocketservice
+EnsureEmptyDirectory $targetRoot\apihost
 
 cp -Recu -Force $solutionRoot\Platform\Thriot.Platform.WebsocketService\bin\$config\* $targetRoot\websocketservice\
+cp -Recu -Force $solutionRoot\Web\Thriot.ApiHost\bin\Debug\* $targetRoot\apihost\
 
 if($config.StartsWith("Dev")) {
 	mv -Force $targetRoot\web\config\siteRoots.dev.js $targetRoot\web\config\siteRoots.js 
