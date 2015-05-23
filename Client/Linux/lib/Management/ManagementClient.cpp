@@ -14,6 +14,8 @@ ManagementClient::ManagementClient(const string& baseUrl)
 {
 	_restConnection = new RestConnection(baseUrl);
 
+	_restConnection->EnableCookies();
+
 	_userManagementClient = new UserManagementClient(_restConnection);
 	_companyManagementClient = new CompanyManagementClient(_restConnection);
 	_serviceManagementClient = new ServiceManagementClient(_restConnection);

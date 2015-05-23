@@ -18,16 +18,14 @@ class RestConnection
 {
 	private:
 		string _baseUrl;
-		bool _isAuthenticated;
 		map<string, string> _requestHeaders;
+		void *_curl;
 
 	public:
 		RestConnection(string baseUrl);
+		~RestConnection();
 
-		void ClearAuthToken();
-		void SetAuthToken(string authToken);
-		bool IsAuthenticated();
-
+		void EnableCookies();
 		void ClearRequestHeaders();
 		void AddRequestHeader(string key, string value);
 

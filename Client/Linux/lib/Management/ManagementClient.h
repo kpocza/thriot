@@ -189,6 +189,7 @@ class UserManagementClient
 {
 	private:
 		RestConnection* _restConnection;
+		bool _isLoggedIn;
 
 	public:
 		UserManagementClient(RestConnection* restConnection);

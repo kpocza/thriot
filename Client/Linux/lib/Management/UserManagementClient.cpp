@@ -18,6 +18,7 @@ Initializes a new instance of the user management client
 UserManagementClient::UserManagementClient(RestConnection* restConnection) 
 {
 	_restConnection = restConnection;
+	_isLoggedIn = false;
 }
 
 /**
@@ -53,11 +54,9 @@ int UserManagementClient::Register(const RegisterInfo& reg)
 	if(needsActivation)
 		return -1;
 
-	const char* authToken = respJson["AuthToken"].asString();
+	_isLoggedIn = true;
 
-	_restConnection->SetAuthToken(string(authToken));
-
-	return 0;	
+	return 0;
 }
 
 /**
@@ -82,14 +81,10 @@ int UserManagementClient::Login(const LoginInfo& login)
 
 	Response httpResponse =_restConnection->Post("users/login", "application/json", string(jsonBuffer));
 
-	if(httpResponse.Code != 200)
+	if(httpResponse.Code != 204)
 		return httpResponse.Code;
 
-	string authToken = httpResponse.Body;
-
-	StripQuotes(authToken);
-
-	_restConnection->SetAuthToken(string(authToken));
+	_isLoggedIn = true;
 
 	return 0;
 }
@@ -108,6 +103,8 @@ int UserManagementClient::Activate(const ActivateInfo& activate)
 
 	if(httpResponse.Code != 302)
 		return httpResponse.Code;
+
+	_isLoggedIn = true;
 
 	return 0;
 }
@@ -222,7 +219,9 @@ int UserManagementClient::ChangePassword(const ChangePasswordInfo& changePasswor
 /** Logoff the currently logged-in user */
 void UserManagementClient::Logoff()
 {
-	_restConnection->ClearAuthToken();
+	_restConnection->Post("users/logoff", "application/json", "");
+
+	_isLoggedIn = false;
 }
 
 /**
@@ -231,7 +230,7 @@ Determines whether the user is logged in
 @return user login status*/
 bool UserManagementClient::IsLoggedIn()
 {
-	return _restConnection->IsAuthenticated();
+	return _isLoggedIn;
 }
 
 /**
