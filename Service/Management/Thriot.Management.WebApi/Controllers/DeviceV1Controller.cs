@@ -7,7 +7,7 @@ using Thriot.Management.WebApi.Auth;
 namespace Thriot.Management.WebApi.Controllers
 {
     [RoutePrefix("v1/devices")]
-    [WebApiAuthenticator]
+    [WebApiAuthorize]
     public class DevicesV1Controller : ApiController, IUserPrincipalContext, ILoggerOwner
     {
         private readonly DeviceService _deviceService;

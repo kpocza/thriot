@@ -7,7 +7,7 @@ using Thriot.Management.WebApi.Auth;
 namespace Thriot.Management.WebApi.Controllers
 {
     [RoutePrefix("v1/info")]
-    [WebApiAuthenticator]
+    [WebApiAuthorize]
     public class InfoV1Controller : ApiController, IUserPrincipalContext, ILoggerOwner
     {
         private readonly InfoService _infoService;

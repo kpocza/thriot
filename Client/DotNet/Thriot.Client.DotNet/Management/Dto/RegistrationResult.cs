@@ -9,10 +9,5 @@
         /// true only if the user has to click on the activation link sent by email before using the system
         /// </summary>
         public bool NeedsActivation { get; set; }
-
-        /// <summary>
-        /// Authentication token to be used with Basic authentication later
-        /// </summary>
-        public string AuthToken { get; set; }
     }
 }

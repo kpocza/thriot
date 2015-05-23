@@ -40,13 +40,6 @@ namespace Thriot.Client.DotNet.Management
                 throw new ActivationRequiredException(
                     "Activation needed, please confirm your account by clicking the link you received by email");
 
-            RestConnection.Setup(_baseUrl,
-                new Dictionary<string, string>
-                {
-                    {
-                        HttpRequestHeader.Authorization.ToString(), "Basic " + registrationResult.AuthToken
-                    }
-                });
             _isLoggedIn = true;
         }
 
@@ -59,15 +52,8 @@ namespace Thriot.Client.DotNet.Management
         /// <exception cref="WebException">In case of any service side error an exception will be thrown. Please refer to the HTTP error code for more information</exception>
         public void Login(Login login)
         {
-            var response = RestConnection.Post("users/login", JsonSerializer.Serialize(login));
+            RestConnection.Post("users/login", JsonSerializer.Serialize(login));
 
-            RestConnection.Setup(_baseUrl,
-                new Dictionary<string, string>
-                {
-                    {
-                        HttpRequestHeader.Authorization.ToString(), "Basic " + JsonSerializer.Deserialize<string>(response)
-                    }
-                });
             _isLoggedIn = true;
         }
 
@@ -166,7 +152,7 @@ namespace Thriot.Client.DotNet.Management
         /// </summary>
         public void Logoff()
         {
-            RestConnection.Setup(_baseUrl, null);
+            RestConnection.Post("users/logoff", "");
             _isLoggedIn = false;
         }
 

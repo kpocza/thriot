@@ -15,17 +15,14 @@ namespace Thriot.Management.WebApi.Controllers
     public class UsersV1Controller : ApiController, IUserPrincipalContext, ILoggerOwner
     {
         private readonly UserService _userService;
-        private readonly AuthTokenHandler _authTokenHandler;
         private readonly ISettingProvider _settingProvider;
 
-        public UsersV1Controller(UserService userService, AuthTokenHandler authTokenHandler, ISettingProvider settingProvider)
+        public UsersV1Controller(UserService userService, ISettingProvider settingProvider)
         {
             _userService = userService;
-            _authTokenHandler = authTokenHandler;
             _settingProvider = settingProvider;
 
             _userService.AuthenticationContext.SetUserPrincipalContext(this);
-            _authTokenHandler.AuthenticationContext.SetUserPrincipalContext(this);
         }
 
         [Route("register")]
@@ -34,18 +31,9 @@ namespace Thriot.Management.WebApi.Controllers
         {
             var needsActivation = _settingProvider.EmailActivation;
 
-            var userId = _userService.Register(register, new Mailer());
+            _userService.Register(register, new Mailer());
 
-            if (!needsActivation)
-            {
-                var authToken = _authTokenHandler.GenerateToken(userId);
-
-                return new RegistrationResultDto {NeedsActivation = false, AuthToken = authToken};
-            }
-            else
-            {
-                return new RegistrationResultDto {NeedsActivation = true};
-            }
+            return new RegistrationResultDto { NeedsActivation = needsActivation };
         }
 
         [Route("activate/{userId}/{activationCode}")]
@@ -88,7 +76,7 @@ namespace Thriot.Management.WebApi.Controllers
 
         [Route("changePassword")]
         [HttpPost]
-        [WebApiAuthenticator]
+        [WebApiAuthorize]
         public HttpResponseMessage ChangePassword(ChangePasswordDto changePassword)
         {
             _userService.ChangePassword(changePassword);
@@ -98,24 +86,32 @@ namespace Thriot.Management.WebApi.Controllers
 
         [Route("login")]
         [HttpPost]
-        public string Login(LoginDto login) // POST: api/v1/users/login
+        public HttpResponseMessage Login(LoginDto login) // POST: api/v1/users/login
         {
             var userId = _userService.Login(login.Email, login.Password);
 
-            return _authTokenHandler.GenerateToken(userId);
+            return new HttpResponseMessage(HttpStatusCode.NoContent);
+        }
+
+        [Route("logoff")]
+        [HttpPost]
+        public HttpResponseMessage Logoff() // POST: api/v1/users/logoff
+        {
+            _userService.AuthenticationContext.RemoveContextUser();
+
+            return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
 
         [Route("me")]
-        [WebApiAuthenticator]
+        [WebApiAuthorize]
         public UserDto Get() // GET: api/v1/users/me
         {
             return _userService.GetMe();
         }
 
-
         [Route("byemail/{email}")]
         [HttpGet]
-        [WebApiAuthenticator]
+        [WebApiAuthorize]
         public UserDto FindUser([FromUri]string email) // GET: api/v1/users/email/urlencode(user@domain.com)
         {
             return _userService.FindUser(email);

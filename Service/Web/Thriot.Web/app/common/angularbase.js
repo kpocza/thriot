@@ -3,10 +3,6 @@
 app.factory('authenticationInterceptor', ['cookies', function (cookies) {
     return {
         request: function (config) {
-            var authToken = cookies.get('authToken');
-            if (authToken) {
-                config.headers['Authorization'] = 'Basic ' + authToken;
-            }
             return config;
         }
     };

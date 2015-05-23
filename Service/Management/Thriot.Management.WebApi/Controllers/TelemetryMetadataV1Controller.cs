@@ -7,7 +7,7 @@ using Thriot.Management.WebApi.Auth;
 namespace Thriot.Management.WebApi.Controllers
 {
     [RoutePrefix("v1/telemetryMetadata")]
-    [WebApiAuthenticator]
+    [WebApiAuthorize]
     public class TelemetryMetadataV1Controller : ApiController, IUserPrincipalContext, ILoggerOwner
     {
         private readonly TelemetryMetadataService _telemetryMetadataService;

@@ -8,7 +8,7 @@ using Thriot.Management.WebApi.Auth;
 namespace Thriot.Management.WebApi.Controllers
 {
     [RoutePrefix("v1/services")]
-    [WebApiAuthenticator]
+    [WebApiAuthorize]
     public class ServicesV1Controller : ApiController, IUserPrincipalContext, ILoggerOwner
     {
         private readonly ServiceService _serviceService;

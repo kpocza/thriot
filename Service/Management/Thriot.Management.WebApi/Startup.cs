@@ -1,7 +1,9 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Web.Http;
 using Microsoft.Owin;
 using Microsoft.Owin.Cors;
+using Microsoft.Owin.Security.Cookies;
 using Owin;
 using Thriot.Framework;
 using Thriot.Framework.Web;
@@ -27,6 +29,14 @@ namespace Thriot.Management.WebApi
             config.Filters.Add(new ApiExceptionFilterAttribute());
             config.MapHttpAttributeRoutes();
 
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationType = "ApplicationCookie",
+                CookieHttpOnly = false,
+                ExpireTimeSpan = TimeSpan.FromMinutes(60),
+                SlidingExpiration = true,
+                CookieName = "ThriotMgmtAuth"
+            });
             app.UseCors(CorsOptions.AllowAll);
 
             app.UseWebApi(config);
