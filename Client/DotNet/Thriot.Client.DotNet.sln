@@ -43,6 +43,10 @@ Global
 		IIS-ProdSql|ARM = IIS-ProdSql|ARM
 		IIS-ProdSql|x64 = IIS-ProdSql|x64
 		IIS-ProdSql|x86 = IIS-ProdSql|x86
+		Linux-DevPgSql|Any CPU = Linux-DevPgSql|Any CPU
+		Linux-DevPgSql|ARM = Linux-DevPgSql|ARM
+		Linux-DevPgSql|x64 = Linux-DevPgSql|x64
+		Linux-DevPgSql|x86 = Linux-DevPgSql|x86
 		Release|Any CPU = Release|Any CPU
 		Release|ARM = Release|ARM
 		Release|x64 = Release|x64
@@ -89,6 +93,11 @@ Global
 		{82EC1A63-2B3E-43FF-BC4B-AC28B751F1C8}.IIS-ProdSql|ARM.ActiveCfg = Release|Any CPU
 		{82EC1A63-2B3E-43FF-BC4B-AC28B751F1C8}.IIS-ProdSql|x64.ActiveCfg = Release|Any CPU
 		{82EC1A63-2B3E-43FF-BC4B-AC28B751F1C8}.IIS-ProdSql|x86.ActiveCfg = Release|Any CPU
+		{82EC1A63-2B3E-43FF-BC4B-AC28B751F1C8}.Linux-DevPgSql|Any CPU.ActiveCfg = Debug|Any CPU
+		{82EC1A63-2B3E-43FF-BC4B-AC28B751F1C8}.Linux-DevPgSql|Any CPU.Build.0 = Debug|Any CPU
+		{82EC1A63-2B3E-43FF-BC4B-AC28B751F1C8}.Linux-DevPgSql|ARM.ActiveCfg = Release|Any CPU
+		{82EC1A63-2B3E-43FF-BC4B-AC28B751F1C8}.Linux-DevPgSql|x64.ActiveCfg = Release|Any CPU
+		{82EC1A63-2B3E-43FF-BC4B-AC28B751F1C8}.Linux-DevPgSql|x86.ActiveCfg = Release|Any CPU
 		{82EC1A63-2B3E-43FF-BC4B-AC28B751F1C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82EC1A63-2B3E-43FF-BC4B-AC28B751F1C8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{82EC1A63-2B3E-43FF-BC4B-AC28B751F1C8}.Release|ARM.ActiveCfg = Release|Any CPU
@@ -134,6 +143,11 @@ Global
 		{23B22CBA-0D58-4CA8-9819-0CE5C9C0FB76}.IIS-ProdSql|ARM.ActiveCfg = IIS-ProdSql|Any CPU
 		{23B22CBA-0D58-4CA8-9819-0CE5C9C0FB76}.IIS-ProdSql|x64.ActiveCfg = IIS-ProdSql|Any CPU
 		{23B22CBA-0D58-4CA8-9819-0CE5C9C0FB76}.IIS-ProdSql|x86.ActiveCfg = IIS-ProdSql|Any CPU
+		{23B22CBA-0D58-4CA8-9819-0CE5C9C0FB76}.Linux-DevPgSql|Any CPU.ActiveCfg = Linux-DevPgSql|Any CPU
+		{23B22CBA-0D58-4CA8-9819-0CE5C9C0FB76}.Linux-DevPgSql|Any CPU.Build.0 = Linux-DevPgSql|Any CPU
+		{23B22CBA-0D58-4CA8-9819-0CE5C9C0FB76}.Linux-DevPgSql|ARM.ActiveCfg = IIS-DevSql|Any CPU
+		{23B22CBA-0D58-4CA8-9819-0CE5C9C0FB76}.Linux-DevPgSql|x64.ActiveCfg = IIS-DevSql|Any CPU
+		{23B22CBA-0D58-4CA8-9819-0CE5C9C0FB76}.Linux-DevPgSql|x86.ActiveCfg = IIS-DevSql|Any CPU
 		{23B22CBA-0D58-4CA8-9819-0CE5C9C0FB76}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23B22CBA-0D58-4CA8-9819-0CE5C9C0FB76}.Release|Any CPU.Build.0 = Release|Any CPU
 		{23B22CBA-0D58-4CA8-9819-0CE5C9C0FB76}.Release|ARM.ActiveCfg = Release|Any CPU
@@ -179,6 +193,11 @@ Global
 		{7DD0AFD4-3C2A-4C8F-AFDF-0D21FF3C5F27}.IIS-ProdSql|ARM.ActiveCfg = Release|Any CPU
 		{7DD0AFD4-3C2A-4C8F-AFDF-0D21FF3C5F27}.IIS-ProdSql|x64.ActiveCfg = Release|Any CPU
 		{7DD0AFD4-3C2A-4C8F-AFDF-0D21FF3C5F27}.IIS-ProdSql|x86.ActiveCfg = Release|Any CPU
+		{7DD0AFD4-3C2A-4C8F-AFDF-0D21FF3C5F27}.Linux-DevPgSql|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DD0AFD4-3C2A-4C8F-AFDF-0D21FF3C5F27}.Linux-DevPgSql|Any CPU.Build.0 = Debug|Any CPU
+		{7DD0AFD4-3C2A-4C8F-AFDF-0D21FF3C5F27}.Linux-DevPgSql|ARM.ActiveCfg = Release|Any CPU
+		{7DD0AFD4-3C2A-4C8F-AFDF-0D21FF3C5F27}.Linux-DevPgSql|x64.ActiveCfg = Release|Any CPU
+		{7DD0AFD4-3C2A-4C8F-AFDF-0D21FF3C5F27}.Linux-DevPgSql|x86.ActiveCfg = Release|Any CPU
 		{7DD0AFD4-3C2A-4C8F-AFDF-0D21FF3C5F27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DD0AFD4-3C2A-4C8F-AFDF-0D21FF3C5F27}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7DD0AFD4-3C2A-4C8F-AFDF-0D21FF3C5F27}.Release|ARM.ActiveCfg = Release|Any CPU

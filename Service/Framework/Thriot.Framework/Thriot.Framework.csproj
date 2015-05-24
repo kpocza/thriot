@@ -74,6 +74,7 @@
     <Compile Include="DataAccess\StorageAccessException.cs" />
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="DateTimeProvider.cs" />
+    <Compile Include="Environment.cs" />
     <Compile Include="Exceptions\NotEmptyException.cs" />
     <Compile Include="IDateTimeProvider.cs" />
     <Compile Include="IEntity.cs" />

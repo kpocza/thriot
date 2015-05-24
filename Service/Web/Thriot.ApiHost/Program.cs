@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using Microsoft.Owin.Hosting;
 using Newtonsoft.Json;
 
@@ -31,7 +32,10 @@ namespace Thriot.ApiHost
             using (WebApp.Start(baseAddress))
             {
                 Console.WriteLine("Running...");
-                Console.ReadLine();
+                while (true)
+                {
+                    Thread.Sleep(100);
+                }
             }
         }
 

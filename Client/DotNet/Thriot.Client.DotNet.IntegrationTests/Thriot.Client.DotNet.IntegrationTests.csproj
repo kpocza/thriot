@@ -101,6 +101,15 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Linux-DevPgSql|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Linux-DevPgSql\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -154,6 +163,9 @@
       <DependentUpon>App.config</DependentUpon>
     </Content>
     <Content Include="App.IIS-ProdPgSql.config">
+      <DependentUpon>App.config</DependentUpon>
+    </Content>
+    <Content Include="App.Linux-DevPgSql.config">
       <DependentUpon>App.config</DependentUpon>
     </Content>
   </ItemGroup>

@@ -4,7 +4,10 @@ using System.Web.Http;
 using Microsoft.Owin;
 using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.DataProtection;
 using Owin;
+using Owin.Security.AesDataProtectorProvider;
+using Owin.Security.AesDataProtectorProvider.CrypticProviders;
 using Thriot.Framework;
 using Thriot.Framework.Web;
 using Thriot.Framework.Web.ApiExceptions;
@@ -37,6 +40,13 @@ namespace Thriot.Management.WebApi
                 SlidingExpiration = true,
                 CookieName = "ThriotMgmtAuth"
             });
+
+            if (Thriot.Framework.Environment.IsMono())
+            {
+                app.SetDataProtectionProvider(new AesDataProtectorProvider(new Sha512ManagedFactory(),
+                    new Sha256ManagedFactory(), new AesManagedFactory()));
+            }
+
             app.UseCors(CorsOptions.AllowAll);
 
             app.UseWebApi(config);

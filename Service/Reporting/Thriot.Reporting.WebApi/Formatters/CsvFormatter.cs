@@ -16,6 +16,7 @@ namespace Thriot.Reporting.WebApi.Formatters
 
             using (var stringWriter = new StringWriter())
             {
+                stringWriter.NewLine = "\r\n";
                 if (flatReport != null)
                 {
                     stringWriter.WriteLine(string.Join<string>(",",

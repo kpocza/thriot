@@ -114,6 +114,12 @@ namespace Thriot.Management.WebApi.Controllers
         [WebApiAuthorize]
         public UserDto FindUser([FromUri]string email) // GET: api/v1/users/email/urlencode(user@domain.com)
         {
+            // Quick and dirty workaround for mono
+            if (Thriot.Framework.Environment.IsMono())
+            {
+                email = Uri.UnescapeDataString(email);
+            }
+
             return _userService.FindUser(email);
         }
 
