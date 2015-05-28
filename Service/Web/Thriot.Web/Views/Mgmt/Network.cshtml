@@ -1,8 +1,8 @@
 ﻿@model Thriot.Web.Models.Mdl
 
 @section scripts {
-    @Scripts.Render("~/app/Management/NetworkViewModel.js")
-    @Scripts.Render("~/app/Management/TelemetryDataSinksDirective.js")
+<script src="~/app/Management/NetworkViewModel.js"></script>
+<script src="~/app/Management/TelemetryDataSinksDirective.js"></script>
 }
 
 <div ng-controller="NetworkViewModel" data-network-id="@Model.Id">

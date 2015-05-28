@@ -1,9 +1,9 @@
 ﻿@model Thriot.Web.Models.Mdl
 
 @section scripts {
-    @Scripts.Render("~/app/Management/CompanyViewModel.js")
-    @Scripts.Render("~/app/Management/TelemetryDataSinksDirective.js")
-    @Scripts.Render("~/app/Management/CompanyUsersDirective.js")
+<script src="~/app/Management/CompanyViewModel.js"></script>
+<script src="~/app/Management/TelemetryDataSinksDirective.js"></script>
+<script src="~/app/Management/CompanyUsersDirective.js"></script>
 }
 
 <div ng-controller="CompanyViewModel" data-company-id="@Model.Id">

@@ -1,35 +1,35 @@
-﻿using System.Web.Mvc;
+﻿using Microsoft.AspNet.Mvc;
 
 namespace Thriot.Web.Controllers
 {
     public class UserController : Controller
     {
-        public ActionResult Register()
+        public IActionResult Register()
         {
             return View();
         }
 
-        public ActionResult Login()
+        public IActionResult Login()
         {
             return View();
         }
 
-        public ActionResult ForgotPasswordSend()
+        public IActionResult ForgotPasswordSend()
         {
             return View();
         }
 
-        public ActionResult ActivationResend()
+        public IActionResult ActivationResend()
         {
             return View();
         }
 
-        public ActionResult ResetPassword()
+        public IActionResult ResetPassword()
         {
             return View();
         }
 
-        public ActionResult ChangePassword()
+        public IActionResult ChangePassword()
         {
             return View();
         }

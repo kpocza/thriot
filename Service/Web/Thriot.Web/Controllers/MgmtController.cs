@@ -1,36 +1,31 @@
-﻿using System.Web.Mvc;
+﻿using Microsoft.AspNet.Mvc;
 using Thriot.Web.Models;
 
 namespace Thriot.Web.Controllers
 {
     public class MgmtController : Controller
     {
-        [Route("Companies")]
-        public ActionResult Companies()
+        public IActionResult Companies()
         {
             return View();
         }
 
-        [Route("Company/{id}")]
-        public ActionResult Company(string id)
+        public IActionResult Company(string id)
         {
             return View(new Mdl {Id = id});
         }
 
-        [Route("Service/{id}")]
-        public ActionResult Service(string id)
+        public IActionResult Service(string id)
         {
             return View(new Mdl {Id = id});
         }
 
-        [Route("Network/{id}")]
-        public ActionResult Network(string id)
+        public IActionResult Network(string id)
         {
             return View(new Mdl {Id = id});
         }
 
-        [Route("Device/{id}")]
-        public ActionResult Device(string id)
+        public IActionResult Device(string id)
         {
             return View(new Mdl {Id = id});
         }

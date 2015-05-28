@@ -4,20 +4,20 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/Scripts/angular.min.js")
-    @Scripts.Render("~/Scripts/angular-cookies.min.js")
-    @Scripts.Render("~/Scripts/jquery.cookie.js")
-    @Scripts.Render("~/app/common/extensions.js")
-    @Scripts.Render("~/app/common/angularbase.js")
-    @Scripts.Render("~/config/siteRoots.js")
-    @Scripts.Render("~/app/common/enums.js")
-    @Scripts.Render("~/app/Management/InfoService.js")
-    @Scripts.Render("~/app/Management/UserController.js")
-    @Scripts.Render("~/app/Management/UrlInfoDirective.js")
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/lib/modernizr/modernizr.js"></script>
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/jquery-cookie/jquery.cookie.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/lib/angular/angular.js"></script>
+    <script src="~/app/common/extensions.js"></script>
+    <script src="~/app/common/angularbase.js"></script>
+    <script src="~/config/siteRoots.js"></script>
+    <script src="~/app/common/enums.js"></script>
+    <script src="~/app/Management/InfoService.js"></script>
+    <script src="~/app/Management/UserController.js"></script>
+    <script src="~/app/Management/UrlInfoDirective.js"></script>
 
     @RenderSection("scripts", required: false)
 </head>
@@ -52,10 +52,10 @@
         </div>
     </div>
     <div>
+        <div system-messages></div>
         @RenderSection("fullwidth", required: false)
     </div>
     <div class="container body-content">
-        <div system-messages></div>
         @RenderBody()
         <hr />
         <footer>

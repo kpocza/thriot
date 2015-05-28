@@ -1,9 +1,8 @@
 ﻿@model Thriot.Web.Models.Mdl
 
 @section scripts {
-    @Scripts.Render("~/app/Management/ServiceViewModel.js")
-    @Scripts.Render("~/app/Management/TelemetryDataSinksDirective.js")
-    @Scripts.Render("~/app/Management/CompanyUsersDirective.js")
+<script src="~/app/Management/ServiceViewModel.js"></script>
+<script src="~/app/Management/TelemetryDataSinksDirective.js"></script>
 }
 
 <div ng-controller="ServiceViewModel" data-service-id="@Model.Id">

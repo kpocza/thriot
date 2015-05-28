@@ -4,12 +4,12 @@
 
 <h2>Register</h2>
 
-<form ng-submit="register()" ng-controller="UserController">
+<div ng-controller="UserController">
     <label for="name" class="labelwidth">Name</label><input type="text" name="name" ng-model="userInfo.name" autofocus /><br />
     <label for="email" class="labelwidth">Email</label><input type="email" name="email" ng-model="userInfo.email" /><br />
     <label for="password" class="labelwidth">Password</label><input type="password" name="password" ng-model="userInfo.password" /><br />
-    <input type="submit" value="Register" />
-</form>
+    <input type="button" value="Register" ng-click="register()" />
+</div>
 <div>&nbsp;</div>
 <div>
     @Html.ActionLink("Resend activation email", "ActivationResend") &nbsp; @Html.ActionLink("Forgot password", "ForgotPasswordSend")

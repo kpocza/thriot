@@ -1,13 +1,13 @@
 ﻿@model Thriot.Web.Models.Mdl
 
 @section scripts {
-    @Scripts.Render("~/app/Management/DeviceViewModel.js")
-    @Scripts.Render("~/app/Management/DeviceReportDirective.js")
-    @Scripts.Render("~/app/common/dateSelector.js")
-    @Scripts.Render("~/app/common/timeSeriesGraph.js")
-    @Scripts.Render("~/Scripts/flot/jquery.flot.min.js")
-    @Scripts.Render("~/Scripts/flot/jquery.flot.navigate.min.js")
-    @Scripts.Render("~/Scripts/FileSaver.js")
+<script src="~/app/Management/DeviceViewModel.js"></script>
+<script src="~/app/Management/DeviceReportDirective.js"></script>
+<script src="~/app/common/dateSelector.js"></script>
+<script src="~/app/common/timeSeriesGraph.js"></script>
+<script src="~/lib/flot/jquery.flot.js"></script>
+<script src="~/lib/flot/jquery.flot.navigate.js"></script>
+<script src="~/lib/FileSaver/FileSaver.min.js"></script>
 }
 
 <div ng-controller="DeviceViewModel" data-device-id="@Model.Id">

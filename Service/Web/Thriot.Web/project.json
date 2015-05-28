@@ -1,0 +1,41 @@
+{
+    "userSecretsId": "aspnet5-Thriot.Web-20150527113940",
+    "webroot": "wwwroot",
+    "version": "1.0.0-*",
+
+    "dependencies": {
+        "Microsoft.AspNet.Server.IIS": "1.0.0-beta4",
+        "Microsoft.AspNet.Server.WebListener": "1.0.0-beta4",
+        "Microsoft.AspNet.StaticFiles": "1.0.0-beta4",
+        "Microsoft.AspNet.Mvc": "6.0.0-beta4",
+        "Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta4",
+        "Microsoft.AspNet.Mvc.Core": "6.0.0-beta4"
+    },
+
+    "commands": {
+        "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:12345",
+        "kestrel": "Microsoft.AspNet.Hosting --server Kestrel --server.urls http://localhost:7999"
+    },
+
+    "frameworks": {
+        "dnx451": { },
+        "dnxcore50": { }
+    },
+
+    "publishExclude": [
+        "node_modules",
+        "bower_components",
+        "**.xproj",
+        "**.user",
+        "**.vspscc"
+    ],
+    "exclude": [
+        "wwwroot",
+        "node_modules",
+        "bower_components"
+    ],
+    "scripts": {
+        "postrestore": [ "npm install", "bower install" ],
+        "prepare": [ "gulp copy" ]
+    }
+}

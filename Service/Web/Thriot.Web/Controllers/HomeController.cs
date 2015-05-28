@@ -1,16 +1,16 @@
-﻿using System.Web.Mvc;
+﻿using Microsoft.AspNet.Mvc;
 
 namespace Thriot.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public IActionResult Index()
         {
             ViewBag.Title = "Home Page";
 
             return View();
         }
-        public ActionResult Error()
+        public IActionResult Error()
         {
             ViewBag.Title = "Error";
 

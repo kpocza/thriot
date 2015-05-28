@@ -1,0 +1,8 @@
+{
+	"version": "1.0.0",
+	"name": "Thriot.Web",
+	"devDependencies": {
+        "gulp": "3.8.11",
+        "rimraf": "2.2.8"
+	}
+}
