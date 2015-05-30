@@ -45,6 +45,7 @@ namespace Thriot.Messaging.Services.Storage
             dataTable.Columns.Add("DeviceId", typeof(long));
             dataTable.Columns.Add("Payload", typeof(byte[]));
             dataTable.Columns.Add("Timestamp", typeof(DateTime));
+            dataTable.Columns.Add("SenderUid", typeof(string));
 
             foreach (var item in items)
             {
@@ -52,6 +53,7 @@ namespace Thriot.Messaging.Services.Storage
                 dataRow[0] = item.DeviceId;
                 dataRow[1] = item.Payload;
                 dataRow[2] = item.Timestamp;
+                dataRow[3] = item.SenderDeviceId;
                 dataTable.Rows.Add(dataRow);
             }
 
@@ -201,6 +203,7 @@ namespace Thriot.Messaging.Services.Storage
                         var colMessageId = reader.GetOrdinal("MessageId");
                         var colPayload = reader.GetOrdinal("Payload");
                         var colTimestamp = reader.GetOrdinal("Timestamp");
+                        var colSenderDeviceId = reader.GetOrdinal("SenderUid");
 
                         while (reader.Read())
                         {
@@ -219,6 +222,7 @@ namespace Thriot.Messaging.Services.Storage
                                 {
                                     dequeueResult.Payload = (byte[]) reader[colPayload];
                                     dequeueResult.Timestamp = (DateTime) reader[colTimestamp];
+                                    dequeueResult.SenderDeviceId = (string) reader[colSenderDeviceId];
                                 }
 
                                 messages.Add(dequeueResult);

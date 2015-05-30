@@ -26,7 +26,8 @@ namespace Thriot.Messaging.PerformanceTest
                     {
                         DeviceId = m.DeviceId,
                         Payload = m.Payload,
-                        Timestamp = m.TimeStamp
+                        Timestamp = m.TimeStamp,
+                        SenderDeviceId = m.SenderDeviceId
                     })).Select(r => r.Id).ToList()
             };
         }
@@ -43,7 +44,8 @@ namespace Thriot.Messaging.PerformanceTest
                             DeviceId = d.Id,
                             MessageId = d.MessageId,
                             Payload = d.Payload,
-                            TimeStamp = d.Timestamp
+                            TimeStamp = d.Timestamp,
+                            SenderDeviceId = d.SenderDeviceId
                         }).ToList()
             };
         }
@@ -60,7 +62,8 @@ namespace Thriot.Messaging.PerformanceTest
                             DeviceId = d.Id,
                             MessageId = d.MessageId,
                             Payload = d.Payload,
-                            TimeStamp = d.Timestamp
+                            TimeStamp = d.Timestamp,
+                            SenderDeviceId = d.SenderDeviceId
                         }).ToList()
             };
         }

@@ -8,6 +8,8 @@ namespace Thriot.Messaging.Services.Storage
 
         public DateTime Timestamp { get; set; }
 
+        public string SenderDeviceId { get; set; }
+
         public int MessageId { get; set; }
     }
 }

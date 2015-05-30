@@ -9,5 +9,7 @@ namespace Thriot.Messaging.Services.Storage
         public byte[] Payload { get; set; }
         
         public DateTime Timestamp { get; set; }
+
+        public string SenderDeviceId { get; set; }
     }
 }

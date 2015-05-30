@@ -30,7 +30,8 @@ namespace Thriot.Messaging.Services.Tests
                         {
                             DeviceId = deviceId,
                             Payload = Encoding.UTF8.GetBytes("Message no. 1"),
-                            TimeStamp = DateTime.UtcNow
+                            TimeStamp = DateTime.UtcNow,
+                            SenderDeviceId = Identity.Next()
                         }
                     }
             });
@@ -60,13 +61,15 @@ namespace Thriot.Messaging.Services.Tests
                         {
                             DeviceId = deviceId,
                             Payload = Encoding.UTF8.GetBytes("Message no. 1"),
-                            TimeStamp = DateTime.UtcNow
+                            TimeStamp = DateTime.UtcNow,
+                            SenderDeviceId = Identity.Next()
                         },
                         new EnqueueMessageDto
                         {
                             DeviceId = deviceId,
                             Payload = Encoding.UTF8.GetBytes("Message no. 2"),
-                            TimeStamp = DateTime.UtcNow
+                            TimeStamp = DateTime.UtcNow,
+                            SenderDeviceId = Identity.Next()
                         }
                     }
             });
@@ -88,7 +91,8 @@ namespace Thriot.Messaging.Services.Tests
                             {
                                 DeviceId = deviceId,
                                 Payload = Encoding.UTF8.GetBytes("Message no. " + i),
-                                TimeStamp = DateTime.UtcNow
+                                TimeStamp = DateTime.UtcNow,
+                                SenderDeviceId = Identity.Next()
                             }
                         }
                 });
@@ -116,7 +120,8 @@ namespace Thriot.Messaging.Services.Tests
                             {
                                 DeviceId = deviceId,
                                 Payload = Encoding.UTF8.GetBytes("Message no. " + i),
-                                TimeStamp = DateTime.UtcNow
+                                TimeStamp = DateTime.UtcNow,
+                                SenderDeviceId = Identity.Next()
                             }
                         }
                 });
@@ -136,7 +141,8 @@ namespace Thriot.Messaging.Services.Tests
                             {
                                 DeviceId = deviceId,
                                 Payload = Encoding.UTF8.GetBytes("Message no. 100"),
-                                TimeStamp = DateTime.UtcNow
+                                TimeStamp = DateTime.UtcNow,
+                                SenderDeviceId = Identity.Next()
                             }
                         }
             });
@@ -155,7 +161,8 @@ namespace Thriot.Messaging.Services.Tests
                             {
                                 DeviceId = deviceId,
                                 Payload = Encoding.UTF8.GetBytes("Message no. 100"),
-                                TimeStamp = DateTime.UtcNow
+                                TimeStamp = DateTime.UtcNow,
+                                SenderDeviceId = Identity.Next()
                             }
                         }
             });

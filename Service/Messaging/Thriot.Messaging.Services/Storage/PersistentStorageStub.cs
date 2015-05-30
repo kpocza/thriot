@@ -45,7 +45,8 @@ namespace Thriot.Messaging.Services.Storage
                         Id = id,
                         Index = i,
                         Payload = null,
-                        Timestamp = DateTime.UtcNow
+                        Timestamp = DateTime.UtcNow,
+                        SenderDeviceId = new string(' ', 32)
                     };
                 }
 
@@ -68,6 +69,7 @@ namespace Thriot.Messaging.Services.Storage
                     var queueEntry = _queueEntries[item.DeviceId][enqueueIdx];
                     queueEntry.Payload = item.Payload;
                     queueEntry.Timestamp = item.Timestamp;
+                    queueEntry.SenderDeviceId = item.SenderDeviceId;
 
                     var resultItem = new EnqueueResult
                     {
@@ -99,7 +101,7 @@ namespace Thriot.Messaging.Services.Storage
         {
             var dequeueResults = new DequeueResults();
             var messages = new List<DequeueResult>();
-            var unknwoEtnries = new List<DequeueResult>(); 
+            var unknownEntries = new List<DequeueResult>(); 
             
             lock (_lock)
             {
@@ -128,6 +130,7 @@ namespace Thriot.Messaging.Services.Storage
                         {
                             dequeueItem.Payload = queueEntry.Payload;
                             dequeueItem.Timestamp = queueEntry.Timestamp;
+                            dequeueItem.SenderDeviceId = queueEntry.SenderDeviceId;
                         }
 
                         messages.Add(dequeueItem);
@@ -136,7 +139,7 @@ namespace Thriot.Messaging.Services.Storage
                     {
                         if (meta.DequeueIndex == meta.EnqueueIndex)
                         {
-                            unknwoEtnries.Add(new DequeueResult
+                            unknownEntries.Add(new DequeueResult
                             {
                                 Id = meta.Id,
                                 DequeueIndex = meta.DequeueIndex,
@@ -150,7 +153,7 @@ namespace Thriot.Messaging.Services.Storage
                 }
 
                 dequeueResults.Messages = messages;
-                dequeueResults.UnknownEntries = unknwoEtnries;
+                dequeueResults.UnknownEntries = unknownEntries;
 
                 return dequeueResults;
             }
@@ -160,7 +163,7 @@ namespace Thriot.Messaging.Services.Storage
         {
             var dequeueResults = new DequeueResults();
             var messages = new List<DequeueResult>();
-            var unknwoEtnries = new List<DequeueResult>();
+            var unknownEntries = new List<DequeueResult>();
             
             lock (_lock)
             {
@@ -189,6 +192,7 @@ namespace Thriot.Messaging.Services.Storage
                         {
                             dequeueItem.Payload = queueEntry.Payload;
                             dequeueItem.Timestamp = queueEntry.Timestamp;
+                            dequeueItem.SenderDeviceId = queueEntry.SenderDeviceId;
                         }
 
                         messages.Add(dequeueItem);
@@ -197,7 +201,7 @@ namespace Thriot.Messaging.Services.Storage
                     {
                         if (meta.DequeueIndex == meta.EnqueueIndex)
                         {
-                            unknwoEtnries.Add(new DequeueResult
+                            unknownEntries.Add(new DequeueResult
                             {
                                 Id = meta.Id,
                                 DequeueIndex = meta.DequeueIndex,
@@ -211,7 +215,7 @@ namespace Thriot.Messaging.Services.Storage
                 }
 
                 dequeueResults.Messages = messages;
-                dequeueResults.UnknownEntries = unknwoEtnries;
+                dequeueResults.UnknownEntries = unknownEntries;
 
                 return dequeueResults;
             }
@@ -274,6 +278,8 @@ namespace Thriot.Messaging.Services.Storage
             public byte[] Payload { get; set; }
 
             public DateTime Timestamp { get; set; }
+
+            public string SenderDeviceId { get; set; }
         }
     }
 }

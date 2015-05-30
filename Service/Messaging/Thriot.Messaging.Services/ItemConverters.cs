@@ -18,7 +18,8 @@ namespace Thriot.Messaging.Services
                 {
                     DeviceId = msg.DeviceId,
                     Payload = msg.Payload,
-                    Timestamp = msg.TimeStamp
+                    Timestamp = msg.TimeStamp,
+                    SenderDeviceId = msg.SenderDeviceId
                 });
             }
             return enqueueItems;
@@ -32,7 +33,7 @@ namespace Thriot.Messaging.Services
             {
                 var enqueueItem = enqueueItems.Single(item => item.DeviceId == enqueueResult.Id);
 
-                cacheItems.Add(new CacheItem(enqueueResult.Id, enqueueResult.MessageId, enqueueItem.Payload, enqueueItem.Timestamp));
+                cacheItems.Add(new CacheItem(enqueueResult.Id, enqueueResult.MessageId, enqueueItem.Payload, enqueueItem.Timestamp, enqueueItem.SenderDeviceId));
             }
 
             return cacheItems;
@@ -90,6 +91,7 @@ namespace Thriot.Messaging.Services
                 {
                     dequeueMessageDto.Payload = dequeueEntry.Payload;
                     dequeueMessageDto.TimeStamp = dequeueEntry.Timestamp;
+                    dequeueMessageDto.SenderDeviceId = dequeueEntry.SenderDeviceId;
                     addItem = true;
                 }
                 else
@@ -100,6 +102,7 @@ namespace Thriot.Messaging.Services
                     {
                         dequeueMessageDto.Payload = cacheItem.Payload;
                         dequeueMessageDto.TimeStamp = cacheItem.Timestamp;
+                        dequeueMessageDto.SenderDeviceId = cacheItem.SenderDeviceId;
                         addItem = true;
                     }
                 }

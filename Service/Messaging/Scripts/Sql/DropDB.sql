@@ -8,9 +8,10 @@ DROP PROCEDURE [dbo].[Commit]
 
 -- Tables --
 
-DROP TABLE [dbo].[DeviceData]
+DROP TABLE [dbo].[Message]
 DROP TABLE [dbo].[DeviceMeta]
-DROP TABLE [dbo].[DeviceNumeric]
+DROP TABLE [dbo].[Device]
+DROP TABLE [dbo].[Setting]
 
 -- Table types --
 

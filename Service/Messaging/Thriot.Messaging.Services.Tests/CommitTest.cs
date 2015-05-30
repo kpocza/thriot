@@ -40,7 +40,8 @@ namespace Thriot.Messaging.Services.Tests
                         {
                             DeviceId = deviceId,
                             Payload = Encoding.UTF8.GetBytes("Message no. 1"),
-                            TimeStamp = DateTime.UtcNow
+                            TimeStamp = DateTime.UtcNow,
+                            SenderDeviceId = Identity.Next()
                         }
                     }
             });
@@ -76,7 +77,8 @@ namespace Thriot.Messaging.Services.Tests
                         {
                             DeviceId = deviceId,
                             Payload = Encoding.UTF8.GetBytes("Message no. 1"),
-                            TimeStamp = DateTime.UtcNow
+                            TimeStamp = DateTime.UtcNow,
+                            SenderDeviceId = Identity.Next()
                         }
                     }
             });
@@ -105,7 +107,8 @@ namespace Thriot.Messaging.Services.Tests
                         {
                             DeviceId = deviceId,
                             Payload = Encoding.UTF8.GetBytes("Message no. 1"),
-                            TimeStamp = DateTime.UtcNow
+                            TimeStamp = DateTime.UtcNow,
+                            SenderDeviceId = Identity.Next()
                         }
                     }
             });

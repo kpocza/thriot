@@ -80,7 +80,8 @@ namespace Thriot.Messaging.PerformanceTest
                     {
                         DeviceId = d,
                         Payload = Enumerable.Range(1, 200).Select(i => (byte)i).ToArray(),
-                        TimeStamp = DateTime.UtcNow
+                        TimeStamp = DateTime.UtcNow,
+                        SenderDeviceId = new string('1', 32)
                     }).ToList()
                 };
 

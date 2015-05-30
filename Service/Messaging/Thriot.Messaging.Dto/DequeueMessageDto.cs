@@ -11,5 +11,7 @@ namespace Thriot.Messaging.Dto
         public int MessageId { get; set; }
 
         public DateTime TimeStamp { get; set; }
+
+        public string SenderDeviceId { get; set; }
     }
 }

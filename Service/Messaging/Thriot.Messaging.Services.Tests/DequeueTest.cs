@@ -32,6 +32,7 @@ namespace Thriot.Messaging.Services.Tests
         {
             var deviceId = MessagingService.Initialize(Identity.Next());
 
+            string senderDeviceId = Identity.Next();
             MessagingService.Enqueue(new EnqueueMessagesDto
             {
                 Messages =
@@ -41,7 +42,8 @@ namespace Thriot.Messaging.Services.Tests
                         {
                             DeviceId = deviceId,
                             Payload = Encoding.UTF8.GetBytes("Message no. 1"),
-                            TimeStamp = DateTime.UtcNow
+                            TimeStamp = DateTime.UtcNow,
+                            SenderDeviceId = senderDeviceId
                         }
                     }
             });
@@ -51,6 +53,7 @@ namespace Thriot.Messaging.Services.Tests
             Assert.AreEqual(1, result.Messages.Count);
             Assert.AreEqual(deviceId, result.Messages[0].DeviceId);
             Assert.IsTrue(Encoding.UTF8.GetBytes("Message no. 1").SequenceEqual(result.Messages[0].Payload));
+            Assert.AreEqual(senderDeviceId, result.Messages[0].SenderDeviceId);
         }
 
         [TestMethod]
@@ -67,6 +70,7 @@ namespace Thriot.Messaging.Services.Tests
         {
             var deviceId = MessagingService.Initialize(Identity.Next());
 
+            string senderDeviceId = Identity.Next();
             MessagingService.Enqueue(new EnqueueMessagesDto
             {
                 Messages =
@@ -76,7 +80,8 @@ namespace Thriot.Messaging.Services.Tests
                         {
                             DeviceId = deviceId,
                             Payload = Encoding.UTF8.GetBytes("Message no. 1"),
-                            TimeStamp = DateTime.UtcNow
+                            TimeStamp = DateTime.UtcNow,
+                            SenderDeviceId = senderDeviceId
                         }
                     }
             });
@@ -88,6 +93,7 @@ namespace Thriot.Messaging.Services.Tests
             Assert.AreEqual(1, result.Messages.Count);
             Assert.AreEqual(deviceId, result.Messages[0].DeviceId);
             Assert.IsTrue(Encoding.UTF8.GetBytes("Message no. 1").SequenceEqual(result.Messages[0].Payload));
+            Assert.AreEqual(senderDeviceId, result.Messages[0].SenderDeviceId);
         }
 
         [TestMethod]
@@ -95,6 +101,7 @@ namespace Thriot.Messaging.Services.Tests
         {
             var deviceId = MessagingService.Initialize(Identity.Next());
 
+            string senderDeviceId = Identity.Next();
             MessagingService.Enqueue(new EnqueueMessagesDto
             {
                 Messages =
@@ -104,7 +111,8 @@ namespace Thriot.Messaging.Services.Tests
                         {
                             DeviceId = deviceId,
                             Payload = Encoding.UTF8.GetBytes("Message no. 1"),
-                            TimeStamp = DateTime.UtcNow
+                            TimeStamp = DateTime.UtcNow,
+                            SenderDeviceId = senderDeviceId
                         }
                     }
             });
@@ -114,6 +122,7 @@ namespace Thriot.Messaging.Services.Tests
             Assert.AreEqual(1, result.Messages.Count);
             Assert.AreEqual(deviceId, result.Messages[0].DeviceId);
             Assert.IsTrue(Encoding.UTF8.GetBytes("Message no. 1").SequenceEqual(result.Messages[0].Payload));
+            Assert.AreEqual(senderDeviceId, result.Messages[0].SenderDeviceId);
 
             result = MessagingService.Dequeue(new DeviceListDto { DeviceIds = new List<long> { deviceId } });
 
@@ -127,6 +136,7 @@ namespace Thriot.Messaging.Services.Tests
 
             for (int i = 0; i < 120; i++)
             {
+                string senderDeviceId = Identity.Next();
                 MessagingService.Enqueue(new EnqueueMessagesDto
                 {
                     Messages =
@@ -136,7 +146,8 @@ namespace Thriot.Messaging.Services.Tests
                             {
                                 DeviceId = deviceId,
                                 Payload = Encoding.UTF8.GetBytes("Message no. " + i),
-                                TimeStamp = DateTime.UtcNow
+                                TimeStamp = DateTime.UtcNow,
+                                SenderDeviceId = senderDeviceId
                             }
                         }
                 });
@@ -146,6 +157,7 @@ namespace Thriot.Messaging.Services.Tests
                 Assert.AreEqual(1, result.Messages.Count);
                 Assert.AreEqual(deviceId, result.Messages[0].DeviceId);
                 Assert.IsTrue(Encoding.UTF8.GetBytes("Message no. " + i).SequenceEqual(result.Messages[0].Payload));
+                Assert.AreEqual(senderDeviceId, result.Messages[0].SenderDeviceId);
             }
         }
 
@@ -165,7 +177,8 @@ namespace Thriot.Messaging.Services.Tests
                             {
                                 DeviceId = deviceId,
                                 Payload = Encoding.UTF8.GetBytes("Message no. " + i),
-                                TimeStamp = DateTime.UtcNow
+                                TimeStamp = DateTime.UtcNow,
+                                SenderDeviceId = Identity.Next()
                             }
                         }
                 });
@@ -178,6 +191,7 @@ namespace Thriot.Messaging.Services.Tests
                 Assert.AreEqual(1, result.Messages.Count);
                 Assert.AreEqual(deviceId, result.Messages[0].DeviceId);
                 Assert.IsTrue(Encoding.UTF8.GetBytes("Message no. " + i).SequenceEqual(result.Messages[0].Payload));
+                Assert.AreEqual(32, result.Messages[0].SenderDeviceId.Length);
             }
 
             var noresult = MessagingService.Dequeue(new DeviceListDto { DeviceIds = new List<long> { deviceId } });
@@ -191,6 +205,7 @@ namespace Thriot.Messaging.Services.Tests
         {
             var deviceId = MessagingService.Initialize(Identity.Next());
 
+            string senderDeviceId = Identity.Next();
             MessagingService.Enqueue(new EnqueueMessagesDto
             {
                 Messages =
@@ -200,7 +215,8 @@ namespace Thriot.Messaging.Services.Tests
                         {
                             DeviceId = deviceId,
                             Payload = Encoding.UTF8.GetBytes("Message no. 1"),
-                            TimeStamp = DateTime.UtcNow
+                            TimeStamp = DateTime.UtcNow,
+                            SenderDeviceId = senderDeviceId
                         }
                     }
             });
@@ -212,6 +228,7 @@ namespace Thriot.Messaging.Services.Tests
             Assert.AreEqual(1, result.Messages.Count);
             Assert.AreEqual(deviceId, result.Messages[0].DeviceId);
             Assert.IsTrue(Encoding.UTF8.GetBytes("Message no. 1").SequenceEqual(result.Messages[0].Payload));
+            Assert.AreEqual(senderDeviceId, result.Messages[0].SenderDeviceId);
         }
     }
 }
