@@ -11,6 +11,7 @@
 **/packages/*
 !**/packages/repositories.config
 
+artifacts/*
 TestResults/*
 Build/output/*
 

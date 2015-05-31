@@ -39,6 +39,9 @@
                         @Html.ActionLink("Login", "Login", "User")
                     </li>
                     <li ng-if="isLoggedIn()">
+                        <a href="#">{{userName}}</a>
+                    </li>
+                    <li ng-if="isLoggedIn()">
                         <a href="#" ng-click="changePassword()">chgpwd</a>
                     </li>
                     <li ng-if="isLoggedIn()">

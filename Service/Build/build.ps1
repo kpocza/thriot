@@ -1,7 +1,7 @@
 param (
 	[string]$solutionRoot = "$(pwd)\..\",
 	[string]$targetRoot = $null,
-	[string]$msbuild = "c:\Program Files (x86)\MSBuild\12.0\Bin\MSBuild.exe",
+	[string]$msbuild = "c:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe",
 	[string]$config = "ProdAzure"
 )
 
@@ -23,7 +23,12 @@ if(!$targetRoot -or $(![System.IO.Path]::IsPathRooted($targetRoot))) {
 
 &$msbuild $solutionRoot\Thriot.Service.sln /p:Configuration=$config /p:DebugSymbols=true
 
-&$msbuild $solutionRoot\Web\Thriot.Web\Thriot.Web.csproj /p:Configuration=$config /p:DeployOnBuild=true /p:AutoParameterizationWebConfigConnectionStrings=false /p:DeployTarget=Package /p:OutputPath=bin\$config /p:_PackageTempDir=$targetRoot\web /p:DebugSymbols=true
+&$msbuild $solutionRoot\Web\Thriot.Web\Thriot.Web.xproj /p:Configuration=$config /p:DeployOnBuild=true /p:PublishProfile=$solutionRoot\Web\Thriot.Web\Properties\PublishProfiles\publish.pubxml
+
+EnsureEmptyDirectory $targetRoot\web;
+
+cp -Recu $solutionRoot\artifacts\bin\Thriot.Web\Release\Publish\* $targetRoot\web
+
 &$msbuild $solutionRoot\Management\Thriot.Management.WebApi\Thriot.Management.WebApi.csproj /p:Configuration=$config /p:DeployOnBuild=true /p:AutoParameterizationWebConfigConnectionStrings=false /p:DeployTarget=Package /p:OutputPath=bin\$config /p:_PackageTempDir=$targetRoot\api /p:DebugSymbols=true
 &$msbuild $solutionRoot\Platform\Thriot.Platform.WebApi\Thriot.Platform.WebApi.csproj /p:Configuration=$config /p:DeployOnBuild=true /p:AutoParameterizationWebConfigConnectionStrings=false /p:DeployTarget=Package /p:OutputPath=bin\$config /p:_PackageTempDir=$targetRoot\papi /p:DebugSymbols=true
 &$msbuild $solutionRoot\Messaging\Thriot.Messaging.WebApi\Thriot.Messaging.WebApi.csproj /p:Configuration=$config /p:DeployOnBuild=true /p:AutoParameterizationWebConfigConnectionStrings=false /p:DeployTarget=Package /p:OutputPath=bin\$config /p:_PackageTempDir=$targetRoot\msvc /p:DebugSymbols=true
@@ -36,11 +41,11 @@ cp -Recu -Force $solutionRoot\Platform\Thriot.Platform.WebsocketService\bin\$con
 cp -Recu -Force $solutionRoot\Web\Thriot.ApiHost\bin\Debug\* $targetRoot\apihost\
 
 if($config.StartsWith("Dev")) {
-	mv -Force $targetRoot\web\config\siteRoots.dev.js $targetRoot\web\config\siteRoots.js 
+	mv -Force $targetRoot\web\wwwroot\config\siteRoots.dev.js $targetRoot\web\wwwroot\config\siteRoots.js 
 }
 
-if($config.StartsWith("Prod") -and $(test-path $targetRoot\web\config)) {
-	rmdir -Recu -Force $targetRoot\web\config
+if($config.StartsWith("Prod") -and $(test-path $targetRoot\web\wwwroot\config)) {
+	rmdir -Recu -Force $targetRoot\web\wwwroot\config
 }
 
 EnsureEmptyDirectory $targetRoot\install;

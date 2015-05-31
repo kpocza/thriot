@@ -5,10 +5,12 @@
 <h2>Register</h2>
 
 <div ng-controller="UserController">
-    <label for="name" class="labelwidth">Name</label><input type="text" name="name" ng-model="userInfo.name" autofocus /><br />
-    <label for="email" class="labelwidth">Email</label><input type="email" name="email" ng-model="userInfo.email" /><br />
-    <label for="password" class="labelwidth">Password</label><input type="password" name="password" ng-model="userInfo.password" /><br />
-    <input type="button" value="Register" ng-click="register()" />
+    @Html.Raw("<form ng-submit='register()'>")
+        <label for="name" class="labelwidth">Name</label><input type="text" id="name" ng-model="userInfo.name" autofocus/><br/>
+        <label for="email" class="labelwidth">Email</label><input type="email" id="email" ng-model="userInfo.email"/><br/>
+        <label for="password" class="labelwidth">Password</label><input type="password" id="password" ng-model="userInfo.password"/><br/>
+        <input type="submit" value="Register"/>
+    @Html.Raw("</form>")
 </div>
 <div>&nbsp;</div>
 <div>

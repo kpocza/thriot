@@ -51,7 +51,7 @@
     }
 
     $scope.changePassword = function () {
-        $http.post(mgmtApiUrls.usersApi + '/changePassword', { oldPassword: $scope.userInfo.oldPassword, newPassword: $scope.userInfo.newPassword })
+        $http.post(mgmtApiUrls.usersApi + '/changePassword', { currentPassword: $scope.userInfo.currentPassword, newPassword: $scope.userInfo.newPassword })
             .success(function () {
                 localStorage.put('messageWarning', 'Please try to login with your new password.');
                 $window.location.href = '/';
@@ -78,5 +78,16 @@ function UserStateController($scope, $http, cookies, $window, infoService, viewU
     $scope.changePassword = function() {
         $window.location.href = viewUrls.changePasswordPage;
     }
+    function runOnce() {
+        if($scope.isLoggedIn()) {
+            $http.get(mgmtApiUrls.usersApi + '/me')
+                .success(function (data) {
+                    $scope.userName = data.Name;
+                    $scope.email = data.Email;
+                });
+        }
+    }
+
+    runOnce();
 };
 
