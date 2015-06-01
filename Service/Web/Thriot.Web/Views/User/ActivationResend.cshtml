@@ -5,8 +5,8 @@
 <h2>Resend activation email</h2>
 
 <div ng-controller="UserController">
-    @Html.Raw("<form ng-submit='activationResend()'>")
+    <form ng-submit='activationResend()'>
         <label for="email" class="labelwidth">Email</label><input type="email" id="email" ng-model="userInfo.email" autofocus/><br/>
         <input type="submit" value="Resend activation email" />
-    @Html.Raw("</form>")
+    </form>
 </div>

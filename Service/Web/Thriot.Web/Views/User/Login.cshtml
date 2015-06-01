@@ -5,13 +5,13 @@
 <h2>Login</h2>
 
 <div ng-controller="UserController">
-    @Html.Raw("<form ng-submit='login()'>")
+    <form ng-submit='login()'>
         <label for="email" class="labelwidth">Email</label><input type="email" id="email" ng-model="userInfo.email" autofocus/><br/>
         <label for="password" class="labelwidth">Password</label><input type="password" id="password" ng-model="userInfo.password"/><br/>
         <input type="submit" value="Login"/>
-    @Html.Raw("</form>")
+    </form>
 </div>
 <div>&nbsp;</div>
 <div>
-    @Html.ActionLink("Resend activation email", "ActivationResend") &nbsp; @Html.ActionLink("Forgot password", "ForgotPasswordSend")
+    <a asp-action="ActivationResend">Resend activation email</a> &nbsp; <a asp-action="ForgotPasswordSend">Forgot password</a>
 </div>
