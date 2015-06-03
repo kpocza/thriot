@@ -12,6 +12,7 @@
                     localStorage.put('messageWarning', 'Please check you email and activate your Thriot account.');
                     $window.location.href = '/';
                 } else {
+                    cookies.set('ThriotAuthenticated', '1');
                     infoService.navigateToRightPlace(true);
                 }
             });
@@ -20,6 +21,7 @@
     $scope.login = function() {
         $http.post(mgmtApiUrls.usersApi + '/login', { email: $scope.userInfo.email, password: $scope.userInfo.password })
             .success(function () {
+                cookies.set('ThriotAuthenticated', '1');
                 infoService.navigateToRightPlace(true);
             });
     }
@@ -63,12 +65,13 @@ function UserStateController($scope, $http, cookies, $window, infoService, viewU
     $scope.logoff = function () {
         $http.post(mgmtApiUrls.usersApi + '/logoff', null)
             .success(function () {
+                cookies.remove('ThriotAuthenticated');
                 $window.location.href = '/';
             });
     }
 
     $scope.isLoggedIn = function () {
-        return cookies.get('ThriotMgmtAuth') != null;
+        return cookies.get('ThriotAuthenticated') != null;
     }
 
     $scope.gotoapp = function() {
