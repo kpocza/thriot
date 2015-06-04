@@ -26,6 +26,16 @@
             });
     }
 
+    $scope.activate = function () {
+        var hash = $window.location.hash.replace('#', '');
+        var hashParts = hash.split(',');
+        $http.get(mgmtApiUrls.usersApi + '/activate/' + hashParts[0] + '/' + hashParts[1])
+            .success(function () {
+                cookies.set('ThriotAuthenticated', '1');
+                infoService.navigateToRightPlace(true);
+            });
+    }
+
     $scope.activationResend = function() {
         $http.post(mgmtApiUrls.usersApi + '/resendActivationEmail', { email: $scope.userInfo.email })
             .success(function() {

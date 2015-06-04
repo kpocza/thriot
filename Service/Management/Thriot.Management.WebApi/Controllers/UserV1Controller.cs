@@ -42,9 +42,7 @@ namespace Thriot.Management.WebApi.Controllers
         {
             _userService.Activate(userId, activationCode);
 
-            var response = new HttpResponseMessage(HttpStatusCode.Redirect);
-            response.Headers.Location = new Uri(_settingProvider.WebsiteUrl);
-            return response;
+            return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
 
         [Route("resendActivationEmail")]

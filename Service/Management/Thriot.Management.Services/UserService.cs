@@ -62,7 +62,7 @@ namespace Thriot.Management.Services
 
             if (needsActivation)
             {
-                mailer.SendActivationMail(userId, user.Name, user.Email, user.ActivationCode, _settingProvider.ManagementApiUrl);
+                mailer.SendActivationMail(userId, user.Name, user.Email, user.ActivationCode, _settingProvider.WebsiteUrl);
             }
             else
             {

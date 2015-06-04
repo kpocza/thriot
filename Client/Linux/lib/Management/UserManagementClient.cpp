@@ -101,7 +101,7 @@ int UserManagementClient::Activate(const ActivateInfo& activate)
 {
 	Response httpResponse =_restConnection->Get("users/activate/" + activate.UserId + "/" + activate.ActivationCode);
 
-	if(httpResponse.Code != 302)
+	if(httpResponse.Code != 204)
 		return httpResponse.Code;
 
 	_isLoggedIn = true;
