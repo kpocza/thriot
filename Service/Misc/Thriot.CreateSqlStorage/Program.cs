@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Configuration;
-using System.Data.Entity.Migrations;
 using System.IO;
 using Thriot.Framework;
 using Thriot.Management.Model;
@@ -16,7 +15,7 @@ namespace Thriot.CreateSqlStorage
 
             using (var managementUnitOfWork = unitOfWorkFactory.Create())
             {
-                var script = File.ReadAllText("CreateScripts\\" + ConfigurationManager.AppSettings["Script"]);
+                var script = File.ReadAllText(Path.Combine("CreateScripts", ConfigurationManager.AppSettings["Script"]));
                 Console.WriteLine("Executing DB schema update...");
                 managementUnitOfWork.ExecuteScript(script);
                 Console.WriteLine("DB schema update done.");
@@ -30,7 +29,7 @@ namespace Thriot.CreateSqlStorage
                 CreateSettingIfNotExist(settingRepository, Setting.MessagingServiceEndpoint, "http://localhost:12345/msvc/v1/messaging");
                 CreateSettingIfNotExist(settingRepository, Setting.MessagingServiceApiKey, Crypto.GenerateSafeRandomToken());
                 CreateSettingIfNotExist(settingRepository, SettingId.GetConnection("TelemetryConnectionAzure"), "UseDevelopmentStorage=true");
-                CreateSettingIfNotExist(settingRepository, SettingId.GetConnection("TelemetryConnectionSql"), @"Server=.\SQLEXPRESS;Database=ThriotTelemetry;Trusted_Connection=True;");
+                CreateSettingIfNotExist(settingRepository, SettingId.GetConnection("TelemetryConnectionSql"), ConfigurationManager.AppSettings["TelemetryConnectionSql"]);
                 CreateSettingIfNotExist(settingRepository, Setting.WebsiteUrl, "http://localhost:12345");
                 CreateSettingIfNotExist(settingRepository, Setting.ManagementApiUrl, "http://localhost:12345/api/v1");
                 CreateSettingIfNotExist(settingRepository, Setting.PlatformApiUrl, "http://localhost:12345/papi/v1");
