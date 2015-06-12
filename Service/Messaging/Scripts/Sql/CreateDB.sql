@@ -1,82 +1,89 @@
 ﻿
---IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME='Setting') 
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME='Setting') 
+BEGIN
+	-- Tables --
 
--- Tables --
+	CREATE TABLE [dbo].[Device](
+		[Id] [bigint] IDENTITY(1,1) NOT NULL,
+		[Uid] [char](32) NOT NULL,
+		CONSTRAINT [PK_Device] PRIMARY KEY CLUSTERED ([Id] ASC) ON [PRIMARY]
+	) ON [PRIMARY]
 
-CREATE TABLE [dbo].[Device](
-	[Id] [bigint] IDENTITY(1,1) NOT NULL,
-	[Uid] [char](32) NOT NULL,
-	CONSTRAINT [PK_Device] PRIMARY KEY CLUSTERED ([Id] ASC) ON [PRIMARY]
-) ON [PRIMARY]
+	CREATE TABLE [dbo].[Message](
+		[DeviceId] [bigint] NOT NULL,
+		[Idx] [int] NOT NULL,
+		[Payload] [varbinary](512) NOT NULL,
+		[Timestamp] [datetime2] NOT NULL,
+		[SenderUid] [char](32) NOT NULL,
+		CONSTRAINT [PK_Message] PRIMARY KEY CLUSTERED ([DeviceId] ASC, [Idx] ASC) ON [PRIMARY]
+	) ON [PRIMARY]
 
-CREATE TABLE [dbo].[Message](
-	[DeviceId] [bigint] NOT NULL,
-	[Idx] [int] NOT NULL,
-	[Payload] [varbinary](512) NOT NULL,
-	[Timestamp] [datetime2] NOT NULL,
-	[SenderUid] [char](32) NOT NULL,
-	CONSTRAINT [PK_Message] PRIMARY KEY CLUSTERED ([DeviceId] ASC, [Idx] ASC) ON [PRIMARY]
-) ON [PRIMARY]
+	CREATE TABLE [dbo].[DeviceMeta](
+		[DeviceId] [bigint] NOT NULL,
+		[DequeueIndex] [int] NOT NULL,
+		[EnqueueIndex] [int] NOT NULL,
+		[Peek] [bit] NOT NULL,
+		[QueueSize] [int] NOT NULL,
+		[Version] [int] NOT NULL
+		CONSTRAINT [PK_DeviceMeta] PRIMARY KEY CLUSTERED ([DeviceId] ASC) ON [PRIMARY]
+	) ON [PRIMARY]
 
-CREATE TABLE [dbo].[DeviceMeta](
-	[DeviceId] [bigint] NOT NULL,
-	[DequeueIndex] [int] NOT NULL,
-	[EnqueueIndex] [int] NOT NULL,
-	[Peek] [bit] NOT NULL,
-	[QueueSize] [int] NOT NULL,
-	[Version] [int] NOT NULL
-	CONSTRAINT [PK_DeviceMeta] PRIMARY KEY CLUSTERED ([DeviceId] ASC) ON [PRIMARY]
-) ON [PRIMARY]
-
-CREATE TABLE [dbo].[Setting] (
-	[Key] [varchar](32) NOT NULL,
-	[Value] [nvarchar](2048) NOT NULL,
-	CONSTRAINT [PK_Setting] PRIMARY KEY CLUSTERED ([Key] ASC) ON [PRIMARY]
-)  ON [PRIMARY]
+	CREATE TABLE [dbo].[Setting] (
+		[Key] [varchar](32) NOT NULL,
+		[Value] [nvarchar](2048) NOT NULL,
+		CONSTRAINT [PK_Setting] PRIMARY KEY CLUSTERED ([Key] ASC) ON [PRIMARY]
+	)  ON [PRIMARY]
 
 
--- Keys and Indices -- 
-CREATE UNIQUE NONCLUSTERED INDEX [IX_Device] ON [dbo].[Device]
-(
-	[Uid] ASC
-) ON [PRIMARY]
+	-- Keys and Indices -- 
+	CREATE UNIQUE NONCLUSTERED INDEX [IX_Device] ON [dbo].[Device]
+	(
+		[Uid] ASC
+	) ON [PRIMARY]
 
-ALTER TABLE [dbo].[Message]  WITH CHECK ADD  CONSTRAINT [FK_Message_Device] FOREIGN KEY([DeviceId])
-REFERENCES [dbo].[Device] ([Id])
+	ALTER TABLE [dbo].[Message]  WITH CHECK ADD  CONSTRAINT [FK_Message_Device] FOREIGN KEY([DeviceId])
+	REFERENCES [dbo].[Device] ([Id])
 
-ALTER TABLE [dbo].[DeviceMeta]  WITH CHECK ADD  CONSTRAINT [FK_DeviceMeta_Device] FOREIGN KEY([DeviceId])
-REFERENCES [dbo].[Device] ([Id])
+	ALTER TABLE [dbo].[DeviceMeta]  WITH CHECK ADD  CONSTRAINT [FK_DeviceMeta_Device] FOREIGN KEY([DeviceId])
+	REFERENCES [dbo].[Device] ([Id])
 
--- Table types --
+	-- Table types --
 
-CREATE TYPE [dbo].[DeviceIdTable] AS TABLE(
-	[DeviceId] [bigint] NOT NULL
-)
+	CREATE TYPE [dbo].[DeviceIdTable] AS TABLE(
+		[DeviceId] [bigint] NOT NULL
+	)
 
-CREATE TYPE [dbo].[DeviceIdWithIndexTable] AS TABLE(
-	[DeviceId] [bigint] NOT NULL,
-	[Index] [int] NULL
-)
+	CREATE TYPE [dbo].[DeviceIdWithIndexTable] AS TABLE(
+		[DeviceId] [bigint] NOT NULL,
+		[Index] [int] NULL
+	)
 
-CREATE TYPE [dbo].[EnqueueItemTable] AS TABLE(
-	[DeviceId] [bigint] NOT NULL,
-	[Payload] [varbinary](512) NOT NULL,
-	[Timestamp] [datetime2](7) NOT NULL,
-	[SenderUid] char(32) NOT NULL
-)
+	CREATE TYPE [dbo].[EnqueueItemTable] AS TABLE(
+		[DeviceId] [bigint] NOT NULL,
+		[Payload] [varbinary](512) NOT NULL,
+		[Timestamp] [datetime2](7) NOT NULL,
+		[SenderUid] char(32) NOT NULL
+	)
 		
-CREATE TYPE [dbo].[ResultTable] AS TABLE(
-	[DeviceId] [bigint] NOT NULL,
-	[DequeueIndex] [int] NOT NULL,
-	[EnqueueIndex] [int] NOT NULL,
-	[Peek] [bit] NOT NULL,
-	[Version] [int] NOT NULL,
-	[QueueSize] [int] NOT NULL,
-	[MessageId] [int] NOT NULL
-)
+	CREATE TYPE [dbo].[ResultTable] AS TABLE(
+		[DeviceId] [bigint] NOT NULL,
+		[DequeueIndex] [int] NOT NULL,
+		[EnqueueIndex] [int] NOT NULL,
+		[Peek] [bit] NOT NULL,
+		[Version] [int] NOT NULL,
+		[QueueSize] [int] NOT NULL,
+		[MessageId] [int] NOT NULL
+	)
+	
+	INSERT INTO Setting([Key], Value) VALUES('Version', '1');
+END
 GO
+
 -- Stored Procedures --
 
+IF EXISTS (select 1 from sys.procedures WHERE name = 'RegisterDevice')
+	DROP PROCEDURE [dbo].[RegisterDevice]
+GO
 CREATE PROCEDURE [dbo].[RegisterDevice]
 (
 	@Uid varchar(32),
@@ -98,6 +105,10 @@ BEGIN
 	SELECT TOP (@QueueSize) @DeviceId, Idx = (ROW_NUMBER() OVER (ORDER BY [object_id])) - 1, 
 				0x0, GETUTCDATE(), '                                ' FROM sys.all_objects ORDER BY Idx;
 END
+GO
+
+IF EXISTS (select 1 from sys.procedures WHERE name = 'Enqueue')
+	DROP PROCEDURE [dbo].[Enqueue]
 GO
 
 CREATE PROCEDURE [dbo].[Enqueue]
@@ -165,6 +176,10 @@ BEGIN
 		RETURN 1
 	END CATCH
 END
+GO
+
+IF EXISTS (select 1 from sys.procedures WHERE name = 'Dequeue')
+	DROP PROCEDURE [dbo].[Dequeue]
 GO
 
 CREATE PROCEDURE [dbo].[Dequeue]
@@ -260,6 +275,9 @@ BEGIN
 END
 GO
 
+IF EXISTS (select 1 from sys.procedures WHERE name = 'Peek')
+	DROP PROCEDURE [dbo].[Peek]
+GO
 
 CREATE PROCEDURE [dbo].[Peek]
 (
@@ -353,6 +371,10 @@ BEGIN
 END
 GO
 
+IF EXISTS (select 1 from sys.procedures WHERE name = 'Commit')
+	DROP PROCEDURE [dbo].[Commit]
+GO
+
 CREATE PROCEDURE [dbo].[Commit]
 (
 	@CommitItems DeviceIdTable READONLY
@@ -398,5 +420,3 @@ BEGIN
 	END CATCH	
 END
 GO
-
-INSERT INTO Setting([Key], Value) VALUES('Version', '1');

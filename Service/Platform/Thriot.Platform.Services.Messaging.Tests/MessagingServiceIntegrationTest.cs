@@ -30,6 +30,7 @@ namespace Thriot.Platform.Services.Messaging.Tests
             Assert.AreEqual(OutgoingState.Ok, msg.State);
             Assert.AreEqual(_deviceId, msg.Message.DeviceId);
             Assert.AreEqual("32412341243", msg.Message.Payload);
+            Assert.AreEqual(_deviceId, msg.Message.SenderDeviceId);
 
             var msg2 = messagingService.ReceiveAndForgetOutgoingMessage(_deviceId);
             Assert.AreEqual(OutgoingState.Ok, msg2.State);
@@ -70,11 +71,13 @@ namespace Thriot.Platform.Services.Messaging.Tests
             Assert.AreEqual(OutgoingState.Ok, msg.State);
             Assert.AreEqual(_deviceId, msg.Message.DeviceId);
             Assert.AreEqual("32412341243", msg.Message.Payload);
+            Assert.AreEqual(_deviceId, msg.Message.SenderDeviceId);
 
             var msg2 = messagingService.Peek(_deviceId);
             Assert.AreEqual(OutgoingState.Ok, msg2.State);
             Assert.AreEqual(_deviceId, msg2.Message.DeviceId);
             Assert.AreEqual("32412341243", msg2.Message.Payload);
+            Assert.AreEqual(_deviceId, msg.Message.SenderDeviceId);
 
             MessagingWorkers.Stop();
         }
@@ -95,6 +98,7 @@ namespace Thriot.Platform.Services.Messaging.Tests
             Assert.AreEqual(OutgoingState.Ok, msg.State);
             Assert.AreEqual(_deviceId, msg.Message.DeviceId);
             Assert.AreEqual("32412341243", msg.Message.Payload);
+            Assert.AreEqual(_deviceId, msg.Message.SenderDeviceId);
 
             var state = messagingService.Commit(_deviceId);
             Assert.AreEqual(OutgoingState.Ok, state);

@@ -45,7 +45,7 @@ namespace Thriot.Platform.Services.Messaging
                     throw new ForbiddenException();
             }
 
-            var outgoingMessage = new OutgoingMessageToStore(device.NumericId, messageBytes, -1, DateTime.UtcNow);
+            var outgoingMessage = new OutgoingMessageToStore(device.NumericId, messageBytes, -1, DateTime.UtcNow, senderDeviceId);
 
             return _messagingOperations.Record(outgoingMessage);
         }
@@ -65,7 +65,7 @@ namespace Thriot.Platform.Services.Messaging
             if (outgoingMessage.Message != null)
             {
                 var payload = Encoding.UTF8.GetString(outgoingMessage.Message.Payload);
-                return new OutgoingMessageToSendWithState(new OutgoingMessageToSend(deviceId, payload, outgoingMessage.Message.Time, outgoingMessage.Message.MessageId), OutgoingState.Ok);
+                return new OutgoingMessageToSendWithState(new OutgoingMessageToSend(deviceId, payload, outgoingMessage.Message.Time, outgoingMessage.Message.MessageId, outgoingMessage.Message.SenderDeviceId), OutgoingState.Ok);
             }
 
             return new OutgoingMessageToSendWithState(null, OutgoingState.Ok);
@@ -86,7 +86,7 @@ namespace Thriot.Platform.Services.Messaging
             if (outgoingMessage.Message != null)
             {
                 var payload = Encoding.UTF8.GetString(outgoingMessage.Message.Payload);
-                return new OutgoingMessageToSendWithState(new OutgoingMessageToSend(deviceId, payload, outgoingMessage.Message.Time, outgoingMessage.Message.MessageId), OutgoingState.Ok);
+                return new OutgoingMessageToSendWithState(new OutgoingMessageToSend(deviceId, payload, outgoingMessage.Message.Time, outgoingMessage.Message.MessageId, outgoingMessage.Message.SenderDeviceId), OutgoingState.Ok);
             }
 
             return new OutgoingMessageToSendWithState(null, OutgoingState.Ok);

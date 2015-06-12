@@ -29,7 +29,7 @@ namespace Thriot.Platform.Services.Messaging
                         message != null
                             ? new OutgoingMessageToStoreWithState(
                                 new OutgoingMessageToStore(message.DeviceId, message.Payload, message.MessageId,
-                                    message.TimeStamp), OutgoingState.Ok)
+                                    message.TimeStamp, message.SenderDeviceId), OutgoingState.Ok)
                             : new OutgoingMessageToStoreWithState(null, OutgoingState.Ok));
                 }
 

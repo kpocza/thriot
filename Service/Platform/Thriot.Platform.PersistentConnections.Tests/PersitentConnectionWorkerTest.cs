@@ -62,7 +62,7 @@ namespace Thriot.Platform.PersistentConnections.Tests
                     {
                         1,
                         new OutgoingMessageToStoreWithState(new OutgoingMessageToStore(1, Encoding.UTF8.GetBytes("{}"), 1,
-                            DateTime.UtcNow), OutgoingState.Ok)
+                            DateTime.UtcNow, "sender"), OutgoingState.Ok)
                     }
                 });
 
@@ -120,7 +120,7 @@ namespace Thriot.Platform.PersistentConnections.Tests
                     {
                         1,
                         new OutgoingMessageToStoreWithState(new OutgoingMessageToStore(1, Encoding.UTF8.GetBytes("{}"), 1,
-                            DateTime.UtcNow), OutgoingState.Ok)
+                            DateTime.UtcNow, "sender"), OutgoingState.Ok)
                     }
                 });
 

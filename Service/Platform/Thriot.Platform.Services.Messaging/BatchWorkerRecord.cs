@@ -28,7 +28,8 @@ namespace Thriot.Platform.Services.Messaging
                     {
                         DeviceId = p.Parameter.DeviceId,
                         Payload = p.Parameter.Payload,
-                        TimeStamp = p.Parameter.Time
+                        TimeStamp = p.Parameter.Time,
+                        SenderDeviceId = p.Parameter.SenderDeviceId
                     }).ToList()
                 });
 

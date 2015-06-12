@@ -49,7 +49,8 @@ namespace Thriot.TestHelpers
                         {
                             DeviceId = m.DeviceId,
                             Payload = m.Payload,
-                            TimeStamp = m.TimeStamp
+                            TimeStamp = m.TimeStamp,
+                            SenderDeviceId = m.SenderDeviceId
                         })
                     }).DeviceIds
             };
@@ -66,7 +67,8 @@ namespace Thriot.TestHelpers
                             DeviceId = m.DeviceId,
                             MessageId = m.MessageId,
                             Payload = m.Payload,
-                            TimeStamp = m.TimeStamp
+                            TimeStamp = m.TimeStamp,
+                            SenderDeviceId = m.SenderDeviceId
                         })
             };
         }
@@ -82,7 +84,8 @@ namespace Thriot.TestHelpers
                             DeviceId = m.DeviceId,
                             MessageId = m.MessageId,
                             Payload = m.Payload,
-                            TimeStamp = m.TimeStamp
+                            TimeStamp = m.TimeStamp,
+                            SenderDeviceId = m.SenderDeviceId
                         })
             };
         }

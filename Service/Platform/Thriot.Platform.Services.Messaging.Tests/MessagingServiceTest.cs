@@ -133,7 +133,7 @@ namespace Thriot.Platform.Services.Messaging.Tests
 
             pltDeviceOperations.Get("1234").Returns(TestDataCreator.Device("1234", "1234", "12345", "123456", "1234567", 1));
             messagingOperations.ReceiveAndForget(1)
-                .Returns(new OutgoingMessageToStoreWithState(new OutgoingMessageToStore(1, new byte[] {48, 49, 50}, 1, DateTime.UtcNow), OutgoingState.Ok));
+                .Returns(new OutgoingMessageToStoreWithState(new OutgoingMessageToStore(1, new byte[] {48, 49, 50}, 1, DateTime.UtcNow, "sender"), OutgoingState.Ok));
 
             var messagingService = new MessagingService(messagingOperations, pltDeviceOperations);
 
@@ -143,6 +143,7 @@ namespace Thriot.Platform.Services.Messaging.Tests
             Assert.AreEqual(OutgoingState.Ok, msg.State);
             Assert.AreEqual("1234", msg.Message.DeviceId);
             Assert.AreEqual("012", msg.Message.Payload);
+            Assert.AreEqual("sender", msg.Message.SenderDeviceId);
         }
 
         [TestMethod]
@@ -202,7 +203,7 @@ namespace Thriot.Platform.Services.Messaging.Tests
 
             pltDeviceOperations.Get("1234").Returns(TestDataCreator.Device("1234", "1234", "12345", "123456", "1234567", 1));
             messagingOperations.Peek(1)
-                .Returns(new OutgoingMessageToStoreWithState(new OutgoingMessageToStore(1, new byte[] { 48, 49, 50 }, 1, DateTime.UtcNow), OutgoingState.Ok));
+                .Returns(new OutgoingMessageToStoreWithState(new OutgoingMessageToStore(1, new byte[] { 48, 49, 50 }, 1, DateTime.UtcNow, "sender"), OutgoingState.Ok));
 
             var messagingService = new MessagingService(messagingOperations, pltDeviceOperations);
 
@@ -212,6 +213,7 @@ namespace Thriot.Platform.Services.Messaging.Tests
             Assert.AreEqual(OutgoingState.Ok, msg.State);
             Assert.AreEqual("1234", msg.Message.DeviceId);
             Assert.AreEqual("012", msg.Message.Payload);
+            Assert.AreEqual("sender", msg.Message.SenderDeviceId);
         }
 
         [TestMethod]
@@ -222,7 +224,7 @@ namespace Thriot.Platform.Services.Messaging.Tests
 
             pltDeviceOperations.Get("1234").Returns(TestDataCreator.Device("1234", "1234", "12345", "123456", "1234567", 1));
             messagingOperations.Peek(1)
-                .Returns(new OutgoingMessageToStoreWithState(new OutgoingMessageToStore(1, new byte[] { 48, 49, 50 }, 1, DateTime.UtcNow), OutgoingState.Ok));
+                .Returns(new OutgoingMessageToStoreWithState(new OutgoingMessageToStore(1, new byte[] { 48, 49, 50 }, 1, DateTime.UtcNow, "sender"), OutgoingState.Ok));
 
             var messagingService = new MessagingService(messagingOperations, pltDeviceOperations);
 
@@ -232,6 +234,7 @@ namespace Thriot.Platform.Services.Messaging.Tests
             Assert.AreEqual(OutgoingState.Ok, msg.State);
             Assert.AreEqual("1234", msg.Message.DeviceId);
             Assert.AreEqual("012", msg.Message.Payload);
+            Assert.AreEqual("sender", msg.Message.SenderDeviceId);
 
             msg = messagingService.Peek("1234");
 
@@ -239,6 +242,7 @@ namespace Thriot.Platform.Services.Messaging.Tests
             Assert.AreEqual(OutgoingState.Ok, msg.State);
             Assert.AreEqual("1234", msg.Message.DeviceId);
             Assert.AreEqual("012", msg.Message.Payload);
+            Assert.AreEqual("sender", msg.Message.SenderDeviceId);
         }
 
         [TestMethod]
