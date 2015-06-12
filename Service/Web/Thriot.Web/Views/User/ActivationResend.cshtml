@@ -5,6 +5,8 @@
 <h2>Resend activation email</h2>
 
 <div ng-controller="UserController">
-    <label for="email" class="labelwidth">Email</label><input type="email" name="email" ng-model="userInfo.email" autofocus /><br />
-    <input type="button" value="Resend activation email" ng-click="activationResend()"  />
+    <form ng-submit='activationResend()'>
+        <label for="email" class="labelwidth">Email</label><input type="email" id="email" ng-model="userInfo.email" autofocus/><br/>
+        <input type="submit" value="Resend activation email" />
+    </form>
 </div>

@@ -10,7 +10,7 @@
     <table width="100%">
         <tr>
             <td width="70%"><h2>Company - {{company.Name}}</h2></td>
-            <td><div ng-if="canNavigateToCompanies">@Html.ActionLink("Companies", "Companies")</div></td>
+            <td><div ng-if="canNavigateToCompanies"><a asp-action="Companies">Companies</a></div></td>
         </tr>
     </table>
     <table width="100%">

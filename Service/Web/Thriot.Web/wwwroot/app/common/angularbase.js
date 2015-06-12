@@ -94,6 +94,8 @@ app.directive('systemMessages', function ($interval, localStorage) {
 });
 
 app.config(['$httpProvider', function ($httpProvider) {
+    $httpProvider.defaults.withCredentials = true;
+
     $httpProvider.interceptors.push('authenticationInterceptor');
     $httpProvider.interceptors.push('errorHandlerInterceptor');
     $httpProvider.interceptors.push('loadingIndicatorInterceptor');

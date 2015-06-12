@@ -12,6 +12,7 @@
                     localStorage.put('messageWarning', 'Please check you email and activate your Thriot account.');
                     $window.location.href = '/';
                 } else {
+                    cookies.set('ThriotAuthenticated', '1');
                     infoService.navigateToRightPlace(true);
                 }
             });
@@ -20,6 +21,17 @@
     $scope.login = function() {
         $http.post(mgmtApiUrls.usersApi + '/login', { email: $scope.userInfo.email, password: $scope.userInfo.password })
             .success(function () {
+                cookies.set('ThriotAuthenticated', '1');
+                infoService.navigateToRightPlace(true);
+            });
+    }
+
+    $scope.activate = function () {
+        var hash = $window.location.hash.replace('#', '');
+        var hashParts = hash.split(',');
+        $http.get(mgmtApiUrls.usersApi + '/activate/' + hashParts[0] + '/' + hashParts[1])
+            .success(function () {
+                cookies.set('ThriotAuthenticated', '1');
                 infoService.navigateToRightPlace(true);
             });
     }
@@ -51,7 +63,7 @@
     }
 
     $scope.changePassword = function () {
-        $http.post(mgmtApiUrls.usersApi + '/changePassword', { oldPassword: $scope.userInfo.oldPassword, newPassword: $scope.userInfo.newPassword })
+        $http.post(mgmtApiUrls.usersApi + '/changePassword', { currentPassword: $scope.userInfo.currentPassword, newPassword: $scope.userInfo.newPassword })
             .success(function () {
                 localStorage.put('messageWarning', 'Please try to login with your new password.');
                 $window.location.href = '/';
@@ -63,12 +75,13 @@ function UserStateController($scope, $http, cookies, $window, infoService, viewU
     $scope.logoff = function () {
         $http.post(mgmtApiUrls.usersApi + '/logoff', null)
             .success(function () {
+                cookies.remove('ThriotAuthenticated');
                 $window.location.href = '/';
             });
     }
 
     $scope.isLoggedIn = function () {
-        return cookies.get('ThriotMgmtAuth') != null;
+        return cookies.get('ThriotAuthenticated') != null;
     }
 
     $scope.gotoapp = function() {
@@ -78,5 +91,16 @@ function UserStateController($scope, $http, cookies, $window, infoService, viewU
     $scope.changePassword = function() {
         $window.location.href = viewUrls.changePasswordPage;
     }
+    function runOnce() {
+        if($scope.isLoggedIn()) {
+            $http.get(mgmtApiUrls.usersApi + '/me')
+                .success(function (data) {
+                    $scope.userName = data.Name;
+                    $scope.email = data.Email;
+                });
+        }
+    }
+
+    runOnce();
 };
 
