@@ -122,7 +122,7 @@ namespace Thriot.Client.DotNet.Platform
                 ms.Position = 0;
                 var outgoingMessage = (PushedMessageDto) jsonSerializer.ReadObject(ms);
 
-                return new PushedMessage(outgoingMessage.MessageId, outgoingMessage.Timestamp, outgoingMessage.Payload);
+                return new PushedMessage(outgoingMessage.MessageId, outgoingMessage.Timestamp, outgoingMessage.Payload, outgoingMessage.SenderDeviceId);
             }
         }
 
@@ -137,6 +137,9 @@ namespace Thriot.Client.DotNet.Platform
 
             [DataMember]
             public int MessageId { get; set; }
+
+            [DataMember]
+            public string SenderDeviceId { get; set; }
         }
     }
 }

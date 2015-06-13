@@ -230,7 +230,7 @@ namespace Thriot.Client.DotNet.Platform
 
         private void ProcessMessage(string msg)
         {
-            var parts = msg.Split(new[] {' '}, 4);
+            var parts = msg.Split(new[] {' '}, 5);
 
             if (parts.Length < 3)
                 throw new ArgumentException("pushedMessage");
@@ -247,9 +247,11 @@ namespace Thriot.Client.DotNet.Platform
             if (!long.TryParse(timestampText, out timestamp))
                 throw new ArgumentException("Invalid timespan");
 
-            var messageText = msg.Substring(parts[0].Length + parts[1].Length + parts[2].Length + 3);
+            string senderDeviceId = parts[3];
 
-            _onMessageReceived(new PushedMessage(messageId, timestamp, messageText));
+            var messageText = msg.Substring(parts[0].Length + parts[1].Length + parts[2].Length + parts[3].Length + 4);
+
+            _onMessageReceived(new PushedMessage(messageId, timestamp, messageText, senderDeviceId));
         }
 
         private void CommitIfNeded()

@@ -137,6 +137,7 @@ namespace Thriot.Client.DotNet.IntegrationTests
                     {
                         var message = ocassionalConnectionClient.ReceiveAndForgetMessage();
                         Assert.IsTrue(message.Payload.Contains("msg"));
+                        Assert.AreEqual(deviceId, message.SenderDeviceId);
                     }
                 });
                 tasks.Add(task);

@@ -15,15 +15,13 @@ namespace Thriot.Platform.Model.Messaging
             State = state;
         }
 
-        public bool HasMessage
-        {
-            get { return State == OutgoingState.Ok && Message != null; }
-        }
+        public bool HasMessage => State == OutgoingState.Ok && Message != null;
 
         public string ToStringMessage()
         {
             var timestamp = Message.Time.ToUnixTime();
-            var message = String.Format("pushedmessage {0} {1} {2}", Message.MessageId, timestamp, Encoding.UTF8.GetString(Message.Payload));
+            var message =
+                $"pushedmessage {Message.MessageId} {timestamp} {Message.SenderDeviceId} {Encoding.UTF8.GetString(Message.Payload)}";
 
             return message;
         }

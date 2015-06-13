@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Thriot.Client.DotNet.Management;
 using Thriot.Client.DotNet.Platform;
@@ -117,6 +118,36 @@ namespace Thriot.Client.DotNet.IntegrationTests
             persistentConnection.SendMessageTo(_otherDeviceId, "{\"Temperature\": 24, \"Time\":" + DateTime.UtcNow.Ticks + "}");
 
             persistentConnection.Close();
+        }
+
+        [TestMethod]
+        public void SendToAndReceiveTest()
+        {
+            RegisterDevice(true);
+
+            var persistentConnection = new PersistentConnectionClient(PlatformWebSocketApi);
+
+            persistentConnection.Login(_deviceId, _apiKey);
+
+            persistentConnection.SendMessageTo(_otherDeviceId, "{\"Temperature\": 24, \"Time\":" + DateTime.UtcNow.Ticks + "}");
+
+            persistentConnection.Close();
+
+            var persistentConnection2 = new PersistentConnectionClient(PlatformWebSocketApi);
+
+            PushedMessage received = null;
+            ManualResetEvent mre = new ManualResetEvent(false);
+
+            persistentConnection2.Login(_otherDeviceId, _apiKey);
+            persistentConnection2.Subscribe(SubscriptionType.ReceiveAndForget, msg => { received = msg;
+                                                                                          mre.Set();
+            });
+
+            mre.WaitOne(TimeSpan.FromSeconds(2));
+
+            Assert.IsNotNull(received);
+            Assert.AreEqual(_deviceId, received.SenderDeviceId);
+            Assert.IsTrue(received.Payload.StartsWith("{\"Temperature\": 24, \"Time\":"));
         }
 
         private void RegisterDevice(bool regOther = false, bool addMessageSinks = true)

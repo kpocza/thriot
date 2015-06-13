@@ -56,6 +56,7 @@ namespace Thriot.Client.DotNet.IntegrationTests
             Assert.IsTrue(result.MessageId >= 0);
             Assert.IsTrue(result.Payload == "test");
             Assert.IsTrue(result.Timestamp > new DateTime(2014,1,1));
+            Assert.AreEqual(_deviceId, result.SenderDeviceId);
         }
 
         [TestMethod]
@@ -81,12 +82,14 @@ namespace Thriot.Client.DotNet.IntegrationTests
             Assert.IsTrue(result1.MessageId >= 0);
             Assert.IsTrue(result1.Payload == "msg1");
             Assert.IsTrue(result1.Timestamp > new DateTime(2014, 1, 1));
+            Assert.AreEqual(_deviceId, result1.SenderDeviceId);
 
             var result2 = ocassionalConnectionClient.PeekMessage();
 
             Assert.AreEqual(result1.MessageId, result2.MessageId);
             Assert.IsTrue(result2.Payload == "msg1");
             Assert.IsTrue(result2.Timestamp > new DateTime(2014, 1, 1));
+            Assert.AreEqual(_deviceId, result2.SenderDeviceId);
 
             ocassionalConnectionClient.CommitMessage();
 
