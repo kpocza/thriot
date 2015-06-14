@@ -52,7 +52,8 @@ namespace Thriot.Messaging.Services.Storage
                             {
                                 deviceid = item.DeviceId,
                                 payload = item.Payload,
-                                timestamp = item.Timestamp
+                                timestamp = item.Timestamp,
+                                senderuid = item.SenderDeviceId
                             }).ToList();
                     
                     var messages = new NpgsqlParameter("MessagesJson", NpgsqlDbType.Json);
@@ -185,6 +186,7 @@ namespace Thriot.Messaging.Services.Storage
                         var colMessageId = reader.GetOrdinal("MessageId");
                         var colPayload = reader.GetOrdinal("Payload");
                         var colTimestamp = reader.GetOrdinal("Timestamp");
+                        var colSenderUid = reader.GetOrdinal("SenderUid");
 
                         while (reader.Read())
                         {
@@ -203,6 +205,7 @@ namespace Thriot.Messaging.Services.Storage
                                 {
                                     dequeueResult.Payload = Convert.FromBase64String(Encoding.UTF8.GetString((byte[]) reader[colPayload]));
                                     dequeueResult.Timestamp = (DateTime) reader[colTimestamp];
+                                    dequeueResult.SenderDeviceId = (string)reader[colSenderUid];
                                 }
 
                                 messages.Add(dequeueResult);
@@ -236,6 +239,7 @@ namespace Thriot.Messaging.Services.Storage
             public long deviceid;
             public byte[] payload;
             public DateTime timestamp;
+            public string senderuid;
         }
 
         class RetrieveData

@@ -1,5 +1,6 @@
 -- Stored Procedures --
 
+DROP FUNCTION CreateDatabase();
 DROP FUNCTION RegisterDevice(varchar(32),int);
 DROP FUNCTION Enqueue(json);
 DROP FUNCTION Dequeue(json);
@@ -8,9 +9,10 @@ DROP FUNCTION Commit(json);
 
 -- Tables --
 
-DROP TABLE DeviceData;
+DROP TABLE Message;
 DROP TABLE DeviceMeta;
-DROP TABLE DeviceNumeric;
+DROP TABLE Device;
+DROP TABLE Setting;
 
 
 -- Table types --

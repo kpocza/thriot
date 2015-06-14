@@ -1,73 +1,89 @@
-﻿
--- Tables --
+﻿CREATE OR REPLACE FUNCTION CreateDatabase() RETURNS int AS $$
+BEGIN
+	IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE' AND lower(TABLE_NAME)=lower('Setting')) THEN
+		-- Tables --
 
-CREATE TABLE DeviceNumeric(
-	Id bigserial primary key NOT NULL,
-	Uid varchar(32) NOT NULL
-);
+		CREATE TABLE Device(
+			Id bigserial primary key NOT NULL,
+			Uid char(32) NOT NULL
+		);
 
-CREATE TABLE DeviceData(
-	DeviceId bigint NOT NULL,
-	Idx int NOT NULL,
-	Payload bytea NOT NULL,
-	Timestamp timestamp NOT NULL,
-	CONSTRAINT PK_DeviceData PRIMARY KEY (DeviceId, Idx)
-);
+		CREATE TABLE Message(
+			DeviceId bigint NOT NULL,
+			Idx int NOT NULL,
+			Payload bytea NOT NULL,
+			Timestamp timestamp NOT NULL,
+			SenderUid char(32) NOT NULL,
+			CONSTRAINT PK_DeviceData PRIMARY KEY (DeviceId, Idx)
+		);
 
-CREATE TABLE DeviceMeta(
-	DeviceId bigint primary key NOT NULL,
-	DequeueIndex int NOT NULL,
-	EnqueueIndex int NOT NULL,
-	Peek boolean NOT NULL,
-	QueueSize int NOT NULL,
-	Version int NOT NULL
-);
+		CREATE TABLE DeviceMeta(
+			DeviceId bigint primary key NOT NULL,
+			DequeueIndex int NOT NULL,
+			EnqueueIndex int NOT NULL,
+			Peek boolean NOT NULL,
+			QueueSize int NOT NULL,
+			Version int NOT NULL
+		);
 
+		CREATE TABLE Setting (
+			Key varchar(32) primary key NOT NULL,
+			Value varchar(2048) NOT NULL
+		);
 
--- Keys and Indices -- 
-CREATE UNIQUE INDEX IX_Device ON DeviceNumeric
-(
-	Uid ASC
-);
-
-
-ALTER TABLE DeviceData  ADD  CONSTRAINT FK_DeviceData_DeviceNumeric FOREIGN KEY(DeviceId)
-REFERENCES DeviceNumeric (Id);
-
-ALTER TABLE DeviceMeta ADD  CONSTRAINT FK_DeviceMeta_DeviceNumeric FOREIGN KEY(DeviceId)
-REFERENCES DeviceNumeric (Id);
+		-- Keys and Indices -- 
+		CREATE UNIQUE INDEX IX_Device ON Device
+		(
+			Uid ASC
+		);
 
 
--- Table types --
+		ALTER TABLE Message  ADD  CONSTRAINT FK_Message_Device FOREIGN KEY(DeviceId)
+		REFERENCES Device (Id);
 
-CREATE TYPE DeviceIdTableRow AS (
-	DeviceId bigint /*NOT NULL*/
-);
+		ALTER TABLE DeviceMeta ADD  CONSTRAINT FK_DeviceMeta_Device FOREIGN KEY(DeviceId)
+		REFERENCES Device (Id);
 
-CREATE TYPE DeviceIdWithIndexTableRow AS (
-	DeviceId bigint /*NOT NULL*/,
-	Index int /*NULL*/
-);
 
-CREATE TYPE EnqueueItemTableRow AS (
-	DeviceId bigint /*NOT NULL*/,
-	Payload bytea /*NOT NULL*/,
-	Timestamp timestamp /*NOT NULL*/
-);
+		-- Table types --
 
-CREATE TYPE ResultTableRow AS (
-	DeviceId bigint /*NOT NULL*/,
-	DequeueIndex int /*NOT NULL*/,
-	EnqueueIndex int /*NOT NULL*/,
-	Peek boolean /*NOT NULL*/,
-	Version int /*NOT NULL*/,
-	QueueSize int /*NOT NULL*/,
-	MessageId int /*NOT NULL*/
-);
+		CREATE TYPE DeviceIdTableRow AS (
+			DeviceId bigint /*NOT NULL*/
+		);
+
+		CREATE TYPE DeviceIdWithIndexTableRow AS (
+			DeviceId bigint /*NOT NULL*/,
+			Index int /*NULL*/
+		);
+
+		CREATE TYPE EnqueueItemTableRow AS (
+			DeviceId bigint /*NOT NULL*/,
+			Payload bytea /*NOT NULL*/,
+			Timestamp timestamp /*NOT NULL*/,
+			SenderUid char(32) /*NOT NULL*/
+		);
+
+		CREATE TYPE ResultTableRow AS (
+			DeviceId bigint /*NOT NULL*/,
+			DequeueIndex int /*NOT NULL*/,
+			EnqueueIndex int /*NOT NULL*/,
+			Peek boolean /*NOT NULL*/,
+			Version int /*NOT NULL*/,
+			QueueSize int /*NOT NULL*/,
+			MessageId int /*NOT NULL*/
+		);
+
+		INSERT INTO Setting(Key, Value) VALUES('Version', '1');
+	END IF;
+	RETURN 0;
+END
+$$ LANGUAGE plpgsql;
+
+SELECT * FROM CreateDatabase();
 
 -- Stored Procedures --
 
-CREATE FUNCTION RegisterDevice (
+CREATE OR REPLACE FUNCTION RegisterDevice (
 	Uid varchar(32),
 	QueueSize int = 100,
 	OUT DeviceId bigint
@@ -75,18 +91,18 @@ CREATE FUNCTION RegisterDevice (
 RETURNS bigint AS $$
 BEGIN
 	
-	INSERT INTO DeviceNumeric(Uid) VALUES (Uid) RETURNING Id INTO DeviceId;
+	INSERT INTO Device(Uid) VALUES (Uid) RETURNING Id INTO DeviceId;
 	
 	INSERT INTO DeviceMeta(DeviceId, DequeueIndex, EnqueueIndex, Peek, QueueSize, Version) 
 	VALUES(@DeviceId, 0, 0, false, QueueSize, 0);
 
-	INSERT INTO DeviceData(DeviceId, Idx, Payload, Timestamp)
-	SELECT DeviceId, generate_series(0, QueueSize - 1), E'\\000', current_timestamp;
+	INSERT INTO Message(DeviceId, Idx, Payload, Timestamp, SenderUid)
+	SELECT DeviceId, generate_series(0, QueueSize - 1), E'\\000', current_timestamp, '                                ';
 END;
 $$ LANGUAGE plpgsql;
 
 
-CREATE FUNCTION Enqueue
+CREATE OR REPLACE FUNCTION Enqueue
 (
 	MessagesJson json
 )
@@ -123,14 +139,15 @@ BEGIN
 	)
 	INSERT INTO MessageTmp SELECT * FROM recalc;
 
-	UPDATE DeviceData /*with(rowlock)*/
+	UPDATE Message /*with(rowlock)*/
 	SET 	Payload = dm.Payload,
-		Timestamp = dm.Timestamp
+		Timestamp = dm.Timestamp,
+		SenderUid = dm.SenderUid
 	FROM MessageTmp m, Messages dm
 	WHERE
-		DeviceData.DeviceId = m.DeviceId AND 
-		DeviceData.Idx = (m.MessageId % m.QueueSize) AND
-		DeviceData.DeviceId = dm.DeviceId;
+		Message.DeviceId = m.DeviceId AND 
+		Message.Idx = (m.MessageId % m.QueueSize) AND
+		Message.DeviceId = dm.DeviceId;
 
 	RETURN QUERY 
 	SELECT 
@@ -149,11 +166,11 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE FUNCTION Dequeue
+CREATE OR REPLACE FUNCTION Dequeue
 (
 	DequeueItemsJson json
 )
-RETURNS TABLE (IsMessage boolean /*NOT NULL*/, DeviceId bigint /*NOT NULL*/, DequeueIndex int /*NOT NULL*/, EnqueueIndex int /*NOT NULL*/, Peek boolean /*NOT NULL*/, Version int /*NOT NULL*/, MessageId int /* NULL*/, Payload bytea /*NULL*/, "Timestamp" timestamp /*NULL*/) AS $$
+RETURNS TABLE (IsMessage boolean /*NOT NULL*/, DeviceId bigint /*NOT NULL*/, DequeueIndex int /*NOT NULL*/, EnqueueIndex int /*NOT NULL*/, Peek boolean /*NOT NULL*/, Version int /*NOT NULL*/, MessageId int /* NULL*/, Payload bytea /*NULL*/, "Timestamp" timestamp /*NULL*/, SenderUid char(32) /*NULL*/) AS $$
 BEGIN	
 	CREATE TEMP TABLE MessageTmp OF ResultTableRow ON COMMIT DROP;
 	CREATE TEMP TABLE DequeueItems OF DeviceIdWithIndexTableRow ON COMMIT DROP;
@@ -191,7 +208,8 @@ BEGIN
 		mt.Version,
 		mt.MessageId,
 		NULL as Payload,
-		NULL as Timestamp
+		NULL as Timestamp,
+		NULL as SenderUid
 	FROM
 		MessageTmp mt
 		INNER JOIN DequeueItems di ON (mt.DeviceId = di.DeviceId)
@@ -206,12 +224,13 @@ BEGIN
 		mt.Peek,
 		mt.Version,
 		mt.MessageId,
-		dd.Payload,
-		dd.Timestamp
+		m.Payload,
+		m.Timestamp,
+		m.SenderUid
 	FROM
 		MessageTmp mt
 		INNER JOIN DequeueItems di ON (mt.DeviceId = di.DeviceId)
-		INNER JOIN DeviceData dd ON (dd.DeviceId = di.DeviceId AND dd.Idx = (mt.MessageId % mt.QueueSize))
+		INNER JOIN Message m ON (m.DeviceId = di.DeviceId AND m.Idx = (mt.MessageId % mt.QueueSize))
 	WHERE
 		mt.MessageId <> di.Index
 	UNION
@@ -224,7 +243,8 @@ BEGIN
 		dm.Version,
 		NULL as MessageId,
 		NULL as Payload,
-		NULL as Timestamp
+		NULL as Timestamp,
+		NULL as SenderUid
 	FROM
 		DequeueItems di
 		INNER JOIN DeviceMeta dm ON (dm.DeviceId = di.DeviceId)
@@ -234,11 +254,11 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE FUNCTION Peek
+CREATE OR REPLACE FUNCTION Peek
 (
 	DequeueItemsJson json
 )
-RETURNS TABLE (IsMessage boolean /*NOT NULL*/, DeviceId bigint /*NOT NULL*/, DequeueIndex int /*NOT NULL*/, EnqueueIndex int /*NOT NULL*/, Peek boolean /*NOT NULL*/, Version int /*NOT NULL*/, MessageId int /* NULL*/, Payload bytea /*NULL*/, "Timestamp" timestamp /*NULL*/) AS $$
+RETURNS TABLE (IsMessage boolean /*NOT NULL*/, DeviceId bigint /*NOT NULL*/, DequeueIndex int /*NOT NULL*/, EnqueueIndex int /*NOT NULL*/, Peek boolean /*NOT NULL*/, Version int /*NOT NULL*/, MessageId int /* NULL*/, Payload bytea /*NULL*/, "Timestamp" timestamp /*NULL*/, SenderUid char(32) /*NULL*/) AS $$
 BEGIN	
 	CREATE TEMP TABLE MessageTmp OF ResultTableRow ON COMMIT DROP;
 	CREATE TEMP TABLE DequeueItems OF DeviceIdWithIndexTableRow ON COMMIT DROP;
@@ -275,7 +295,8 @@ BEGIN
 		mt.Version,
 		mt.MessageId,
 		NULL as Payload,
-		NULL as Timestamp
+		NULL as Timestamp,
+		NULL as SenderUid
 	FROM
 		MessageTmp mt
 		INNER JOIN DequeueItems di ON (mt.DeviceId = di.DeviceId)
@@ -290,12 +311,13 @@ BEGIN
 		mt.Peek,
 		mt.Version,
 		mt.MessageId,
-		dd.Payload,
-		dd.Timestamp
+		m.Payload,
+		m.Timestamp,
+		m.SenderUid
 	FROM
 		MessageTmp mt
 		INNER JOIN DequeueItems di ON (mt.DeviceId = di.DeviceId)
-		INNER JOIN DeviceData dd ON (dd.DeviceId = di.DeviceId AND dd.Idx = (mt.MessageId % mt.QueueSize))
+		INNER JOIN Message m ON (m.DeviceId = di.DeviceId AND m.Idx = (mt.MessageId % mt.QueueSize))
 	WHERE
 		mt.MessageId <> di.Index
 	UNION
@@ -308,7 +330,8 @@ BEGIN
 		dm.Version,
 		NULL as MessageId,
 		NULL as Payload,
-		NULL as Timestamp
+		NULL as Timestamp,
+		NULL as SenderUid
 	FROM
 		DequeueItems di
 		INNER JOIN DeviceMeta dm ON (dm.DeviceId = di.DeviceId)
@@ -318,7 +341,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE FUNCTION Commit
+CREATE OR REPLACE FUNCTION Commit
 (
 	CommitItemsJson json
 )
