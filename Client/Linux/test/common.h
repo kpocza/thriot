@@ -11,12 +11,12 @@ using namespace Thriot::Management;
 #define RAPIURL "http://thriothost/rapi/v1"
 #define WSURL "ws://thriothost:8080"
 
-#define SINKDATA "localazuredata"
-#define SINKTIMESERIES "localazuretimeseries"
+//#define SINKDATA "localazuredata"
+//#define SINKTIMESERIES "localazuretimeseries"
 
-#define PARAMSINKDATA "azuredata"
-#define SINKPARAMCS "UseDevelopmentStorage=true"
-#define SINKPARAMT "LinuxData"
+//#define PARAMSINKDATA "azuredata"
+//#define SINKPARAMCS "UseDevelopmentStorage=true"
+//#define SINKPARAMT "LinuxData"
 
 //#define SINKDATA "localsqldata"
 //#define SINKTIMESERIES "localsqltimeseries"
@@ -24,6 +24,14 @@ using namespace Thriot::Management;
 //#define PARAMSINKDATA "sqldata"
 //#define SINKPARAMCS "Server=.\\SQLEXPRESS;Database=IoTTelemetry;Trusted_Connection=true"
 //#define SINKPARAMT "LinuxData"
+
+#define SINKDATA "localpgsqldata"
+#define SINKTIMESERIES "localpgsqltimeseries"
+
+#define PARAMSINKDATA "pgsqldata"
+#define SINKPARAMCS "Server=127.0.0.1;Port=5432;Database=Thriot;User Id=thriot;Password=thriot"
+#define SINKPARAMT "LinuxData"
+
 
 struct PlatformTestInput
 {

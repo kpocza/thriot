@@ -222,23 +222,30 @@ void PersistentConnectionInternalClient::HandlePushedMessage(const string& messa
 
 void PersistentConnectionInternalClient::ProcessMessage(const string& message)
 {
-	size_t commandMessageIdSeparator = message.find(' ');
+	// pushedmessage <messageid> <timestamp> <senderdeviceid> <payload>
+	size_t afterCommandSeparator = message.find(' ');
 
-	size_t messageIdTimestampSeparator = message.find(' ', commandMessageIdSeparator + 1);
-	if(messageIdTimestampSeparator == string::npos)
+	size_t afterMessageIdSeparator = message.find(' ', afterCommandSeparator + 1);
+	if(afterMessageIdSeparator == string::npos)
 		return;
 	
-	size_t timestampMessageSeparator = message.find(' ', messageIdTimestampSeparator + 1);
-	if(timestampMessageSeparator == string::npos)
+	size_t afterTimestampSeparator = message.find(' ', afterMessageIdSeparator + 1);
+	if(afterTimestampSeparator == string::npos)
 		return;
 
-	string messageIdStr = message.substr(commandMessageIdSeparator + 1, messageIdTimestampSeparator - commandMessageIdSeparator);
-	string timestampStr = message.substr(messageIdTimestampSeparator + 1, timestampMessageSeparator - messageIdTimestampSeparator);
-	string payload = message.substr(timestampMessageSeparator + 1);
+	size_t afterSenderDeviceIdSeparator = message.find(' ', afterTimestampSeparator + 1);
+	if(afterSenderDeviceIdSeparator == string::npos)
+		return;
+
+	string messageIdStr = message.substr(afterCommandSeparator + 1, afterMessageIdSeparator - afterCommandSeparator - 1);
+	string timestampStr = message.substr(afterMessageIdSeparator + 1, afterTimestampSeparator - afterMessageIdSeparator - 1);
+	string senderDeviceIdStr = message.substr(afterTimestampSeparator + 1, afterSenderDeviceIdSeparator - afterTimestampSeparator - 1);
+	string payload = message.substr(afterSenderDeviceIdSeparator + 1);
 
 	PushedMessage pushedMessage;
 	pushedMessage.MessageId = (int)atol(messageIdStr.c_str());
 	pushedMessage.Timestamp = atol(timestampStr.c_str());
+	pushedMessage.SenderDeviceId = senderDeviceIdStr;
 	pushedMessage.Payload = payload;
 
 	_onMessageReceived(pushedMessage);

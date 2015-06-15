@@ -120,6 +120,7 @@ PushedMessage OccasionallyConnectionClient::Receive(const string& url)
 	JsonObject& respJson = jsonBufferResponse.parseObject((char *)httpResponse.Body.c_str());
 	
 	pushedMessage.MessageId = (int32_t)respJson["MessageId"];
+	pushedMessage.SenderDeviceId = string(respJson["SenderDeviceId"].asString());
 	pushedMessage.Payload = string(respJson["Payload"].asString());
 	pushedMessage.Timestamp = (long unsigned int)respJson["Timestamp"];
 

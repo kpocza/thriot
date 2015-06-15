@@ -100,6 +100,7 @@ TEST(ReportingNetworkClientTest, singleDeviceMultiEntry)
 		reportingTestInput.Dev1.Id, reportingTestInput.Dev1.DeviceKey);
 
 	occasionallyConnectionClient->RecordTelemetryData("{\"Temperature\": 24, \"Humidity\": 50, \"Source\": \"Linux\"}");
+	usleep(1000);
 	occasionallyConnectionClient->RecordTelemetryData("{\"Temperature\": 25, \"Humidity\": 51, \"Source\": \"Linux\"}");
 
 	ReportingClient *reportingClient = new ReportingClient(RAPIURL);
@@ -133,8 +134,8 @@ TEST(ReportingNetworkClientTest, singleDeviceMultiEntry)
 	ASSERT_NE(string::npos, timeSeriesDataJson.find(reportingTestInput.Dev1.Id));
 	ASSERT_NE(string::npos, timeSeriesDataJson.find("Temperature"));
 	ASSERT_NE(string::npos, timeSeriesDataJson.find("Linux"));
-	ASSERT_NE(string::npos, timeSeriesDataJson.find(":24"));
-	ASSERT_NE(string::npos, timeSeriesDataJson.find(":25"));
+	ASSERT_NE(string::npos, timeSeriesDataJson.find(":24,"));
+	ASSERT_NE(string::npos, timeSeriesDataJson.find(":25,"));
 
 	ASSERT_TRUE(timeSeriesDataCsv.size() > 100);
 	ASSERT_NE(string::npos, timeSeriesDataCsv.find("DeviceId,Name,Time,Temperature,Humidity,Source"));
@@ -154,12 +155,14 @@ TEST(ReportingNetworkClientTest, multiDeviceMultiEntry)
 		reportingTestInput.Dev1.Id, reportingTestInput.Dev1.DeviceKey);
 
 	occasionallyConnectionClient->RecordTelemetryData("{\"Temperature\": 24, \"Humidity\": 50, \"Source\": \"Linux\"}");
+	usleep(1000);
 	occasionallyConnectionClient->RecordTelemetryData("{\"Temperature\": 25, \"Humidity\": 51, \"Source\": \"Linux\"}");
 
 	occasionallyConnectionClient = new OccasionallyConnectionClient(PAPIURL, 
 		reportingTestInput.Dev2.Id, reportingTestInput.Dev2.DeviceKey);
 
 	occasionallyConnectionClient->RecordTelemetryData("{\"Temperature\": 26, \"Humidity\": 50, \"Source\": \"Linux\"}");
+	usleep(1000);
 	occasionallyConnectionClient->RecordTelemetryData("{\"Temperature\": 27, \"Humidity\": 51, \"Source\": \"Linux\"}");
 
 	ReportingClient *reportingClient = new ReportingClient(RAPIURL);
@@ -176,10 +179,10 @@ TEST(ReportingNetworkClientTest, multiDeviceMultiEntry)
 	ASSERT_NE(string::npos, currentDataJson.find(reportingTestInput.Dev1.Id));
 	ASSERT_NE(string::npos, currentDataJson.find("Temperature"));
 	ASSERT_NE(string::npos, currentDataJson.find("Linux"));
-	ASSERT_EQ(string::npos, currentDataJson.find(":24"));
-	ASSERT_NE(string::npos, currentDataJson.find(":25"));
-	ASSERT_EQ(string::npos, currentDataJson.find(":26"));
-	ASSERT_NE(string::npos, currentDataJson.find(":27"));
+	ASSERT_EQ(string::npos, currentDataJson.find(":24,"));
+	ASSERT_NE(string::npos, currentDataJson.find(":25,"));
+	ASSERT_EQ(string::npos, currentDataJson.find(":26,"));
+	ASSERT_NE(string::npos, currentDataJson.find(":27,"));
 
 	ASSERT_TRUE(currentDataCsv.size() > 100);
 	ASSERT_NE(string::npos, currentDataCsv.find("DeviceId,Name,Time,Temperature,Humidity,Source"));
@@ -197,10 +200,10 @@ TEST(ReportingNetworkClientTest, multiDeviceMultiEntry)
 	ASSERT_NE(string::npos, timeSeriesDataJson.find(reportingTestInput.Dev1.Id));
 	ASSERT_NE(string::npos, timeSeriesDataJson.find("Temperature"));
 	ASSERT_NE(string::npos, timeSeriesDataJson.find("Linux"));
-	ASSERT_NE(string::npos, timeSeriesDataJson.find(":24"));
-	ASSERT_NE(string::npos, timeSeriesDataJson.find(":25"));
-	ASSERT_NE(string::npos, timeSeriesDataJson.find(":26"));
-	ASSERT_NE(string::npos, timeSeriesDataJson.find(":27"));
+	ASSERT_NE(string::npos, timeSeriesDataJson.find(":24,"));
+	ASSERT_NE(string::npos, timeSeriesDataJson.find(":25,"));
+	ASSERT_NE(string::npos, timeSeriesDataJson.find(":26,"));
+	ASSERT_NE(string::npos, timeSeriesDataJson.find(":27,"));
 
 	ASSERT_TRUE(timeSeriesDataCsv.size() > 200);
 	ASSERT_NE(string::npos, timeSeriesDataCsv.find("DeviceId,Name,Time,Temperature,Humidity,Source"));

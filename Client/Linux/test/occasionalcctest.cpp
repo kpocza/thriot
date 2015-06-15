@@ -33,6 +33,7 @@ TEST(OccasionallyConnectionTest, sendMessageToAndReceiveAndForget)
 	ASSERT_TRUE(pushedMessage.MessageId >= 0);
 	ASSERT_EQ("string that contains only characters below 0x80", pushedMessage.Payload);
 	ASSERT_TRUE(pushedMessage.Timestamp >= 1420848888L);
+	ASSERT_EQ(deviceId, pushedMessage.SenderDeviceId);
 }
 
 TEST(OccasionallyConnectionTest, receiveAndForgetWoMessage)
@@ -66,18 +67,21 @@ TEST(OccasionallyConnectionTest, sendMessageToAndPeekCommit)
 	ASSERT_TRUE(pushedMessage1.MessageId >= 0);
 	ASSERT_EQ("msg1", pushedMessage1.Payload);
 	ASSERT_TRUE(pushedMessage1.Timestamp >= 1420848888L);
+	ASSERT_EQ(deviceId, pushedMessage1.SenderDeviceId);
 
 	PushedMessage pushedMessage2 = occasionallyConnectionClient->PeekMessage();
 
 	ASSERT_EQ(pushedMessage1.MessageId, pushedMessage2.MessageId);
 	ASSERT_EQ("msg1", pushedMessage2.Payload);
 	ASSERT_TRUE(pushedMessage2.Timestamp >= 1420848888L);
+	ASSERT_EQ(deviceId, pushedMessage2.SenderDeviceId);
 
 	retCode = occasionallyConnectionClient->CommitMessage();
 	ASSERT_EQ(0, retCode);
 
 	PushedMessage pushedMessage3 = occasionallyConnectionClient->PeekMessage();
 	ASSERT_EQ("msg2", pushedMessage3.Payload);
+	ASSERT_EQ(deviceId, pushedMessage3.SenderDeviceId);
 	
 	retCode = occasionallyConnectionClient->CommitMessage();
 	ASSERT_EQ(0, retCode);

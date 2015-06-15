@@ -22,6 +22,9 @@ struct PushedMessage
 	/** Unix timestamp. Seconds elapsed since 1970.1.1. */
 	int64_t Timestamp;
 
+	/** Sender device's id */
+	string SenderDeviceId;
+
 	/** Message payload. Maximum of 512 characters */
 	string Payload;
 };

@@ -94,6 +94,7 @@ TEST(PersistentConnectionTest, sendPlusReceiveAndForget)
 	ASSERT_EQ(msg1, receivedMessage.Payload);
 	ASSERT_EQ(0, receivedMessage.MessageId);
 	ASSERT_TRUE(receivedMessage.Timestamp > 1000000);
+	ASSERT_EQ(platformTestInput.Dev.Id, receivedMessage.SenderDeviceId);
 	receivedMessage.Payload.clear();
 
 	while(receivedMessage.Payload.empty())
@@ -104,6 +105,7 @@ TEST(PersistentConnectionTest, sendPlusReceiveAndForget)
 	ASSERT_EQ(msg2, receivedMessage.Payload);
 	ASSERT_EQ(1, receivedMessage.MessageId);
 	ASSERT_TRUE(receivedMessage.Timestamp > 1000000);
+	ASSERT_EQ(platformTestInput.Dev.Id, receivedMessage.SenderDeviceId);
 	receivedMessage.Payload.clear();
 
 	por = persistentConnectionClient->Unsubscribe();
@@ -137,6 +139,7 @@ TEST(PersistentConnectionTest, sendPlusPeekAndCommit)
 	ASSERT_EQ(msg1, receivedMessage.Payload);
 	ASSERT_EQ(0, receivedMessage.MessageId);
 	ASSERT_TRUE(receivedMessage.Timestamp > 1000000);
+	ASSERT_EQ(platformTestInput.Dev.Id, receivedMessage.SenderDeviceId);
 	receivedMessage.Payload.clear();
 
 	while(receivedMessage.Payload.empty())
@@ -147,6 +150,7 @@ TEST(PersistentConnectionTest, sendPlusPeekAndCommit)
 	ASSERT_EQ(msg2, receivedMessage.Payload);
 	ASSERT_EQ(1, receivedMessage.MessageId);
 	ASSERT_TRUE(receivedMessage.Timestamp > 1000000);
+	ASSERT_EQ(platformTestInput.Dev.Id, receivedMessage.SenderDeviceId);
 	receivedMessage.Payload.clear();
 
 	por = persistentConnectionClient->Unsubscribe();
