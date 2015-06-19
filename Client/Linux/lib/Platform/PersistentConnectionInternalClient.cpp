@@ -209,6 +209,31 @@ PlatformOperationResult PersistentConnectionInternalClient::SendMessageTo(const 
 	}
 }
 
+PlatformOperationResult PersistentConnectionInternalClient::Heartbeat()
+{
+	if(!_isLoggedIn)
+		return LoginRequired;
+
+	if(_webSocketConnection->IsDisconnected())
+		return Disconnected;
+
+	_webSocketConnection->Send("heartbeat");
+
+	string response = _webSocketConnection->WaitResponse(10);
+
+	if(!response.empty())
+	{
+		if(response == "yo")
+			return Ok;
+
+		return HeartbeatInvalid;
+	}
+	else
+	{
+		return Timeout;
+	}
+}
+
 void PersistentConnectionInternalClient::Spin()
 {
 	_webSocketConnection->Spin();
@@ -262,11 +287,6 @@ void PersistentConnectionInternalClient::CommitIfNeeded()
 bool PersistentConnectionInternalClient::OnMessagePayloadReceived(const void* object, const string& message)
 {
 	PersistentConnectionInternalClient* pcic = (PersistentConnectionInternalClient*)object;
-	if(message == "yo")
-	{
-		pcic->_webSocketConnection->Send("heartbeat");
-		return true;
-	}
 
 	if(message.find("pushedmessage ") == 0)
 	{

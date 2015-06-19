@@ -32,6 +32,8 @@ class PersistentConnectionInternalClient
 		PlatformOperationResult RecordTelemetryData(const string& payload);
 		PlatformOperationResult SendMessageTo(const string& deviceId, const string& payload);
 
+		PlatformOperationResult Heartbeat();
+
 		void Spin();
 	private:
 
