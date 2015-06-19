@@ -13,7 +13,7 @@ namespace Thriot.Platform.PersistentConnections.Tests
         [TestMethod]
         public void RegisterInitiatingConnectionTest()
         {
-            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), null);
+            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), new DateTimeProvider());
 
             var persistentConnection = Substitute.For<IPersistentConnection>();
             persistentConnection.ConnectionId.Returns(Guid.NewGuid());
@@ -28,7 +28,7 @@ namespace Thriot.Platform.PersistentConnections.Tests
         [ExpectedException(typeof(ArgumentException))]
         public void TryRegisterInitiatingConnectionTwiceTest()
         {
-            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), null);
+            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), new DateTimeProvider());
 
             var persistentConnection = Substitute.For<IPersistentConnection>();
             persistentConnection.ConnectionId.Returns(Guid.NewGuid());
@@ -40,7 +40,7 @@ namespace Thriot.Platform.PersistentConnections.Tests
         [TestMethod]
         public void PromoteToLoggedInConnectionTest()
         {
-            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), null);
+            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), new DateTimeProvider());
             
             var persistentConnection = Substitute.For<IPersistentConnection>();
             persistentConnection.ConnectionId.Returns(Guid.NewGuid());
@@ -58,7 +58,7 @@ namespace Thriot.Platform.PersistentConnections.Tests
         [ExpectedException(typeof(ArgumentNullException))]
         public void TryPromoteToLoggedInConnectionNoDeviceIdTest()
         {
-            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), null);
+            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), new DateTimeProvider());
 
             var persistentConnection = Substitute.For<IPersistentConnection>();
             persistentConnection.ConnectionId.Returns(Guid.NewGuid());
@@ -72,7 +72,7 @@ namespace Thriot.Platform.PersistentConnections.Tests
         [ExpectedException(typeof(ArgumentException))]
         public void TryPromoteToLoggedInConnectionTwiceTest()
         {
-            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), null);
+            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), new DateTimeProvider());
 
             var persistentConnection = Substitute.For<IPersistentConnection>();
             persistentConnection.ConnectionId.Returns(Guid.NewGuid());
@@ -88,7 +88,7 @@ namespace Thriot.Platform.PersistentConnections.Tests
         [TestMethod]
         public void PromoteToSubscribedConnectionTest()
         {
-            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), null);
+            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), new DateTimeProvider());
 
             var persistentConnection = Substitute.For<IPersistentConnection>();
             persistentConnection.ConnectionId.Returns(Guid.NewGuid());
@@ -106,7 +106,7 @@ namespace Thriot.Platform.PersistentConnections.Tests
         [ExpectedException(typeof(ArgumentException))]
         public void TryPromoteToSubscribedConnectionTwiceTest()
         {
-            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), null);
+            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), new DateTimeProvider());
 
             var persistentConnection = Substitute.For<IPersistentConnection>();
             persistentConnection.ConnectionId.Returns(Guid.NewGuid());
@@ -122,7 +122,7 @@ namespace Thriot.Platform.PersistentConnections.Tests
         [ExpectedException(typeof(KeyNotFoundException))]
         public void TryPromoteToSubscribedConnectionNotLoggedInTest()
         {
-            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), null);
+            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), new DateTimeProvider());
 
             var persistentConnection = Substitute.For<IPersistentConnection>();
             persistentConnection.ConnectionId.Returns(Guid.NewGuid());
@@ -136,7 +136,7 @@ namespace Thriot.Platform.PersistentConnections.Tests
         [TestMethod]
         public void UnsubscribeConnectionTest()
         {
-            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), null);
+            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), new DateTimeProvider());
 
             var persistentConnection = Substitute.For<IPersistentConnection>();
             persistentConnection.ConnectionId.Returns(Guid.NewGuid());
@@ -155,7 +155,7 @@ namespace Thriot.Platform.PersistentConnections.Tests
         [ExpectedException(typeof(KeyNotFoundException))]
         public void TryUnsubscribeNonSubscribedConnectionTest()
         {
-            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), null);
+            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), new DateTimeProvider());
 
             var persistentConnection = Substitute.For<IPersistentConnection>();
             persistentConnection.ConnectionId.Returns(Guid.NewGuid());
@@ -170,7 +170,7 @@ namespace Thriot.Platform.PersistentConnections.Tests
         [TestMethod]
         public void CloseInitiatingConnectionTest()
         {
-            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), null);
+            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), new DateTimeProvider());
 
             var persistentConnection = Substitute.For<IPersistentConnection>();
             persistentConnection.ConnectionId.Returns(Guid.NewGuid());
@@ -186,7 +186,7 @@ namespace Thriot.Platform.PersistentConnections.Tests
         [TestMethod]
         public void CloseLoggedInConnectionTest()
         {
-            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), null);
+            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), new DateTimeProvider());
 
             var persistentConnection = Substitute.For<IPersistentConnection>();
             persistentConnection.ConnectionId.Returns(Guid.NewGuid());
@@ -204,7 +204,7 @@ namespace Thriot.Platform.PersistentConnections.Tests
         [TestMethod]
         public void CloseSubscribedConnectionTest()
         {
-            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), null);
+            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), new DateTimeProvider());
 
             var persistentConnection = Substitute.For<IPersistentConnection>();
             persistentConnection.ConnectionId.Returns(Guid.NewGuid());
@@ -250,43 +250,17 @@ namespace Thriot.Platform.PersistentConnections.Tests
 
             connectionRegistry.Stop();
             persistentConnection.Received().Close();
-            persistentConnection.DidNotReceive().Ping();
             Assert.AreEqual(ConnectionState.None, persistentConnection.ConnectionState);
         }
 
         [TestMethod]
-        public void TryPingDeadLikeConnectionTest()
+        public void CollectDeadLoggedinConnectionTest()
         {
             var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), new DateTimeProvider());
 
             var persistentConnection = Substitute.For<IPersistentConnection>();
             persistentConnection.ConnectionId.Returns(Guid.NewGuid());
-            persistentConnection.LastHeartbeat.Returns(DateTime.UtcNow.AddSeconds(-51));
-            connectionRegistry.RegisterInitiatedConnection(persistentConnection);
-
-            connectionRegistry.Start();
-
-            int rounds = 0;
-            while (persistentConnection.ConnectionState != ConnectionState.None && rounds < 100)
-            {
-                Thread.Sleep(10);
-                rounds++;
-            }
-
-            connectionRegistry.Stop();
-            persistentConnection.Received().Ping();
-            persistentConnection.DidNotReceive().Close();
-            Assert.AreEqual(ConnectionState.Initiated, persistentConnection.ConnectionState);
-        }
-
-        [TestMethod]
-        public void TryPingDeadLikeLoggedInConnectionTest()
-        {
-            var connectionRegistry = new ConnectionRegistry(new PusherRegistry(new DateTimeProvider()), new DateTimeProvider());
-
-            var persistentConnection = Substitute.For<IPersistentConnection>();
-            persistentConnection.ConnectionId.Returns(Guid.NewGuid());
-            persistentConnection.LastHeartbeat.Returns(DateTime.UtcNow.AddSeconds(-51));
+            persistentConnection.LastHeartbeat.Returns(new DateTime(2014, 1, 1));
             connectionRegistry.RegisterInitiatedConnection(persistentConnection);
             connectionRegistry.PromoteToLoggedInConnection(persistentConnection, "1234", 1);
 
@@ -300,9 +274,8 @@ namespace Thriot.Platform.PersistentConnections.Tests
             }
 
             connectionRegistry.Stop();
-            persistentConnection.Received().Ping();
-            persistentConnection.DidNotReceive().Close();
-            Assert.AreEqual(ConnectionState.LoggedIn, persistentConnection.ConnectionState);
+            persistentConnection.Received().Close();
+            Assert.AreEqual(ConnectionState.None, persistentConnection.ConnectionState);
         }
     }
 }

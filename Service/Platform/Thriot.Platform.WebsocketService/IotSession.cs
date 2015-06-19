@@ -70,12 +70,6 @@ namespace Thriot.Platform.WebsocketService
             LastHeartbeat = DateTime.UtcNow;
         }
 
-        public void Ping()
-        {
-            Send("yo");
-            LastPing = DateTime.UtcNow;
-        }
-
         public void SendMessage(OutgoingMessageToStoreWithState msg)
         {
             if (msg.HasMessage)
@@ -84,13 +78,14 @@ namespace Thriot.Platform.WebsocketService
             }
         }
 
+        public TimeSpan HeartbeatValidityPeriod => TimeSpan.FromMinutes(1.5);
+
         public Guid ConnectionId { get; private set; }
         public string DeviceId { get; set; }
         public long NumericDeviceId { get; set; }
         public ConnectionState ConnectionState { get; set; }
         public SubscriptionType SubscriptionType { get; set; }
         public DateTime LastHeartbeat { get; private set; }
-        public DateTime LastPing { get; private set; }
         public DateTime NextReceiveAndForgetTime { get; set; }
         public DateTime NextPeekTime { get; set; }
         public DateTime LastCommitTime { get; set; }

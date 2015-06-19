@@ -17,8 +17,6 @@ namespace Thriot.Platform.PersistentConnections
 
         DateTime LastHeartbeat { get; }
 
-        DateTime LastPing { get; }
-
         DateTime NextReceiveAndForgetTime { get; set; }
 
         DateTime NextPeekTime { get; set; }
@@ -31,8 +29,8 @@ namespace Thriot.Platform.PersistentConnections
 
         void Heartbeat();
 
-        void Ping();
-
         void SendMessage(OutgoingMessageToStoreWithState msg);
+
+        TimeSpan HeartbeatValidityPeriod { get; }
     }
 }

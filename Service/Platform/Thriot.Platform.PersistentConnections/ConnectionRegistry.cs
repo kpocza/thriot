@@ -24,13 +24,11 @@ namespace Thriot.Platform.PersistentConnections
             InitiatedConnections = new Dictionary<Guid, IPersistentConnection>();
             LoggedInConnections = new Dictionary<string, IPersistentConnection>();
             SubscribedConnections = new Dictionary<string, IPersistentConnection>();
-            pusherRegistry.RegisterConnectionRegistry(this);
             _lock = new object();
             _cancellationTokenSource = new CancellationTokenSource();
             _taskEndWaitEvent = new AutoResetEvent(false);
             _taskStartWaitEvent = new AutoResetEvent(false);
         }
-
 
         public void Start()
         {
@@ -57,7 +55,7 @@ namespace Thriot.Platform.PersistentConnections
         public void PromoteToLoggedInConnection(IPersistentConnection connection, string deviceId, long numericDeviceId)
         {
             if(deviceId == null)
-                throw new ArgumentNullException("deviceId");
+                throw new ArgumentNullException(nameof(deviceId));
 
             lock (_lock)
             {
@@ -126,24 +124,14 @@ namespace Thriot.Platform.PersistentConnections
             }
         }
 
-        public DateTime ChellengeConnectionTime
-        {
-            get { return _dateTimeProvider.UtcNow.AddSeconds(-50.0); }
-        }
-
-        public DateTime ConnectionKickOutTime
-        {
-            get { return _dateTimeProvider.UtcNow.AddSeconds(-60.0); }
-        }
-
         private void DeadConnectionKicker(CancellationToken cancellationToken)
         {
             _taskStartWaitEvent.Set();
 
             while (!cancellationToken.IsCancellationRequested)
             {
-                var connectionKickOutTime = ConnectionKickOutTime;
-                var collectedToKill = CollectConnectionByLastAcceptableHeartbeat(connection => connection.LastHeartbeat < connectionKickOutTime);
+                var now = _dateTimeProvider.UtcNow;
+                var collectedToKill = CollectTimeoutedConnections(connection => connection.LastHeartbeat + connection.HeartbeatValidityPeriod < now);
 
                 foreach (var collected in collectedToKill)
                 {
@@ -158,35 +146,13 @@ namespace Thriot.Platform.PersistentConnections
                     }
                 }
 
-                var chellengeConnectionTime = ChellengeConnectionTime;
-                var collectedToPing =
-                    CollectConnectionByLastAcceptableHeartbeat(
-                        connection =>
-                            connection.LastHeartbeat < chellengeConnectionTime &&
-                            connection.LastPing < connection.LastHeartbeat);
-                
-                foreach (var collected in collectedToPing)
-                {
-                    if (!collectedToKill.Contains(collected))
-                    {
-                        try
-                        {
-                            collected.Ping();
-                        }
-                        catch (Exception ex)
-                        {
-                            Logger.Warning("Ping error. Device: {0}. {1}", collected.DeviceId, ex.ToString());
-                        }
-                    }
-                }
-
                 Thread.Sleep(100);
             }
 
             _taskEndWaitEvent.Set();
         }
 
-        private ICollection<IPersistentConnection> CollectConnectionByLastAcceptableHeartbeat(Func<IPersistentConnection, bool> shouldCollect)
+        private ICollection<IPersistentConnection> CollectTimeoutedConnections(Func<IPersistentConnection, bool> shouldCollect)
         {
             var collecteds = new List<IPersistentConnection>();
             lock (_lock)

@@ -9,7 +9,6 @@ namespace Thriot.Platform.PersistentConnections
     public class PusherRegistry
     {
         private readonly IDateTimeProvider _dateTimeProvider;
-        private ConnectionRegistry _connectionRegistry;
         private DateTime _lastCommitRequeueTime;
 
         public PusherRegistry(IDateTimeProvider dateTimeProvider)
@@ -19,11 +18,6 @@ namespace Thriot.Platform.PersistentConnections
             ReceiveAndForgetConnections = new ConcurrentQueue<IPersistentConnection>();
             PeekConnections = new ConcurrentQueue<IPersistentConnection>();
             CommitConnections = new ConcurrentDictionary<string, IPersistentConnection>();
-        }
-
-        public void RegisterConnectionRegistry(ConnectionRegistry connectionRegistry)
-        {
-            _connectionRegistry = connectionRegistry;
         }
 
         public void AddConnection(IPersistentConnection connection)

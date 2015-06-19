@@ -18,6 +18,9 @@ namespace Thriot.Client.DotNet.Platform
         private SubscriptionType _subscriptionType;
         private Action<PushedMessage> _onMessageReceived;
 
+        private static readonly TimeSpan _heatbeatTimespan = TimeSpan.FromMinutes(1.0);
+        private DateTime _lastHeartbeatTime;
+
         /// <summary>
         /// Create a new instance
         /// </summary>
@@ -54,6 +57,7 @@ namespace Thriot.Client.DotNet.Platform
                 try
                 {
                     _persistentConnectionInternalClient.Login(_url, deviceId, apiKey);
+                    RecordHeartbeat();
                     return;
                 }
                 catch (DisconnectedException ex)
@@ -110,6 +114,7 @@ namespace Thriot.Client.DotNet.Platform
                 try
                 {
                     _persistentConnectionInternalClient.Subscribe(subscriptionType, onMessageReceived);
+                    RecordHeartbeat();
                     return;
                 }
                 catch (DisconnectedException ex)
@@ -131,6 +136,7 @@ namespace Thriot.Client.DotNet.Platform
                 }
                 catch (SubscribedAlreadyException)
                 {
+                    RecordHeartbeat();
                     return;
                 }
                 retryCount++;
@@ -157,6 +163,7 @@ namespace Thriot.Client.DotNet.Platform
                 try
                 {
                     _persistentConnectionInternalClient.Unsubscribe();
+                    RecordHeartbeat();
                     return;
                 }
                 catch (TimeoutException ex)
@@ -198,6 +205,7 @@ namespace Thriot.Client.DotNet.Platform
                 try
                 {
                     _persistentConnectionInternalClient.RecordTelemetryData(payload);
+                    RecordHeartbeat();
                     return;
                 }
                 catch (DisconnectedException ex)
@@ -242,6 +250,7 @@ namespace Thriot.Client.DotNet.Platform
                 try
                 {
                     _persistentConnectionInternalClient.SendMessageTo(deviceId, payload);
+                    RecordHeartbeat();
                     return;
                 }
                 catch (DisconnectedException ex)
@@ -265,6 +274,21 @@ namespace Thriot.Client.DotNet.Platform
             }
 
             throw lastException;
+        }
+
+        public void Spin()
+        {
+            if (_lastHeartbeatTime + _heatbeatTimespan < DateTime.UtcNow)
+            {
+                _persistentConnectionInternalClient.Heartbeat();
+                RecordHeartbeat();
+            }
+            Thread.Sleep(1);
+        }
+
+        private void RecordHeartbeat()
+        {
+            _lastHeartbeatTime = DateTime.UtcNow;
         }
 
         private void InitializeClient()

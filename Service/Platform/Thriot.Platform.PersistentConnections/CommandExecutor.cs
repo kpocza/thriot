@@ -121,6 +121,7 @@ namespace Thriot.Platform.PersistentConnections
 
             _connectionRegistry.PromoteToLoggedInConnection(_connection, loginCommand.DeviceId, numericDeviceId);
             _connection.Reply("login ack");
+            _connection.Heartbeat();
         }
 
         private void HandleSubscribeCommand(SubscribeCommand subscribeCommand)
@@ -134,6 +135,7 @@ namespace Thriot.Platform.PersistentConnections
             if (_connection.ConnectionState.HasFlag(ConnectionState.Subscribed))
             {
                 _connection.Reply("subscribe already");
+                _connection.Heartbeat();
                 return;
             }
 
@@ -145,6 +147,7 @@ namespace Thriot.Platform.PersistentConnections
 
             _connectionRegistry.PromoteToSubscribedConnection(_connection.DeviceId, subscribeCommand.SubscriptionType);
             _connection.Reply("subscribe ack");
+            _connection.Heartbeat();
         }
 
         private void HandleUnsubscribeCommand()
@@ -163,6 +166,7 @@ namespace Thriot.Platform.PersistentConnections
 
             _connectionRegistry.UnsubscribeConnection(_connection.DeviceId);
             _connection.Reply("unsubscribe ack");
+            _connection.Heartbeat();
         }
 
         private void HandleCloseCommand()
@@ -174,6 +178,7 @@ namespace Thriot.Platform.PersistentConnections
         private void HandleHeartbeatCommand()
         {
             _connection.Heartbeat();
+            _connection.Reply("yo");
         }
 
         private void HandleCommitCommand()

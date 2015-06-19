@@ -35,7 +35,7 @@ namespace Thriot.Client.DotNet.Platform
             if(_webSocketConnection.IsDisconnected)
                 throw new DisconnectedException();
 
-            _webSocketConnection.Send(string.Format("login {0} {1}", deviceId, apiKey));
+            _webSocketConnection.Send($"login {deviceId} {apiKey}");
 
             if (_responseEvent.WaitOne(TimeSpan.FromSeconds(10)))
             {
@@ -197,20 +197,30 @@ namespace Thriot.Client.DotNet.Platform
             }
         }
 
+        public void Heartbeat()
+        {
+            LoginRequired();
+
+            if (_webSocketConnection.IsDisconnected)
+                throw new DisconnectedException();
+
+            _webSocketConnection.Send("heartbeat");
+
+            if (_responseEvent.WaitOne(TimeSpan.FromSeconds(10)))
+            {
+                if (_lastResponse == "yo")
+                    return;
+
+                throw new HeartbeatException();
+            }
+            else
+            {
+                throw new TimeoutException("Heartbeat timeout expired");
+            }
+        }
+
         private void MessagePayloadReceived(string msg, WebSocketConnection connection)
         {
-            if (msg == "yo")
-            {
-                try
-                {
-                    _webSocketConnection.Send("heartbeat");
-                }
-                catch
-                {
-                    // if not succeeds then may reconnect
-                }
-                return;
-            }
             if (msg.StartsWith("pushedmessage "))
             {
                 HandlePushedMessage(msg);

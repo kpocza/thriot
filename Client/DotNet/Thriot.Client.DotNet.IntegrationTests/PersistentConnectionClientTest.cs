@@ -150,6 +150,40 @@ namespace Thriot.Client.DotNet.IntegrationTests
             Assert.IsTrue(received.Payload.StartsWith("{\"Temperature\": 24, \"Time\":"));
         }
 
+        [TestMethod]
+        public void HeartbeatTest()
+        {
+            RegisterDevice(false);
+
+            var persistentConnection = new PersistentConnectionClient(PlatformWebSocketApi);
+
+            var privateObject = new PrivateObject(persistentConnection);
+            var lastHearbeatBeforeLogin = (DateTime)privateObject.GetField("_lastHeartbeatTime");
+
+            persistentConnection.Login(_deviceId, _apiKey);
+            var lastHearbeatAfterLogin = (DateTime)privateObject.GetField("_lastHeartbeatTime");
+
+            Thread.Sleep(1);
+            persistentConnection.RecordTelemetryData("{\"Temperature\": 24, \"Time\":" + DateTime.UtcNow.Ticks + "}");
+            var lastHearbeatAfterOperation = (DateTime)privateObject.GetField("_lastHeartbeatTime");
+
+            Assert.IsTrue(lastHearbeatBeforeLogin < lastHearbeatAfterLogin);
+            Assert.IsTrue(lastHearbeatAfterLogin < lastHearbeatAfterOperation);
+
+            persistentConnection.Spin();
+            var afterNearspin = (DateTime)privateObject.GetField("_lastHeartbeatTime");
+
+            Assert.AreEqual(lastHearbeatAfterOperation, afterNearspin);
+
+            privateObject.SetField("_lastHeartbeatTime", new DateTime(2015, 1, 1));
+
+            Thread.Sleep(1);
+            persistentConnection.Spin();
+
+            var afterFarspin = (DateTime)privateObject.GetField("_lastHeartbeatTime");
+            Assert.IsTrue(afterNearspin < afterFarspin);
+        }
+
         private void RegisterDevice(bool regOther = false, bool addMessageSinks = true)
         {
             var managementClient = new ManagementClient(ManagementApi);

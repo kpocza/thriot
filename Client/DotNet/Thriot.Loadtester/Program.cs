@@ -343,6 +343,7 @@ namespace Thriot.Loadtester
                     {
                         Log(ex);
                     }
+                    persistentConnectionClient.Spin();
                     Thread.Sleep(sleep);
                     Log(cnt.ToString());
                 }
@@ -384,6 +385,7 @@ namespace Thriot.Loadtester
                     {
                         Log(ex);
                     }
+                    persistentConnectionClient.Spin();
                     Thread.Sleep(sleep);
                     Log("To " +  targetDeviceId + " Cnt: " + cnt);
                 }
@@ -419,6 +421,7 @@ namespace Thriot.Loadtester
 
             while (true)
             {
+                persistentConnectionClient.Spin();
                 Thread.Sleep(sleep);
             }
         }
@@ -453,6 +456,7 @@ namespace Thriot.Loadtester
 
             while (true)
             {
+                persistentConnectionClient.Spin();
                 Thread.Sleep(sleep);
             }
         }

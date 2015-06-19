@@ -69,6 +69,7 @@
     <Compile Include="Management\CompanyManagementClient.cs" />
     <Compile Include="IRestConnection.cs" />
     <Compile Include="Management\ManagementClient.cs" />
+    <Compile Include="Platform\Exceptions\HeartbeatException.cs" />
     <Compile Include="Platform\Exceptions\TooManyRetriesException.cs" />
     <Compile Include="Reporting\NetworkClient.cs" />
     <Compile Include="Reporting\DeviceClient.cs" />
