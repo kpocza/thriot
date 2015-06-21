@@ -2,6 +2,7 @@
 #include "../WebSocketConnection.h"
 #include "PersistentConnectionInternalClient.h"
 #include <unistd.h>
+#include <ctime>
 
 namespace Thriot { namespace Platform {
 
@@ -11,7 +12,7 @@ Create a new instance of persistently connected client.
 @param url Base API Url 
 @param maxRetryCount Maximum retry count for operations (default is 5)
 */
-PersistentConnectionClient::PersistentConnectionClient(const string& url, const int maxRetryCount)
+PersistentConnectionClient::PersistentConnectionClient(const string& url, const int maxRetryCount):_heartbeatTimeSpan(60)
 {
 	_isLoggedIn = false;
 	_isSubscribed = false;
@@ -61,6 +62,9 @@ PlatformOperationResult PersistentConnectionClient::Login(const string& deviceId
 				InitializeClient();
 				break;
 
+			case Ok:
+				RecordHeartbeat();
+
 			default: 
 				return lastResult;
 		}
@@ -109,7 +113,11 @@ PlatformOperationResult PersistentConnectionClient::Subscribe(const Subscription
 				break;
 
 			case SubscribedAlready:
+				RecordHeartbeat();
 				return Ok;
+
+			case Ok:
+				RecordHeartbeat();
 
 			default:
 				return lastResult;
@@ -141,6 +149,9 @@ PlatformOperationResult PersistentConnectionClient::Unsubscribe()
 		}
 		else
 		{
+			if(lastResult == Ok)
+				RecordHeartbeat();
+
 			return lastResult;
 		}
 		retryCount++;
@@ -189,6 +200,9 @@ PlatformOperationResult PersistentConnectionClient::RecordTelemetryData(const st
 				Wait();
 				break;
 
+			case Ok:
+				RecordHeartbeat();
+
 			default:
 				return lastResult;
 		}
@@ -230,6 +244,9 @@ PlatformOperationResult PersistentConnectionClient::SendMessageTo(const string& 
 				Wait();
 				break;
 
+			case Ok:
+				RecordHeartbeat();
+
 			default:
 				return lastResult;
 		}
@@ -242,10 +259,27 @@ PlatformOperationResult PersistentConnectionClient::SendMessageTo(const string& 
 /**
 Let the background websocket work. Call this operation regularly in a while loop in the main processing cycle of your application
 to be able to send and receive websocket message in the background.
+
+@return Ok or error code
 */
-void PersistentConnectionClient::Spin()
+PlatformOperationResult PersistentConnectionClient::Spin()
 {
+	if(_lastHeartbeatTime + _heartbeatTimeSpan < std::time(0))
+	{
+		PlatformOperationResult result = _persistentConnectionInternalClient->Heartbeat();
+		if(result!= Ok)
+			return result;
+
+		RecordHeartbeat();
+	}
 	_persistentConnectionInternalClient->Spin();
+
+	return Ok;
+}
+
+void PersistentConnectionClient::RecordHeartbeat()
+{
+	_lastHeartbeatTime = std::time(0);
 }
 
 void PersistentConnectionClient::InitializeClient()

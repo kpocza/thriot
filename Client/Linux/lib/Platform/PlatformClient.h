@@ -72,7 +72,9 @@ enum PlatformOperationResult
 	/** Invalid operation */
 	InvalidOperation,
 	/** Program with operation arguments */
-	ArgumentOutOfRange
+	ArgumentOutOfRange,
+	/** Invalid heatbeat response */
+	HeartbeatInvalid
 };
 
 typedef void (*OnMessageReceived)(const PushedMessage& message);
@@ -120,6 +122,9 @@ class PersistentConnectionClient
 		SubscriptionType _subscriptionType;
 		OnMessageReceived _onMessageReceived;
 
+		const long _heartbeatTimeSpan;
+		long long _lastHeartbeatTime;
+
 	public:
 		PersistentConnectionClient(const string& url, const int maxRetryCount = 5);
 
@@ -133,11 +138,12 @@ class PersistentConnectionClient
 		PlatformOperationResult RecordTelemetryData(const string& payload);
 		PlatformOperationResult SendMessageTo(const string& deviceId, const string& payload);
 
-		void Spin();
+		PlatformOperationResult Spin();
 
 	private:
 		void InitializeClient();
 		void Relogin();
 		void Wait();
+		void RecordHeartbeat();
 };
 }}
