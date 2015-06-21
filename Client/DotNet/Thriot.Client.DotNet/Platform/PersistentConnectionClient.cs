@@ -276,6 +276,10 @@ namespace Thriot.Client.DotNet.Platform
             throw lastException;
         }
 
+        /// <summary>
+        /// Call this method regularly to ensure the websocket connection is alive
+        /// The method sends heartbeat messages to the service (once in every minute by default)
+        /// </summary>
         public void Spin()
         {
             if (_lastHeartbeatTime + _heatbeatTimespan < DateTime.UtcNow)
