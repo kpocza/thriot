@@ -1,5 +1,9 @@
 #include "gtest/gtest.h"
 #include "ManagementClient.h"
+
+// dirty hack to expose private fields to unit test
+#define private public
+
 #include "PlatformClient.h"
 #include "common.h"
 
@@ -156,6 +160,41 @@ TEST(PersistentConnectionTest, sendPlusPeekAndCommit)
 	por = persistentConnectionClient->Unsubscribe();
 	ASSERT_EQ(Ok, por);
 	persistentConnectionClient->Close();
+}
+
+TEST(PersistentConnectionTest, heartbeatTest)
+{
+	PlatformTestInput platformTestInput = CreatePlatformTestInput();
+	PersistentConnectionClient *persistentConnectionClient = new PersistentConnectionClient(WSURL);
+
+	long long lastHeartbeatBeforeLogin = persistentConnectionClient->_lastHeartbeatTime;
+
+	PlatformOperationResult por = persistentConnectionClient->Login(platformTestInput.Dev.Id, platformTestInput.Dev.DeviceKey);
+	ASSERT_EQ(Ok, por);
+
+	long long lastHeartbeatAfterLogin = persistentConnectionClient->_lastHeartbeatTime;
+	usleep(1000*1000);
+
+	int retCode = persistentConnectionClient->RecordTelemetryData("{\"Temperature\": 24, \"Humidity\": 50, \"Source\": \"Linux\"}");
+	ASSERT_EQ(0, retCode);
+
+	long long lastHeartbeatAfterOperation = persistentConnectionClient->_lastHeartbeatTime;
+
+	ASSERT_TRUE(lastHeartbeatBeforeLogin < lastHeartbeatAfterLogin);
+	ASSERT_TRUE(lastHeartbeatAfterLogin < lastHeartbeatAfterOperation);
+
+	persistentConnectionClient->Spin();
+	long long afterNearspin = persistentConnectionClient->_lastHeartbeatTime;
+
+	ASSERT_EQ(lastHeartbeatAfterOperation, afterNearspin);
+
+	persistentConnectionClient->_lastHeartbeatTime = time(NULL)-1000;
+
+	usleep(1000*1000);
+	persistentConnectionClient->Spin();
+
+	long long afterFarspin = persistentConnectionClient->_lastHeartbeatTime;
+	ASSERT_TRUE(afterNearspin < afterFarspin);
 }
 
 /*TEST(PersistentConnectionTest, spin)

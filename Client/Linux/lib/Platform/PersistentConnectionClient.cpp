@@ -18,6 +18,7 @@ PersistentConnectionClient::PersistentConnectionClient(const string& url, const 
 	_isSubscribed = false;
 	_url = url;
 	_maxRetryCount = maxRetryCount;
+	_lastHeartbeatTime = 0;
 	InitializeClient();
 }
 
