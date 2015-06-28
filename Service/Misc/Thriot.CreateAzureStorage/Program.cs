@@ -38,6 +38,8 @@ namespace Thriot.CreateAzureStorage
             CreateSettingIfNotExist(settingRepository, Setting.PlatformApiUrl, "http://localhost:12345/papi/v1");
             CreateSettingIfNotExist(settingRepository, Setting.PlatformWsUrl, "ws://localhost:8080");
             CreateSettingIfNotExist(settingRepository, Setting.ReportingApiUrl, "http://localhost:12345/rapi/v1");
+
+            CreateOrUpdateSetting(settingRepository, new SettingId("Version", "Database"), "1");
         }
 
         private static void CreateSettingIfNotExist(GenericRepository<SettingTableEntity> settingRepository,
@@ -50,6 +52,29 @@ namespace Thriot.CreateAzureStorage
                 var settingTableEntity = new SettingTableEntity(settingId, value);
                 settingRepository.Create(settingTableEntity);
                 Console.WriteLine("Added {0}", settingId);
+            }
+        }
+
+        private static void CreateOrUpdateSetting(GenericRepository<SettingTableEntity> settingRepository, SettingId settingId, string value)
+        {
+            var partitionKeyRowKeyPair = new PartionKeyRowKeyPair(settingId.Category, settingId.Config);
+
+            var settingTableEntity = settingRepository.Get(partitionKeyRowKeyPair);
+
+            if (settingTableEntity == null)
+            {
+                settingTableEntity = new SettingTableEntity(settingId, value);
+                settingRepository.Create(settingTableEntity);
+                Console.WriteLine("Added {0}", settingId);
+            }
+            else
+            {
+                if (settingTableEntity.Value != value)
+                {
+                    settingTableEntity.Value = value;
+                    settingRepository.Update(settingTableEntity);
+                    Console.WriteLine("Updated {0}", settingId);
+                }
             }
         }
 

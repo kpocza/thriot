@@ -158,22 +158,22 @@ namespace Thriot.Client.DotNet.IntegrationTests
             var persistentConnection = new PersistentConnectionClient(PlatformWebSocketApi);
 
             var privateObject = new PrivateObject(persistentConnection);
-            var lastHearbeatBeforeLogin = (DateTime)privateObject.GetField("_lastHeartbeatTime");
+            var lastHeartbeatBeforeLogin = (DateTime)privateObject.GetField("_lastHeartbeatTime");
 
             persistentConnection.Login(_deviceId, _apiKey);
-            var lastHearbeatAfterLogin = (DateTime)privateObject.GetField("_lastHeartbeatTime");
+            var lastHeartbeatAfterLogin = (DateTime)privateObject.GetField("_lastHeartbeatTime");
 
             Thread.Sleep(1);
             persistentConnection.RecordTelemetryData("{\"Temperature\": 24, \"Time\":" + DateTime.UtcNow.Ticks + "}");
-            var lastHearbeatAfterOperation = (DateTime)privateObject.GetField("_lastHeartbeatTime");
+            var lastHeartbeatAfterOperation = (DateTime)privateObject.GetField("_lastHeartbeatTime");
 
-            Assert.IsTrue(lastHearbeatBeforeLogin < lastHearbeatAfterLogin);
-            Assert.IsTrue(lastHearbeatAfterLogin < lastHearbeatAfterOperation);
+            Assert.IsTrue(lastHeartbeatBeforeLogin < lastHeartbeatAfterLogin);
+            Assert.IsTrue(lastHeartbeatAfterLogin < lastHeartbeatAfterOperation);
 
             persistentConnection.Spin();
             var afterNearspin = (DateTime)privateObject.GetField("_lastHeartbeatTime");
 
-            Assert.AreEqual(lastHearbeatAfterOperation, afterNearspin);
+            Assert.AreEqual(lastHeartbeatAfterOperation, afterNearspin);
 
             privateObject.SetField("_lastHeartbeatTime", new DateTime(2015, 1, 1));
 
