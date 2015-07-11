@@ -79,7 +79,31 @@ namespace Thriot.Framework.Tests
             Assert.AreEqual(1, mailSender.MailMessage.AlternateViews[0].LinkedResources.Count);
             Assert.AreEqual(5, mailSender.MailMessage.AlternateViews[0].LinkedResources[0].ContentStream.Length);
         }
-        
+
+        [TestMethod]
+        public void MultiSend()
+        {
+            var mailSender = new MailSenderStub();
+            var mailSender2 = new MailSenderStub();
+            var mailSettings = new MailSettingsStub();
+
+            var mail = new Mail(mailSender, mailSettings);
+
+            mail.Send(Addressing.Create("user@somewhere.hu", "lfj"), "ToReplace",
+                new { SSS = "X", TextStuff = "plain text", some = "some html" });
+
+            var mail2 = new Mail(mailSender2, mailSettings);
+
+            mail2.Send(Addressing.Create("user@somewhere.hu", "lfj"), "ToReplace",
+                new { SSS = "X", TextStuff = "plain text", some = "some html" });
+
+            Assert.AreEqual("no-reply@tasclr.com", mailSender2.MailMessage.From.Address);
+            Assert.AreEqual("user@somewhere.hu", mailSender2.MailMessage.To[0].Address);
+            Assert.AreEqual("SXS", mailSender2.MailMessage.Subject);
+            Assert.AreEqual("<html>Ht some html ml</html>", GetContent(mailSender2.MailMessage.AlternateViews[0].ContentStream));
+            Assert.AreEqual("Textplain text and more", GetContent(mailSender2.MailMessage.AlternateViews[1].ContentStream));
+        }
+
         private string GetContent(Stream stream)
         {
             return Encoding.UTF8.GetString(((MemoryStream)stream).ToArray());
