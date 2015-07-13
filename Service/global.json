@@ -1,0 +1,10 @@
+{
+  "projects": [
+    "Web",
+    "Management",
+    "wrap"
+  ],
+  "sdk": {
+    "version": "1.0.0-beta4"
+  }
+}

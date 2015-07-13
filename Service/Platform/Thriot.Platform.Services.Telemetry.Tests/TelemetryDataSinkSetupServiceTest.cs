@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using Thriot.Platform.Services.Telemetry.Dtos;
 using Thriot.Platform.Services.Telemetry.Metadata;
+using Thriot.Framework;
+using Thriot.Objects.Model;
 
 namespace Thriot.Platform.Services.Telemetry.Tests
 {
@@ -19,7 +21,7 @@ namespace Thriot.Platform.Services.Telemetry.Tests
                 new TelemetryDataSinkMetadata("test", "Test Desc", typeof (TelemetryDataSinkPreparatorTest.IncomingData), new[] {"ConnectionString", "Key", "Table"}, new Dictionary<string, string>())
             });
 
-            var telemetryDataSinkPreparator = new TelemetryDataSinkPreparator(telemetryDataSinkMetadataRegistry);
+            var telemetryDataSinkPreparator = new TelemetryDataSinkPreparator(telemetryDataSinkMetadataRegistry, new DynamicConnectionStringResolver(null));
 
             var telemetryDataSinkSetupService = new TelemetryDataSinkSetupService(telemetryDataSinkMetadataRegistry, telemetryDataSinkPreparator);
         
@@ -41,7 +43,7 @@ namespace Thriot.Platform.Services.Telemetry.Tests
                     new[] {"ConnectionString", "Key", "Table"}, new Dictionary<string, string>())
             });
 
-            var telemetryDataSinkPreparator = new TelemetryDataSinkPreparator(telemetryDataSinkMetadataRegistry);
+            var telemetryDataSinkPreparator = new TelemetryDataSinkPreparator(telemetryDataSinkMetadataRegistry, new DynamicConnectionStringResolver(null));
 
             var telemetryDataSinkSetupService = new TelemetryDataSinkSetupService(telemetryDataSinkMetadataRegistry,
                 telemetryDataSinkPreparator);

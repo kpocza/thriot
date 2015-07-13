@@ -13,26 +13,16 @@ namespace Thriot.Plugins.PgSql
         protected const string TableString = "Table";
         private const string ConnectionNameString = "ConnectionName";
         
-        private readonly IDynamicConnectionStringResolver _dynamicConnectionStringResolver;
         protected string ConnectionString;
         protected string TableName;
 
-        protected TelemetryDataSinkBase()
-        {
-        }
-
-        protected TelemetryDataSinkBase(IDynamicConnectionStringResolver dynamicConnectionStringResolver)
-        {
-            _dynamicConnectionStringResolver = dynamicConnectionStringResolver;
-        }
-
-        public void Setup(IDictionary<string, string> parameters)
+        public void Setup(IDynamicConnectionStringResolver dynamicConnectionStringResolver, IDictionary<string, string> parameters)
         {
             ConnectionString = null;
             if (!parameters.TryGetValue(ConnectionStringString, out ConnectionString))
             {
                 ConnectionString =
-                    _dynamicConnectionStringResolver.Resolve(parameters[ConnectionNameString]).ConnectionString;
+                    dynamicConnectionStringResolver.Resolve(parameters[ConnectionNameString]).ConnectionString;
             }
 
             TableName = parameters[TableString];

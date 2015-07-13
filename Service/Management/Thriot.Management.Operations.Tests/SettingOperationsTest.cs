@@ -11,7 +11,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void UpdateSettingTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var settingOperations = environmentFactory.MgmtSettingOperations;
 
             var settingId = new SettingId(Identity.Next(), Identity.Next());

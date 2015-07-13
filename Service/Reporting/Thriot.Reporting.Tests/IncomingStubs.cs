@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Thriot.Framework.DataAccess;
 using Thriot.Plugins.Core;
 
 namespace Thriot.Reporting.Tests
@@ -9,7 +9,7 @@ namespace Thriot.Reporting.Tests
     {
         public class CurrentDataStub : ITelemetryDataSinkCurrent
         {
-            public void Setup(IDictionary<string, string> parameters)
+            public void Setup(IDynamicConnectionStringResolver dynamicConnectionStringResolver, IDictionary<string, string> parameters)
             {
             }
 
@@ -39,7 +39,7 @@ namespace Thriot.Reporting.Tests
 
         public class TimeSeriesStub : ITelemetryDataSinkTimeSeries
         {
-            public void Setup(IDictionary<string, string> parameters)
+            public void Setup(IDynamicConnectionStringResolver dynamicConnectionStringResolver, IDictionary<string, string> parameters)
             {
             }
 

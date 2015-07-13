@@ -17,7 +17,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void CreateNetworkUnderServiceTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var networkOperations = environmentFactory.MgmtNetworkOperations;
 
             var companyServiceIdPair = CreateCompanyAndService();
@@ -37,7 +37,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void GetNetworkUnderServiceTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var networkOperations = environmentFactory.MgmtNetworkOperations;
 
             var companyServiceIdPair = CreateCompanyAndService();
@@ -80,7 +80,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void ListNetworkUnderServiceTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var serviceOperations = environmentFactory.MgmtServiceOperations;
             var networkOperations = environmentFactory.MgmtNetworkOperations;
 
@@ -120,7 +120,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void DeleteNetworkUnderServiceTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var serviceOperations = environmentFactory.MgmtServiceOperations;
             var networkOperations = environmentFactory.MgmtNetworkOperations;
 
@@ -147,7 +147,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void UpdateNetworkUnderServiceTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var serviceOperations = environmentFactory.MgmtServiceOperations;
             var networkOperations = environmentFactory.MgmtNetworkOperations;
 
@@ -179,7 +179,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void UpdateNetworkUnderService2Test()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var networkOperations = environmentFactory.MgmtNetworkOperations;
 
             var companyServiceIdPair = CreateCompanyAndService();
@@ -223,7 +223,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void CreateNetworkUnderNetworkTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var networkOperations = environmentFactory.MgmtNetworkOperations;
 
             var companyServiceIdPair = CreateCompanyAndService();
@@ -245,7 +245,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void GetNetworkUnderNetworkTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var networkOperations = environmentFactory.MgmtNetworkOperations;
 
             var companyServiceIdPair = CreateCompanyAndService();
@@ -290,7 +290,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void ListNetworkUnderNetworkTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var serviceOperations = environmentFactory.MgmtServiceOperations;
             var networkOperations = environmentFactory.MgmtNetworkOperations;
 
@@ -339,7 +339,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void DeleteNetworkUnderNetworkTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var networkOperations = environmentFactory.MgmtNetworkOperations;
 
             var companyServiceIdPair = CreateCompanyAndService();
@@ -368,7 +368,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void UpdateNetworkUnderNetworkTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var networkOperations = environmentFactory.MgmtNetworkOperations;
 
             var companyServiceIdPair = CreateCompanyAndService();
@@ -401,7 +401,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void UpdateNetworkUnderNetwork2Test()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var networkOperations = environmentFactory.MgmtNetworkOperations;
 
             var companyServiceIdPair = CreateCompanyAndService();
@@ -445,7 +445,7 @@ namespace Thriot.Management.Operations.Tests
 
         private CompanyServiceIdPair CreateCompanyAndService()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var userOperations = environmentFactory.MgmtUserOperations;
             var companyOperations = environmentFactory.MgmtCompanyOperations;
             var serviceOperations = environmentFactory.MgmtServiceOperations;

@@ -14,7 +14,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void CreateServiceTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var serviceOperations = environmentFactory.MgmtServiceOperations;
 
             var companyId = CreateCompany();
@@ -27,7 +27,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void GetServiceTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var serviceOperations = environmentFactory.MgmtServiceOperations;
 
             var companyId = CreateCompany();
@@ -54,7 +54,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void ListServicesTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var companyOperations = environmentFactory.MgmtCompanyOperations;
             var serviceOperations = environmentFactory.MgmtServiceOperations;
 
@@ -81,7 +81,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void DeleteServiceTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var companyOperations = environmentFactory.MgmtCompanyOperations;
             var serviceOperations = environmentFactory.MgmtServiceOperations;
 
@@ -103,7 +103,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void UpdateServiceTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var companyOperations = environmentFactory.MgmtCompanyOperations;
             var serviceOperations = environmentFactory.MgmtServiceOperations;
 
@@ -131,7 +131,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void UpdateService2Test()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var serviceOperations = environmentFactory.MgmtServiceOperations;
 
             var companyId = CreateCompany();
@@ -166,7 +166,7 @@ namespace Thriot.Management.Operations.Tests
 
         private string CreateCompany()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var userOperations = environmentFactory.MgmtUserOperations;
             var companyOperations = environmentFactory.MgmtCompanyOperations;
 

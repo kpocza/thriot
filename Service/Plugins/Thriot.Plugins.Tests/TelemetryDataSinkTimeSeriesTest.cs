@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Thriot.Framework;
 using Thriot.Framework.DataAccess;
 using Thriot.Management.Dto;
 using Thriot.Plugins.Core;
@@ -16,7 +15,7 @@ namespace Thriot.Plugins.Tests
     {
         protected virtual ITelemetryDataSinkTimeSeries GetTelemetryDataSinkTimeSeries()
         {
-            return SingleContainer.Instance.Resolve<IEnvironmentFactory>().TelemetryDataSinkTimeSeries;
+            return EnvironmentFactoryFactory.Create().TelemetryDataSinkTimeSeries;
         }
 
         [TestInitialize]
@@ -32,7 +31,7 @@ namespace Thriot.Plugins.Tests
                 return;
             
             var telemetryDataSinkTimeSeries = GetTelemetryDataSinkTimeSeries();
-            telemetryDataSinkTimeSeries.Setup(new Dictionary<string, string>
+            telemetryDataSinkTimeSeries.Setup(null, new Dictionary<string, string>
             {
                 {"ConnectionString", GetConnectionString()},
                 {"Table", "TimeSeries"}
@@ -52,7 +51,7 @@ namespace Thriot.Plugins.Tests
                 return;
 
             var telemetryDataSinkTimeSeries = GetTelemetryDataSinkTimeSeries();
-            telemetryDataSinkTimeSeries.Setup(new Dictionary<string, string>
+            telemetryDataSinkTimeSeries.Setup(null, new Dictionary<string, string>
             {
                 {"ConnectionString", GetConnectionString()},
                 {"Table", "TimeSeries"}
@@ -75,7 +74,7 @@ namespace Thriot.Plugins.Tests
                 throw new StorageAccessException(HttpStatusCode.Conflict);
 
             var telemetryDataSinkTimeSeries = GetTelemetryDataSinkTimeSeries();
-            telemetryDataSinkTimeSeries.Setup(new Dictionary<string, string>
+            telemetryDataSinkTimeSeries.Setup(null, new Dictionary<string, string>
             {
                 {"ConnectionString", GetConnectionString()},
                 {"Table", "TimeSeries"}
@@ -96,7 +95,7 @@ namespace Thriot.Plugins.Tests
                 return;
 
             var telemetryDataSinkTimeSeries = GetTelemetryDataSinkTimeSeries();
-            telemetryDataSinkTimeSeries.Setup(new Dictionary<string, string>
+            telemetryDataSinkTimeSeries.Setup(null, new Dictionary<string, string>
             {
                 {"ConnectionString", GetConnectionString()},
                 {"Table", "TimeSeries"}

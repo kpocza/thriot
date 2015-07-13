@@ -319,7 +319,7 @@ namespace Thriot.Management.Services.Tests
 
         private void Initialize()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             _authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var userOperations = environmentFactory.MgmtUserOperations;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Thriot.Framework;
+using Thriot.Framework.DataAccess;
 using Thriot.Objects.Model;
 using Thriot.Objects.Model.Operations;
 using Thriot.Platform.Services.Telemetry.Metadata;
@@ -16,14 +17,16 @@ namespace Thriot.Platform.Services.Telemetry
         private readonly IServiceOperations _serviceOperations;
         private readonly ICompanyOperations _companyOperations;
         private readonly ITelemetryDataSinkMetadataRegistry _telemetryDataSinkMetadataRegistry;
+        private readonly IDynamicConnectionStringResolver _dynamicConnectionStringResolver;
 
-        public TelemetryDataSinkResolver(IDeviceOperations deviceOperations, INetworkOperations networkOperations, IServiceOperations serviceOperations, ICompanyOperations companyOperations, ITelemetryDataSinkMetadataRegistry telemetryDataSinkMetadataRegistry)
+        public TelemetryDataSinkResolver(IDeviceOperations deviceOperations, INetworkOperations networkOperations, IServiceOperations serviceOperations, ICompanyOperations companyOperations, ITelemetryDataSinkMetadataRegistry telemetryDataSinkMetadataRegistry, IDynamicConnectionStringResolver dynamicConnectionStringResolver)
         {
             _deviceOperations = deviceOperations;
             _networkOperations = networkOperations;
             _serviceOperations = serviceOperations;
             _companyOperations = companyOperations;
             _telemetryDataSinkMetadataRegistry = telemetryDataSinkMetadataRegistry;
+            _dynamicConnectionStringResolver = dynamicConnectionStringResolver;
         }
 
         public IEnumerable<ITelemetryDataSink> ResolveIncoming(string deviceId)
@@ -66,9 +69,9 @@ namespace Thriot.Platform.Services.Telemetry
 
                 if (telemetryDataSinkMetadata != null)
                 {
-                    var telemetryDataSink = (ITelemetryDataSink)SingleContainer.Instance.Resolve(telemetryDataSinkMetadata.Type);
+                    var telemetryDataSink = (ITelemetryDataSink)Activator.CreateInstance(telemetryDataSinkMetadata.Type);
                     var allParameters = telemetryDataSinkMetadata.ParametersPresets.Union(incoming.Parameters).ToDictionary(d => d.Key, d => d.Value);
-                    telemetryDataSink.Setup(allParameters);
+                    telemetryDataSink.Setup(_dynamicConnectionStringResolver, allParameters);
 
                     ops.Add(telemetryDataSink);
                 }

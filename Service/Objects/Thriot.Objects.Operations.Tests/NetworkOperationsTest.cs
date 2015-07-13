@@ -35,7 +35,7 @@ namespace Thriot.Objects.Operations.Tests
         [TestMethod]
         public void GetNetworkUnderServiceTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
 
             var network1Id = _networkService.Create(new NetworkDto()
             {
@@ -72,7 +72,7 @@ namespace Thriot.Objects.Operations.Tests
         [TestMethod]
         public void GetNetworkUnderNetworkTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
 
             var parentNetworkId = CreateParentNetwork();
 
@@ -110,7 +110,7 @@ namespace Thriot.Objects.Operations.Tests
         [TestMethod]
         public void GetNetworkMessagingSinkTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
 
             var networkId = _networkService.Create(new NetworkDto()
             {
@@ -152,7 +152,7 @@ namespace Thriot.Objects.Operations.Tests
                 Name = "new network1"
             });
 
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
 
             var device1 = new DeviceDto()
             {
@@ -188,7 +188,7 @@ namespace Thriot.Objects.Operations.Tests
 
         protected void Initialize()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             _authenticationContext = Substitute.For<IAuthenticationContext>();
             var messagingService = Substitute.For<IMessagingService>();
 

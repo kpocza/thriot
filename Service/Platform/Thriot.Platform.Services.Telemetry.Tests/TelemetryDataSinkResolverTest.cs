@@ -38,7 +38,7 @@ namespace Thriot.Platform.Services.Telemetry.Tests
                 .Returns(TestDataCreator.Network(networkId, "key", null, serviceId, companyId, new TelemetryDataSinkSettings { Incoming = new List<TelemetryDataSinkParameters>() }));
 
             var telemetryDataSinkResolver = new TelemetryDataSinkResolver(deviceOperations, networkeOperations, serviceOperations, companyOperations,
-                telemetryDataSinkMetadataRegistry);
+                telemetryDataSinkMetadataRegistry, new DynamicConnectionStringResolver(null));
 
             Assert.AreEqual(0, telemetryDataSinkResolver.ResolveIncoming(deviceId).Count());
         }
@@ -68,7 +68,7 @@ namespace Thriot.Platform.Services.Telemetry.Tests
                  .Returns(TestDataCreator.Network(networkId, "key", null, serviceId, companyId, new TelemetryDataSinkSettings { Incoming = new List<TelemetryDataSinkParameters>() }));
 
             var telemetryDataSinkResolver = new TelemetryDataSinkResolver(deviceOperations, networkeOperations, serviceOperations, companyOperations,
-                telemetryDataSinkMetadataRegistry);
+                telemetryDataSinkMetadataRegistry, new DynamicConnectionStringResolver(null));
 
             Assert.AreEqual(0, telemetryDataSinkResolver.ResolveIncoming(deviceId).Count());
         }
@@ -120,7 +120,7 @@ namespace Thriot.Platform.Services.Telemetry.Tests
                  }));
 
             var telemetryDataSinkResolver = new TelemetryDataSinkResolver(deviceOperations, networkeOperations, serviceOperations, companyOperations,
-                telemetryDataSinkMetadataRegistry);
+                telemetryDataSinkMetadataRegistry, new DynamicConnectionStringResolver(null));
 
             Assert.AreEqual(1, telemetryDataSinkResolver.ResolveIncoming(deviceId).Count());
             Assert.IsInstanceOfType(telemetryDataSinkResolver.ResolveIncoming(deviceId).First(), typeof(IncomingStubs.CurrentDataStub));
@@ -173,7 +173,7 @@ namespace Thriot.Platform.Services.Telemetry.Tests
                  .Returns(TestDataCreator.Network(networkId, "key", null, serviceId, companyId, new TelemetryDataSinkSettings { Incoming = new List<TelemetryDataSinkParameters>() }));
 
             var telemetryDataSinkResolver = new TelemetryDataSinkResolver(deviceOperations, networkeOperations, serviceOperations, companyOperations,
-                telemetryDataSinkMetadataRegistry);
+                telemetryDataSinkMetadataRegistry, new DynamicConnectionStringResolver(null));
 
             Assert.AreEqual(1, telemetryDataSinkResolver.ResolveIncoming(deviceId).Count());
             Assert.IsInstanceOfType(telemetryDataSinkResolver.ResolveIncoming(deviceId).First(), typeof(IncomingStubs.CurrentDataStub));
@@ -238,7 +238,7 @@ namespace Thriot.Platform.Services.Telemetry.Tests
                  .Returns(TestDataCreator.Network(networkId, "key", null, serviceId, companyId, new TelemetryDataSinkSettings { Incoming = new List<TelemetryDataSinkParameters>() }));
 
             var telemetryDataSinkResolver = new TelemetryDataSinkResolver(deviceOperations, networkeOperations, serviceOperations, companyOperations,
-                telemetryDataSinkMetadataRegistry);
+                telemetryDataSinkMetadataRegistry, new DynamicConnectionStringResolver(null));
 
             Assert.AreEqual(2, telemetryDataSinkResolver.ResolveIncoming(deviceId).Count());
             Assert.IsInstanceOfType(telemetryDataSinkResolver.ResolveIncoming(deviceId).First(), typeof(IncomingStubs.CurrentDataStub));
@@ -293,7 +293,7 @@ namespace Thriot.Platform.Services.Telemetry.Tests
                  .Returns(TestDataCreator.Network(networkId, "key", null, serviceId, companyId, new TelemetryDataSinkSettings { Incoming = new List<TelemetryDataSinkParameters>() }));
 
             var telemetryDataSinkResolver = new TelemetryDataSinkResolver(deviceOperations, networkeOperations, serviceOperations, companyOperations,
-                telemetryDataSinkMetadataRegistry);
+                telemetryDataSinkMetadataRegistry, new DynamicConnectionStringResolver(null));
 
             Assert.AreEqual(1, telemetryDataSinkResolver.ResolveIncoming(deviceId).Count());
             Assert.IsInstanceOfType(telemetryDataSinkResolver.ResolveIncoming(deviceId).First(), typeof(IncomingStubs.CurrentDataStub));

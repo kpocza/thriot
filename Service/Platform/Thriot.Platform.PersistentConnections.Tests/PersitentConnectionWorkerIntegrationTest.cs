@@ -24,7 +24,7 @@ namespace Thriot.Platform.PersistentConnections.Tests
         [TestMethod]
         public void RecordOutgoingAndReceiveAndForgetMessageRealTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingService);
 
             var pltDeviceOperations = environmentFactory.ObjDeviceOperations;
@@ -85,7 +85,7 @@ namespace Thriot.Platform.PersistentConnections.Tests
         [TestMethod]
         public void RecordOutgoingAndPeekMessageRealTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingService);
 
             var pltDeviceOperations = environmentFactory.ObjDeviceOperations;
@@ -147,7 +147,7 @@ namespace Thriot.Platform.PersistentConnections.Tests
         [TestMethod]
         public void RecordOutgoingAndPeekAndCommitMessageRealTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingService);
 
             var pltDeviceOperations = environmentFactory.ObjDeviceOperations;

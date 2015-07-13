@@ -2,7 +2,6 @@
 using SuperSocket.SocketBase;
 using SuperSocket.WebSocket;
 using SuperSocket.WebSocket.SubProtocol;
-using Thriot.Framework;
 using Thriot.Framework.Logging;
 using Thriot.Platform.Model.Messaging;
 using Thriot.Platform.PersistentConnections;
@@ -11,13 +10,19 @@ namespace Thriot.Platform.WebsocketService
 {
     class IotSession : WebSocketSession<IotSession>, IPersistentConnection
     {
-        private readonly ConnectionRegistry _connectionRegistry;
+        private ConnectionRegistry _connectionRegistry;
+        private Func<CommandExecutor> _commandExecutorCreator;
 
         private new static readonly ILogger Logger = LoggerFactory.GetCurrentClassLogger();
 
         public IotSession()
         {
-            _connectionRegistry = SingleContainer.Instance.Resolve<ConnectionRegistry>();
+        }
+
+        public void SetConnectionRegistry(ConnectionRegistry connectionRegistry, Func<CommandExecutor> commandExecutorCreator)
+        {
+            _connectionRegistry = connectionRegistry;
+            _commandExecutorCreator = commandExecutorCreator;
         }
 
         protected override void OnSessionStarted()
@@ -43,7 +48,7 @@ namespace Thriot.Platform.WebsocketService
                 var commandResolver = new CommandResolver(messageString);
                 var command = commandResolver.GetCommand();
 
-                var commandExecutor = SingleContainer.Instance.Resolve<CommandExecutor>();
+                var commandExecutor = _commandExecutorCreator();
                 commandExecutor.Execute(this, command);
 
                 Logger.Trace("Executed command: {0}. Device: {1}. IP: {2}.", requestInfo.Key, this.DeviceId, remoteEndPoint);

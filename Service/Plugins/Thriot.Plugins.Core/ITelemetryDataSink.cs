@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using Thriot.Framework.DataAccess;
 
 namespace Thriot.Plugins.Core
 {
     public interface ITelemetryDataSink
     {
-        void Setup(IDictionary<string, string> parameters);
+        void Setup(IDynamicConnectionStringResolver dynamicConnectionStringResolver, IDictionary<string, string> parameters);
 
         void Initialize();
 

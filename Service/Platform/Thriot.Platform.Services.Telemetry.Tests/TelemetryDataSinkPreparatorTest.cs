@@ -5,6 +5,8 @@ using NSubstitute;
 using Thriot.Objects.Model;
 using Thriot.Platform.Services.Telemetry.Metadata;
 using Thriot.Plugins.Core;
+using Thriot.Framework;
+using Thriot.Framework.DataAccess;
 
 namespace Thriot.Platform.Services.Telemetry.Tests
 {
@@ -28,7 +30,7 @@ namespace Thriot.Platform.Services.Telemetry.Tests
                 new TelemetryDataSinkMetadata("test", "Test Desc", typeof (IncomingData), new[] {"ConnectionString", "Key", "Table"}, new Dictionary<string, string>())
             });
 
-            var telemetryDataSinkPreparator = new TelemetryDataSinkPreparator(telemetryDataSinkMetadataRegistry);
+            var telemetryDataSinkPreparator = new TelemetryDataSinkPreparator(telemetryDataSinkMetadataRegistry, new DynamicConnectionStringResolver(null));
 
             telemetryDataSinkPreparator.PrepareAndValidateIncoming(new[]
             {
@@ -57,7 +59,7 @@ namespace Thriot.Platform.Services.Telemetry.Tests
                 new TelemetryDataSinkMetadata("test", "Test Desc", typeof (IncomingData), new[] {"ConnectionString", "Key", "Table"}, new Dictionary<string, string> {{"ConnectionString", "nn"}})
             });
 
-            var telemetryDataSinkPreparator = new TelemetryDataSinkPreparator(telemetryDataSinkMetadataRegistry);
+            var telemetryDataSinkPreparator = new TelemetryDataSinkPreparator(telemetryDataSinkMetadataRegistry, new DynamicConnectionStringResolver(null));
 
             telemetryDataSinkPreparator.PrepareAndValidateIncoming(new[]
             {
@@ -87,7 +89,7 @@ namespace Thriot.Platform.Services.Telemetry.Tests
                 new TelemetryDataSinkMetadata("test", "Test Desc", typeof (IncomingData), new[] {"ConnectionString", "Key", "Table"}, new Dictionary<string, string>())
             });
 
-            var telemetryDataSinkPreparator = new TelemetryDataSinkPreparator(telemetryDataSinkMetadataRegistry);
+            var telemetryDataSinkPreparator = new TelemetryDataSinkPreparator(telemetryDataSinkMetadataRegistry, new DynamicConnectionStringResolver(null));
 
             telemetryDataSinkPreparator.PrepareAndValidateIncoming(new[]
             {
@@ -113,7 +115,7 @@ namespace Thriot.Platform.Services.Telemetry.Tests
                 new TelemetryDataSinkMetadata("test", "Test Desc", typeof (IncomingData), new[] {"ConnectionString", "Key", "Table"}, new Dictionary<string, string>())
             });
 
-            var telemetryDataSinkPreparator = new TelemetryDataSinkPreparator(telemetryDataSinkMetadataRegistry);
+            var telemetryDataSinkPreparator = new TelemetryDataSinkPreparator(telemetryDataSinkMetadataRegistry, new DynamicConnectionStringResolver(null));
 
             telemetryDataSinkPreparator.PrepareAndValidateIncoming(new[]
             {
@@ -127,7 +129,7 @@ namespace Thriot.Platform.Services.Telemetry.Tests
 
         public class IncomingData : ITelemetryDataSink
         {
-            public void Setup(IDictionary<string, string> parameters)
+            public void Setup(IDynamicConnectionStringResolver dynamicConnectionStringResolver, IDictionary<string, string> parameters)
             {
                 _setupCount++;
                 _dataParameters = parameters;

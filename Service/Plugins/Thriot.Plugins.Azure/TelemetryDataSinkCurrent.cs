@@ -1,20 +1,11 @@
 ﻿using System.Collections.Generic;
 using Thriot.Framework.Azure.DataAccess;
-using Thriot.Framework.DataAccess;
 using Thriot.Plugins.Core;
 
 namespace Thriot.Plugins.Azure
 {
     public class TelemetryDataSinkCurrent : TelemetryDataSinkBase, ITelemetryDataSinkCurrent
     {
-        public TelemetryDataSinkCurrent()
-        {
-        }
-
-        public TelemetryDataSinkCurrent(IDynamicConnectionStringResolver dynamicConnectionStringResolver) : base(dynamicConnectionStringResolver)
-        {
-        }
-
         public override void Record(TelemetryData message)
         {
             var currentDataRepository = new GenericRepository<CurrentDataTableEntity>(TableEntityOperation, TableName);

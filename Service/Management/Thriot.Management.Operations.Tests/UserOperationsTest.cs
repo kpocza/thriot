@@ -12,7 +12,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void CreateTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var userOperations = environmentFactory.MgmtUserOperations;
 
             var salt = Crypto.GenerateSalt();
@@ -25,7 +25,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void IsNotExistsTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var userOperations = environmentFactory.MgmtUserOperations;
 
             Assert.IsFalse(userOperations.IsExists("nosuch"));
@@ -34,7 +34,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void IsExistsTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var userOperations = environmentFactory.MgmtUserOperations;
 
             var email = EmailHelper.Generate();
@@ -49,7 +49,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void GetMeSuccessTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var userOperations = environmentFactory.MgmtUserOperations;
 
             var email = EmailHelper.Generate();
@@ -71,7 +71,7 @@ namespace Thriot.Management.Operations.Tests
         [ExpectedException(typeof(NotFoundException))]
         public void GetMeFailedTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var userOperations = environmentFactory.MgmtUserOperations;
 
             userOperations.Get("231413245");
@@ -80,7 +80,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void UpdateSuccessTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var userOperations = environmentFactory.MgmtUserOperations;
 
             var email = EmailHelper.Generate();
@@ -109,7 +109,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void UpdateLoginUserTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var userOperations = environmentFactory.MgmtUserOperations;
 
             var email = EmailHelper.Generate();

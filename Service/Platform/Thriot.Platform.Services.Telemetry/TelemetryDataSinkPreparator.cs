@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Thriot.Framework;
+using Thriot.Framework.DataAccess;
 using Thriot.Objects.Model;
 using Thriot.Platform.Services.Telemetry.Metadata;
 using Thriot.Plugins.Core;
@@ -11,10 +12,12 @@ namespace Thriot.Platform.Services.Telemetry
     public class TelemetryDataSinkPreparator
     {
         private readonly ITelemetryDataSinkMetadataRegistry _telemetryDataSinkMetadataRegistry;
+        private readonly IDynamicConnectionStringResolver _dynamicConnectionStringResolver;
 
-        public TelemetryDataSinkPreparator(ITelemetryDataSinkMetadataRegistry telemetryDataSinkMetadataRegistry)
+        public TelemetryDataSinkPreparator(ITelemetryDataSinkMetadataRegistry telemetryDataSinkMetadataRegistry, IDynamicConnectionStringResolver dynamicConnectionStringResolver)
         {
             _telemetryDataSinkMetadataRegistry = telemetryDataSinkMetadataRegistry;
+            _dynamicConnectionStringResolver = dynamicConnectionStringResolver;
         }
 
         public void PrepareAndValidateIncoming(IEnumerable<TelemetryDataSinkParameters> telemetryDataSinkParameters)
@@ -28,9 +31,9 @@ namespace Thriot.Platform.Services.Telemetry
                     if (!incoming.Parameters.Keys.All(telemetryDataSinkMetadata.ParametersToInput.Contains))
                         throw new ArgumentException("telemetryDataSinkParameters");
 
-                    var op = (ITelemetryDataSink)SingleContainer.Instance.Resolve(telemetryDataSinkMetadata.Type);
+                    var op = (ITelemetryDataSink)Activator.CreateInstance(telemetryDataSinkMetadata.Type);
                     var allParameters = telemetryDataSinkMetadata.ParametersPresets.Union(incoming.Parameters).ToDictionary(d => d.Key, d => d.Value);
-                    op.Setup(allParameters);
+                    op.Setup(_dynamicConnectionStringResolver, allParameters);
 
                     op.Initialize();
                 }

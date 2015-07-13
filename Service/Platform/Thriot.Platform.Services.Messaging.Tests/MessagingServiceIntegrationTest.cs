@@ -17,7 +17,7 @@ namespace Thriot.Platform.Services.Messaging.Tests
         [TestMethod]
         public void ReceiveAndForgetOutgoingMessageRealTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var pltDeviceOperations = environmentFactory.ObjDeviceOperations;
 
             MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingService);
@@ -42,7 +42,7 @@ namespace Thriot.Platform.Services.Messaging.Tests
         [TestMethod]
         public void RecordOutgoingMessageRealTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var pltDeviceOperations = environmentFactory.ObjDeviceOperations;
 
             MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingService);
@@ -58,7 +58,7 @@ namespace Thriot.Platform.Services.Messaging.Tests
         [TestMethod]
         public void PeekOutgoingMessageRealTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingService);
 
             var pltDeviceOperations = environmentFactory.ObjDeviceOperations;
@@ -85,7 +85,7 @@ namespace Thriot.Platform.Services.Messaging.Tests
         [TestMethod]
         public void CommitOutgoingMessageRealTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingService);
 
             var pltDeviceOperations = environmentFactory.ObjDeviceOperations;

@@ -2,21 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Npgsql;
-using Thriot.Framework.DataAccess;
 using Thriot.Plugins.Core;
 
 namespace Thriot.Plugins.PgSql
 {
     public class TelemetryDataSinkCurrent : TelemetryDataSinkBase, ITelemetryDataSinkCurrent
     {
-        public TelemetryDataSinkCurrent()
-        {
-        }
-
-        public TelemetryDataSinkCurrent(IDynamicConnectionStringResolver dynamicConnectionStringResolver) : base(dynamicConnectionStringResolver)
-        {
-        }
-
         protected override string CreateTableStatement
         {
             get

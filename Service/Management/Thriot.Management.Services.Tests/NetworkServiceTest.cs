@@ -69,7 +69,7 @@ namespace Thriot.Management.Services.Tests
         [ExpectedException(typeof(ForbiddenException))]
         public void TryCreateNetworkUnderOtherCompanies1Test()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var userOperations = environmentFactory.MgmtUserOperations;
@@ -111,7 +111,7 @@ namespace Thriot.Management.Services.Tests
         [ExpectedException(typeof(ForbiddenException))]
         public void TryCreateNetworkUnderOtherCompanies2Test()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var userOperations = environmentFactory.MgmtUserOperations;
@@ -150,7 +150,7 @@ namespace Thriot.Management.Services.Tests
         [ExpectedException(typeof(ForbiddenException))]
         public void TryCreateNetworkUnderOtherNetworkTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var userOperations = environmentFactory.MgmtUserOperations;
@@ -562,7 +562,7 @@ namespace Thriot.Management.Services.Tests
 
         private void Initialize()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             _authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var userOperations = environmentFactory.MgmtUserOperations;

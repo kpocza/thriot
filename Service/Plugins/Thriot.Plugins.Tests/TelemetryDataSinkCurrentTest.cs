@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Thriot.Framework;
 using Thriot.Management.Dto;
 using Thriot.Plugins.Core;
 using Thriot.TestHelpers;
@@ -14,7 +13,7 @@ namespace Thriot.Plugins.Tests
     {
         protected virtual ITelemetryDataSinkCurrent GetTelemetryDataSinkCurrent()
         {
-            return SingleContainer.Instance.Resolve<IEnvironmentFactory>().TelemetryDataSinkCurrent;
+            return EnvironmentFactoryFactory.Create().TelemetryDataSinkCurrent;
         }
 
         [TestInitialize]
@@ -30,7 +29,7 @@ namespace Thriot.Plugins.Tests
                 return;
 
             var telemetryDataSinkCurrent = GetTelemetryDataSinkCurrent();
-            telemetryDataSinkCurrent.Setup(new Dictionary<string, string>
+            telemetryDataSinkCurrent.Setup(null, new Dictionary<string, string>
             {
                 {"ConnectionString", GetConnectionString()},
                 {"Table", "CurrentData"}
@@ -50,7 +49,7 @@ namespace Thriot.Plugins.Tests
                 return;
 
             var telemetryDataSinkCurrent = GetTelemetryDataSinkCurrent();
-            telemetryDataSinkCurrent.Setup(new Dictionary<string, string>
+            telemetryDataSinkCurrent.Setup(null, new Dictionary<string, string>
             {
                 {"ConnectionString", GetConnectionString()},
                 {"Table", "CurrentData"}
@@ -71,7 +70,7 @@ namespace Thriot.Plugins.Tests
                 return;
 
             var telemetryDataSinkCurrent = GetTelemetryDataSinkCurrent();
-            telemetryDataSinkCurrent.Setup(new Dictionary<string, string>
+            telemetryDataSinkCurrent.Setup(null, new Dictionary<string, string>
             {
                 {"ConnectionString", GetConnectionString()},
                 {"Table", "CurrentData"}

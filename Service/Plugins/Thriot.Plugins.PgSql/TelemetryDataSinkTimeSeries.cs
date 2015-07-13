@@ -10,15 +10,6 @@ namespace Thriot.Plugins.PgSql
 {
     public class TelemetryDataSinkTimeSeries : TelemetryDataSinkBase, ITelemetryDataSinkTimeSeries
     {
-        public TelemetryDataSinkTimeSeries()
-        {
-        }
-
-        public TelemetryDataSinkTimeSeries(IDynamicConnectionStringResolver dynamicConnectionStringResolver)
-            : base(dynamicConnectionStringResolver)
-        {
-        }
-
         protected override string CreateTableStatement
         {
             get

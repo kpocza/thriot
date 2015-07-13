@@ -13,7 +13,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void CreateDeviceTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var deviceOperations = environmentFactory.MgmtDeviceOperations;
 
             var compServiceNetworkIds = CreateCompanyAndServiceAndNetwork();
@@ -33,7 +33,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void GetDeviceTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var deviceOperations = environmentFactory.MgmtDeviceOperations;
 
             var compServiceNetworkIds = CreateCompanyAndServiceAndNetwork();
@@ -78,7 +78,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void ListDevicesTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var deviceOperations = environmentFactory.MgmtDeviceOperations;
             var networkOperations = environmentFactory.MgmtNetworkOperations;
 
@@ -120,7 +120,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void DeleteDeviceTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var deviceOperations = environmentFactory.MgmtDeviceOperations;
             var networkOperations = environmentFactory.MgmtNetworkOperations;
 
@@ -148,7 +148,7 @@ namespace Thriot.Management.Operations.Tests
         [TestMethod]
         public void UpdateDeviceTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var deviceOperations = environmentFactory.MgmtDeviceOperations;
             var networkOperations = environmentFactory.MgmtNetworkOperations;
 
@@ -182,7 +182,7 @@ namespace Thriot.Management.Operations.Tests
 
         private CompanyServiceNetworkIds CreateCompanyAndServiceAndNetwork()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var userOperations = environmentFactory.MgmtUserOperations;
             var companyOperations = environmentFactory.MgmtCompanyOperations;
             var serviceOperations = environmentFactory.MgmtServiceOperations;

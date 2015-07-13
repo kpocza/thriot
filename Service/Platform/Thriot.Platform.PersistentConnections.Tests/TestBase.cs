@@ -23,7 +23,7 @@ namespace Thriot.Platform.PersistentConnections.Tests
 
         protected void Initialize()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             _authenticationContext = Substitute.For<IAuthenticationContext>();
             _messagingService = environmentFactory.MessagingService;
 

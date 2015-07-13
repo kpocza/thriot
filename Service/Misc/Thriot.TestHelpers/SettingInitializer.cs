@@ -8,7 +8,7 @@ namespace Thriot.TestHelpers
     {
         public static void Init()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var settingOperations = environmentFactory.MgmtSettingOperations;
 
             SafeEnsureSetting(settingOperations, Setting.ServiceProfile, ServiceProfile.ServiceProvider.ToString());
@@ -29,7 +29,7 @@ namespace Thriot.TestHelpers
 
         public static void RemoveExtraEntries()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var settingOperations = environmentFactory.MgmtSettingOperations;
 
             SafeDeleteSetting(settingOperations, Setting.PrebuiltCompany);

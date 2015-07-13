@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 using Thriot.Plugins.Core;
+using Thriot.Framework.DataAccess;
 
 namespace Thriot.Platform.Services.Telemetry.Tests
 {
@@ -20,7 +21,7 @@ namespace Thriot.Platform.Services.Telemetry.Tests
 
         public class CurrentDataStub : ITelemetryDataSink
         {
-            public void Setup(IDictionary<string, string> parameters)
+            public void Setup(IDynamicConnectionStringResolver dynamicConnectionStringResolver, IDictionary<string, string> parameters)
             {
             }
 
@@ -49,7 +50,7 @@ namespace Thriot.Platform.Services.Telemetry.Tests
 
         public class TimeSeriesStub : ITelemetryDataSink
         {
-            public void Setup(IDictionary<string, string> parameters)
+            public void Setup(IDynamicConnectionStringResolver dynamicConnectionStringResolver, IDictionary<string, string> parameters)
             {
             }
 

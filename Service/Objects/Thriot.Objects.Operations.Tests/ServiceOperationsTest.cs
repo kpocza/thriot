@@ -29,7 +29,7 @@ namespace Thriot.Objects.Operations.Tests
         [TestMethod]
         public void GetServiceTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
 
             var service1 = new ServiceDto() { CompanyId = _companyId, Name = "new service1", ApiKey = Identity.Next() };
             var service2 = new ServiceDto() { CompanyId = _companyId, Name = "new service2", ApiKey = Identity.Next() };
@@ -67,7 +67,7 @@ namespace Thriot.Objects.Operations.Tests
 
         protected void Initialize()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             _authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var userOperations = environmentFactory.MgmtUserOperations;

@@ -29,7 +29,7 @@ namespace Thriot.Objects.Operations.Tests
         [TestMethod]
         public void GetCompanyTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
 
             var company1Id = _companyService.Create("new company1");
             var company2Id = _companyService.Create("new company2");
@@ -62,7 +62,7 @@ namespace Thriot.Objects.Operations.Tests
 
         protected void Initialize()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             _authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);

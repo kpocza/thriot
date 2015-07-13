@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Thriot.Framework;
+using Thriot.Framework.DataAccess;
 using Thriot.Objects.Model;
 using Thriot.Objects.Model.Operations;
 using Thriot.Plugins.Core;
@@ -16,13 +17,15 @@ namespace Thriot.Reporting.Services
         private readonly IServiceOperations _serviceOperations;
         private readonly ICompanyOperations _companyOperations;
         private readonly ITelemetryDataSinkSetupService _telemetryDataSinkSetupService;
+        private readonly IDynamicConnectionStringResolver _dynamicConnectionStringResolver;
 
-        public TelemetryDataSinkProcessor(ITelemetryDataSinkSetupService telemetryDataSinkSetupService, INetworkOperations networkOperations, IServiceOperations serviceOperations, ICompanyOperations companyOperations)
+        public TelemetryDataSinkProcessor(ITelemetryDataSinkSetupService telemetryDataSinkSetupService, INetworkOperations networkOperations, IServiceOperations serviceOperations, ICompanyOperations companyOperations, IDynamicConnectionStringResolver dynamicConnectionStringResolver)
         {
             _telemetryDataSinkSetupService = telemetryDataSinkSetupService;
             _networkOperations = networkOperations;
             _serviceOperations = serviceOperations;
             _companyOperations = companyOperations;
+            _dynamicConnectionStringResolver = dynamicConnectionStringResolver;
         }
 
         public IEnumerable<SinkInfo> GetSinksForNetwork(string networkId)
@@ -63,9 +66,9 @@ namespace Thriot.Reporting.Services
 
             var telemetryDataSinkMetadata = telemetryDataSinksMetadata.Incoming.Single(sink => String.Equals(sink.Name, sinkName, StringComparison.InvariantCultureIgnoreCase));
 
-            var telemetryDataSink = (ITelemetryDataSink)SingleContainer.Instance.Resolve(Type.GetType(telemetryDataSinkMetadata.TypeName));
+            var telemetryDataSink = (ITelemetryDataSink)Activator.CreateInstance(Type.GetType(telemetryDataSinkMetadata.TypeName));
             var allParameters = telemetryDataSinkMetadata.ParametersPresets.Union(workerSink.Parameters).ToDictionary(d => d.Key, d => d.Value);
-            telemetryDataSink.Setup(allParameters);
+            telemetryDataSink.Setup(_dynamicConnectionStringResolver, allParameters);
 
             return telemetryDataSink;
         }

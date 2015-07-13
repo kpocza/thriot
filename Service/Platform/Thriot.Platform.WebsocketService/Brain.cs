@@ -1,5 +1,4 @@
 ﻿using System.Configuration;
-using System.Linq;
 using SuperSocket.SocketBase.Config;
 using Thriot.Framework;
 using Thriot.Objects.Model;
@@ -54,7 +53,7 @@ namespace Thriot.Platform.WebsocketService
                 SendBufferSize = 10240,
                 SyncSend = false,
             });
-
+            _iotWebSocketServer.SetConnectionRegistry(_connectionRegistry, () => SingleContainer.Instance.Resolve<CommandExecutor>());
             _iotWebSocketServer.Start();
         }
 
@@ -65,13 +64,36 @@ namespace Thriot.Platform.WebsocketService
 
         private void StartBackgrounProcesses()
         {
-            var telemetryDataSinkSetupService = SingleContainer.Instance.Resolve<ITelemetryDataSinkSetupService>();
             var settingOperations = SingleContainer.Instance.Resolve<ISettingOperations>();
 
-            telemetryDataSinkSetupService.Setup(settingOperations.Get(Setting.TelemetrySetupServiceEndpoint).Value, settingOperations.Get(Setting.TelemetrySetupServiceApiKey).Value);
+            SetupTelemetryDataSinkMetadataRegistry(settingOperations);
+
+            var messagingService = SingleContainer.Instance.Resolve<IMessagingService>();
+            messagingService.Setup(settingOperations.Get(Setting.MessagingServiceEndpoint).Value, settingOperations.Get(Setting.MessagingServiceApiKey).Value);
+
+            var batchParameters = SingleContainer.Instance.Resolve<IBatchParameters>();
+            MessagingWorkers.Start(batchParameters, messagingService);
+
+            _persistentConnectionReceiveAndForgetWorker =
+                SingleContainer.Instance.Resolve<PersistentConnectionReceiveAndForgetWorker>();
+            _persistentConnectionReceiveAndForgetWorker.Start();
+
+            _persistentConnectionPeekWorker = SingleContainer.Instance.Resolve<PersistentConnectionPeekWorker>();
+            _persistentConnectionPeekWorker.Start();
+
+            _connectionRegistry = SingleContainer.Instance.Resolve<ConnectionRegistry>();
+            _connectionRegistry.Start();
+        }
+
+        private static void SetupTelemetryDataSinkMetadataRegistry(ISettingOperations settingOperations)
+        {
+            var telemetryDataSinkSetupService = SingleContainer.Instance.Resolve<ITelemetryDataSinkSetupService>();
+
+            telemetryDataSinkSetupService.Setup(settingOperations.Get(Setting.TelemetrySetupServiceEndpoint).Value,
+                settingOperations.Get(Setting.TelemetrySetupServiceApiKey).Value);
 
             var telemetryDataSinkMetadataRegistry =
-                (TelemetryDataSinkMetadataRegistry)SingleContainer.Instance.Resolve<ITelemetryDataSinkMetadataRegistry>();
+                (TelemetryDataSinkMetadataRegistry) SingleContainer.Instance.Resolve<ITelemetryDataSinkMetadataRegistry>();
             var telemetryDataSinksMetadata = telemetryDataSinkSetupService.GetTelemetryDataSinksMetadata();
 
             var telemeryDataSection = new TelemetryDataSection {Incoming = new TelemetryDataSinkCollection()};
@@ -91,24 +113,6 @@ namespace Thriot.Platform.WebsocketService
                 telemeryDataSection.Incoming.Add(telemetryDataSinkElement);
             }
             telemetryDataSinkMetadataRegistry.Build(telemeryDataSection);
-
-            var messagingService = SingleContainer.Instance.Resolve<IMessagingService>();
-
-            messagingService.Setup(settingOperations.Get(Setting.MessagingServiceEndpoint).Value, settingOperations.Get(Setting.MessagingServiceApiKey).Value);
-
-            var batchParameters = SingleContainer.Instance.Resolve<IBatchParameters>();
-
-            MessagingWorkers.Start(batchParameters, messagingService);
-
-            _persistentConnectionReceiveAndForgetWorker =
-                SingleContainer.Instance.Resolve<PersistentConnectionReceiveAndForgetWorker>();
-            _persistentConnectionReceiveAndForgetWorker.Start();
-
-            _persistentConnectionPeekWorker = SingleContainer.Instance.Resolve<PersistentConnectionPeekWorker>();
-            _persistentConnectionPeekWorker.Start();
-
-            _connectionRegistry = SingleContainer.Instance.Resolve<ConnectionRegistry>();
-            _connectionRegistry.Start();
         }
 
         private void StopBackgroundProcesses()
@@ -119,6 +123,5 @@ namespace Thriot.Platform.WebsocketService
             _persistentConnectionPeekWorker.Stop();
             _connectionRegistry.Stop();
         }
-
     }
 }

@@ -3,6 +3,9 @@
 *.user
 *.vspscc
 *.vssscc
+.vs
+
+project.lock.json
 
 **/bin/*
 **/obj/*

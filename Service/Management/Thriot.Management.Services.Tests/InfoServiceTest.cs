@@ -11,7 +11,7 @@ namespace Thriot.Management.Services.Tests
         [TestMethod]
         public void GetInfoTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
             authenticationContext.GetContextUser().Returns("12345");
 
@@ -34,7 +34,7 @@ namespace Thriot.Management.Services.Tests
         [TestMethod]
         public void GetUrlInfoTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
             authenticationContext.GetContextUser().Returns("12345");
 

@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Thriot.Platform.Services.Telemetry.Configuration;
 using Thriot.Platform.Services.Telemetry.Metadata;
 using Thriot.Plugins.Core;
+using Thriot.Framework.DataAccess;
 
 namespace Thriot.Platform.Services.Telemetry.Tests
 {
@@ -113,7 +114,7 @@ namespace Thriot.Platform.Services.Telemetry.Tests
 
     public class IncomingData : ITelemetryDataSink
     {
-        public void Setup(IDictionary<string, string> parameters)
+        public void Setup(IDynamicConnectionStringResolver dynamicConnectionStringResolver, IDictionary<string, string> parameters)
         {
         }
 
@@ -139,7 +140,7 @@ namespace Thriot.Platform.Services.Telemetry.Tests
 
     public class IncomingData2 : ITelemetryDataSink
     {
-        public void Setup(IDictionary<string, string> parameters)
+        public void Setup(IDynamicConnectionStringResolver dynamicConnectionStringResolver, IDictionary<string, string> parameters)
         {
         }
 
@@ -165,7 +166,7 @@ namespace Thriot.Platform.Services.Telemetry.Tests
 
     public class IncomingTimeSeries : ITelemetryDataSink
     {
-        public void Setup(IDictionary<string, string> parameters)
+        public void Setup(IDynamicConnectionStringResolver dynamicConnectionStringResolver, IDictionary<string, string> parameters)
         {
         }
 

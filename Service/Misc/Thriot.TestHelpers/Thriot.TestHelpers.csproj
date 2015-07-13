@@ -90,6 +90,7 @@
     <Compile Include="AzureEnvironmentFactory.cs" />
     <Compile Include="DevPgSqlConnectionParametersResolver.cs" />
     <Compile Include="DevSqlConnectionParametersResolver.cs" />
+    <Compile Include="EnvironmentFactoryFactory.cs" />
     <Compile Include="InprocMessagingService.cs" />
     <Compile Include="InMemoryMessagingService.cs" />
     <Compile Include="SettingInitializer.cs" />

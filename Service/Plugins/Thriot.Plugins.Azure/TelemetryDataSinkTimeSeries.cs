@@ -3,22 +3,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Thriot.Framework.Azure.DataAccess;
-using Thriot.Framework.DataAccess;
 using Thriot.Plugins.Core;
 
 namespace Thriot.Plugins.Azure
 {
     public class TelemetryDataSinkTimeSeries : TelemetryDataSinkBase, ITelemetryDataSinkTimeSeries
     {
-        public TelemetryDataSinkTimeSeries()
-        {
-        }
-
-        public TelemetryDataSinkTimeSeries(IDynamicConnectionStringResolver dynamicConnectionStringResolver)
-            : base(dynamicConnectionStringResolver)
-        {
-        }
-
         public override void Record(TelemetryData message)
         {
             var timeSeriesRepository = new GenericRepository<TimeSeriesTableEntity>(TableEntityOperation, TableName);

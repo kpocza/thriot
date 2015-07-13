@@ -11,7 +11,7 @@ namespace Thriot.Objects.Operations.Tests
         [TestMethod]
         public void GetSettingTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var setting = environmentFactory.ObjSettingOperations.Get(Setting.TelemetrySetupServiceApiKey);
 
             Assert.AreEqual(32, setting.Value.Length);

@@ -14,26 +14,16 @@ namespace Thriot.Plugins.Azure
         protected const string TableString = "Table";
         private const string ConnectionNameString = "ConnectionName";
         
-        private readonly IDynamicConnectionStringResolver _dynamicConnectionStringResolver;
         protected ITableEntityOperation TableEntityOperation;
         protected string TableName;
 
-        protected TelemetryDataSinkBase()
-        {
-        }
-
-        protected TelemetryDataSinkBase(IDynamicConnectionStringResolver dynamicConnectionStringResolver)
-        {
-            _dynamicConnectionStringResolver = dynamicConnectionStringResolver;
-        }
-
-        public void Setup(IDictionary<string, string> parameters)
+        public void Setup(IDynamicConnectionStringResolver dynamicConnectionStringResolver, IDictionary<string, string> parameters)
         {
             string connectionString = null;
             if (!parameters.TryGetValue(ConnectionStringString, out connectionString))
             {
                 connectionString =
-                    _dynamicConnectionStringResolver.Resolve(parameters[ConnectionNameString]).ConnectionString;
+                    dynamicConnectionStringResolver.Resolve(parameters[ConnectionNameString]).ConnectionString;
             }
 
             var cloudStorageAccount = CloudStorageAccount.Parse(connectionString);

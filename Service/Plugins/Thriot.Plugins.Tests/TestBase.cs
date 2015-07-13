@@ -1,5 +1,4 @@
 ﻿using NSubstitute;
-using Thriot.Framework;
 using Thriot.Management.Dto;
 using Thriot.Management.Services;
 using Thriot.ServiceClient.Messaging;
@@ -26,7 +25,7 @@ namespace Thriot.Plugins.Tests
             if (!IsIntegrationTest())
                 return;
 
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             _authenticationContext = Substitute.For<IAuthenticationContext>();
             _messagingService = Substitute.For<IMessagingService>();
             var settingProvider = Substitute.For<ISettingProvider>();
@@ -78,7 +77,7 @@ namespace Thriot.Plugins.Tests
 
         protected virtual string GetConnectionString()
         {
-            return SingleContainer.Instance.Resolve<IEnvironmentFactory>().TelemetryConnectionString;
+            return EnvironmentFactoryFactory.Create().TelemetryConnectionString;
         }
 
         protected virtual bool IsIntegrationTest()

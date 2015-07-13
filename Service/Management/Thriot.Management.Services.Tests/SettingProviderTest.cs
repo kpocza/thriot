@@ -19,7 +19,7 @@ namespace Thriot.Management.Services.Tests
         [TestMethod]
         public void GetServiceProfileTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
 
             var serviceProfile = settingProvider.ServiceProfile;
@@ -30,7 +30,7 @@ namespace Thriot.Management.Services.Tests
         [TestMethod]
         public void GetEmailActivationTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
 
             var emailActivation = settingProvider.EmailActivation;
@@ -41,7 +41,7 @@ namespace Thriot.Management.Services.Tests
         [TestMethod]
         public void GetPrebuiltCompanyTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
 
             Assert.IsNull(settingProvider.PrebuiltCompany);
@@ -54,7 +54,7 @@ namespace Thriot.Management.Services.Tests
         [TestMethod]
         public void GetPrebuiltServiceTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
 
             Assert.IsNull(settingProvider.PrebuiltService);
@@ -67,7 +67,7 @@ namespace Thriot.Management.Services.Tests
         [TestMethod]
         public void GetUserForPrebuiltEntityTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
 
             Assert.IsNull(settingProvider.UserForPrebuiltEntity);

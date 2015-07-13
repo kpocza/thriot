@@ -10,7 +10,7 @@
         "Microsoft.AspNet.Mvc": "6.0.0-beta4",
         "Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta4",
         "Microsoft.AspNet.Mvc.Core": "6.0.0-beta4",
-        "Kestrel":  "1.0.0-*"
+        "Kestrel":  "1.0.0-beta4"
     },
 
     "commands": {
@@ -19,8 +19,7 @@
     },
 
     "frameworks": {
-        "dnx451": { },
-        "dnxcore50": { }
+        "dnx451": { }
     },
 
     "publishExclude": [

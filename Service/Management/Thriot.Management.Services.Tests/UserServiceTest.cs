@@ -18,7 +18,7 @@ namespace Thriot.Management.Services.Tests
         [TestMethod]
         public void RegisterTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var userOperations = environmentFactory.MgmtUserOperations;
@@ -39,7 +39,7 @@ namespace Thriot.Management.Services.Tests
         [TestMethod]
         public void RegisterActivationNeededTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
             var mailer = Substitute.For<IMailer>();
 
@@ -61,7 +61,7 @@ namespace Thriot.Management.Services.Tests
         [ExpectedException(typeof(AlreadyExistsException))]
         public void TryRegisterTwiceTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var userOperations = environmentFactory.MgmtUserOperations;
@@ -79,7 +79,7 @@ namespace Thriot.Management.Services.Tests
         [ExpectedException(typeof(AlreadyExistsException))]
         public void TryRegisterTwiceWithDifferentCasingTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var userOperations = environmentFactory.MgmtUserOperations;
@@ -99,7 +99,7 @@ namespace Thriot.Management.Services.Tests
         [TestMethod]
         public void LoginTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var userOperations = environmentFactory.MgmtUserOperations;
@@ -120,7 +120,7 @@ namespace Thriot.Management.Services.Tests
         [ExpectedException(typeof(AuthenticationException))]
         public void LoginFailedTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var userOperations = environmentFactory.MgmtUserOperations;
@@ -139,7 +139,7 @@ namespace Thriot.Management.Services.Tests
         [ExpectedException(typeof(AuthenticationException))]
         public void LoginFailed2Test()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
@@ -154,7 +154,7 @@ namespace Thriot.Management.Services.Tests
         [ExpectedException(typeof(ActivationRequiredException))]
         public void TryLoginWoActivationTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
             var mailer = Substitute.For<IMailer>();
 
@@ -178,7 +178,7 @@ namespace Thriot.Management.Services.Tests
         [TestMethod]
         public void ActivationTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var mailer = Substitute.For<IMailer>();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
             authenticationContext.GetContextUser().Returns((string)null);
@@ -209,7 +209,7 @@ namespace Thriot.Management.Services.Tests
         [ExpectedException(typeof(AuthenticationException))]
         public void ActivationAlreadyLoggedInFailTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var mailer = Substitute.For<IMailer>();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
             authenticationContext.GetContextUser().Returns("123456");
@@ -234,7 +234,7 @@ namespace Thriot.Management.Services.Tests
         [ExpectedException(typeof(NotFoundException))]
         public void ActivationInvalidUserFailTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var mailer = Substitute.For<IMailer>();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
             authenticationContext.GetContextUser().Returns((string)null);
@@ -255,7 +255,7 @@ namespace Thriot.Management.Services.Tests
         [ExpectedException(typeof(ActivationException))]
         public void ActivationNotNeededTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
             authenticationContext.GetContextUser().Returns((string)null);
             var userOperations = environmentFactory.MgmtUserOperations;
@@ -276,7 +276,7 @@ namespace Thriot.Management.Services.Tests
         [ExpectedException(typeof(ActivationException))]
         public void ActivationInvalidActivationCodeTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var mailer = Substitute.For<IMailer>();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
             authenticationContext.GetContextUser().Returns((string)null);
@@ -300,7 +300,7 @@ namespace Thriot.Management.Services.Tests
         [TestMethod]
         public void ChangePasswordTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var userOperations = environmentFactory.MgmtUserOperations;
@@ -329,7 +329,7 @@ namespace Thriot.Management.Services.Tests
         [ExpectedException(typeof(AuthenticationException))]
         public void ChangePasswordNotLoggedInTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var userOperations = environmentFactory.MgmtUserOperations;
@@ -349,7 +349,7 @@ namespace Thriot.Management.Services.Tests
         [TestMethod]
         public void ResendActivationEmail()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var mailer = Substitute.For<IMailer>();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
             authenticationContext.GetContextUser().Returns((string)null);
@@ -373,7 +373,7 @@ namespace Thriot.Management.Services.Tests
         [ExpectedException(typeof(AuthenticationException))]
         public void ResendActivationEmailAuthenticated()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var userOperations = environmentFactory.MgmtUserOperations;
@@ -392,7 +392,7 @@ namespace Thriot.Management.Services.Tests
         [ExpectedException(typeof(ActivationException))]
         public void ResendActivationEmailAlreadyActivated()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var userOperations = environmentFactory.MgmtUserOperations;
@@ -415,7 +415,7 @@ namespace Thriot.Management.Services.Tests
         [TestMethod]
         public void SendForgotPasswordEmail()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var userOperations = environmentFactory.MgmtUserOperations;
@@ -440,7 +440,7 @@ namespace Thriot.Management.Services.Tests
         [ExpectedException(typeof(AuthenticationException))]
         public void TrySendForgotPasswordEmailLoggedIn()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var userOperations = environmentFactory.MgmtUserOperations;
@@ -459,7 +459,7 @@ namespace Thriot.Management.Services.Tests
         [ExpectedException(typeof(ActivationException))]
         public void TrySendForgotPasswordEmailNotActivated()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var mailer = Substitute.For<IMailer>();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
             authenticationContext.GetContextUser().Returns((string)null);
@@ -482,7 +482,7 @@ namespace Thriot.Management.Services.Tests
         [TestMethod]
         public void ResetPassword()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var userOperations = environmentFactory.MgmtUserOperations;
@@ -517,7 +517,7 @@ namespace Thriot.Management.Services.Tests
         [ExpectedException(typeof(ConfirmationException))]
         public void TryResetPasswordBadConfirmationCode()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var userOperations = environmentFactory.MgmtUserOperations;
@@ -547,7 +547,7 @@ namespace Thriot.Management.Services.Tests
         [ExpectedException(typeof(ActivationException))]
         public void TryResetPasswordEmailNotActivated()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var mailer = Substitute.For<IMailer>();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
             authenticationContext.GetContextUser().Returns((string)null);
@@ -578,7 +578,7 @@ namespace Thriot.Management.Services.Tests
         [TestMethod]
         public void ListCompaniesTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var userOperations = environmentFactory.MgmtUserOperations;
@@ -604,7 +604,7 @@ namespace Thriot.Management.Services.Tests
         [ExpectedException(typeof(AuthenticationException))]
         public void ListCompaniesNotAuthenticatedTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var userOperations = environmentFactory.MgmtUserOperations;
@@ -622,7 +622,7 @@ namespace Thriot.Management.Services.Tests
         [TestMethod]
         public void GetMeTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var userOperations = environmentFactory.MgmtUserOperations;
@@ -647,7 +647,7 @@ namespace Thriot.Management.Services.Tests
         [ExpectedException(typeof(AuthenticationException))]
         public void GetMeNotAuthTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var userOperations = environmentFactory.MgmtUserOperations;
@@ -666,7 +666,7 @@ namespace Thriot.Management.Services.Tests
 		[TestMethod]
         public void FindUserTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var userOperations = environmentFactory.MgmtUserOperations;
@@ -686,7 +686,7 @@ namespace Thriot.Management.Services.Tests
         [TestMethod]
         public void FindUserNoSuchTest()
         {
-            var environmentFactory = SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
             var userOperations = environmentFactory.MgmtUserOperations;
