@@ -5,7 +5,7 @@ using Thriot.Objects.Operations.Sql.DataAccess;
 
 namespace Thriot.Objects.Operations.Sql
 {
-    public class CompanyOperations : ICompanyOperations
+    public class CompanyOperations : IPersistedCompanyOperations
     {
         private readonly IObjectsUnitOfWorkFactory _platformUnitOfWorkFactory;
 

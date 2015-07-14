@@ -8,4 +8,6 @@ namespace Thriot.Objects.Model.Operations
 
         IEnumerable<Small> ListDevices(IEnumerable<string> ids);
     }
+
+    public interface IPersistedDeviceOperations : IDeviceOperations { }
 }

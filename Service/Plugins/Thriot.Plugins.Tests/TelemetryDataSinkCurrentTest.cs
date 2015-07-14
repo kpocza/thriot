@@ -5,6 +5,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Thriot.Management.Dto;
 using Thriot.Plugins.Core;
 using Thriot.TestHelpers;
+using NSubstitute;
+using Thriot.Objects.Model;
 
 namespace Thriot.Plugins.Tests
 {
@@ -106,6 +108,28 @@ namespace Thriot.Plugins.Tests
 
             Assert.AreEqual(devices.Keys.Count, telemetryDataRecords.Count());
             Assert.IsTrue(telemetryDataRecords.All(t => devices[t.DeviceId] == t.Payload));
+        }
+
+        [TestMethod]
+        public void ResolveConnectringStringByNameTest()
+        {
+            if (!IsIntegrationTest())
+                return;
+
+            var settingOperation = Substitute.For<Thriot.Objects.Model.Operations.ISettingOperations>();
+
+            var dynamicConnectionStringResolver = new DynamicConnectionStringResolver(settingOperation);
+
+            settingOperation.Get(null).ReturnsForAnyArgs(new Setting(SettingId.GetConnection("ResolvableConnectionString"), EnvironmentFactoryFactory.Create().TelemetryConnectionString));
+
+            var telemetryDataSinkCurrent = GetTelemetryDataSinkCurrent();
+            telemetryDataSinkCurrent.Setup(dynamicConnectionStringResolver, new Dictionary<string, string>
+            {
+                {"ConnectionName", "ResolvableConnectionString"},
+                {"Table", "CurrentData"}
+            });
+
+            settingOperation.ReceivedWithAnyArgs(1).Get(Arg.Any<SettingId>());
         }
     }
 }

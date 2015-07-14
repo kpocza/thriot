@@ -7,7 +7,7 @@ using Thriot.Objects.Operations.Sql.DataAccess;
 
 namespace Thriot.Objects.Operations.Sql
 {
-    public class NetworkOperations : INetworkOperations
+    public class NetworkOperations : IPersistedNetworkOperations
     {
         private readonly IObjectsUnitOfWorkFactory _platformUnitOfWorkFactory;
 

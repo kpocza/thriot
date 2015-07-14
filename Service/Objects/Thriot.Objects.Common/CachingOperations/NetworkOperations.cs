@@ -6,14 +6,14 @@ namespace Thriot.Objects.Common.CachingOperations
 {
     public class NetworkOperations : CachingBase<Network>, INetworkOperations
     {
-        private readonly INetworkOperations _networkOperations;
+        private readonly IPersistedNetworkOperations _networkOperations;
 
         protected override string Prefix
         {
             get { return "Network"; }
         }
 
-        public NetworkOperations(INetworkOperations networkOperations)
+        public NetworkOperations(IPersistedNetworkOperations networkOperations)
         {
             _networkOperations = networkOperations;
         }

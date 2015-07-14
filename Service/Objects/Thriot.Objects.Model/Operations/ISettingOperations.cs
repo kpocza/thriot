@@ -4,4 +4,6 @@
     {
         Setting Get(SettingId id);
     }
+
+    public interface IPersistedSettingOperations : ISettingOperations { }
 }

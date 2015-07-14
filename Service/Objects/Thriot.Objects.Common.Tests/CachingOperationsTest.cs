@@ -13,7 +13,7 @@ namespace Thriot.Objects.Common.Tests
         [TestMethod]
         public void DeviceOperationsTest()
         {
-            var deviceOperations = Substitute.For<IDeviceOperations>();
+            var deviceOperations = Substitute.For<IPersistedDeviceOperations>();
 
             var cachingDeviceOperations = new DeviceOperations(deviceOperations);
             cachingDeviceOperations.Remove("1");
@@ -36,7 +36,7 @@ namespace Thriot.Objects.Common.Tests
         [TestMethod]
         public void NetworkOperationsTest()
         {
-            var networkOperations = Substitute.For<INetworkOperations>();
+            var networkOperations = Substitute.For<IPersistedNetworkOperations>();
 
             var cachingNetworkOperations = new NetworkOperations(networkOperations);
             cachingNetworkOperations.Remove("1");
@@ -59,7 +59,7 @@ namespace Thriot.Objects.Common.Tests
         [TestMethod]
         public void ServiceOperationsTest()
         {
-            var serviceOperations = Substitute.For<IServiceOperations>();
+            var serviceOperations = Substitute.For<IPersistedServiceOperations>();
 
             var cachingServiceOperations = new ServiceOperations(serviceOperations);
             cachingServiceOperations.Remove("1");
@@ -82,7 +82,7 @@ namespace Thriot.Objects.Common.Tests
         [TestMethod]
         public void CompanyOperationsTest()
         {
-            var companyOperations = Substitute.For<ICompanyOperations>();
+            var companyOperations = Substitute.For<IPersistedCompanyOperations>();
 
             var cachingCompanyOperations = new CompanyOperations(companyOperations);
             cachingCompanyOperations.Remove("1");
@@ -105,7 +105,7 @@ namespace Thriot.Objects.Common.Tests
         [TestMethod]
         public void SettingOperationsTest()
         {
-            var settingOperations = Substitute.For<ISettingOperations>();
+            var settingOperations = Substitute.For<IPersistedSettingOperations>();
 
             var cachingSettingOperations = new SettingOperations(settingOperations);
             cachingSettingOperations.Remove("cat.conf");

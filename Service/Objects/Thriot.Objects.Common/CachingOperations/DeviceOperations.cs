@@ -6,13 +6,13 @@ namespace Thriot.Objects.Common.CachingOperations
 {
     public class DeviceOperations : CachingBase<Device>, IDeviceOperations
     {
-        private readonly IDeviceOperations _deviceOperations;
+        private readonly IPersistedDeviceOperations _deviceOperations;
 
         protected override string Prefix {
             get { return "Device"; }
         }
 
-        public DeviceOperations(IDeviceOperations deviceOperations)
+        public DeviceOperations(IPersistedDeviceOperations deviceOperations)
         {
             _deviceOperations = deviceOperations;
         }

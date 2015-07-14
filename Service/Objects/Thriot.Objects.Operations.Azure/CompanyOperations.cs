@@ -7,7 +7,7 @@ using Thriot.Objects.Operations.Azure.DataAccess;
 
 namespace Thriot.Objects.Operations.Azure
 {
-    public class CompanyOperations : ICompanyOperations
+    public class CompanyOperations : IPersistedCompanyOperations
     {
         private readonly ITableEntityOperation _tableEntityOperation;
 

@@ -4,4 +4,6 @@
     {
         Service Get(string id);
     }
+
+    public interface IPersistedServiceOperations : IServiceOperations { }
 }

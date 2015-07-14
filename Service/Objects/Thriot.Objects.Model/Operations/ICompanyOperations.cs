@@ -4,4 +4,6 @@
     {
         Company Get(string id);
     }
+
+    public interface IPersistedCompanyOperations : ICompanyOperations { }
 }

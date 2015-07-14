@@ -9,7 +9,7 @@ using Thriot.Objects.Operations.Azure.DataAccess;
 
 namespace Thriot.Objects.Operations.Azure
 {
-    public class DeviceOperations : IDeviceOperations
+    public class DeviceOperations : IPersistedDeviceOperations
     {
         private readonly ITableEntityOperation _tableEntityOperation;
 

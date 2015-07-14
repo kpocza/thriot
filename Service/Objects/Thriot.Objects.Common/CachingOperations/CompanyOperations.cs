@@ -5,14 +5,14 @@ namespace Thriot.Objects.Common.CachingOperations
 {
     public class CompanyOperations : CachingBase<Company>, ICompanyOperations
     {
-        private readonly ICompanyOperations _companyOperations;
+        private readonly IPersistedCompanyOperations _companyOperations;
 
         protected override string Prefix
         {
             get { return "Company"; }
         }
 
-        public CompanyOperations(ICompanyOperations companyOperations)
+        public CompanyOperations(IPersistedCompanyOperations companyOperations)
         {
             _companyOperations = companyOperations;
         }

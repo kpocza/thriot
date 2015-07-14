@@ -7,6 +7,8 @@ using Thriot.Framework.DataAccess;
 using Thriot.Management.Dto;
 using Thriot.Plugins.Core;
 using Thriot.TestHelpers;
+using NSubstitute;
+using Thriot.Objects.Model;
 
 namespace Thriot.Plugins.Tests
 {
@@ -154,6 +156,28 @@ namespace Thriot.Plugins.Tests
                     Assert.AreEqual(expected[i].Time, real[i].Time);
                 }
             }
+        }
+
+        [TestMethod]
+        public void ResolveConnectringStringByNameTest()
+        {
+            if (!IsIntegrationTest())
+                return;
+
+            var settingOperation = Substitute.For<Thriot.Objects.Model.Operations.ISettingOperations>();
+
+            var dynamicConnectionStringResolver = new DynamicConnectionStringResolver(settingOperation);
+
+            settingOperation.Get(null).ReturnsForAnyArgs(new Setting(SettingId.GetConnection("ResolvableConnectionString"), EnvironmentFactoryFactory.Create().TelemetryConnectionString));
+
+            var telemetryDataSinkTimeSeries = GetTelemetryDataSinkTimeSeries();
+            telemetryDataSinkTimeSeries.Setup(dynamicConnectionStringResolver, new Dictionary<string, string>
+            {
+                {"ConnectionName", "ResolvableConnectionString"},
+                {"Table", "CurrentData"}
+            });
+
+            settingOperation.ReceivedWithAnyArgs(1).Get(Arg.Any<SettingId>());
         }
     }
 }

@@ -120,6 +120,10 @@
       <Project>{f554a376-529d-4fa6-9e4f-afbe87c32861}</Project>
       <Name>Thriot.TestHelpers</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Objects\Thriot.Objects.Model\Thriot.Objects.Model.csproj">
+      <Project>{5a84ebc0-e8a7-4789-972b-b4b46a2834ee}</Project>
+      <Name>Thriot.Objects.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ServiceClient\Thriot.ServiceClient.Messaging\Thriot.ServiceClient.Messaging.csproj">
       <Project>{b242ce85-f186-4107-98fc-1a87538b704d}</Project>
       <Name>Thriot.ServiceClient.Messaging</Name>

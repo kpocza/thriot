@@ -5,14 +5,14 @@ namespace Thriot.Objects.Common.CachingOperations
 {
     public class ServiceOperations : CachingBase<Service>, IServiceOperations
     {
-        private readonly IServiceOperations _serviceOperations;
+        private readonly IPersistedServiceOperations _serviceOperations;
 
         protected override string Prefix
         {
             get { return "Service"; }
         }
 
-        public ServiceOperations(IServiceOperations serviceOperations)
+        public ServiceOperations(IPersistedServiceOperations serviceOperations)
         {
             _serviceOperations = serviceOperations;
         }

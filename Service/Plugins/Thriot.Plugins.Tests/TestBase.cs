@@ -83,10 +83,12 @@ namespace Thriot.Plugins.Tests
         protected virtual bool IsIntegrationTest()
         {
             {
+#pragma warning disable 0162
 #if INTEGRATIONTEST
-            return true;
+                return true;
 #endif
                 return false;
+#pragma warning restore 0162
             }
         }
     }
