@@ -16,7 +16,8 @@
     "frameworks": {
         "dnx451": {
             "dependencies": {
-                "Thriot.Framework": "1.0.0-*"
+                "Thriot.Framework": "1.0.0-*",
+                "Thriot.Framework.Mails": "1.0.0-*"
             }
         }
     },
