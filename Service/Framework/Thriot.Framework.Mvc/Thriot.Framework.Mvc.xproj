@@ -6,25 +6,16 @@
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
-    <ProjectGuid>7c736fc4-aa35-4daa-aa4d-926bc2c3a939</ProjectGuid>
-    <RootNamespace>Thriot.Management.WebApi</RootNamespace>
+    <ProjectGuid>2eba9a43-ea8f-443c-99c2-44fdacf37585</ProjectGuid>
+    <RootNamespace>Thriot.Framework.Mvc</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">..\..\artifacts\obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
     <OutputPath Condition="'$(OutputPath)'=='' ">..\..\artifacts\bin\$(MSBuildProjectName)\</OutputPath>
   </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <AssemblyName>Thriot.Management.WebApi</AssemblyName>
-  </PropertyGroup>
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
-    <DevelopmentServerPort>40897</DevelopmentServerPort>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Framework\Thriot.Framework.Mails\Thriot.Framework.Mails.csproj" />
-    <ProjectReference Include="..\..\Framework\Thriot.Framework\Thriot.Framework.csproj" />
-    <ProjectReference Include="..\Thriot.Management.Dto\Thriot.Management.Dto.csproj" />
-    <ProjectReference Include="..\Thriot.Management.Operations.Azure\Thriot.Management.Operations.Azure.csproj" />
-    <ProjectReference Include="..\Thriot.Management.Operations.Sql\Thriot.Management.Operations.Sql.csproj" />
-    <ProjectReference Include="..\Thriot.Management.Services\Thriot.Management.Services.csproj" />
+    <ProjectReference Include="..\Thriot.Framework\Thriot.Framework.csproj" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.targets" Condition="'$(VSToolsPath)' != ''" />
 </Project>

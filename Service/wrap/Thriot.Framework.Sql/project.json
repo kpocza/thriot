@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net45": {
+      "wrappedProject": "../../Framework/Thriot.Framework.Sql/Thriot.Framework.Sql.csproj",
+      "bin": {
+        "assembly": "../../Framework/Thriot.Framework.Sql/obj/{configuration}/Thriot.Framework.Sql.dll",
+        "pdb": "../../Framework/Thriot.Framework.Sql/obj/{configuration}/Thriot.Framework.Sql.pdb"
+      },
+      "dependencies": {
+        "EntityFramework": "6.1.3",
+        "Thriot.Framework": "1.0.0-*"
+      }
+    }
+  }
+}

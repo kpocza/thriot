@@ -6,7 +6,11 @@
         "Microsoft.AspNet.Mvc": "6.0.0-beta4",
         "Microsoft.AspNet.Server.IIS": "1.0.0-beta4",
         "Microsoft.AspNet.Server.WebListener": "1.0.0-beta4",
-        "Microsoft.AspNet.StaticFiles": "1.0.0-beta4"
+        "Microsoft.AspNet.StaticFiles": "1.0.0-beta4",
+        "Microsoft.AspNet.Authentication.Cookies": "1.0.0-beta4",
+        "Thriot.Framework.Mvc": "1.0.0-*",
+        "Microsoft.Framework.ConfigurationModel": "1.0.0-beta4",
+        "Microsoft.Framework.ConfigurationModel.Json": "1.0.0-beta4"
     },
 
     "commands": {
@@ -17,7 +21,11 @@
         "dnx451": {
             "dependencies": {
                 "Thriot.Framework": "1.0.0-*",
-                "Thriot.Framework.Mails": "1.0.0-*"
+                "Thriot.Framework.Mails": "1.0.0-*",
+                "Thriot.Management.Dto": "1.0.0-*",
+                "Thriot.Management.Operations.Azure": "1.0.0-*",
+                "Thriot.Management.Operations.Sql": "1.0.0-*",
+                "Thriot.Management.Services": "1.0.0-*"
             }
         }
     },
