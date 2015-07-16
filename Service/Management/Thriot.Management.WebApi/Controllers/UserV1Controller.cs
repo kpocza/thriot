@@ -22,7 +22,7 @@ namespace Thriot.Management.WebApi.Controllers
         }
 
         [HttpPost("register")]
-        public RegistrationResultDto Register(RegisterDto register) // POST: api/v1/users/register
+        public RegistrationResultDto Register([FromBody]RegisterDto register) // POST: api/v1/users/register
         {
             var needsActivation = _settingProvider.EmailActivation;
 
@@ -40,7 +40,7 @@ namespace Thriot.Management.WebApi.Controllers
         }
 
         [HttpPost("resendActivationEmail")]
-        public IActionResult ResendActivationEmail(EmailWrapperDto emailWrapperDto)
+        public IActionResult ResendActivationEmail([FromBody]EmailWrapperDto emailWrapperDto)
         {
             _userService.ResendActivationEmail(emailWrapperDto.Email, new Mailer());
 
@@ -48,7 +48,7 @@ namespace Thriot.Management.WebApi.Controllers
         }
 
         [HttpPost("sendForgotPasswordEmail")]
-        public IActionResult SendForgotPasswordEmail(EmailWrapperDto emailWrapperDto)
+        public IActionResult SendForgotPasswordEmail([FromBody]EmailWrapperDto emailWrapperDto)
         {
             _userService.SendForgotPasswordEmail(emailWrapperDto.Email, new Mailer());
 
@@ -56,7 +56,7 @@ namespace Thriot.Management.WebApi.Controllers
         }
 
         [HttpPost("resetPassword")]
-        public IActionResult ResetPassword(ResetPasswordDto resetPassword)
+        public IActionResult ResetPassword([FromBody]ResetPasswordDto resetPassword)
         {
             _userService.ResetPassword(resetPassword);
 
@@ -65,7 +65,7 @@ namespace Thriot.Management.WebApi.Controllers
 
         [HttpPost("changePassword")]
         [WebApiAuthorize]
-        public IActionResult ChangePassword(ChangePasswordDto changePassword)
+        public IActionResult ChangePassword([FromBody]ChangePasswordDto changePassword)
         {
             _userService.ChangePassword(changePassword);
 
@@ -73,7 +73,7 @@ namespace Thriot.Management.WebApi.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login(LoginDto login) // POST: api/v1/users/login
+        public IActionResult Login([FromBody]LoginDto login) // POST: api/v1/users/login
         {
             var userId = _userService.Login(login.Email, login.Password);
 
@@ -95,7 +95,7 @@ namespace Thriot.Management.WebApi.Controllers
             return _userService.GetMe();
         }
 
-        [HttpGet("byemail/{email}")]
+        [HttpGet("byemail/{email}/")]
         [WebApiAuthorize]
         public UserDto FindUser([FromQuery]string email) // GET: api/v1/users/email/urlencode(user@domain.com)
         {

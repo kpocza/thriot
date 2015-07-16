@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNet.Http;
+﻿using Microsoft.AspNet.Hosting;
 using System.Collections.Generic;
 using System.Security.Claims;
 using Thriot.Management.Services;
@@ -7,28 +7,32 @@ namespace Thriot.Management.WebApi.Auth
 {
     public class WebAuthenticationContext : IAuthenticationContext
     {
-        private HttpContext _httpContext;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public WebAuthenticationContext(HttpContext httpContext)
+        public WebAuthenticationContext(IHttpContextAccessor httpContextAccessor)
         {
-            _httpContext = httpContext;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public void SetContextUser(string userId)
         {
             var principal = BuildContextUserPrincipal(userId);
-            _httpContext.User = principal;
-            _httpContext.Response.SignIn("Cookie", principal);
+            var httpContext = _httpContextAccessor.HttpContext;
+            
+            httpContext.User = principal;
+            httpContext.Response.SignIn(Microsoft.AspNet.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme, principal);
         }
 
         public void RemoveContextUser()
         {
-            _httpContext.Response.SignOut();
+            var httpContext = _httpContextAccessor.HttpContext;
+            httpContext.Response.SignOut();
         }
 
         public string GetContextUser()
         {
-            var claimsPrincipal = _httpContext.User;
+            var httpContext = _httpContextAccessor.HttpContext;
+            var claimsPrincipal = httpContext.User;
             if (claimsPrincipal == null || claimsPrincipal.Identities == null)
                 return null;
 

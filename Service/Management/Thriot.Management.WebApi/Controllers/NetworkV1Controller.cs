@@ -27,13 +27,13 @@ namespace Thriot.Management.WebApi.Controllers
         }
 
         [HttpPost]
-        public string CreateNetwork(NetworkDto networkDto) // POST: api/v1/networks
+        public string CreateNetwork([FromBody]NetworkDto networkDto) // POST: api/v1/networks
         {
             return _networkService.Create(networkDto);
         }
 
         [HttpPut]
-        public void UpdateNetwork(NetworkDto networkDto) // PUT: api/v1/networks
+        public void UpdateNetwork([FromBody]NetworkDto networkDto) // PUT: api/v1/networks
         {
             _networkService.Update(networkDto);
         }

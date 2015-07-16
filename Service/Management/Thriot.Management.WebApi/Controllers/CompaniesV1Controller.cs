@@ -37,13 +37,13 @@ namespace Thriot.Management.WebApi.Controllers
         }
 
         [HttpPost]
-        public string Create(CompanyDto companyDto) // POST: api/v1/companies
+        public string Create([FromBody]CompanyDto companyDto) // POST: api/v1/companies
         {
             return _companyService.Create(companyDto.Name);
         }
 
         [HttpPut]
-        public void Update(CompanyDto companyDto) // PUT: api/v1/companies
+        public void Update([FromBody]CompanyDto companyDto) // PUT: api/v1/companies
         {
             _companyService.Update(companyDto);
         }
@@ -74,7 +74,7 @@ namespace Thriot.Management.WebApi.Controllers
         }
 
         [HttpPost("adduser")]
-        public void AddUser(CompanyUserDto companyUserDto) // POST: api/v1/companies/adduser
+        public void AddUser([FromBody]CompanyUserDto companyUserDto) // POST: api/v1/companies/adduser
         {
             _companyService.AddUser(companyUserDto);
         }

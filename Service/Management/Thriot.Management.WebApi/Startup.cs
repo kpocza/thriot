@@ -3,10 +3,8 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Framework.ConfigurationModel;
 using Microsoft.Framework.DependencyInjection;
-using System.Collections.Generic;
 using Thriot.Framework.Mvc.ApiExceptions;
 using Thriot.Framework.Mvc.Logging;
-using System.Linq;
 
 namespace Thriot.Management.WebApiA5
 {
@@ -38,6 +36,13 @@ namespace Thriot.Management.WebApiA5
                 options.Filters.Add(new ApiExceptionFilterAttribute());
             });
 
+            services.AddTransient<Services.UserService>();
+            services.AddTransient<Services.CompanyService>();
+            services.AddTransient<Services.ServiceService>();
+            services.AddTransient<Services.NetworkService>();
+            services.AddTransient<Services.DeviceService>();
+            services.AddTransient<Services.InfoService>();
+            services.AddTransient<Services.TelemetryMetadataService>();
             services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.Mvc.ConnectionParametersResolver>();
             services.AddScoped<Services.IAuthenticationContext, WebApi.Auth.WebAuthenticationContext>();
             services.AddSingleton<Services.ISettingProvider, Services.SettingProvider>();
@@ -70,8 +75,6 @@ namespace Thriot.Management.WebApiA5
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseMvc();
-            
             app.UseCors(Microsoft.AspNet.Cors.Core.CorsConstants.AccessControlAllowOrigin);
 
             app.UseCookieAuthentication(options => 
@@ -81,6 +84,8 @@ namespace Thriot.Management.WebApiA5
                 options.SlidingExpiration = true;
                 options.CookieName = "ThriotMgmtAuth";
             });
+
+            app.UseMvc();
         }
 
         private Framework.Mails.MailTemplate GetTemplate(string name)
@@ -91,11 +96,9 @@ namespace Thriot.Management.WebApiA5
         private string LoadContent(string name, string extension)
         {
             var mailTemplatesPath = System.IO.Path.Combine(_env.WebRootPath, "MailTemplates");
-
             var pathToRead = System.IO.Path.Combine(mailTemplatesPath, name + "." + extension);
             
             return System.IO.File.ReadAllText(pathToRead);
         }
-
     }
 }

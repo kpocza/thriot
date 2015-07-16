@@ -26,13 +26,13 @@ namespace Thriot.Management.WebApi.Controllers
         }
 
         [HttpPost]
-        public string CreateDevice(DeviceDto deviceDto) // POST: api/v1/devices
+        public string CreateDevice([FromBody]DeviceDto deviceDto) // POST: api/v1/devices
         {
             return _deviceService.Create(deviceDto);
         }
 
         [HttpPut]
-        public void UpdateDevice(DeviceDto deviceDto) // PUT: api/v1/devices
+        public void UpdateDevice([FromBody]DeviceDto deviceDto) // PUT: api/v1/devices
         {
             _deviceService.Update(deviceDto);
         }
