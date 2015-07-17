@@ -27,9 +27,9 @@ namespace Thriot.Management.WebApi.Controllers
         }
 
         [HttpPost]
-        public string CreateService([FromBody]ServiceDto serviceDto) // POST: api/v1/services
+        public IActionResult CreateService([FromBody]ServiceDto serviceDto) // POST: api/v1/services
         {
-            return _serviceService.Create(serviceDto);
+            return Json(_serviceService.Create(serviceDto));
         }
 
         [HttpPut]

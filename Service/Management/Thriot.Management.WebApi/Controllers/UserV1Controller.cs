@@ -97,9 +97,10 @@ namespace Thriot.Management.WebApi.Controllers
 
         [HttpGet("byemail/{email}/")]
         [WebApiAuthorize]
-        public UserDto FindUser([FromQuery]string email) // GET: api/v1/users/email/urlencode(user@domain.com)
+        public UserDto FindUser(string email) // GET: api/v1/users/byemail/urlencode(user@domain.com)
         {
             // Quick and dirty workaround for mono
+            // TODO: check later on kestrel whether it's still needed
             if (Thriot.Framework.Environment.IsMono())
             {
                 email = Uri.UnescapeDataString(email);

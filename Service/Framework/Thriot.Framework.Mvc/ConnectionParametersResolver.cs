@@ -1,11 +1,11 @@
-using Microsoft.Framework.ConfigurationModel;
+using Microsoft.Framework.Configuration;
 using Thriot.Framework.DataAccess;
 
 namespace Thriot.Framework.Mvc
 {
     public class ConnectionParametersResolver : IConnectionParametersResolver
     {
-        private IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
 
         public ConnectionParametersResolver(IConfiguration configuration)
         {

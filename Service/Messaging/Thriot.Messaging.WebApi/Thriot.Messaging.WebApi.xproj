@@ -6,19 +6,21 @@
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
-    <ProjectGuid>2eba9a43-ea8f-443c-99c2-44fdacf37585</ProjectGuid>
-    <RootNamespace>Thriot.Framework.Mvc</RootNamespace>
+    <ProjectGuid>5691550c-d317-489a-8fb9-c4e3871f98bd</ProjectGuid>
+    <RootNamespace>Thriot.Messaging.WebApi</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">..\..\artifacts\obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
     <OutputPath Condition="'$(OutputPath)'=='' ">..\..\artifacts\bin\$(MSBuildProjectName)\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <AssemblyName>Thriot.Framework.Mvc</AssemblyName>
+    <AssemblyName>Thriot.Messaging.WebApi</AssemblyName>
   </PropertyGroup>
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
+    <DevelopmentServerPort>8003</DevelopmentServerPort>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Thriot.Framework\Thriot.Framework.csproj" />
+    <ProjectReference Include="..\Thriot.Messaging.Dto\Thriot.Messaging.Dto.csproj" />
+    <ProjectReference Include="..\Thriot.Messaging.Services\Thriot.Messaging.Services.csproj" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.targets" Condition="'$(VSToolsPath)' != ''" />
 </Project>

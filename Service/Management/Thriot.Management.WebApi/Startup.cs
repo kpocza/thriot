@@ -1,34 +1,46 @@
 ﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Mvc;
-using Microsoft.Framework.ConfigurationModel;
+using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
+using Microsoft.Framework.Runtime;
+using System.Net;
 using Thriot.Framework.Mvc.ApiExceptions;
 using Thriot.Framework.Mvc.Logging;
+using Thriot.Management.Model.Exceptions;
 
 namespace Thriot.Management.WebApiA5
 {
     public class Startup
     {
-        private IHostingEnvironment _env;
+        private readonly IHostingEnvironment _env;
+        private readonly IApplicationEnvironment _appEnv;
 
-        public Startup(IHostingEnvironment env)
+        public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
         {
             _env = env;
+            _appEnv = appEnv;
+
             Services.DtoMapper.Setup();
             Framework.Mails.MailTemplateStore.Instance.Add(GetTemplate("Activation"));
             Framework.Mails.MailTemplateStore.Instance.Add(GetTemplate("ResetPassword"));
 
-            System.Net.ServicePointManager.DefaultConnectionLimit = 100;
-            System.Net.ServicePointManager.Expect100Continue = false;
-            System.Net.ServicePointManager.UseNagleAlgorithm = false;
+            ServicePointManager.DefaultConnectionLimit = 100;
+            ServicePointManager.Expect100Continue = false;
+            ServicePointManager.UseNagleAlgorithm = false;
+
+            ApiExceptionRegistry.AddItem(typeof(ActivationRequiredException), HttpStatusCode.Forbidden);
+            ApiExceptionRegistry.AddItem(typeof(ActivationException), HttpStatusCode.Forbidden);
+            ApiExceptionRegistry.AddItem(typeof(ConfirmationException), HttpStatusCode.Forbidden);
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var configuration = new Configuration();
-            configuration.AddJsonFile("services.json");
-            configuration.AddJsonFile("connectionstring.json");
+            var configurationBuilder = new ConfigurationBuilder(_appEnv.ApplicationBasePath);
+            configurationBuilder.AddJsonFile("services.json");
+            configurationBuilder.AddJsonFile("connectionstring.json");
+            
+            var configuration = configurationBuilder.Build();
 
             services.AddMvc().Configure<MvcOptions>(options =>
             {
@@ -53,8 +65,7 @@ namespace Thriot.Management.WebApiA5
 
             services.AddSingleton<ServiceClient.TelemetrySetup.ITelemetryDataSinkSetupService, ServiceClient.TelemetrySetup.TelemetryDataSinkSetupService>();
             services.AddSingleton<ServiceClient.Messaging.IMessagingService, ServiceClient.Messaging.MessagingService>();
-
-            foreach(var extraService in configuration.GetSubKeys("Services"))
+            foreach(var extraService in configuration.GetConfigurationSection("Services").GetConfigurationSections())
             {
                 var intf = extraService.Key;
                 var impl = configuration.Get("Services:" + intf);
@@ -83,6 +94,7 @@ namespace Thriot.Management.WebApiA5
                 options.ExpireTimeSpan = System.TimeSpan.FromMinutes(60);
                 options.SlidingExpiration = true;
                 options.CookieName = "ThriotMgmtAuth";
+                options.AutomaticAuthentication = true;
             });
 
             app.UseMvc();

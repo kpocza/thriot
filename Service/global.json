@@ -3,9 +3,10 @@
         "Web",
         "Management",
         "Framework",
-        "wrap"
+        "wrap",
+        "Messaging"
     ],
     "sdk": {
-        "version": "1.0.0-beta4"
+        "version": "1.0.0-beta6-12250"
     }
 }

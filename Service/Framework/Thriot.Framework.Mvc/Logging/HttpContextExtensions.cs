@@ -1,5 +1,6 @@
 
 using Microsoft.AspNet.Http;
+using Microsoft.AspNet.Http.Features;
 
 namespace Thriot.Framework.Mvc.Logging
 {

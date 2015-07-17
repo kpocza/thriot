@@ -26,9 +26,9 @@ namespace Thriot.Management.WebApi.Controllers
         }
 
         [HttpPost]
-        public string CreateDevice([FromBody]DeviceDto deviceDto) // POST: api/v1/devices
+        public IActionResult CreateDevice([FromBody]DeviceDto deviceDto) // POST: api/v1/devices
         {
-            return _deviceService.Create(deviceDto);
+            return Json(_deviceService.Create(deviceDto));
         }
 
         [HttpPut]

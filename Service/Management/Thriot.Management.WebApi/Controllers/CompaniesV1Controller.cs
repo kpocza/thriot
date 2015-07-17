@@ -37,9 +37,9 @@ namespace Thriot.Management.WebApi.Controllers
         }
 
         [HttpPost]
-        public string Create([FromBody]CompanyDto companyDto) // POST: api/v1/companies
+        public IActionResult Create([FromBody]CompanyDto companyDto) // POST: api/v1/companies
         {
-            return _companyService.Create(companyDto.Name);
+            return Json(_companyService.Create(companyDto.Name));
         }
 
         [HttpPut]

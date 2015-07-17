@@ -7,7 +7,6 @@ namespace Thriot.Framework.Mvc.ApiExceptions
         public override void OnException(ExceptionContext exceptionContext)
         {
             var httpStatusCode = ApiExceptionRegistry.GetHttpStatusCode(exceptionContext.Exception.GetType());
-
             var response = new ContentResult
             {
                 Content = exceptionContext.Exception.Message,
