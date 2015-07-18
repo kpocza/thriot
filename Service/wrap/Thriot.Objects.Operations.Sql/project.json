@@ -1,0 +1,20 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net45": {
+      "wrappedProject": "../../Objects/Thriot.Objects.Operations.Sql/Thriot.Objects.Operations.Sql.csproj",
+      "bin": {
+        "assembly": "../../Objects/Thriot.Objects.Operations.Sql/obj/{configuration}/Thriot.Objects.Operations.Sql.dll",
+        "pdb": "../../Objects/Thriot.Objects.Operations.Sql/obj/{configuration}/Thriot.Objects.Operations.Sql.pdb"
+      },
+      "dependencies": {
+        "EntityFramework": "6.1.3",
+        "Npgsql": "2.2.5",
+        "Npgsql.EntityFramework": "2.2.5",
+        "Thriot.Framework.Sql": "1.0.0-*",
+        "Thriot.Framework": "1.0.0-*",
+        "Thriot.Objects.Model": "1.0.0-*"
+      }
+    }
+  }
+}

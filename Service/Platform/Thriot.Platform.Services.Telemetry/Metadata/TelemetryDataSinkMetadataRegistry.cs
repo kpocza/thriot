@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using Thriot.Platform.Services.Telemetry.Configuration;
 using Thriot.Plugins.Core;
@@ -15,12 +14,12 @@ namespace Thriot.Platform.Services.Telemetry.Metadata
         }
 
         private IEnumerable<TelemetryDataSinkMetadata> RecognizeTelemetryDataSinkMetadatas<TIncomingTelemetryDataSinks>(
-            TelemetryDataSinkCollection elements)
+            IEnumerable<TelemetryDataSinkElement> elements)
             where TIncomingTelemetryDataSinks : ITelemetryDataSink
         {
             var telemetryDataSinkMetadatas = new List<TelemetryDataSinkMetadata>();
 
-            foreach (TelemetryDataSinkElement telemetryDataSinkElement in elements)
+            foreach (var telemetryDataSinkElement in elements)
             {
                 if(telemetryDataSinkMetadatas.Any(sink => sink.Name == telemetryDataSinkElement.Name.ToLowerInvariant()))
                     throw new InvalidOperationException("Ambigous sink name: " + telemetryDataSinkElement.Name);
@@ -32,9 +31,12 @@ namespace Thriot.Platform.Services.Telemetry.Metadata
                 var telemetryDataSinkInstance = (TIncomingTelemetryDataSinks) Activator.CreateInstance(type);
 
                 var parameterPresets = new Dictionary<string, string>();
-                foreach (KeyValueConfigurationElement parameterPresetConfigurationElement in telemetryDataSinkElement.ParameterPresets)
+                if (telemetryDataSinkElement.ParameterPresets != null)
                 {
-                    parameterPresets[parameterPresetConfigurationElement.Key] = parameterPresetConfigurationElement.Value;
+                    foreach (var parameterPresetConfigurationElement in telemetryDataSinkElement.ParameterPresets)
+                    {
+                        parameterPresets[parameterPresetConfigurationElement.Key] = parameterPresetConfigurationElement.Value;
+                    }
                 }
 
                 var parameterInputs = telemetryDataSinkInstance.ParametersNames.ToList();

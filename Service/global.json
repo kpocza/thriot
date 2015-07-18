@@ -4,7 +4,9 @@
         "Management",
         "Framework",
         "wrap",
-        "Messaging"
+        "Messaging",
+        "Platform",
+        "Reporting"
     ],
     "sdk": {
         "version": "1.0.0-beta6-12250"

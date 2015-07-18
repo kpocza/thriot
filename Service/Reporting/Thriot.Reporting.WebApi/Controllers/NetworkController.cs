@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Net.Http;
-using System.Web.Http;
+﻿using Microsoft.AspNet.Mvc;
+using System.Collections.Generic;
 using Thriot.Framework;
 using Thriot.Framework.Logging;
 using Thriot.Reporting.Dto;
@@ -10,9 +9,9 @@ using Thriot.Reporting.WebApi.Formatters;
 
 namespace Thriot.Reporting.WebApi.Controllers
 {
-    [RoutePrefix("v1/networks")]
-    [WebApiNetworkAuthenticator]
-    public class NetworkController : ApiController, ILoggerOwner
+    [Route("v1/networks")]
+    [WebApiNetworkAuthorization]
+    public class NetworkController : Controller, ILoggerOwner
     {
         private readonly NetworkReportingService _reportingService;
         private readonly NetworkAuthenticationContext _networkAuthenticationContext;
@@ -23,29 +22,26 @@ namespace Thriot.Reporting.WebApi.Controllers
             _networkAuthenticationContext = networkAuthenticationContext;
         }
 
-        [Route("sinks")]
-        [HttpGet]
+        [HttpGet("sinks")]
         public IEnumerable<SinkInfoDto> GetSinks()
         {
-            var networkId = _networkAuthenticationContext.GetContextNetwork(this.Request);
+            var networkId = _networkAuthenticationContext.GetContextNetwork(this.Context);
 
             return _reportingService.GetSinks(networkId);
         }
 
-        [Route("json/{sinkName}")]
-        [HttpGet]
+        [HttpGet("json/{sinkName}")]
         public CurrentDataReportDto GetCurrentDataJson(string sinkName)
         {
-            var networkId = _networkAuthenticationContext.GetContextNetwork(this.Request);
+            var networkId = _networkAuthenticationContext.GetContextNetwork(this.Context);
 
             return _reportingService.CurrentDataStructuredReport(new SinkAndNetworkDto { NetworkId = networkId, SinkName = sinkName });
         }
 
-        [Route("json/{sinkName}/{timestamp:long}")]
-        [HttpGet]
+        [HttpGet("json/{sinkName}/{timestamp:long}")]
         public TimeSeriesReportDto GetTimeSeriesReportJson(string sinkName, long timestamp)
         {
-            var networkId = _networkAuthenticationContext.GetContextNetwork(this.Request);
+            var networkId = _networkAuthenticationContext.GetContextNetwork(this.Context);
 
             return
                 _reportingService.TimeSeriesStructuredReport(
@@ -53,21 +49,19 @@ namespace Thriot.Reporting.WebApi.Controllers
                     DateTimeExtensions.FromUnixTime(timestamp));
         }
 
-        [Route("csv/{sinkName}")]
-        [HttpGet]
-        public HttpResponseMessage GetCurrentDataCsv(string sinkName)
+        [HttpGet("csv/{sinkName}")]
+        public IActionResult GetCurrentDataCsv(string sinkName)
         {
-            var networkId = _networkAuthenticationContext.GetContextNetwork(this.Request);
+            var networkId = _networkAuthenticationContext.GetContextNetwork(this.Context);
             var data = _reportingService.CurrentDataFlatReport(new SinkAndNetworkDto { NetworkId = networkId, SinkName = sinkName });
 
             return CsvFormatter.ToHttpResponseMessage(data);
         }
 
-        [Route("csv/{sinkName}/{timestamp:long}")]
-        [HttpGet]
-        public HttpResponseMessage GetTimeSeriesReportCsv(string sinkName, long timestamp)
+        [HttpGet("csv/{sinkName}/{timestamp:long}")]
+        public IActionResult GetTimeSeriesReportCsv(string sinkName, long timestamp)
         {
-            var networkId = _networkAuthenticationContext.GetContextNetwork(this.Request);
+            var networkId = _networkAuthenticationContext.GetContextNetwork(this.Context);
 
             var data = _reportingService.TimeSeriesFlatReport(
                     new SinkAndNetworkDto { NetworkId = networkId, SinkName = sinkName },
@@ -85,7 +79,7 @@ namespace Thriot.Reporting.WebApi.Controllers
 
         public string UserDefinedLogValue
         {
-            get { return _networkAuthenticationContext.GetContextNetwork(this.Request); }
+            get { return _networkAuthenticationContext.GetContextNetwork(this.Context); }
         }
     }
 }

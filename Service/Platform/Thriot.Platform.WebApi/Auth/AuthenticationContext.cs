@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Net.Http;
+﻿using Microsoft.AspNet.Http;
+using System.Collections.Generic;
 using System.Security.Claims;
 
 namespace Thriot.Platform.WebApi.Auth
 {
     public class AuthenticationContext
     {
-        public void RegisterContextDevice(HttpRequestMessage request, string deviceId)
+        public void RegisterContextDevice(HttpContext context, string deviceId)
         {
             var claims = new List<Claim>()
             {
@@ -15,13 +15,11 @@ namespace Thriot.Platform.WebApi.Auth
             var id = new ClaimsIdentity(claims, "Device");
             var principal = new ClaimsPrincipal(new[] { id });
             
-            request.GetOwinContext().Request.User = principal;
+            context.User = principal;
         }
 
-        public string GetContextDevice(HttpRequestMessage request)
+        public string GetContextDevice(ClaimsPrincipal claimsPrincipal)
         {
-            var claimsPrincipal = (request.GetOwinContext().Request.User as ClaimsPrincipal);
-
             if (claimsPrincipal == null || claimsPrincipal.Identity == null)
                 return null;
 

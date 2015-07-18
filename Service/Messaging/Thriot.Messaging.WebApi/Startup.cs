@@ -3,6 +3,7 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
+using Microsoft.Framework.Runtime;
 using Thriot.Framework.Mvc.ApiExceptions;
 using Thriot.Framework.Mvc.Logging;
 
@@ -10,15 +11,20 @@ namespace Thriot.Messaging.WebApi
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        private readonly IApplicationEnvironment _appEnv;
+
+        public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
         {
+            _appEnv = appEnv;
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var configurationBuilder = new ConfigurationBuilder();
+            var configurationBuilder = new ConfigurationBuilder(_appEnv.ApplicationBasePath);
             configurationBuilder.AddJsonFile("services.json");
             configurationBuilder.AddJsonFile("connectionstring.json");
+
+            var configuration = configurationBuilder.Build();
 
             services.AddMvc().Configure<MvcOptions>(options =>
             {
@@ -28,7 +34,14 @@ namespace Thriot.Messaging.WebApi
 
             services.AddSingleton<Services.Caching.IMessageCache, Services.Caching.MessageCache>();
             services.AddSingleton<Services.Storage.IConnectionStringResolver, ConnectionStringResolver>();
-            services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.DataAccess.LocalConnectionParametersResolver>();
+            services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.Mvc.ConnectionParametersResolver>();
+            services.AddTransient<Services.MessagingService>();
+            services.AddSingleton<IConfiguration>(_ => configuration);
+
+            foreach (var extraService in Framework.Mvc.ServicesResolver.Resolve(configuration, "Services"))
+            {
+                services.AddTransient(extraService.Key, extraService.Value);
+            }
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

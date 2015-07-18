@@ -19,6 +19,8 @@
     <DevelopmentServerPort>8003</DevelopmentServerPort>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Objects\Thriot.Objects.Operations.Azure\Thriot.Objects.Operations.Azure.csproj" />
+    <ProjectReference Include="..\..\Objects\Thriot.Objects.Operations.Sql\Thriot.Objects.Operations.Sql.csproj" />
     <ProjectReference Include="..\Thriot.Messaging.Dto\Thriot.Messaging.Dto.csproj" />
     <ProjectReference Include="..\Thriot.Messaging.Services\Thriot.Messaging.Services.csproj" />
   </ItemGroup>

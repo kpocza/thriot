@@ -1,4 +1,4 @@
-﻿using System.Configuration;
+﻿using System.Linq;
 using SuperSocket.SocketBase.Config;
 using Thriot.Framework;
 using Thriot.Objects.Model;
@@ -96,22 +96,23 @@ namespace Thriot.Platform.WebsocketService
                 (TelemetryDataSinkMetadataRegistry) SingleContainer.Instance.Resolve<ITelemetryDataSinkMetadataRegistry>();
             var telemetryDataSinksMetadata = telemetryDataSinkSetupService.GetTelemetryDataSinksMetadata();
 
-            var telemeryDataSection = new TelemetryDataSection {Incoming = new TelemetryDataSinkCollection()};
-            foreach (var inc in telemetryDataSinksMetadata.Incoming)
+            var telemeryDataSection = new TelemetryDataSection
             {
-                var telemetryDataSinkElement = new TelemetryDataSinkElement
+                Incoming = telemetryDataSinksMetadata.Incoming.Select(inc =>
+                new TelemetryDataSinkElement
                 {
                     Name = inc.Name,
                     Type = inc.TypeName,
                     Description = inc.Description,
-                    ParameterPresets = new KeyValueConfigurationCollection()
-                };
-                foreach (var pp in inc.ParametersPresets)
-                {
-                    telemetryDataSinkElement.ParameterPresets.Add(pp.Key, pp.Value);
-                }
-                telemeryDataSection.Incoming.Add(telemetryDataSinkElement);
-            }
+                    ParameterPresets = inc.ParametersPresets!= null ? inc.ParametersPresets.Select(pp =>
+                    new TelemetrySinkParameter
+                    {
+                        Key = pp.Key,
+                        Value = pp.Value
+                    }).ToArray() : null
+                }).ToArray()
+            };
+
             telemetryDataSinkMetadataRegistry.Build(telemeryDataSection);
         }
 

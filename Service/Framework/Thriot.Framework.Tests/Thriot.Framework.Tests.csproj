@@ -72,10 +72,6 @@
       <Project>{3c41112f-9499-4b28-acca-c1a53e1feb41}</Project>
       <Name>Thriot.Framework.Mails</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Thriot.Framework.Web\Thriot.Framework.Web.csproj">
-      <Project>{f18d54a4-364b-430c-9612-d1cd3644d4b4}</Project>
-      <Name>Thriot.Framework.Web</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Thriot.Framework\Thriot.Framework.csproj">
       <Project>{72721CBB-098D-499B-B037-1CCEACBC4524}</Project>
       <Name>Thriot.Framework</Name>

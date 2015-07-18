@@ -58,8 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\TelemetryDataSection.cs" />
-    <Compile Include="Configuration\TelemetryDataSinkCollection.cs" />
     <Compile Include="Configuration\TelemetryDataSinkElement.cs" />
+    <Compile Include="Configuration\TelemetrySinkParameter.cs" />
     <Compile Include="DtoMapper.cs" />
     <Compile Include="Dtos\TelemetryDataSinkMetadataDto.cs" />
     <Compile Include="Dtos\TelemetryDataSinkParametersRemoteDto.cs" />

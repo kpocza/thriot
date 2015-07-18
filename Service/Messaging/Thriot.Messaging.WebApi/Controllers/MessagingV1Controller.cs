@@ -2,12 +2,12 @@
 using Thriot.Framework.Logging;
 using Thriot.Messaging.Dto;
 using Thriot.Messaging.Services;
-//using Thriot.Messaging.WebApi.Auth;
+using Thriot.Messaging.WebApi.Auth;
 
 namespace Thriot.Messaging.WebApi.Controllers
 {
     [Route("v1/messaging")]
-  //  [MessagingWebApiAuthenticator]
+    [MessagingWebApiAuthorization]
     public class MessagingV1Controller : Controller, ILoggerOwner
     {
         private readonly MessagingService _messagingService;
@@ -24,25 +24,25 @@ namespace Thriot.Messaging.WebApi.Controllers
         }
 
         [HttpPost("enqueue")]
-        public DeviceListDto Enqueue(EnqueueMessagesDto enqueueMessages)
+        public DeviceListDto Enqueue([FromBody]EnqueueMessagesDto enqueueMessages)
         {
             return _messagingService.Enqueue(enqueueMessages);
         }
 
         [HttpPost("dequeue")]
-        public DequeueMessagesDto Dequeue(DeviceListDto deviceList)
+        public DequeueMessagesDto Dequeue([FromBody]DeviceListDto deviceList)
         {
             return _messagingService.Dequeue(deviceList);
         }
 
         [HttpPost("peek")]
-        public DequeueMessagesDto Peek(DeviceListDto deviceList)
+        public DequeueMessagesDto Peek([FromBody]DeviceListDto deviceList)
         {
             return _messagingService.Peek(deviceList);
         }
 
         [HttpPost("commit")]
-        public DeviceListDto Commit(DeviceListDto deviceList)
+        public DeviceListDto Commit([FromBody]DeviceListDto deviceList)
         {
             return _messagingService.Commit(deviceList);
         }

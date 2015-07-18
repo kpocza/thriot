@@ -13,12 +13,10 @@ namespace Thriot.Management.WebApiA5
 {
     public class Startup
     {
-        private readonly IHostingEnvironment _env;
         private readonly IApplicationEnvironment _appEnv;
 
         public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
         {
-            _env = env;
             _appEnv = appEnv;
 
             Services.DtoMapper.Setup();
@@ -61,19 +59,20 @@ namespace Thriot.Management.WebApiA5
             services.AddTransient<Services.ICapabilityProvider, Services.CapabilityProvider>();
             services.AddTransient<Services.IEnvironmentPrebuilder, Services.EnvironmentPrebuilder>();
             services.AddTransient<Services.IMailer, WebApi.WebFunctions.Mailer>();
-            services.AddSingleton<IConfiguration>(_ => configuration);
+            services.AddSingleton(_ => configuration);
 
             services.AddSingleton<ServiceClient.TelemetrySetup.ITelemetryDataSinkSetupService, ServiceClient.TelemetrySetup.TelemetryDataSinkSetupService>();
             services.AddSingleton<ServiceClient.Messaging.IMessagingService, ServiceClient.Messaging.MessagingService>();
-            foreach(var extraService in configuration.GetConfigurationSection("Services").GetConfigurationSections())
+
+            foreach(var extraService in Framework.Mvc.ServicesResolver.Resolve(configuration, "Services"))
             {
-                var intf = extraService.Key;
-                var impl = configuration.Get("Services:" + intf);
-
-                services.AddTransient(System.Type.GetType(intf), System.Type.GetType(impl));
+                services.AddTransient(extraService.Key, extraService.Value);
             }
+        }
 
-            var serviceProvider = services.BuildServiceProvider();
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            var serviceProvider = app.ApplicationServices;
 
             var messagingService = serviceProvider.GetService<ServiceClient.Messaging.IMessagingService>();
             var telemetryDataSinkSetupService = serviceProvider.GetService<ServiceClient.TelemetrySetup.ITelemetryDataSinkSetupService>();
@@ -82,10 +81,7 @@ namespace Thriot.Management.WebApiA5
 
             messagingService.Setup(settingProvider.MessagingServiceEndpoint, settingProvider.MessagingServiceApiKey);
             telemetryDataSinkSetupService.Setup(settingProvider.TelemetrySetupServiceEndpoint, settingProvider.TelemetrySetupServiceApiKey);
-        }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
             app.UseCors(Microsoft.AspNet.Cors.Core.CorsConstants.AccessControlAllowOrigin);
 
             app.UseCookieAuthentication(options => 
@@ -107,7 +103,7 @@ namespace Thriot.Management.WebApiA5
 
         private string LoadContent(string name, string extension)
         {
-            var mailTemplatesPath = System.IO.Path.Combine(_env.WebRootPath, "MailTemplates");
+            var mailTemplatesPath = System.IO.Path.Combine(_appEnv.ApplicationBasePath, "MailTemplates");
             var pathToRead = System.IO.Path.Combine(mailTemplatesPath, name + "." + extension);
             
             return System.IO.File.ReadAllText(pathToRead);

@@ -18,29 +18,27 @@ namespace Thriot.Platform.Services.Telemetry.Tests
         {
             var telemetryDataSinksSection = new TelemetryDataSection
             {
-                Incoming = new TelemetryDataSinkCollection
+                Incoming = new TelemetryDataSinkElement[]
                 {
                     new TelemetryDataSinkElement
                     {
                         Name = "data1",
                         Type = typeof(IncomingData).AssemblyQualifiedName,
                         Description = "d1",
-                        ParameterPresets =
-                            new KeyValueConfigurationCollection()
-                            {
-                                new KeyValueConfigurationElement("ConnectionString", "v1")
-                            }
+                        ParameterPresets = new TelemetrySinkParameter[]
+                        {
+                            new TelemetrySinkParameter { Key = "ConnectionString", Value = "v1" }
+                        }
                     },
                     new TelemetryDataSinkElement
                     {
                         Name = "data2",
                         Type = typeof(IncomingData2).AssemblyQualifiedName,
                         Description = "d2",
-                        ParameterPresets =
-                            new KeyValueConfigurationCollection()
-                            {
-                                new KeyValueConfigurationElement("ConnectionName", "v2")
-                            }
+                        ParameterPresets = new TelemetrySinkParameter[]
+                        {
+                            new TelemetrySinkParameter {Key = "ConnectionName", Value = "v2" }
+                        }
                     },
                     new TelemetryDataSinkElement
                     {
@@ -81,9 +79,13 @@ namespace Thriot.Platform.Services.Telemetry.Tests
         {
             var telemetryDataSinksSection = new TelemetryDataSection
             {
-                Incoming = new TelemetryDataSinkCollection
+                Incoming = new TelemetryDataSinkElement[]
                 {
-                    new TelemetryDataSinkElement {Name = "data1", Type = "IoT.Plaform.Services.Tests.IncomingData2341234, IoT.Plaform.Services.Tests"},
+                    new TelemetryDataSinkElement
+                    {
+                        Name = "data1",
+                        Type = "IoT.Plaform.Services.Tests.IncomingData2341234, IoT.Plaform.Services.Tests"
+                    }
                 }
             };
 
@@ -93,11 +95,12 @@ namespace Thriot.Platform.Services.Telemetry.Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void SamekeyTest()
         {
             var telemetryDataSinksSection = new TelemetryDataSection
             {
-                Incoming = new TelemetryDataSinkCollection
+                Incoming = new TelemetryDataSinkElement[]
                 {
                     new TelemetryDataSinkElement {Name = "data", Type = typeof(IncomingData).AssemblyQualifiedName},
                     new TelemetryDataSinkElement {Name = "data", Type = typeof(IncomingData).AssemblyQualifiedName}
@@ -107,8 +110,6 @@ namespace Thriot.Platform.Services.Telemetry.Tests
             var registry = new TelemetryDataSinkMetadataRegistry();
 
             registry.Build(telemetryDataSinksSection);
-
-            Assert.AreEqual(1, registry.Incoming.Count());
         }
     }
 

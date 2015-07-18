@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net45": {
+      "wrappedProject": "../../Objects/Thriot.Objects.Common/Thriot.Objects.Common.csproj",
+      "bin": {
+        "assembly": "../../Objects/Thriot.Objects.Common/obj/{configuration}/Thriot.Objects.Common.dll",
+        "pdb": "../../Objects/Thriot.Objects.Common/obj/{configuration}/Thriot.Objects.Common.pdb"
+      },
+      "dependencies": {
+        "Thriot.Framework": "1.0.0-*",
+        "Thriot.Objects.Model": "1.0.0-*"
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-﻿using System.Web.Http;
+﻿using Microsoft.AspNet.Mvc;
 using Newtonsoft.Json.Linq;
 using Thriot.Framework.Logging;
 using Thriot.Platform.Services.Telemetry;
@@ -6,9 +6,9 @@ using Thriot.Platform.WebApi.Auth;
 
 namespace Thriot.Platform.WebApi.Controllers
 {
-    [RoutePrefix("v1/telemetry")]
-    [WebApiDeviceAuthenticator]
-    public class TelemetryV1Controller : ApiController, ILoggerOwner
+    [Route("v1/telemetry")]
+    [WebApiDeviceAuthorization]
+    public class TelemetryV1Controller : Controller, ILoggerOwner
     {
         private readonly TelemetryDataService _telemetryDataService;
         private readonly AuthenticationContext _authenticationContext;
@@ -19,10 +19,10 @@ namespace Thriot.Platform.WebApi.Controllers
             _authenticationContext = authenticationContext;
         }
 
-        [Route("")]
-        public void Post(JToken message) // POST: v1/telemetry
+        [HttpPost]
+        public void Post([FromBody]JToken message) // POST: v1/telemetry
         {
-            var deviceId = _authenticationContext.GetContextDevice(this.Request);
+            var deviceId = _authenticationContext.GetContextDevice(this.Context.User);
 
             _telemetryDataService.RecordTelemetryData(deviceId, message);
         }
@@ -36,7 +36,7 @@ namespace Thriot.Platform.WebApi.Controllers
 
         public string UserDefinedLogValue
         {
-            get { return _authenticationContext.GetContextDevice(this.Request); }
+            get { return _authenticationContext.GetContextDevice(this.Context.User); }
         }
     }
 }

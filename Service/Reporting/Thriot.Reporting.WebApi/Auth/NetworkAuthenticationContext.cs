@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Net.Http;
+﻿using Microsoft.AspNet.Http;
+using System.Collections.Generic;
 using System.Security.Claims;
 
 namespace Thriot.Reporting.WebApi.Auth
 {
     public class NetworkAuthenticationContext
     {
-        public void RegisterContextNetwork(HttpRequestMessage request, string networkId)
+        public void RegisterContextNetwork(HttpContext context, string networkId)
         {
             var claims = new List<Claim>()
             {
@@ -15,14 +15,12 @@ namespace Thriot.Reporting.WebApi.Auth
             var id = new ClaimsIdentity(claims, "Network");
             var principal = new ClaimsPrincipal(new[] { id });
 
-            request.GetOwinContext().Request.User = principal;
+            context.User = principal;
         }
 
-        public string GetContextNetwork(HttpRequestMessage request)
+        public string GetContextNetwork(HttpContext context)
         {
-            var claimsPrincipal = (request.GetOwinContext().Request.User as ClaimsPrincipal);
-
-            return claimsPrincipal.Identity.Name;
+            return context.User.Identity.Name;
         }
     }
 }

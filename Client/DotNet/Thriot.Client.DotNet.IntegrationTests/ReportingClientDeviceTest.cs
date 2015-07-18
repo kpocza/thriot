@@ -49,7 +49,7 @@ namespace Thriot.Client.DotNet.IntegrationTests
         public void CurrentDataSingleTest()
         {
             var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId, _deviceKey);
-            ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 123}");
+            ocassionalConnectionClient.RecordTelemetryData("{\"Fld\": 123}");
 
             var reportingClient = new ReportingClient(ReportingApi);
 
@@ -73,7 +73,7 @@ namespace Thriot.Client.DotNet.IntegrationTests
         public void CurrentDataAuthErrorTest()
         {
             var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId, _deviceKey);
-            ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 123}");
+            ocassionalConnectionClient.RecordTelemetryData("{\"Fld\": 123}");
 
             var reportingClient = new ReportingClient(ReportingApi);
             reportingClient.Device.SetDevice(_deviceId, "1234");
@@ -98,7 +98,7 @@ namespace Thriot.Client.DotNet.IntegrationTests
         public void TimeSeriesSingleTest()
         {
             var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId, _deviceKey);
-            ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 123}");
+            ocassionalConnectionClient.RecordTelemetryData("{\"Fld\": 123}");
 
             var reportingClient = new ReportingClient(ReportingApi);
 
@@ -123,9 +123,9 @@ namespace Thriot.Client.DotNet.IntegrationTests
         public void TimeSeriesMultiTest()
         {
             var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId, _deviceKey);
-            ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 123}");
+            ocassionalConnectionClient.RecordTelemetryData("{\"Fld\": 123}");
             Thread.Sleep(100);
-            ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 124}");
+            ocassionalConnectionClient.RecordTelemetryData("{\"Fld\": 124}");
 
             var reportingClient = new ReportingClient(ReportingApi);
 
@@ -154,7 +154,7 @@ namespace Thriot.Client.DotNet.IntegrationTests
         public void TimeSeriesAuthErrorTest()
         {
             var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId, _deviceKey);
-            ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 123}");
+            ocassionalConnectionClient.RecordTelemetryData("{\"Fld\": 123}");
 
             var reportingClient = new ReportingClient(ReportingApi);
             reportingClient.Device.SetDevice(_deviceId, "1234");
@@ -183,7 +183,7 @@ namespace Thriot.Client.DotNet.IntegrationTests
         public void CurrentDataSingleCsvTest()
         {
             var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId, _deviceKey);
-            ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 123}");
+            ocassionalConnectionClient.RecordTelemetryData("{\"Fld\": 123}");
 
             var reportingClient = new ReportingClient(ReportingApi);
 
@@ -202,7 +202,7 @@ namespace Thriot.Client.DotNet.IntegrationTests
         public void CurrentDataSingleCsvDataWithCommaTest()
         {
             var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId, _deviceKey);
-            ocassionalConnectionClient.RecordTelmetryData("{\"F,ld\": \"12,3\"}");
+            ocassionalConnectionClient.RecordTelemetryData("{\"F,ld\": \"12,3\"}");
 
             var reportingClient = new ReportingClient(ReportingApi);
 
@@ -221,9 +221,9 @@ namespace Thriot.Client.DotNet.IntegrationTests
         public void TimeSeriesMultiCsvTest()
         {
             var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId, _deviceKey);
-            ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 123, \"A\": 234}");
+            ocassionalConnectionClient.RecordTelemetryData("{\"Fld\": 123, \"A\": 234}");
             Thread.Sleep(100);
-            ocassionalConnectionClient.RecordTelmetryData("{\"Fld\": 124, \"B\": 456}");
+            ocassionalConnectionClient.RecordTelemetryData("{\"Fld\": 124, \"B\": 456}");
 
             var reportingClient = new ReportingClient(ReportingApi);
 
