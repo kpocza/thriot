@@ -21,7 +21,7 @@ namespace Thriot.Management.WebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public ServiceDto Get(string id) // GET: api/v1/services/5
+        public ServiceDto GetService(string id) // GET: api/v1/services/5
         {
             return _serviceService.Get(id);
         }

@@ -118,7 +118,7 @@ namespace Thriot.Management.WebApi.Controllers
 
         public string UserDefinedLogValue
         {
-            get { return null; }
+            get { return Context?.User?.Identity?.Name; }
         }
     }
 }

@@ -31,13 +31,13 @@ namespace Thriot.Management.WebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public CompanyDto Get(string id) // GET: api/v1/companies/5
+        public CompanyDto GetCompany(string id) // GET: api/v1/companies/5
         {
             return _companyService.Get(id);
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody]CompanyDto companyDto) // POST: api/v1/companies
+        public IActionResult CreateCompany([FromBody]CompanyDto companyDto) // POST: api/v1/companies
         {
             return Json(_companyService.Create(companyDto.Name));
         }

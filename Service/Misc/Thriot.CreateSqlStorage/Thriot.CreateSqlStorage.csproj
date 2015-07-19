@@ -37,9 +37,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevPgSql|AnyCPU'">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'PgSql|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\DevPgSql\</OutputPath>
+    <OutputPath>bin\PgSql\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -83,7 +83,7 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="App.DevPgSql.config">
+    <None Include="App.PgSql.config">
       <DependentUpon>App.config</DependentUpon>
       <SubType>Designer</SubType>
     </None>

@@ -21,7 +21,7 @@ namespace Thriot.Management.WebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public NetworkDto Get(string id) // GET: api/v1/networks/5
+        public NetworkDto GetNetwork(string id) // GET: api/v1/networks/5
         {
             return _networkService.Get(id);
         }
