@@ -34,11 +34,11 @@ namespace Thriot.Messaging.WebApi
 
             services.AddSingleton<Services.Caching.IMessageCache, Services.Caching.MessageCache>();
             services.AddSingleton<Services.Storage.IConnectionStringResolver, ConnectionStringResolver>();
-            services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.Mvc.ConnectionParametersResolver>();
+            services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.DataAccess.ConnectionParametersResolver>();
             services.AddTransient<Services.MessagingService>();
             services.AddSingleton<IConfiguration>(_ => configuration);
 
-            foreach (var extraService in Framework.Mvc.ServicesResolver.Resolve(configuration, "Services"))
+            foreach (var extraService in Framework.ServicesResolver.Resolve(configuration, "Services"))
             {
                 services.AddTransient(extraService.Key, extraService.Value);
             }

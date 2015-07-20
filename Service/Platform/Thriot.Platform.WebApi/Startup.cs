@@ -71,10 +71,10 @@ namespace Thriot.Platform.WebApi
             services.AddTransient<IMessagingOperations, MessagingOperations>();
             services.AddTransient<IDeviceAuthenticator, DeviceAuthenticator>();
             services.AddSingleton<Thriot.ServiceClient.Messaging.IMessagingService, Thriot.ServiceClient.Messaging.MessagingService>();
-            services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.Mvc.ConnectionParametersResolver>();
+            services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.DataAccess.ConnectionParametersResolver>();
             services.AddSingleton(_ => configuration);
-
-            foreach (var extraService in Framework.Mvc.ServicesResolver.Resolve(configuration, "Services"))
+            
+            foreach (var extraService in Framework.ServicesResolver.Resolve(configuration, "Services"))
             {
                 services.AddTransient(extraService.Key, extraService.Value);
             }

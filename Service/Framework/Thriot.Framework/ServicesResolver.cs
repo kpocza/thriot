@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Thriot.Framework.Mvc
+namespace Thriot.Framework
 {
     public static class ServicesResolver
     {
@@ -14,7 +14,7 @@ namespace Thriot.Framework.Mvc
                 var intf = extraService.Key;
                 var impl = configuration.Get($"{servicesKey}:{intf}");
 
-                dictionary.Add(System.Type.GetType(intf), System.Type.GetType(impl));
+                dictionary.Add(Type.GetType(intf), Type.GetType(impl));
             }
 
             return dictionary;

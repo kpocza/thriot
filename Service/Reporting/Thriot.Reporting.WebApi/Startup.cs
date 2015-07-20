@@ -47,14 +47,14 @@ namespace Thriot.Reporting.WebApi
             services.AddTransient<DeviceAuthenticationContext>();
             services.AddTransient<NetworkAuthenticationContext>();
             services.AddSingleton<ITelemetryDataSinkSetupService, TelemetryDataSinkSetupService>();
-            services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.Mvc.ConnectionParametersResolver>();
+            services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.DataAccess.ConnectionParametersResolver>();
             services.AddSingleton<Framework.DataAccess.IDynamicConnectionStringResolver, DynamicConnectionStringResolver>();
             services.AddTransient<ITelemetryDataSinkProcessor, TelemetryDataSinkProcessor>();
             services.AddTransient<IDeviceAuthenticator, Objects.Common.DeviceAuthenticator> ();
             services.AddTransient<INetworkAuthenticator, Objects.Common.NetworkAuthenticator> ();
             services.AddSingleton(_ => configuration);
 
-            foreach (var extraService in Framework.Mvc.ServicesResolver.Resolve(configuration, "Services"))
+            foreach (var extraService in Framework.ServicesResolver.Resolve(configuration, "Services"))
             {
                 services.AddTransient(extraService.Key, extraService.Value);
             }

@@ -53,7 +53,7 @@ namespace Thriot.Management.WebApiA5
             services.AddTransient<Services.DeviceService>();
             services.AddTransient<Services.InfoService>();
             services.AddTransient<Services.TelemetryMetadataService>();
-            services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.Mvc.ConnectionParametersResolver>();
+            services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.DataAccess.ConnectionParametersResolver>();
             services.AddScoped<Services.IAuthenticationContext, WebApi.Auth.WebAuthenticationContext>();
             services.AddSingleton<Services.ISettingProvider, Services.SettingProvider>();
             services.AddTransient<Services.ICapabilityProvider, Services.CapabilityProvider>();
@@ -64,7 +64,7 @@ namespace Thriot.Management.WebApiA5
             services.AddSingleton<ServiceClient.TelemetrySetup.ITelemetryDataSinkSetupService, ServiceClient.TelemetrySetup.TelemetryDataSinkSetupService>();
             services.AddSingleton<ServiceClient.Messaging.IMessagingService, ServiceClient.Messaging.MessagingService>();
 
-            foreach(var extraService in Framework.Mvc.ServicesResolver.Resolve(configuration, "Services"))
+            foreach(var extraService in Framework.ServicesResolver.Resolve(configuration, "Services"))
             {
                 services.AddTransient(extraService.Key, extraService.Value);
             }
