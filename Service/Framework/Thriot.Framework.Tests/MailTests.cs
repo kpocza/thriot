@@ -90,6 +90,24 @@ namespace Thriot.Framework.Tests
         }
 
         [TestMethod]
+        public void MaliciusCharactersTest()
+        {
+            var mailSender = new MailSenderStub();
+            var mailSettings = new MailSettingsStub();
+
+            var mail = new Mail(mailSender, mailSettings);
+
+            mail.Send(Addressing.Create("user@somewhere.hu", "lfj"), "ToReplace",
+                new { SSS = "X", TextStuff = "áűú'\"<script>", some = "áűú'\"<script>" });
+
+            Assert.AreEqual("no-reply@thriot.io", mailSender.MailMessage.From.Address);
+            Assert.AreEqual("user@somewhere.hu", mailSender.MailMessage.To[0].Address);
+            Assert.AreEqual("SXS", mailSender.MailMessage.Subject);
+            Assert.AreEqual("<html>Ht áűú'\"<script> ml</html>", GetContent(mailSender.MailMessage.AlternateViews[0].ContentStream));
+            Assert.AreEqual("Textáűú'\"<script> and more", GetContent(mailSender.MailMessage.AlternateViews[1].ContentStream));
+        }
+
+        [TestMethod]
         public void SendWithImageAdded()
         {
             var mailSender = new MailSenderStub();
