@@ -10,7 +10,8 @@
       "dependencies": {
         "Microsoft.AspNet.Razor": "4.0.0-beta5",
         "RazorEngine": "4.2.0-beta2",
-        "Thriot.Framework": "1.0.0-*"
+        "Thriot.Framework": "1.0.0-*",
+        "Microsoft.Framework.Configuration.Abstractions": "1.0.0-beta5"
       }
     }
   }

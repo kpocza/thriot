@@ -1,24 +1,29 @@
 ﻿using System.IO;
 using System.Net.Mail;
+using Microsoft.Framework.Configuration;
 
 namespace Thriot.Framework.Mails
 {
     public class MailSettings : IMailSettings
     {
-        public MailAddress From
+        private readonly IConfiguration _configuration;
+
+        public MailSettings(IConfiguration configuration)
         {
-            get { return new MailAddress("no-reply@thriot.cloudapp.net", "Thriot"); }
+            _configuration = configuration;
         }
 
-        public string SmtpServer
-        {
-            get { return new SmtpClient().Host; }
-        }
+        public MailAddress From => new MailAddress(_configuration.Get("SmtpSettings:FromAddress"), _configuration.Get("SmtpSettings:FromName"));
 
-        public string BouncesAddress
-        {
-            get { return "bounces@thriot.cloudapp.net"; }
-        }
+        public string SmtpServer => _configuration.Get("SmtpSettings:Host");
+
+        public int SmtpPort => int.Parse(_configuration.Get("SmtpSettings:Port"));
+
+        public string Username => _configuration.Get("SmtpSettings:UserName");
+
+        public string Password => _configuration.Get("SmtpSettings:Password");
+
+        public string BouncesAddress => _configuration.Get("SmtpSettings:BouncesAddress");
 
         public Stream GetImageContent(string fileName)
         {

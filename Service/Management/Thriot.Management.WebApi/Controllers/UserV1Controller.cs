@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNet.Mvc;
+using Microsoft.Framework.Configuration;
 using Thriot.Framework.Logging;
 using Thriot.Management.Dto;
 using Thriot.Management.Services;
@@ -14,11 +15,13 @@ namespace Thriot.Management.WebApi.Controllers
     {
         private readonly UserService _userService;
         private readonly ISettingProvider _settingProvider;
+        private readonly IConfiguration _configuration;
 
-        public UsersV1Controller(UserService userService, ISettingProvider settingProvider)
+        public UsersV1Controller(UserService userService, ISettingProvider settingProvider, IConfiguration configuration)
         {
             _userService = userService;
             _settingProvider = settingProvider;
+            _configuration = configuration;
         }
 
         [HttpPost("register")]
@@ -26,7 +29,7 @@ namespace Thriot.Management.WebApi.Controllers
         {
             var needsActivation = _settingProvider.EmailActivation;
 
-            _userService.Register(register, new Mailer());
+            _userService.Register(register, new Mailer(_configuration));
 
             return new RegistrationResultDto { NeedsActivation = needsActivation };
         }
@@ -42,7 +45,7 @@ namespace Thriot.Management.WebApi.Controllers
         [HttpPost("resendActivationEmail")]
         public IActionResult ResendActivationEmail([FromBody]EmailWrapperDto emailWrapperDto)
         {
-            _userService.ResendActivationEmail(emailWrapperDto.Email, new Mailer());
+            _userService.ResendActivationEmail(emailWrapperDto.Email, new Mailer(_configuration));
 
             return new NoContentResult();
         }
@@ -50,7 +53,7 @@ namespace Thriot.Management.WebApi.Controllers
         [HttpPost("sendForgotPasswordEmail")]
         public IActionResult SendForgotPasswordEmail([FromBody]EmailWrapperDto emailWrapperDto)
         {
-            _userService.SendForgotPasswordEmail(emailWrapperDto.Email, new Mailer());
+            _userService.SendForgotPasswordEmail(emailWrapperDto.Email, new Mailer(_configuration));
 
             return new NoContentResult();
         }

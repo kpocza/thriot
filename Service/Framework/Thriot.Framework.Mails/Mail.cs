@@ -4,8 +4,7 @@ using System.IO;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Text.RegularExpressions;
-using RazorEngine;
-using RazorEngine.Templating;
+using Thriot.Framework.Mails.TemplatingEngine;
 
 namespace Thriot.Framework.Mails
 {
@@ -37,7 +36,7 @@ namespace Thriot.Framework.Mails
 
             PrepareMessage();
 
-            _mailSender.Send(_mailMessage);
+            _mailSender.Send(_mailMessage, _mailSettings);
         }
 
         private void PrepareMessage()
@@ -46,10 +45,10 @@ namespace Thriot.Framework.Mails
 
             _mailMessage.From = _mailSettings.From;
             _mailMessage.To.Add(new MailAddress(_addressing.ToAddress, _addressing.ToName));
-            _mailMessage.Subject = GetSubstitutedContent(_templateName + "_subject", mailTemplate.Subject);
+            _mailMessage.Subject = GetSubstitutedContent(mailTemplate.Subject);
 
-            var htmlContent = GetSubstitutedContent(_templateName + "_html", mailTemplate.Html);
-            var textContent = GetSubstitutedContent(_templateName + "_text", mailTemplate.Text);
+            var htmlContent = GetSubstitutedContent(mailTemplate.Html);
+            var textContent = GetSubstitutedContent(mailTemplate.Text);
 
             var htmlAlternate = CreateAlternateView(htmlContent, "text/html");
             var textAlternate = CreateAlternateView(textContent, "text/plain");
@@ -138,25 +137,11 @@ namespace Thriot.Framework.Mails
             return null;
         }
 
-        private string GetSubstitutedContent(string templateName, string text)
+        private string GetSubstitutedContent(string text)
         {
-            PrepareTemplate(templateName, text);
+            var razorTemplater = new RazorTemplater(text, _model);
 
-            var substituted = Engine.Razor.Run(templateName, null, _model);
-
-            return substituted.Replace("<nl/>", "").Replace("<nl />", "");
-        }
-
-        private static void PrepareTemplate(string templateName, string text)
-        {
-            lock (_syncLock)
-            {
-                if (!Engine.Razor.IsTemplateCached(templateName, null))
-                {
-                    Engine.Razor.AddTemplate(templateName, new LoadedTemplateSource(text));
-                    Engine.Razor.Compile(templateName, null);
-                }
-            }
+            return razorTemplater.GetResult();
         }
 
         private static string GenerateMailMessageId(string mailServerName)

@@ -37,6 +37,7 @@ namespace Thriot.Management.WebApiA5
             var configurationBuilder = new ConfigurationBuilder(_appEnv.ApplicationBasePath);
             configurationBuilder.AddJsonFile("services.json");
             configurationBuilder.AddJsonFile("connectionstring.json");
+            configurationBuilder.AddJsonFile("smtpsettings.json");
             
             var configuration = configurationBuilder.Build();
 
