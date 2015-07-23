@@ -31,8 +31,8 @@ namespace Thriot.Reporting.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             var configurationBuilder = new ConfigurationBuilder(_appEnv.ApplicationBasePath);
-            configurationBuilder.AddJsonFile("services.json");
-            configurationBuilder.AddJsonFile("connectionstring.json");
+            configurationBuilder.AddJsonFile("config/services.json");
+            configurationBuilder.AddJsonFile("config/connectionstring.json");
 
             var configuration = configurationBuilder.Build();
 

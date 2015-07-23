@@ -1,0 +1,8 @@
+﻿{
+    "ConnectionString": {
+        "ManagementConnection": {
+            "ConnectionString": ".\\SQLEXPRESS;Database=Thriot;Trusted_Connection=True;",
+            "ProviderName": "System.Data.SqlClient"
+        }
+    }
+}

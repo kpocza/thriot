@@ -42,8 +42,8 @@ namespace Thriot.Platform.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             var configurationBuilder = new ConfigurationBuilder(_appEnv.ApplicationBasePath);
-            configurationBuilder.AddJsonFile("services.json");
-            configurationBuilder.AddJsonFile("connectionstring.json");
+            configurationBuilder.AddJsonFile("config/services.json");
+            configurationBuilder.AddJsonFile("config/connectionstring.json");
 
             var configuration = configurationBuilder.Build();
 
@@ -70,7 +70,7 @@ namespace Thriot.Platform.WebApi
             services.AddSingleton<IBatchParameters, BatchParameters>();
             services.AddTransient<IMessagingOperations, MessagingOperations>();
             services.AddTransient<IDeviceAuthenticator, DeviceAuthenticator>();
-            services.AddSingleton<Thriot.ServiceClient.Messaging.IMessagingService, Thriot.ServiceClient.Messaging.MessagingService>();
+            services.AddSingleton<IMessagingService, ServiceClient.Messaging.MessagingService>();
             services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.DataAccess.ConnectionParametersResolver>();
             services.AddSingleton(_ => configuration);
             
@@ -92,7 +92,7 @@ namespace Thriot.Platform.WebApi
             var telemetryDataSinkMetadataRegistry = (TelemetryDataSinkMetadataRegistry)serviceProvider.GetService<ITelemetryDataSinkMetadataRegistry>();
 
             var xmlSerializer = new XmlSerializer(typeof(TelemetryDataSection));
-            using (var streamReader = new StreamReader(Path.Combine(_appEnv.ApplicationBasePath, "telemetryDataSink.xml")))
+            using (var streamReader = new StreamReader(Path.Combine(_appEnv.ApplicationBasePath, "config/telemetryDataSink.xml")))
             {
                 var telemetryDataSection = (TelemetryDataSection)xmlSerializer.Deserialize(streamReader);
                 telemetryDataSinkMetadataRegistry.Build(telemetryDataSection);

@@ -4,6 +4,7 @@ using Thriot.Management.Model;
 
 namespace Thriot.Management.Operations.Sql.DataAccess.PgSql
 {
+    [DbConfigurationType(typeof(PgSqlDbConfiguration))]
     public class ManagementDbContextPgSql : ManagementDbContext
     {
         public ManagementDbContextPgSql(DbConnection dbConnection, bool ownsConnections)

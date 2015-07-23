@@ -9,7 +9,7 @@ using Thriot.Framework.Mvc.ApiExceptions;
 using Thriot.Framework.Mvc.Logging;
 using Thriot.Management.Model.Exceptions;
 
-namespace Thriot.Management.WebApiA5
+namespace Thriot.Management.WebApi
 {
     public class Startup
     {
@@ -35,9 +35,9 @@ namespace Thriot.Management.WebApiA5
         public void ConfigureServices(IServiceCollection services)
         {
             var configurationBuilder = new ConfigurationBuilder(_appEnv.ApplicationBasePath);
-            configurationBuilder.AddJsonFile("services.json");
-            configurationBuilder.AddJsonFile("connectionstring.json");
-            configurationBuilder.AddJsonFile("smtpsettings.json");
+            configurationBuilder.AddJsonFile("config/services.json");
+            configurationBuilder.AddJsonFile("config/connectionstring.json");
+            configurationBuilder.AddJsonFile("config/smtpsettings.json");
             
             var configuration = configurationBuilder.Build();
 

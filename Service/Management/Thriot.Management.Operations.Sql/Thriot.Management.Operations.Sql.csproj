@@ -55,6 +55,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -67,6 +68,7 @@
     <Compile Include="DataAccess\PgSql\ManagementDbContextPgSql.cs" />
     <Compile Include="DataAccess\PgSql\ManagementUnitOfWorkFactoryPgSql.cs" />
     <Compile Include="DataAccess\PgSql\ManagementUnitOfWorkPgSql.cs" />
+    <Compile Include="DataAccess\PgSql\PgSqlDbConfiguration.cs" />
     <Compile Include="DataAccess\SettingRepository.cs" />
     <Compile Include="DataAccess\CompanyRepository.cs" />
     <Compile Include="DataAccess\DeviceRepository.cs" />

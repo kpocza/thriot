@@ -29,8 +29,8 @@ namespace Thriot.Platform.WebsocketService
         public void Setup()
         {
             var configurationBuilder = new ConfigurationBuilder(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
-            configurationBuilder.AddJsonFile("services.json");
-            configurationBuilder.AddJsonFile("connectionstring.json");
+            configurationBuilder.AddJsonFile("config/services.json");
+            configurationBuilder.AddJsonFile("config/connectionstring.json");
 
             var configuration = configurationBuilder.Build();
 
