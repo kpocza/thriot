@@ -1,9 +1,5 @@
 ﻿{
     "ConnectionString": {
-        "ManagementConnection": {
-            "ConnectionString": "UseDevelopmentStorage=true",
-            "ProviderName": ""
-        },
         "MessagingConnection": "Server=.\\SQLEXPRESS;Database=ThriotMessaging;Trusted_Connection=True;"
     }
 }

@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\Thriot.Framework.Mails\Thriot.Framework.Mails.csproj" />
     <ProjectReference Include="..\..\Framework\Thriot.Framework\Thriot.Framework.csproj" />
+    <ProjectReference Include="..\..\Objects\Thriot.Objects.Operations.Azure\Thriot.Objects.Operations.Azure.csproj" />
     <ProjectReference Include="..\Thriot.Management.Dto\Thriot.Management.Dto.csproj" />
     <ProjectReference Include="..\Thriot.Management.Model\Thriot.Management.Model.csproj" />
     <ProjectReference Include="..\Thriot.Management.Operations.Azure\Thriot.Management.Operations.Azure.csproj" />

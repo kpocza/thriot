@@ -3,7 +3,6 @@
         "ManagementConnection": {
             "ConnectionString": "Server=127.0.0.1;Port=5432;Database=Thriot;User Id=thriot;Password=thriot;",
             "ProviderName": "Npgsql"
-        },
-        "MessagingConnection": "Server=127.0.0.1;Port=5432;Database=ThriotMessaging;User Id=thriotmessaging;Password=thriotmessaging;"
+        }
     }
 }

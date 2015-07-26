@@ -19,15 +19,14 @@
     "frameworks": {
         "dnx451": {
             "dependencies": {
-                "Thriot.Framework": "1.0.0-*",
-                "Thriot.Reporting.Services": "1.0.0-*",
-                "Thriot.Reporting.Dto": "1.0.0-*",
+                "Thriot.Objects.Common": "1.0.0-*",
+                "Thriot.Objects.Operations.Azure": "1.0.0-*",
+                "Thriot.Objects.Operations.Sql": "1.0.0-*",
                 "Thriot.Plugins.Azure": "1.0.0-*",
                 "Thriot.Plugins.PgSql": "1.0.0-*",
                 "Thriot.Plugins.Sql": "1.0.0-*",
-                "Thriot.Objects.Operations.Azure": "1.0.0-*",
-                "Thriot.Objects.Operations.Sql": "1.0.0-*",
-                "Thriot.Objects.Common": "1.0.0-*"
+                "Thriot.Reporting.Dto": "1.0.0-*",
+                "Thriot.Reporting.Services": "1.0.0-*"
             }
         }
     },

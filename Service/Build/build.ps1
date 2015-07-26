@@ -1,11 +1,39 @@
 param 
 (
-	[string]$solutionRoot = "$(pwd)\..\",
-	[string]$targetRoot = $null,
-	[string]$msbuild = "c:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe",
-	[string]$config = "ProdAzure",
-	[bool]$linuxify = $false
+	[string]$config,
+	[string]$configmsg,
+	[string]$env,
+	[string]$firsttime,
+	[string]$linuxify
 )
+
+$solutionRoot = $(Split-Path -parent $(pwd))
+$msbuild = "c:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe"
+$targetRoot = $(pwd).Path + "\output\" + [DateTime]::Now.ToString("yyyyMMddHHmm") + "_" + $config
+
+function Choose([string]$title, [string]$message, [array]$opts, [string]$actual, [int]$default)
+{
+	if($actual -eq $null -or $actual -eq "")
+	{
+		$arr = $($opts |% {New-Object System.Management.Automation.Host.ChoiceDescription $_.Item1, $_.Item2})
+		$choiceOptions = [System.Management.Automation.Host.ChoiceDescription[]]$arr
+
+		$result = $host.ui.PromptForChoice($title, $message, $choiceOptions, $default);
+		$actual = $opts[$result].Item1.Replace("&","");
+	}
+	else
+	{
+		$found = $(($opts |? {$actual -eq $_.Item1.Replace("&","")}).Count -eq 1)
+
+		if(!$found)
+		{
+			echo "Invalid parameter $actual for $title"
+			exit
+		}
+	}
+
+	return $actual;
+}
 
 function EnsureEmptyDirectory([string]$dirPath)
 {
@@ -26,29 +54,65 @@ function LinuxifyNLogConfig([string]$configPath)
 	mv -Force $tmp $configPath
 }
 
-if(!$targetRoot -or $(![System.IO.Path]::IsPathRooted($targetRoot)))
+function RestoreASPNET5([string]$project)
 {
-	$targetRoot = $(pwd).Path + "\output\" + [DateTime]::Now.ToString("yyyyMMddHHmm") + "_" + $config
+	dnu restore $project
 }
 
-&$msbuild $solutionRoot\Thriot.Service.sln /p:Configuration=$config /p:DebugSymbols=true
+function BuildASPNET5([string]$project, [string]$target)
+{
+	dnu publish $project --no-source --configuration Debug -o $target
+}
 
-&$msbuild $solutionRoot\Web\Thriot.Web\Thriot.Web.xproj /p:Configuration=$config /p:DeployOnBuild=true /p:PublishProfile=$solutionRoot\Web\Thriot.Web\Properties\PublishProfiles\publish.pubxml
+$options = @([tuple]::Create("&azure", "Azure Table Storage"), [tuple]::Create("&sql", "Microsoft Sql 2012+ (Express)"), [tuple]::Create("&pgsql", "PostgreSql 9.4+"));
+$config = Choose "Central Management Storage" $null $options $config 0
 
-EnsureEmptyDirectory $targetRoot\web;
+$options = @([tuple]::Create("&sql", "Microsoft Sql 2012+ (Express)"), [tuple]::Create("&pgsql", "PostgreSql 9.4+"));
+$configmsg = Choose "Messaging backend storage" $null $options $configmsg 0
 
-cp -Recu $solutionRoot\artifacts\bin\Thriot.Web\Release\Publish\* $targetRoot\web
+$options = @([tuple]::Create("&dev", "Development"), [tuple]::Create("&prod", "Production"));
+$env = Choose "Target environment of this build" $null $options $env 0
 
-&$msbuild $solutionRoot\Management\Thriot.Management.WebApi\Thriot.Management.WebApi.csproj /p:Configuration=$config /p:DeployOnBuild=true /p:AutoParameterizationWebConfigConnectionStrings=false /p:DeployTarget=Package /p:OutputPath=bin\$config /p:_PackageTempDir=$targetRoot\api /p:DebugSymbols=true
-&$msbuild $solutionRoot\Platform\Thriot.Platform.WebApi\Thriot.Platform.WebApi.csproj /p:Configuration=$config /p:DeployOnBuild=true /p:AutoParameterizationWebConfigConnectionStrings=false /p:DeployTarget=Package /p:OutputPath=bin\$config /p:_PackageTempDir=$targetRoot\papi /p:DebugSymbols=true
-&$msbuild $solutionRoot\Messaging\Thriot.Messaging.WebApi\Thriot.Messaging.WebApi.csproj /p:Configuration=$config /p:DeployOnBuild=true /p:AutoParameterizationWebConfigConnectionStrings=false /p:DeployTarget=Package /p:OutputPath=bin\$config /p:_PackageTempDir=$targetRoot\msvc /p:DebugSymbols=true
-&$msbuild $solutionRoot\Reporting\Thriot.Reporting.WebApi\Thriot.Reporting.WebApi.csproj /p:Configuration=$config /p:DeployOnBuild=true /p:AutoParameterizationWebConfigConnectionStrings=false /p:DeployTarget=Package /p:OutputPath=bin\$config /p:_PackageTempDir=$targetRoot\rapi /p:DebugSymbols=true
+$options = @([tuple]::Create("&yes", "Yes"), [tuple]::Create("&no", "No"));
+$firstTime = Choose "Is this this first time build for this environment?" "If this is not a first time build then the configs will be removed to protect from accidental config overwriting" $options $firstTime 1
+
+$options = @([tuple]::Create("&yes", "Yes"), [tuple]::Create("&no", "No"));
+$linuxify = Choose "Is this build targeting a Linux environment?" $null $options $linuxify 1
+
+$config
+$configmsg
+$env
+$firstTime
+$linuxify
+
+if(-not $env:Path.Contains("Common7\IDE\Extensions\Microsoft\Web Tools\External\")) {
+	$env:Path = $env:Path + ";C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\Microsoft\Web Tools\External\";
+}
+if(-not $env:Path.Contains("node_modules\.bin\")) {
+	$env:Path = $env:Path + ";" + $solutionRoot + "\Web\Thriot.Web\node_modules\.bin\";
+}
+
+RestoreASPNET5 $solutionRoot\Framework\Thriot.Framework.Mvc
+RestoreASPNET5 $solutionRoot\Management\Thriot.Management.WebApi
+RestoreASPNET5 $solutionRoot\Platform\Thriot.Platform.WebApi
+RestoreASPNET5 $solutionRoot\Reporting\Thriot.Reporting.WebApi
+RestoreASPNET5 $solutionRoot\Messaging\Thriot.Messaging.WebApi
+RestoreASPNET5 $solutionRoot\Web\Thriot.Web
+RestoreASPNET5 $solutionRoot\wrap
+
+& $msbuild $solutionRoot\Thriot.Service.sln /p:Configuration=Debug
+
+BuildASPNET5 $solutionRoot\Management\Thriot.Management.WebApi $targetRoot\api
+BuildASPNET5 $solutionRoot\Platform\Thriot.Platform.WebApi $targetRoot\papi
+BuildASPNET5 $solutionRoot\Reporting\Thriot.Reporting.WebApi $targetRoot\rapi
+BuildASPNET5 $solutionRoot\Messaging\Thriot.Messaging.WebApi $targetRoot\msvc
+BuildASPNET5 $solutionRoot\Web\Thriot.Web $targetRoot\web
 
 EnsureEmptyDirectory $targetRoot\websocketservice
-EnsureEmptyDirectory $targetRoot\apihost
 
-cp -Recu -Force $solutionRoot\Platform\Thriot.Platform.WebsocketService\bin\$config\* $targetRoot\websocketservice\
-cp -Recu -Force $solutionRoot\Web\Thriot.ApiHost\bin\Debug\* $targetRoot\apihost\
+& $msbuild $solutionRoot\Platform\Thriot.Platform.WebsocketService\Thriot.Platform.WebsocketService.csproj /p:Configuration=Debug  /p:OutDir=$targetRoot\websocketservice
+
+exit
 
 if($config.StartsWith("Dev"))
 {

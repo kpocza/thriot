@@ -1,6 +1,5 @@
 ﻿{
     "Services": {
-        "Thriot.Messaging.Services.Storage.IPersistentStorage, Thriot.Messaging.Services": "Thriot.Messaging.Services.Storage.PersistentStorage, Thriot.Messaging.Services",
         "Thriot.Objects.Model.Operations.ISettingOperations, Thriot.Objects.Model": "Thriot.Objects.Operations.Sql.SettingOperations, Thriot.Objects.Operations.Sql",
 	"Thriot.Objects.Operations.Sql.DataAccess.IObjectsUnitOfWorkFactory, Thriot.Objects.Operations.Sql": "Thriot.Objects.Operations.Sql.DataAccess.Sql.ObjectsUnitOfWorkFactorySql, Thriot.Objects.Operations.Sql"
     }

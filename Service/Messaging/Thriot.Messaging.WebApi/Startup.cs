@@ -22,7 +22,9 @@ namespace Thriot.Messaging.WebApi
         {
             var configurationBuilder = new ConfigurationBuilder(_appEnv.ApplicationBasePath);
             configurationBuilder.AddJsonFile("config/services.json");
+            configurationBuilder.AddJsonFile("config/servicesmsg.json");
             configurationBuilder.AddJsonFile("config/connectionstring.json");
+            configurationBuilder.AddJsonFile("config/connectionstringmsg.json");
 
             var configuration = configurationBuilder.Build();
 
