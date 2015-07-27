@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Microsoft.AspNet.Razor;
+using Microsoft.AspNet.Razor.CodeGenerators;
 using Microsoft.CSharp;
 
 namespace Thriot.Framework.Mails.TemplatingEngine

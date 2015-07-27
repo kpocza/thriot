@@ -90,23 +90,23 @@
       <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Framework.Configuration, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Framework.Configuration.1.0.0-beta5\lib\net45\Microsoft.Framework.Configuration.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.Framework.Configuration.1.0.0-beta6\lib\net45\Microsoft.Framework.Configuration.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Framework.Configuration.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Framework.Configuration.Abstractions.1.0.0-beta5\lib\net45\Microsoft.Framework.Configuration.Abstractions.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.Framework.Configuration.Abstractions.1.0.0-beta6\lib\net45\Microsoft.Framework.Configuration.Abstractions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Framework.Configuration.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Framework.Configuration.Json.1.0.0-beta5\lib\net45\Microsoft.Framework.Configuration.Json.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.Framework.Configuration.Json.1.0.0-beta6\lib\net45\Microsoft.Framework.Configuration.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Framework.DependencyInjection, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Framework.DependencyInjection.1.0.0-beta5\lib\net45\Microsoft.Framework.DependencyInjection.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.Framework.DependencyInjection.1.0.0-beta6\lib\net45\Microsoft.Framework.DependencyInjection.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Framework.DependencyInjection.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Framework.DependencyInjection.Abstractions.1.0.0-beta5\lib\net45\Microsoft.Framework.DependencyInjection.Abstractions.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.Framework.DependencyInjection.Abstractions.1.0.0-beta6\lib\net45\Microsoft.Framework.DependencyInjection.Abstractions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">

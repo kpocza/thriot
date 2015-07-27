@@ -92,6 +92,8 @@ if(-not $env:Path.Contains("node_modules\.bin\")) {
 	$env:Path = $env:Path + ";" + $solutionRoot + "\Web\Thriot.Web\node_modules\.bin\";
 }
 
+dnvm use default
+
 RestoreASPNET5 $solutionRoot\Framework\Thriot.Framework.Mvc
 RestoreASPNET5 $solutionRoot\Management\Thriot.Management.WebApi
 RestoreASPNET5 $solutionRoot\Platform\Thriot.Platform.WebApi

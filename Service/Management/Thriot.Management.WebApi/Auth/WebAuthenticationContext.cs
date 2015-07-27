@@ -20,13 +20,14 @@ namespace Thriot.Management.WebApi.Auth
             var httpContext = _httpContextAccessor.HttpContext;
             
             httpContext.User = principal;
-            httpContext.Authentication.SignIn(Microsoft.AspNet.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme, principal);
+            httpContext.Authentication.SignInAsync(Microsoft.AspNet.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme, principal).Wait();
         }
 
         public void RemoveContextUser()
         {
             var httpContext = _httpContextAccessor.HttpContext;
-            httpContext.Authentication.SignOut();
+            httpContext.Authentication.SignOutAsync(
+                Microsoft.AspNet.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme).Wait();
         }
 
         public string GetContextUser()

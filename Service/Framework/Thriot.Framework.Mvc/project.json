@@ -7,8 +7,9 @@
     "licenseUrl": "",
 
     "dependencies": {
-        "Microsoft.AspNet.Mvc": "6.0.0-beta5",
-        "Microsoft.AspNet.Http.Features": "1.0.0-beta5"
+        "Microsoft.AspNet.Mvc": "6.0.0-beta6",
+        "Microsoft.AspNet.Http.Features": "1.0.0-beta6"
+
     },
 
     "frameworks": {

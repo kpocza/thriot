@@ -70,7 +70,7 @@ namespace Thriot.Management.WebApi
                 services.AddTransient(extraService.Key, extraService.Value);
             }
         }
-
+        
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             var serviceProvider = app.ApplicationServices;
@@ -82,7 +82,7 @@ namespace Thriot.Management.WebApi
 
             messagingService.Setup(settingProvider.MessagingServiceEndpoint, settingProvider.MessagingServiceApiKey);
             telemetryDataSinkSetupService.Setup(settingProvider.TelemetrySetupServiceEndpoint, settingProvider.TelemetrySetupServiceApiKey);
-
+            
             app.UseCors(Microsoft.AspNet.Cors.Core.CorsConstants.AccessControlAllowOrigin);
 
             app.UseCookieAuthentication(options => 
