@@ -2,14 +2,9 @@ param
 (
 	[string]$config,
 	[string]$configmsg,
-	[string]$env,
-	[string]$firsttime,
+	[string]$copyConfigs,
 	[string]$linuxify
 )
-
-$solutionRoot = $(Split-Path -parent $(pwd))
-$msbuild = "c:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe"
-$targetRoot = $(pwd).Path + "\output\" + [DateTime]::Now.ToString("yyyyMMddHHmm") + "_" + $config
 
 function Choose([string]$title, [string]$message, [array]$opts, [string]$actual, [int]$default)
 {
@@ -59,40 +54,62 @@ function RestoreASPNET5([string]$project)
 	dnu restore $project
 }
 
-function BuildASPNET5([string]$project, [string]$target)
+function PublishASPNET5([string]$project, [string]$target)
 {
-	dnu publish $project --no-source --configuration Debug -o $target
+	dnu publish $project --no-source --configuration $buildConfig -o $target
+
+	#WORKAROUND for publish bug
+	mkdir $target\approot\runtimes\$dnxFullName
+	cp -Recu $runtimeFolder\* $target\approot\runtimes\$dnxFullName
+
+	$xml=[xml]$(cat "$target\wwwroot\web.config")
+	($xml.configuration.appSettings.add |? {$_.key -eq "dnx-version"}).value = $dnxVersion
+	($xml.configuration.appSettings.add |? {$_.key -eq "dnx-clr"}).value = $dnxClr
+	$xml.Save("$target\wwwroot\web.config")
+	#WORKAROUND end
+}
+
+function ConfigKeeper([string]$configDir, [string]$name, [string]$config, [string]$ext="json")
+{
+	mv -Force $configDir\$name.$config.$ext $configDir\$name.$ext
+	rm $configDir\$name.*.$ext
 }
 
 $options = @([tuple]::Create("&azure", "Azure Table Storage"), [tuple]::Create("&sql", "Microsoft Sql 2012+ (Express)"), [tuple]::Create("&pgsql", "PostgreSql 9.4+"));
-$config = Choose "Central Management Storage" $null $options $config 0
+$config = Choose "Master Management Storage" $null $options $config 0
 
 $options = @([tuple]::Create("&sql", "Microsoft Sql 2012+ (Express)"), [tuple]::Create("&pgsql", "PostgreSql 9.4+"));
 $configmsg = Choose "Messaging backend storage" $null $options $configmsg 0
 
-$options = @([tuple]::Create("&dev", "Development"), [tuple]::Create("&prod", "Production"));
-$env = Choose "Target environment of this build" $null $options $env 0
-
 $options = @([tuple]::Create("&yes", "Yes"), [tuple]::Create("&no", "No"));
-$firstTime = Choose "Is this this first time build for this environment?" "If this is not a first time build then the configs will be removed to protect from accidental config overwriting" $options $firstTime 1
+$deployConfigs = Choose "Deploy configuration files?" "Answer carefully if your are deploying to a staging/production environment." $options $deployConfigs 1
 
 $options = @([tuple]::Create("&yes", "Yes"), [tuple]::Create("&no", "No"));
 $linuxify = Choose "Is this build targeting a Linux environment?" $null $options $linuxify 1
 
-$config
-$configmsg
-$env
-$firstTime
-$linuxify
+"Master Management Storage: $config"
+"Messaging storage: $configmsg"
+"Deploy configuration files: $deployConfigs"
+"Prepare for Linux environment: $linuxify"
+
+$targetRoot = $(pwd).Path + "\output\" + [DateTime]::Now.ToString("yyyyMMddHHmm") + "_" + $config
+$solutionRoot = $(Split-Path -parent $(pwd))
+$msbuild = "c:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe"
+$buildConfig = "Debug"
+$dnxFullName = "dnx-clr-win-x64.1.0.0-beta6"
+$dnxVersion = "1.0.0-beta6"
+$dnxClr = "clr"
+$dnxArch = "x64"
+$runtimeFolder = $env:USERPROFILE + "\.dnx\runtimes\" + $dnxFullName
 
 if(-not $env:Path.Contains("Common7\IDE\Extensions\Microsoft\Web Tools\External\")) {
 	$env:Path = $env:Path + ";C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\Microsoft\Web Tools\External\";
 }
 if(-not $env:Path.Contains("node_modules\.bin\")) {
-	$env:Path = $env:Path + ";" + $solutionRoot + "\Web\Thriot.Web\node_modules\.bin\";
+	$env:Path = $env:Path + ";$solutionRoot\Web\Thriot.Web\node_modules\.bin\";
 }
 
-dnvm use default
+dnvm use $dnxVersion -arch $dnxArch -r $dnxClr
 
 RestoreASPNET5 $solutionRoot\Framework\Thriot.Framework.Mvc
 RestoreASPNET5 $solutionRoot\Management\Thriot.Management.WebApi
@@ -100,19 +117,54 @@ RestoreASPNET5 $solutionRoot\Platform\Thriot.Platform.WebApi
 RestoreASPNET5 $solutionRoot\Reporting\Thriot.Reporting.WebApi
 RestoreASPNET5 $solutionRoot\Messaging\Thriot.Messaging.WebApi
 RestoreASPNET5 $solutionRoot\Web\Thriot.Web
+
+# WORKAROUND to have project.lock.json files so that dnu publish can find the nuget packages
 RestoreASPNET5 $solutionRoot\wrap
 
-& $msbuild $solutionRoot\Thriot.Service.sln /p:Configuration=Debug
+& $msbuild $solutionRoot\Thriot.Service.sln /p:Configuration=$buildConfig
 
-BuildASPNET5 $solutionRoot\Management\Thriot.Management.WebApi $targetRoot\api
-BuildASPNET5 $solutionRoot\Platform\Thriot.Platform.WebApi $targetRoot\papi
-BuildASPNET5 $solutionRoot\Reporting\Thriot.Reporting.WebApi $targetRoot\rapi
-BuildASPNET5 $solutionRoot\Messaging\Thriot.Messaging.WebApi $targetRoot\msvc
-BuildASPNET5 $solutionRoot\Web\Thriot.Web $targetRoot\web
+PublishASPNET5 $solutionRoot\Management\Thriot.Management.WebApi $targetRoot\api
+PublishASPNET5 $solutionRoot\Platform\Thriot.Platform.WebApi $targetRoot\papi
+PublishASPNET5 $solutionRoot\Reporting\Thriot.Reporting.WebApi $targetRoot\rapi
+PublishASPNET5 $solutionRoot\Messaging\Thriot.Messaging.WebApi $targetRoot\msvc
+PublishASPNET5 $solutionRoot\Web\Thriot.Web $targetRoot\web
 
 EnsureEmptyDirectory $targetRoot\websocketservice
 
-& $msbuild $solutionRoot\Platform\Thriot.Platform.WebsocketService\Thriot.Platform.WebsocketService.csproj /p:Configuration=Debug  /p:OutDir=$targetRoot\websocketservice
+& $msbuild $solutionRoot\Platform\Thriot.Platform.WebsocketService\Thriot.Platform.WebsocketService.csproj /p:Configuration=$buildConfig  /p:OutDir=$targetRoot\websocketservice
+
+if($deployConfigs -eq "no")
+{
+	$configDir = "$targetRoot\web\wwwroot\config"
+	rm $configDir\*
+	
+	$configDir = "$targetRoot\api\approot\packages\Thriot.Management.WebApi\1.0.0\root\config"
+	rm $configDir\connectionstring*
+	rm $configDir\smtpsettings.json
+	ConfigKeeper $configDir "services" $config
+
+	$configDir = "$targetRoot\papi\approot\packages\Thriot.Platform.WebApi\1.0.0\root\config"
+	rm $configDir\connectionstring*
+	ConfigKeeper $configDir "services" $config
+	ConfigKeeper $configDir "telemetryDataSink" $config "xml"
+	mv $configDir\telemetryDataSink.xml $configDir\telemetryDataSink.default.xml
+
+	$configDir = "$targetRoot\rapi\approot\packages\Thriot.Reporting.WebApi\1.0.0\root\config"
+	rm $configDir\connectionstring*
+	ConfigKeeper $configDir "services" $config
+
+	$configDir = "$targetRoot\msvc\approot\packages\Thriot.Messaging.WebApi\1.0.0\root\config"
+	rm $configDir\connectionstring*
+	ConfigKeeper $configDir "services" $config
+	ConfigKeeper $configDir "servicesmsg" $configmsg
+
+	$configDir = "$targetRoot\websocketservice\config"
+	rm $configDir\connectionstring*
+	ConfigKeeper $configDir "services" $config
+}
+else
+{
+}
 
 exit
 

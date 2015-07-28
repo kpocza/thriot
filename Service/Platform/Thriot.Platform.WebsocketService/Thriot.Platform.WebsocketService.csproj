@@ -178,24 +178,30 @@
     </None>
     <None Include="config\connectionstring.azure.json">
       <DependentUpon>config\connectionstring.json</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="config\connectionstring.pgsql.json">
       <DependentUpon>config\connectionstring.json</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="config\connectionstring.sql.json">
       <DependentUpon>config\connectionstring.json</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="config\services.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="config\services.azure.json">
       <DependentUpon>config\services.json</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="config\services.pgsql.json">
       <DependentUpon>config\services.json</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="config\services.sql.json">
       <DependentUpon>config\services.json</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="nlog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
