@@ -164,66 +164,70 @@ if($deployConfigs -eq "no")
 }
 else
 {
+	$configDir = "$targetRoot\web\wwwroot\config"
+	mv -Force $configDir\siteRoots.dev.js $configDir\siteRoots.js
+
+	$configDir = "$targetRoot\api\approot\packages\Thriot.Management.WebApi\1.0.0\root\config"
+	ConfigKeeper $configDir "connectionstring" $config
+	ConfigKeeper $configDir "services" $config
+
+	$configDir = "$targetRoot\papi\approot\packages\Thriot.Platform.WebApi\1.0.0\root\config"
+	ConfigKeeper $configDir "connectionstring" $config
+	ConfigKeeper $configDir "services" $config
+	ConfigKeeper $configDir "telemetryDataSink" $config "xml"
+
+	$configDir = "$targetRoot\rapi\approot\packages\Thriot.Reporting.WebApi\1.0.0\root\config"
+	ConfigKeeper $configDir "connectionstring" $config
+	ConfigKeeper $configDir "services" $config
+
+	$configDir = "$targetRoot\msvc\approot\packages\Thriot.Messaging.WebApi\1.0.0\root\config"
+	ConfigKeeper $configDir "connectionstring" $config
+	ConfigKeeper $configDir "connectionstringmsg" $configmsg
+	ConfigKeeper $configDir "services" $config
+	ConfigKeeper $configDir "servicesmsg" $configmsg
+
+	$configDir = "$targetRoot\websocketservice\config"
+	ConfigKeeper $configDir "connectionstring" $config
+	ConfigKeeper $configDir "services" $config
 }
 
-exit
+EnsureEmptyDirectory $targetRoot\install\configtemplates
+EnsureEmptyDirectory $targetRoot\install\storage\messaging
+EnsureEmptyDirectory $targetRoot\install\storage\management
 
-if($config.StartsWith("Dev"))
+if($config -eq "azure")
 {
-	mv -Force $targetRoot\web\wwwroot\config\siteRoots.dev.js $targetRoot\web\wwwroot\config\siteRoots.js 
+	& $msbuild $solutionRoot\Misc\Thriot.CreateAzureStorage\Thriot.CreateAzureStorage.csproj /p:Configuration=Debug  /p:OutDir=$targetRoot\install\storage\management
 }
 
-if($config.StartsWith("Prod") -and $(test-path $targetRoot\web\wwwroot\config))
+if($config -eq "sql")
 {
-	rmdir -Recu -Force $targetRoot\web\wwwroot\config
+	& $msbuild $solutionRoot\Misc\Thriot.CreateSqlStorage\Thriot.CreateSqlStorage.csproj /p:Configuration=Debug  /p:OutDir=$targetRoot\install\storage\management
 }
 
-EnsureEmptyDirectory $targetRoot\install;
-EnsureEmptyDirectory $targetRoot\install\configtemplates;
-EnsureEmptyDirectory $targetRoot\install\storage;
-EnsureEmptyDirectory $targetRoot\install\storage\messaging;
-EnsureEmptyDirectory $targetRoot\install\storage\management;
-
-if($config -eq "DevAzure" -or $config -eq "ProdAzure")
+if($config -eq "pgsql")
 {
-	cp $solutionRoot\Build\templates\config\azure\* $targetRoot\install\configtemplates
+	& $msbuild $solutionRoot\Misc\Thriot.CreateSqlStorage\Thriot.CreateSqlStorage.csproj /p:Configuration=PgSql  /p:OutputPath=$targetRoot\install\storage\management
+}
+
+if($configmsg -eq "sql")
+{
 	cp $solutionRoot\Messaging\Scripts\Sql\* $targetRoot\install\storage\messaging
-	cp -Recu $solutionRoot\Misc\Thriot.CreateAzureStorage\bin\Debug\* $targetRoot\install\storage\management
 }
 
-if($config -eq "DevSql" -or $config -eq "ProdSql")
+if($configmsg -eq "pgsql")
 {
-	cp $solutionRoot\Build\templates\config\sql\* $targetRoot\install\configtemplates
-	cp $solutionRoot\Messaging\Scripts\Sql\* $targetRoot\install\storage\messaging
-	cp -Recu $solutionRoot\Misc\Thriot.CreateSqlStorage\bin\Debug\* $targetRoot\install\storage\management
-}
-
-if($config -eq "DevPgSql" -or $config -eq "ProdPgSql")
-{
-	cp $solutionRoot\Build\templates\config\pgsql\* $targetRoot\install\configtemplates
 	cp $solutionRoot\Messaging\Scripts\PgSql\* $targetRoot\install\storage\messaging
-	cp -Recu $solutionRoot\Misc\Thriot.CreateSqlStorage\bin\DevPgSql\* $targetRoot\install\storage\management
-	cp -Force $targetRoot\papi\bin\Npgsql.EntityFramework.dll $targetRoot\websocketservice
 }
 
-if($linuxify)
+if($linuxify -eq "yes")
 {
-	if($config.StartsWith("Dev"))
+	foreach($dir in ("api", "msvc", "papi", "rapi"))
 	{
-		foreach($dir in ("api", "msvc", "papi", "rapi"))
-		{
-			LinuxifyNLogConfig $targetRoot\$dir\Web.config
-		}
+		LinuxifyNLogConfig $targetRoot\$dir\wwwroot\web.nlog
+	}
 
-		LinuxifyNLogConfig $targetRoot\websocketservice\Thriot.Platform.WebsocketService.exe.config
-	}
-	if($config.StartsWith("Prod"))
-	{
-		foreach($cnfg in $(ls $targetRoot\install\configtemplates\nlog*.config))
-		{
-			LinuxifyNLogConfig $cnfg.FullName
-		}
-	}
+	LinuxifyNLogConfig $targetRoot\websocketservice\nlog.config
 
 	cp $solutionRoot\Build\templates\config\linux\tinyproxy.conf $targetRoot\install\configtemplates
 	cp $solutionRoot\Build\templates\config\linux\settings.sql $targetRoot\install\storage

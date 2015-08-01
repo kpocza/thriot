@@ -1,12 +1,10 @@
-﻿using System.Data.Common;
-
-namespace Thriot.Objects.Operations.Sql.DataAccess.PgSql
+﻿namespace Thriot.Objects.Operations.Sql.DataAccess.PgSql
 {
     public class ObjectsUnitOfWorkPgSql : ObjectsUnitOfWork
     {
-        protected override ObjectsDbContext GetDbContextCore(DbConnection dbConnection)
+        protected override ObjectsDbContext GetDbContextCore(string connectionString)
         {
-            return new ObjectsDbContextPgSql(dbConnection, true);
+            return new ObjectsDbContextPgSql(connectionString);
         }
     }
 }

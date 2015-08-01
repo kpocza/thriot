@@ -1,12 +1,12 @@
-﻿using System.Data.Common;
+﻿using System;
 
 namespace Thriot.Management.Operations.Sql.DataAccess.Sql
 {
     public class ManagementUnitOfWorkSql : ManagementUnitOfWork
     {
-        protected override ManagementDbContext GetDbContextCore(DbConnection dbConnection, bool ownsConnections)
+        protected override ManagementDbContext GetDbContextCore(string connectionString)
         {
-            return new ManagementDbContextSql(dbConnection, ownsConnections);
+            return new ManagementDbContextSql(connectionString);
         }
     }
 }

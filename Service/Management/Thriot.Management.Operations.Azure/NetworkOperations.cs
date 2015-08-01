@@ -81,7 +81,9 @@ namespace Thriot.Management.Operations.Azure
                     networkTableEntity.ParentNetworkId != null
                         ? new Network() {Id = networkTableEntity.ParentNetworkId}
                         : null,
+                ParentNetworkId = networkTableEntity.ParentNetworkId,
                 Service = new Service() {Id = networkTableEntity.ServiceId},
+                ServiceId = networkTableEntity.ServiceId,
                 Company = new Company() {Id = networkTableEntity.CompanyId},
                 TelemetryDataSinkSettings = networkTableEntity.TelemetryDataSinkSettings,
                 NetworkKey = networkTableEntity.NetworkKey

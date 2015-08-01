@@ -1,21 +1,21 @@
-﻿using System.Data.Common;
-using System.Data.Entity;
+﻿using Microsoft.Data.Entity;
 
 namespace Thriot.Objects.Operations.Sql.DataAccess.Sql
 {
     public class ObjectsDbContextSql : ObjectsDbContext
     {
-        public ObjectsDbContextSql(DbConnection dbConnection, bool ownsConnections) : base(dbConnection, ownsConnections)
-        {
-            Database.SetInitializer<ObjectsDbContextSql>(null);
+        private readonly string _connectionString;
 
-            // dirty hack to make unit tests work
-            // ensure that ef dlls are copied to the right place
-            var _ = typeof (System.Data.Entity.SqlServer.SqlProviderServices);
+        public ObjectsDbContextSql(string connectionString)
+        {
+            _connectionString = connectionString;
+//            Database.SetInitializer<ObjectsDbContextSql>(null);
         }
 
-        public ObjectsDbContextSql()
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.UseSqlServer(_connectionString);
+            base.OnConfiguring(optionsBuilder);
         }
     }
 }

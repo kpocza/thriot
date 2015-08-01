@@ -68,6 +68,7 @@
     <Compile Include="TelemetryDataSinkParameters.cs" />
     <Compile Include="TelemetryDataSinkSettings.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="UserCompany.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\Thriot.Framework\Thriot.Framework.csproj">

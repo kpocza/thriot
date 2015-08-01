@@ -9,7 +9,7 @@
       },
       "dependencies": {
         "Newtonsoft.Json": "6.0.8",
-        "Npgsql": "2.2.5",
+        "Npgsql": "3.0.0-rc0002",
         "Thriot.Messaging.Dto": "1.0.0-*"
       }
     }

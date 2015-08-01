@@ -17,8 +17,15 @@ namespace Thriot.Management.Model
         [Required]
         public Company Company { get; set; }
 
+        [StringLength(32, MinimumLength = 32)]
+        [Required]
+        public string ServiceId { get; set; }
+
         [Required]
         public Service Service { get; set; }
+
+        [StringLength(32, MinimumLength = 32)]
+        public string ParentNetworkId { get; set; }
 
         public Network ParentNetwork { get; set; }
 

@@ -1,5 +1,4 @@
-﻿using System.Data.Entity;
-using System.IO;
+﻿using Microsoft.Data.Entity;
 using System.Threading.Tasks;
 
 namespace Thriot.Framework.Sql

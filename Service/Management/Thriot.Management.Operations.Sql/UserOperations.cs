@@ -96,9 +96,11 @@ namespace Thriot.Management.Operations.Sql
         {
             using (var unitOfWork = _managementUnitOfWorkFactory.Create())
             {
-                var user = unitOfWork.GetUserRepository().Get(userIdentity, u => u.Companies);
+                var companyIds = unitOfWork.GetUserCompanyRepository().List(uc => uc.UserId == userIdentity).Select(uc => uc.CompanyId).ToArray();
 
-                return user.Companies.Select(c => new Small {Id = c.Id, Name = c.Name}).ToList();
+                var companies = unitOfWork.GetCompanyRepository().List(c => companyIds.Contains(c.Id));
+
+                return companies.Select(c => new Small {Id = c.Id, Name = c.Name}).ToList();
             }
         }
 

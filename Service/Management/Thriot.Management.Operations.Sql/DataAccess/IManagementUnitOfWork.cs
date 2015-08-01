@@ -19,5 +19,7 @@ namespace Thriot.Management.Operations.Sql.DataAccess
         LoginUserRepository GetLoginUserRepository();
 
         SettingRepository GetSettingRepository();
+
+        UserCompanyRepository GetUserCompanyRepository();
     }
 }

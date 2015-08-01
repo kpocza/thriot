@@ -1,4 +1,4 @@
-﻿using System.Data.Entity;
+﻿using Microsoft.Data.Entity;
 using Thriot.Framework.Sql;
 using Thriot.Objects.Model;
 

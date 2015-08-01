@@ -91,7 +91,7 @@ namespace Thriot.Management.Operations.Sql
                 if (service == null)
                     throw new NotFoundException();
 
-                var directChildren = unitOfWork.GetNetworkRepository().List(n => n.Service.Id == serviceId && n.ParentNetwork == null);
+                var directChildren = unitOfWork.GetNetworkRepository().List(n => n.ServiceId == serviceId && n.ParentNetworkId == null).ToList();
 
                 return directChildren.Select(n => new Small { Id = n.Id, Name = n.Name }).ToList();
             }

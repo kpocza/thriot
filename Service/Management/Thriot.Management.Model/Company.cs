@@ -25,6 +25,6 @@ namespace Thriot.Management.Model
 
         public ICollection<Service> Services { get; set; }
 
-        public ICollection<User> Users { get; set; }
+        public ICollection<UserCompany> Users { get; set; }
     }
 }

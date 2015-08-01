@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Management", "Management", "{9410464C-9293-45AF-8D3B-B991B5E01A38}"
 EndProject
@@ -353,8 +353,8 @@ Global
 		{3AE0CD09-FF02-4CE9-9EF9-2C2A510DA3FD}.PgSql|Any CPU.Build.0 = PgSql|Any CPU
 		{3AE0CD09-FF02-4CE9-9EF9-2C2A510DA3FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AE0CD09-FF02-4CE9-9EF9-2C2A510DA3FD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3AE0CD09-FF02-4CE9-9EF9-2C2A510DA3FD}.Sql|Any CPU.ActiveCfg = PgSql|Any CPU
-		{3AE0CD09-FF02-4CE9-9EF9-2C2A510DA3FD}.Sql|Any CPU.Build.0 = PgSql|Any CPU
+		{3AE0CD09-FF02-4CE9-9EF9-2C2A510DA3FD}.Sql|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AE0CD09-FF02-4CE9-9EF9-2C2A510DA3FD}.Sql|Any CPU.Build.0 = Debug|Any CPU
 		{EB617FF2-8BE5-4146-BA9D-4D9A08C70CE5}.Azure|Any CPU.ActiveCfg = Debug|Any CPU
 		{EB617FF2-8BE5-4146-BA9D-4D9A08C70CE5}.Azure|Any CPU.Build.0 = Debug|Any CPU
 		{EB617FF2-8BE5-4146-BA9D-4D9A08C70CE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

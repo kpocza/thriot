@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using Thriot.Framework;
 using Thriot.Framework.DataAccess;
 using Thriot.Management.Model;
@@ -46,7 +47,13 @@ namespace Thriot.CreateSqlStorage
         private static void CreateSettingIfNotExist(SettingRepository settingRepository, SettingId settingId,
             string value)
         {
-            var settings = settingRepository.List(s => s.Category == settingId.Category && s.Config == settingId.Config);
+            //var settings = settingRepository.List(s => s.Category == settingId.Category && s.Config == settingId.Config);
+            
+            // EF7 workaround
+            var settings =
+                settingRepository.List(s => s.Category == settingId.Category)
+                    .Where(s => s.Config == settingId.Config)
+                    .ToList();
 
             if (settings.Count == 0)
             {
