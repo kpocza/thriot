@@ -5,8 +5,11 @@ namespace Thriot.Objects.Operations.Sql.DataAccess.PgSql
 {
     public class ObjectsDbContextPgSql : ObjectsDbContext
     {
+        private readonly string _connectionString;
+
         public ObjectsDbContextPgSql(string connectionString)
         {
+            _connectionString = connectionString;
 //            Database.SetInitializer<ObjectsDbContextPgSql>(null);
         }
 
@@ -30,6 +33,14 @@ namespace Thriot.Objects.Operations.Sql.DataAccess.PgSql
             modelBuilder.Entity<Network>().Property(p => p.ServiceId).HasColumnType("varchar");//.IsFixedLength();
             modelBuilder.Entity<Service>().Property(p => p.Id).HasColumnType("varchar");//.IsFixedLength();
             modelBuilder.Entity<Service>().Property(p => p.CompanyId).HasColumnType("varchar");//.IsFixedLength();
+        }
+
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+
+            optionsBuilder.UseNpgsql(_connectionString);
         }
     }
 }

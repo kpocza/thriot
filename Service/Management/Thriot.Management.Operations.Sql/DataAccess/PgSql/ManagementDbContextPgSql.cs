@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Data.Entity;
+﻿using Microsoft.Data.Entity;
 using Thriot.Management.Model;
 
 namespace Thriot.Management.Operations.Sql.DataAccess.PgSql
@@ -11,7 +10,6 @@ namespace Thriot.Management.Operations.Sql.DataAccess.PgSql
         public ManagementDbContextPgSql(string connectionString)
         {
             _connectionString = connectionString;
-//            Database.SetInitializer<ManagementDbContextPgSql>(null);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,6 +24,13 @@ namespace Thriot.Management.Operations.Sql.DataAccess.PgSql
             modelBuilder.Entity<Service>().Property(p => p.Id).HasColumnType("varchar");//.IsFixedLength();
             modelBuilder.Entity<User>().Property(p => p.Id).HasColumnType("varchar");//.IsFixedLength();
             modelBuilder.Entity<LoginUser>().Property(p => p.UserId).HasColumnType("varchar");//.IsFixedLength();
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+
+            optionsBuilder.UseNpgsql(_connectionString);
         }
     }
 }

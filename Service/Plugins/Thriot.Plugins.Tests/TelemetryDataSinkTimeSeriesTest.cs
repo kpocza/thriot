@@ -140,7 +140,7 @@ namespace Thriot.Plugins.Tests
                 }
             }
 
-            var telemetryDataRecords = telemetryDataSinkTimeSeries.GetTimeSeries(devices.Keys, DateTime.UtcNow /* only date part matters*/);
+            var telemetryDataRecords = telemetryDataSinkTimeSeries.GetTimeSeries(devices.Keys, DateTime.UtcNow);
 
             var groups = telemetryDataRecords.GroupBy(tdr => tdr.DeviceId);
             Assert.AreEqual(devices.Keys.Count, groups.Count());

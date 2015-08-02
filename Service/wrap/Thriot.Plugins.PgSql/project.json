@@ -8,7 +8,7 @@
         "pdb": "../../Plugins/Thriot.Plugins.PgSql/obj/{configuration}/Thriot.Plugins.PgSql.pdb"
       },
       "dependencies": {
-        "Npgsql": "2.2.5",
+        "Npgsql": "3.1.0-unstable0101",
         "Thriot.Framework": "1.0.0-*",
         "Thriot.Plugins.Core": "1.0.0-*"
       }

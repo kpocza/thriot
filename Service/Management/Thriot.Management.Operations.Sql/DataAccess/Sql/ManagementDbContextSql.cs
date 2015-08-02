@@ -10,13 +10,13 @@ namespace Thriot.Management.Operations.Sql.DataAccess.Sql
         public ManagementDbContextSql(string connectionString)
         {
             _connectionString = connectionString;
-//            Database.SetInitializer<ManagementDbContextSql>(null);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_connectionString);
             base.OnConfiguring(optionsBuilder);
+
+            optionsBuilder.UseSqlServer(_connectionString);
         }
     }
 }

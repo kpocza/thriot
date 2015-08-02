@@ -19,10 +19,6 @@ namespace Thriot.Management.Operations.Sql.DataAccess
 
             modelBuilder.Ignore<TelemetryDataSinkSettings>();
 
-//            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-//            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
-//            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-            //modelBuilder.Conventions.Add(new ForeignKeyNamingConvention());
             modelBuilder.Entity<Company>().Property(p => p.Id).HasColumnType("char");//.IsFixedLength();
             modelBuilder.Entity<Device>().Property(p => p.Id).HasColumnType("char");//.IsFixedLength();
             modelBuilder.Entity<Device>().Property(p => p.DeviceKey).HasColumnType("varchar");//.IsFixedLength();

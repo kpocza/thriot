@@ -8,12 +8,6 @@
         "pdb": "../../Objects/Thriot.Objects.Operations.Sql/obj/{configuration}/Thriot.Objects.Operations.Sql.pdb"
       },
       "dependencies": {
-        "EntityFramework": "6.1.3",
-        "Npgsql": "2.2.5",
-        "Npgsql.EntityFramework": "2.2.5",
-        "Thriot.Framework.Sql": "1.0.0-*",
-        "Thriot.Framework": "1.0.0-*",
-        "Thriot.Objects.Model": "1.0.0-*",
         "EntityFramework.Core": "7.0.0-beta6",
         "EntityFramework.Relational": "7.0.0-beta6",
         "EntityFramework.SqlServer": "7.0.0-beta6",
@@ -28,8 +22,13 @@
         "Microsoft.Framework.Logging": "1.0.0-beta6",
         "Microsoft.Framework.Logging.Abstractions": "1.0.0-beta6",
         "Microsoft.Framework.OptionsModel": "1.0.0-beta6",
+        "Npgsql": "3.1.0-unstable0101",
         "Remotion.Linq": "2.0.0-alpha-004",
-        "System.Collections.Immutable": "1.1.37"
+        "System.Collections.Immutable": "1.1.37",
+        "Thriot.Framework.Sql": "1.0.0-*",
+        "Thriot.Framework": "1.0.0-*",
+        "EntityFramework7.Npgsql": "1.0.0-*",
+        "Thriot.Objects.Model": "1.0.0-*"
       }
     }
   }

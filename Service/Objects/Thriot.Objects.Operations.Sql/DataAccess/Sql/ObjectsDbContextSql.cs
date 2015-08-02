@@ -14,8 +14,9 @@ namespace Thriot.Objects.Operations.Sql.DataAccess.Sql
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_connectionString);
             base.OnConfiguring(optionsBuilder);
+
+            optionsBuilder.UseSqlServer(_connectionString);
         }
     }
 }

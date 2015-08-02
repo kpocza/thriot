@@ -88,6 +88,10 @@
       <HintPath>..\..\packages\Microsoft.Framework.OptionsModel.1.0.0-beta6\lib\net45\Microsoft.Framework.OptionsModel.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Npgsql, Version=3.1.0.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Npgsql.3.1.0-unstable0101\lib\net45\Npgsql.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Remotion.Linq, Version=2.0.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Remotion.Linq.2.0.0-alpha-004\lib\net45\Remotion.Linq.dll</HintPath>
       <Private>True</Private>
@@ -136,7 +140,6 @@
     <Compile Include="SettingOperations.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -147,6 +150,10 @@
     <ProjectReference Include="..\..\Framework\Thriot.Framework\Thriot.Framework.csproj">
       <Project>{72721CBB-098D-499B-B037-1CCEACBC4524}</Project>
       <Name>Thriot.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Misc\EntityFramework7.Npgsql\EntityFramework7.Npgsql.csproj">
+      <Project>{fadda2d1-03b4-4def-8d24-dd1ca4e81f4a}</Project>
+      <Name>EntityFramework7.Npgsql</Name>
     </ProjectReference>
     <ProjectReference Include="..\Thriot.Objects.Model\Thriot.Objects.Model.csproj">
       <Project>{5A84EBC0-E8A7-4789-972B-B4B46A2834EE}</Project>

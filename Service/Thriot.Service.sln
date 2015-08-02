@@ -196,6 +196,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Thriot.Platform.WebApi", "P
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Thriot.Reporting.WebApi", "Reporting\Thriot.Reporting.WebApi\Thriot.Reporting.WebApi.xproj", "{21F1A396-DAA5-4043-8DE3-96E6FD3C2BA0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFramework7.Npgsql", "Misc\EntityFramework7.Npgsql\EntityFramework7.Npgsql.csproj", "{FADDA2D1-03B4-4DEF-8D24-DD1CA4E81F4A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Azure|Any CPU = Azure|Any CPU
@@ -695,6 +697,16 @@ Global
 		{21F1A396-DAA5-4043-8DE3-96E6FD3C2BA0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{21F1A396-DAA5-4043-8DE3-96E6FD3C2BA0}.Sql|Any CPU.ActiveCfg = Debug|Any CPU
 		{21F1A396-DAA5-4043-8DE3-96E6FD3C2BA0}.Sql|Any CPU.Build.0 = Debug|Any CPU
+		{FADDA2D1-03B4-4DEF-8D24-DD1CA4E81F4A}.Azure|Any CPU.ActiveCfg = Release|Any CPU
+		{FADDA2D1-03B4-4DEF-8D24-DD1CA4E81F4A}.Azure|Any CPU.Build.0 = Release|Any CPU
+		{FADDA2D1-03B4-4DEF-8D24-DD1CA4E81F4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FADDA2D1-03B4-4DEF-8D24-DD1CA4E81F4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FADDA2D1-03B4-4DEF-8D24-DD1CA4E81F4A}.PgSql|Any CPU.ActiveCfg = Release|Any CPU
+		{FADDA2D1-03B4-4DEF-8D24-DD1CA4E81F4A}.PgSql|Any CPU.Build.0 = Release|Any CPU
+		{FADDA2D1-03B4-4DEF-8D24-DD1CA4E81F4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FADDA2D1-03B4-4DEF-8D24-DD1CA4E81F4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FADDA2D1-03B4-4DEF-8D24-DD1CA4E81F4A}.Sql|Any CPU.ActiveCfg = Release|Any CPU
+		{FADDA2D1-03B4-4DEF-8D24-DD1CA4E81F4A}.Sql|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -763,6 +775,7 @@ Global
 		{5691550C-D317-489A-8FB9-C4E3871F98BD} = {2205AEEA-ABE7-43AC-A1BD-93AC8A84469F}
 		{1D880251-2746-4B2E-AD3F-9FACA8190F96} = {1BB195CE-8252-4DDE-83B9-74ACCA99087D}
 		{21F1A396-DAA5-4043-8DE3-96E6FD3C2BA0} = {8D701613-E0C6-4C03-938C-988F5628881D}
+		{FADDA2D1-03B4-4DEF-8D24-DD1CA4E81F4A} = {A7461ACE-ABB7-4359-BAEC-3494430B7A63}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.WindowsAzure.Storage.6.0.1304.1\lib\NET45

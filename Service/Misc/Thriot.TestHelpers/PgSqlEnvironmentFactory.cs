@@ -84,14 +84,7 @@ namespace Thriot.TestHelpers
             get { return InprocMessagingService.Instance; }
         }
 
-        public string TelemetryConnectionString
-        {
-            get
-            {
-                return
-                    "Server=127.0.0.1;Port=5432;Database=ThriotTelemetry;User Id=thriottelemetry;Password=thriottelemetry;";
-            }
-        }
+        public string TelemetryConnectionString => "Server=127.0.0.1;Port=5432;Database=ThriotTelemetry;User Id=thriottelemetry;Password=thriottelemetry;";
 
         public ITelemetryDataSinkCurrent TelemetryDataSinkCurrent
         {
