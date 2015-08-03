@@ -10,11 +10,13 @@
         "Microsoft.Framework.Configuration": "1.0.0-beta6",
         "Microsoft.Framework.Configuration.Json": "1.0.0-beta6",
         "Microsoft.AspNet.Cors": "1.0.0-beta6",
-        "Thriot.Framework.Mvc": "1.0.0-*"
+        "Thriot.Framework.Mvc": "1.0.0-*",
+        "Kestrel":  "1.0.0-beta6"
     },
 
     "commands": {
-        "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5000"
+        "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5000",
+        "kestrel": "Microsoft.AspNet.Hosting --server Kestrel --server.urls http://localhost:8001"
     },
 
     "frameworks": {

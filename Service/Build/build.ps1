@@ -225,6 +225,7 @@ if($linuxify -eq "yes")
 	foreach($dir in ("api", "msvc", "papi", "rapi"))
 	{
 		LinuxifyNLogConfig $targetRoot\$dir\wwwroot\web.nlog
+		mv $targetRoot\$dir\wwwroot\web.nlog $targetRoot\$dir\approot\packages\NLog\4.0.0\lib\net45\NLog.dll.nlog
 	}
 
 	LinuxifyNLogConfig $targetRoot\websocketservice\nlog.config
