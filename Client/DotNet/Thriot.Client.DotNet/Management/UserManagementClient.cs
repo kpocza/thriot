@@ -142,7 +142,7 @@ namespace Thriot.Client.DotNet.Management
         /// <exception cref="WebException">In case of any service side error an exception will be thrown. Please refer to the HTTP error code for more information</exception>
         public User FindUser(string email)
         {
-            var userStr = RestConnection.Get("users/byemail/" + HttpUtility.UrlEncode(email) + "/");
+            var userStr = RestConnection.Get("users/byemail/" + email + "/");
 
             return JsonSerializer.Deserialize<User>(userStr);
         }

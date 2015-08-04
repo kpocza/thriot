@@ -1,0 +1,8 @@
+﻿{
+    "ConnectionString": {
+        "ManagementConnection": {
+            "ConnectionString": "UseDevelopmentStorage=true",
+            "ProviderName": ""
+        }
+    }
+}

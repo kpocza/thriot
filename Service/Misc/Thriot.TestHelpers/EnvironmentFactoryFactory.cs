@@ -1,4 +1,5 @@
-﻿using Thriot.Framework;
+﻿using System;
+using System.Configuration;
 
 namespace Thriot.TestHelpers
 {
@@ -6,7 +7,7 @@ namespace Thriot.TestHelpers
     {
         public static IEnvironmentFactory Create()
         {
-            return SingleContainer.Instance.Resolve<IEnvironmentFactory>();
+            return (IEnvironmentFactory)Activator.CreateInstance(Type.GetType(ConfigurationManager.AppSettings["IEnvironmentFactory"]));
         }
     }
 }

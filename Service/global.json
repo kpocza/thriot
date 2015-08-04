@@ -1,10 +1,16 @@
 {
-  "projects": [
-    "Web",
-    "Management",
-    "wrap"
-  ],
-  "sdk": {
-    "version": "1.0.0-beta4"
-  }
+    "projects": [
+        "Web",
+        "Management",
+        "Framework",
+        "wrap",
+        "Messaging",
+        "Platform",
+        "Reporting"
+    ],
+    "sdk": {
+        "version": "1.0.0-beta6",
+        "runtime": "clr",
+        "architecture": "x64"
+    }
 }

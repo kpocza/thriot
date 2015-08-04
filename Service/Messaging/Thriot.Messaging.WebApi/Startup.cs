@@ -1,27 +1,54 @@
-﻿using System.Web.Http;
-using Thriot.Messaging.WebApi;
-using Microsoft.Owin;
-using Owin;
-using Thriot.Framework;
-using Thriot.Framework.Web;
-using Thriot.Framework.Web.ApiExceptions;
-using Thriot.Framework.Web.Logging;
-
-[assembly: OwinStartup(typeof(Startup))] 
+﻿using Microsoft.AspNet.Builder;
+using Microsoft.AspNet.Hosting;
+using Microsoft.AspNet.Mvc;
+using Microsoft.Framework.Configuration;
+using Microsoft.Framework.DependencyInjection;
+using Microsoft.Framework.Runtime;
+using Thriot.Framework.Mvc.ApiExceptions;
+using Thriot.Framework.Mvc.Logging;
 
 namespace Thriot.Messaging.WebApi
 {
-    public  class Startup
+    public class Startup
     {
-        public void Configuration(IAppBuilder app)
-        {
-            var config = new HttpConfiguration();
-            config.DependencyResolver = new UnityWebApiResolver(SingleContainer.Instance.Container);
-            config.Filters.Add(new LogActionsAttribute());
-            config.Filters.Add(new ApiExceptionFilterAttribute());
-            config.MapHttpAttributeRoutes();
+        private readonly IApplicationEnvironment _appEnv;
 
-            app.UseWebApi(config);
+        public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
+        {
+            _appEnv = appEnv;
+        }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+            var configurationBuilder = new ConfigurationBuilder(_appEnv.ApplicationBasePath);
+            configurationBuilder.AddJsonFile("config/services.json");
+            configurationBuilder.AddJsonFile("config/servicesmsg.json");
+            configurationBuilder.AddJsonFile("config/connectionstring.json");
+            configurationBuilder.AddJsonFile("config/connectionstringmsg.json");
+
+            var configuration = configurationBuilder.Build();
+
+            services.AddMvc().Configure<MvcOptions>(options =>
+            {
+                options.Filters.Add(new LogActionsAttribute());
+                options.Filters.Add(new ApiExceptionFilterAttribute());
+            });
+
+            services.AddSingleton<Services.Caching.IMessageCache, Services.Caching.MessageCache>();
+            services.AddSingleton<Services.Storage.IConnectionStringResolver, ConnectionStringResolver>();
+            services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.DataAccess.ConnectionParametersResolver>();
+            services.AddTransient<Services.MessagingService>();
+            services.AddSingleton(_ => configuration);
+
+            foreach (var extraService in Framework.ServicesResolver.Resolve(configuration, "Services"))
+            {
+                services.AddTransient(extraService.Key, extraService.Value);
+            }
+        }
+
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            app.UseMvc();
         }
     }
 }

@@ -1,17 +1,14 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Xml.Serialization;
 
 namespace Thriot.Platform.Services.Telemetry.Configuration
 {
-    public class TelemetryDataSection : ConfigurationSection
+    [Serializable]
+    [XmlRoot("telemetryDataSink")]
+    public class TelemetryDataSection
     {
-        internal const string IncomingString = "incoming";
-
-        [ConfigurationProperty(IncomingString, IsDefaultCollection = false, IsRequired = true)]
-        [ConfigurationCollection(typeof(TelemetryDataSinkCollection), AddItemName = "sink")]
-        public TelemetryDataSinkCollection Incoming
-        {
-            get { return (TelemetryDataSinkCollection)base[IncomingString]; }
-            set { base[IncomingString] = value; }
-        }
+        [XmlArray("incoming")]
+        [XmlArrayItem("sink")]
+        public TelemetryDataSinkElement[] Incoming { get; set; }
     }
 }

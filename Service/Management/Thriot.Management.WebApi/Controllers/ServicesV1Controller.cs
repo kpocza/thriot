@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Web.Http;
+using Microsoft.AspNet.Mvc;
 using Thriot.Framework.Logging;
 using Thriot.Management.Dto;
 using Thriot.Management.Services;
@@ -7,9 +7,9 @@ using Thriot.Management.WebApi.Auth;
 
 namespace Thriot.Management.WebApi.Controllers
 {
-    [RoutePrefix("v1/services")]
+    [Route("v1/services")]
     [WebApiAuthorize]
-    public class ServicesV1Controller : ApiController, IUserPrincipalContext, ILoggerOwner
+    public class ServicesV1Controller : Controller, ILoggerOwner
     {
         private readonly ServiceService _serviceService;
         private readonly IAuthenticationContext _authenticationContext;
@@ -18,44 +18,41 @@ namespace Thriot.Management.WebApi.Controllers
         {
             _serviceService = serviceService;
             _authenticationContext = authenticationContext;
-        
-            _serviceService.AuthenticationContext.SetUserPrincipalContext(this);
-            _authenticationContext.SetUserPrincipalContext(this);
         }
 
-        [Route("{id}")]
-        public ServiceDto Get(string id) // GET: api/v1/services/5
+        [HttpGet("{id}")]
+        public ServiceDto GetService(string id) // GET: api/v1/services/5
         {
             return _serviceService.Get(id);
         }
 
-        [Route("")]
-        public string Post(ServiceDto serviceDto) // POST: api/v1/services
+        [HttpPost]
+        public IActionResult CreateService([FromBody]ServiceDto serviceDto) // POST: api/v1/services
         {
-            return _serviceService.Create(serviceDto);
+            return Json(_serviceService.Create(serviceDto));
         }
 
-        [Route("")]
-        public void Put(ServiceDto serviceDto) // PUT: api/v1/services
+        [HttpPut]
+        public void UpdateService([FromBody]ServiceDto serviceDto) // PUT: api/v1/services
         {
             _serviceService.Update(serviceDto);
         }
 
-        [Route("{id}")]
-        public void Delete(string id) // DELETE: api/v1/services/5
+        [HttpDelete("{id}")]
+        public void DeleteService(string id) // DELETE: api/v1/services/5
         {
             _serviceService.Delete(id);
         }
 
-        [Route("{id}/networks")]
-        [HttpGet]
+        [HttpGet("{id}/networks")]
         public IEnumerable<SmallDto> GetNetworks(string id) // GET: api/v1/services/5/networks
         {
             return _serviceService.ListNetworks(id);
         }
 
-        [Route("{id}/incomingTelemetryDataSinks")]
-        public void Post(string id, [FromBody]List<TelemetryDataSinkParametersDto> telemetryDataSinkParametersDto) // POST: api/v1/services/5/incomingTelemetryDataSinks
+        [HttpPost("{id}/incomingTelemetryDataSinks")]
+        public void UpdateIncomingTelemetryDataSinks(string id, [FromBody]List<TelemetryDataSinkParametersDto> telemetryDataSinkParametersDto) 
+            // POST: api/v1/services/5/incomingTelemetryDataSinks
         {
             _serviceService.UpdateIncomingTelemetryDataSinks(id, telemetryDataSinkParametersDto);
         }

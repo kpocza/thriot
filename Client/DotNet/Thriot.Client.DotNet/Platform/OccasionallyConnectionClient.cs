@@ -43,7 +43,7 @@ namespace Thriot.Client.DotNet.Platform
         /// </summary>
         /// <param name="message">Telemetry data in JSON format with maximum length of 1024 characters</param>
         /// <exception cref="WebException">This exception indicates some service level error. Please refer to the HTTP error code for more information</exception>
-        public void RecordTelmetryData(string message)
+        public void RecordTelemetryData(string message)
         {
             _restConnection.Post("telemetry", message);
         }

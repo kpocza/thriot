@@ -1,48 +1,39 @@
-﻿using System.Collections.Generic;
-using System.Net.Http;
+﻿using Microsoft.AspNet.Hosting;
+using System.Collections.Generic;
 using System.Security.Claims;
-using System.Security.Principal;
-using System.Web.Http;
 using Thriot.Management.Services;
 
 namespace Thriot.Management.WebApi.Auth
 {
     public class WebAuthenticationContext : IAuthenticationContext
     {
-        private IUserPrincipalContext _userPrincipalContext;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public void SetUserPrincipalContext(IUserPrincipalContext userPrincipalContext)
+        public WebAuthenticationContext(IHttpContextAccessor httpContextAccessor)
         {
-            _userPrincipalContext = userPrincipalContext;
-        }
-
-        public IPrincipal BuildContextUserPrincipal(string userId)
-        {
-            var claims = new List<Claim>()
-            {
-                new Claim(ClaimTypes.Name, userId)
-            };
-            var id = new ClaimsIdentity(claims, "ApplicationCookie");
-            var principal = new ClaimsPrincipal(new[] {id});
-
-            return principal;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public void SetContextUser(string userId)
         {
             var principal = BuildContextUserPrincipal(userId);
-            _userPrincipalContext.User = principal;
-            ((ApiController) _userPrincipalContext).Request.GetOwinContext().Authentication.SignIn(((ClaimsPrincipal) principal).Identity as ClaimsIdentity);
+            var httpContext = _httpContextAccessor.HttpContext;
+            
+            httpContext.User = principal;
+            httpContext.Authentication.SignInAsync(Microsoft.AspNet.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme, principal).Wait();
         }
 
         public void RemoveContextUser()
         {
-            ((ApiController)_userPrincipalContext).Request.GetOwinContext().Authentication.SignOut();
+            var httpContext = _httpContextAccessor.HttpContext;
+            httpContext.Authentication.SignOutAsync(
+                Microsoft.AspNet.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme).Wait();
         }
 
         public string GetContextUser()
         {
-            var claimsPrincipal = (_userPrincipalContext.User as ClaimsPrincipal);
+            var httpContext = _httpContextAccessor.HttpContext;
+            var claimsPrincipal = httpContext.User;
             if (claimsPrincipal == null || claimsPrincipal.Identities == null)
                 return null;
 
@@ -52,6 +43,17 @@ namespace Thriot.Management.WebApi.Auth
                 name = null;
 
             return name;
+        }
+
+        private ClaimsPrincipal BuildContextUserPrincipal(string userId)
+        {
+            var claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.Name, userId)
+            };
+
+            var id = new ClaimsIdentity(claims, "ApplicationCookie");
+            return new ClaimsPrincipal(new[] { id });
         }
     }
 }

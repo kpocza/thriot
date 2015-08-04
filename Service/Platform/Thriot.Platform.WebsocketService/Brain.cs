@@ -1,5 +1,7 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Linq;
 using SuperSocket.SocketBase.Config;
+using Microsoft.Framework.DependencyInjection;
 using Thriot.Framework;
 using Thriot.Objects.Model;
 using Thriot.Objects.Model.Operations;
@@ -15,10 +17,16 @@ namespace Thriot.Platform.WebsocketService
 {
     class Brain
     {
+        private readonly IServiceProvider _serviceProvider;
         private PersistentConnectionReceiveAndForgetWorker _persistentConnectionReceiveAndForgetWorker;
         private PersistentConnectionPeekWorker _persistentConnectionPeekWorker;
         private IotWebSocketServer _iotWebSocketServer;
         private ConnectionRegistry _connectionRegistry;
+
+        public Brain(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider;
+        }
 
         internal void Start()
         {
@@ -53,7 +61,7 @@ namespace Thriot.Platform.WebsocketService
                 SendBufferSize = 10240,
                 SyncSend = false,
             });
-            _iotWebSocketServer.SetConnectionRegistry(_connectionRegistry, () => SingleContainer.Instance.Resolve<CommandExecutor>());
+            _iotWebSocketServer.SetConnectionRegistry(_connectionRegistry, () => _serviceProvider.GetService<CommandExecutor>());
             _iotWebSocketServer.Start();
         }
 
@@ -64,54 +72,53 @@ namespace Thriot.Platform.WebsocketService
 
         private void StartBackgrounProcesses()
         {
-            var settingOperations = SingleContainer.Instance.Resolve<ISettingOperations>();
+            var settingOperations = _serviceProvider.GetService<ISettingOperations>();
 
             SetupTelemetryDataSinkMetadataRegistry(settingOperations);
 
-            var messagingService = SingleContainer.Instance.Resolve<IMessagingService>();
+            var messagingService = _serviceProvider.GetService<IMessagingService>();
             messagingService.Setup(settingOperations.Get(Setting.MessagingServiceEndpoint).Value, settingOperations.Get(Setting.MessagingServiceApiKey).Value);
 
-            var batchParameters = SingleContainer.Instance.Resolve<IBatchParameters>();
+            var batchParameters = _serviceProvider.GetService<IBatchParameters>();
             MessagingWorkers.Start(batchParameters, messagingService);
 
-            _persistentConnectionReceiveAndForgetWorker =
-                SingleContainer.Instance.Resolve<PersistentConnectionReceiveAndForgetWorker>();
+            _persistentConnectionReceiveAndForgetWorker =_serviceProvider.GetService<PersistentConnectionReceiveAndForgetWorker>();
             _persistentConnectionReceiveAndForgetWorker.Start();
 
-            _persistentConnectionPeekWorker = SingleContainer.Instance.Resolve<PersistentConnectionPeekWorker>();
+            _persistentConnectionPeekWorker = _serviceProvider.GetService<PersistentConnectionPeekWorker>();
             _persistentConnectionPeekWorker.Start();
 
-            _connectionRegistry = SingleContainer.Instance.Resolve<ConnectionRegistry>();
+            _connectionRegistry = _serviceProvider.GetService<ConnectionRegistry>();
             _connectionRegistry.Start();
         }
 
-        private static void SetupTelemetryDataSinkMetadataRegistry(ISettingOperations settingOperations)
+        private void SetupTelemetryDataSinkMetadataRegistry(ISettingOperations settingOperations)
         {
-            var telemetryDataSinkSetupService = SingleContainer.Instance.Resolve<ITelemetryDataSinkSetupService>();
+            var telemetryDataSinkSetupService = _serviceProvider.GetService<ITelemetryDataSinkSetupService>();
 
             telemetryDataSinkSetupService.Setup(settingOperations.Get(Setting.TelemetrySetupServiceEndpoint).Value,
                 settingOperations.Get(Setting.TelemetrySetupServiceApiKey).Value);
 
-            var telemetryDataSinkMetadataRegistry =
-                (TelemetryDataSinkMetadataRegistry) SingleContainer.Instance.Resolve<ITelemetryDataSinkMetadataRegistry>();
+            var telemetryDataSinkMetadataRegistry = (TelemetryDataSinkMetadataRegistry)_serviceProvider.GetService<ITelemetryDataSinkMetadataRegistry>();
             var telemetryDataSinksMetadata = telemetryDataSinkSetupService.GetTelemetryDataSinksMetadata();
 
-            var telemeryDataSection = new TelemetryDataSection {Incoming = new TelemetryDataSinkCollection()};
-            foreach (var inc in telemetryDataSinksMetadata.Incoming)
+            var telemeryDataSection = new TelemetryDataSection
             {
-                var telemetryDataSinkElement = new TelemetryDataSinkElement
+                Incoming = telemetryDataSinksMetadata.Incoming.Select(inc =>
+                new TelemetryDataSinkElement
                 {
                     Name = inc.Name,
                     Type = inc.TypeName,
                     Description = inc.Description,
-                    ParameterPresets = new KeyValueConfigurationCollection()
-                };
-                foreach (var pp in inc.ParametersPresets)
-                {
-                    telemetryDataSinkElement.ParameterPresets.Add(pp.Key, pp.Value);
-                }
-                telemeryDataSection.Incoming.Add(telemetryDataSinkElement);
-            }
+                    ParameterPresets = inc.ParametersPresets?.Select(pp =>
+                        new TelemetrySinkParameter
+                        {
+                            Key = pp.Key,
+                            Value = pp.Value
+                        }).ToArray()
+                }).ToArray()
+            };
+
             telemetryDataSinkMetadataRegistry.Build(telemeryDataSection);
         }
 

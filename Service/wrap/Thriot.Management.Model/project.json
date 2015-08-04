@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net45": {
+      "wrappedProject": "../../Management/Thriot.Management.Model/Thriot.Management.Model.csproj",
+      "bin": {
+        "assembly": "../../Management/Thriot.Management.Model/obj/{configuration}/Thriot.Management.Model.dll",
+        "pdb": "../../Management/Thriot.Management.Model/obj/{configuration}/Thriot.Management.Model.pdb"
+      },
+      "dependencies": {
+        "Thriot.Framework": "1.0.0-*"
+      }
+    }
+  }
+}

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Mail;
 using Thriot.Framework.Logging;
 
@@ -8,14 +9,16 @@ namespace Thriot.Framework.Mails
     {
         private static readonly ILogger Logger = LoggerFactory.GetCurrentClassLogger();
 
-        public void Send(MailMessage mailMessage)
+        public void Send(MailMessage mailMessage, IMailSettings mailSettings)
         {
             try
             {
-                using (var client = new SmtpClient())
+                using (var client = new SmtpClient(mailSettings.SmtpServer, mailSettings.SmtpPort))
                 {
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new NetworkCredential(mailSettings.Username, mailSettings.Password);
                     client.EnableSsl = true;
-                    client.Timeout = 5000;
+                    client.Timeout = 10000;
                     client.Send(mailMessage);
                 }
             }

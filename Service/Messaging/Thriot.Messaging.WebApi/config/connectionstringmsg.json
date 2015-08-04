@@ -1,0 +1,5 @@
+﻿{
+    "ConnectionString": {
+        "MessagingConnection": "Server=.\\\\SQLEXPRESS;Database=ThriotMessaging;Trusted_Connection=True;"
+    }
+}

@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net45": {
+      "wrappedProject": "../../Plugins/Thriot.Plugins.PgSql/Thriot.Plugins.PgSql.csproj",
+      "bin": {
+        "assembly": "../../Plugins/Thriot.Plugins.PgSql/obj/{configuration}/Thriot.Plugins.PgSql.dll",
+        "pdb": "../../Plugins/Thriot.Plugins.PgSql/obj/{configuration}/Thriot.Plugins.PgSql.pdb"
+      },
+      "dependencies": {
+        "Npgsql": "3.1.0-unstable0101",
+        "Thriot.Framework": "1.0.0-*",
+        "Thriot.Plugins.Core": "1.0.0-*"
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Web.Http;
+using Microsoft.AspNet.Mvc;
 using Thriot.Framework.Logging;
 using Thriot.Management.Dto;
 using Thriot.Management.Services;
@@ -7,9 +7,9 @@ using Thriot.Management.WebApi.Auth;
 
 namespace Thriot.Management.WebApi.Controllers
 {
-    [RoutePrefix("v1/companies")]
+    [Route("v1/companies")]
     [WebApiAuthorize]
-    public class CompaniesV1Controller : ApiController, IUserPrincipalContext, ILoggerOwner
+    public class CompaniesV1Controller : Controller, ILoggerOwner
     {
         private readonly CompanyService _companyService;
         private readonly UserService _userService;
@@ -20,68 +20,61 @@ namespace Thriot.Management.WebApi.Controllers
             _companyService = companyService;
             _userService = userService;
             _authenticationContext = authenticationContext;
-
-            _companyService.AuthenticationContext.SetUserPrincipalContext(this);
-            _userService.AuthenticationContext.SetUserPrincipalContext(this);
-            _authenticationContext.SetUserPrincipalContext(this);
         }
 
-        [Route("")]
-        public IEnumerable<SmallDto> Get() // GET: api/v1/companies
+        [HttpGet]
+        public IEnumerable<SmallDto> ListCompanies() // GET: api/v1/companies
         {
             var companies = _userService.ListCompanies();
 
             return companies;
         }
 
-        [Route("{id}")]
-        public CompanyDto Get(string id) // GET: api/v1/companies/5
+        [HttpGet("{id}")]
+        public CompanyDto GetCompany(string id) // GET: api/v1/companies/5
         {
             return _companyService.Get(id);
         }
 
-        [Route("")]
-        public string Post(CompanyDto companyDto) // POST: api/v1/companies
+        [HttpPost]
+        public IActionResult CreateCompany([FromBody]CompanyDto companyDto) // POST: api/v1/companies
         {
-            return _companyService.Create(companyDto.Name);
+            return Json(_companyService.Create(companyDto.Name));
         }
 
-        [Route("")]
-        public void Put(CompanyDto companyDto) // PUT: api/v1/companies
+        [HttpPut]
+        public void Update([FromBody]CompanyDto companyDto) // PUT: api/v1/companies
         {
             _companyService.Update(companyDto);
         }
 
-        [Route("{id}")]
+        [HttpDelete("{id}")]
         public void Delete(string id) // DELETE: api/v1/companies/5
         {
             _companyService.Delete(id);
         }
 
-        [Route("{id}/services")]
-        [HttpGet]
+        [HttpGet("{id}/services")]
         public IEnumerable<SmallDto> GetServices(string id) // GET: api/v1/companies/5/services
         {
             return _companyService.ListServices(id);
         }
 
-        [Route("{id}/users")]
-        [HttpGet]
+        [HttpGet("{id}/users")]
         public IEnumerable<SmallUserDto> GetUsers(string id) // GET: api/v1/companies/5/users
         {
             return _companyService.ListUsers(id);
         }
 
-        [Route("{id}/incomingTelemetryDataSinks")]
-        public void Post(string id, [FromBody] List<TelemetryDataSinkParametersDto> telemetryDataSinkParametersDto)
+        [HttpPost("{id}/incomingTelemetryDataSinks")]
+        public void UpdateTelemetryDataSinkParameters(string id, [FromBody] List<TelemetryDataSinkParametersDto> telemetryDataSinkParametersDto)
             // POST: api/v1/companies/5/incomingTelemetryDataSinks
         {
             _companyService.UpdateIncomingTelemetryDataSinks(id, telemetryDataSinkParametersDto);
         }
 
-        [Route("adduser")]
-        [HttpPost]
-        public void AddUser(CompanyUserDto companyUserDto) // POST: api/v1/companies/adduser
+        [HttpPost("adduser")]
+        public void AddUser([FromBody]CompanyUserDto companyUserDto) // POST: api/v1/companies/adduser
         {
             _companyService.AddUser(companyUserDto);
         }

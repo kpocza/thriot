@@ -1,14 +1,13 @@
-﻿using System.Web.Http;
+﻿using Microsoft.AspNet.Mvc;
 using Thriot.Framework.Logging;
 using Thriot.Platform.Services.Telemetry.Dtos;
 using Thriot.Platform.WebApi.Auth;
-using TelemetryDataSinkSetupService = Thriot.Platform.Services.Telemetry.TelemetryDataSinkSetupService;
 
 namespace Thriot.Platform.WebApi.Controllers
 {
-    [RoutePrefix("v1/telemetryDataSinkSetup")]
-    [TelemetryWebApiAuthenticator]
-    public class TelemetryDataSinkSetupServiceV1Controller : ApiController, ILoggerOwner
+    [Route("v1/telemetryDataSinkSetup")]
+    [TelemetryWebApiAuthorization]
+    public class TelemetryDataSinkSetupServiceV1Controller : Controller, ILoggerOwner
     {
         private readonly Services.Telemetry.TelemetryDataSinkSetupService _telemetryDataSinkSetupService;
 
@@ -17,16 +16,14 @@ namespace Thriot.Platform.WebApi.Controllers
             _telemetryDataSinkSetupService = telemetryDataSinkSetupService;
         }
 
-        [Route("metadata")]
-        [HttpGet]
+        [HttpGet("metadata")]
         public TelemetryDataSinksMetadataDto GetMetadata() // GET: v1/telemetryDataSinkSetup/metadata
         {
             return _telemetryDataSinkSetupService.GetTelemetryDataSinksMetadata();
         }
 
-        [Route("prepareAndValidate")]
-        [HttpPost]
-        public void PrepareAndValidate(TelemetryDataSinksParametersRemoteDto telemetryDataSinksParameters) // GET: v1/telemetryDataSinkSetup/prepareAndValidate
+        [HttpPost("prepareAndValidate")]
+        public void PrepareAndValidate([FromBody]TelemetryDataSinksParametersRemoteDto telemetryDataSinksParameters) // GET: v1/telemetryDataSinkSetup/prepareAndValidate
         {
             _telemetryDataSinkSetupService.PrepareAndValidateIncoming(telemetryDataSinksParameters.Incoming);
         }

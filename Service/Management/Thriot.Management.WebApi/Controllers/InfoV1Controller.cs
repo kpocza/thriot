@@ -1,4 +1,4 @@
-﻿using System.Web.Http;
+﻿using Microsoft.AspNet.Mvc;
 using Thriot.Framework.Logging;
 using Thriot.Management.Dto;
 using Thriot.Management.Services;
@@ -6,9 +6,9 @@ using Thriot.Management.WebApi.Auth;
 
 namespace Thriot.Management.WebApi.Controllers
 {
-    [RoutePrefix("v1/info")]
+    [Route("v1/info")]
     [WebApiAuthorize]
-    public class InfoV1Controller : ApiController, IUserPrincipalContext, ILoggerOwner
+    public class InfoV1Controller : Controller, ILoggerOwner
     {
         private readonly InfoService _infoService;
         private readonly IAuthenticationContext _authenticationContext;
@@ -17,20 +17,15 @@ namespace Thriot.Management.WebApi.Controllers
         {
             _infoService = infoService;
             _authenticationContext = authenticationContext;
-
-            _infoService.AuthenticationContext.SetUserPrincipalContext(this);
-            _authenticationContext.SetUserPrincipalContext(this);
         }
 
-        [Route("")]
         [HttpGet]
         public InfoDto Get() // GET: api/v1/info
         {
             return _infoService.Get();
         }
 
-        [Route("url")]
-        [HttpGet]
+        [HttpGet("url")]
         public UrlInfoDto GetUrl() // GET: api/v1/info/url
         {
             return _infoService.GetUrlInfo();

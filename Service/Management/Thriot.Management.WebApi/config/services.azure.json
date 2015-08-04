@@ -1,0 +1,11 @@
+﻿{
+    "Services": {
+        "Thriot.Management.Model.Operations.IUserOperations, Thriot.Management.Model": "Thriot.Management.Operations.Azure.UserOperations, Thriot.Management.Operations.Azure",
+        "Thriot.Management.Model.Operations.ICompanyOperations, Thriot.Management.Model": "Thriot.Management.Operations.Azure.CompanyOperations, Thriot.Management.Operations.Azure",
+        "Thriot.Management.Model.Operations.IServiceOperations, Thriot.Management.Model": "Thriot.Management.Operations.Azure.ServiceOperations, Thriot.Management.Operations.Azure",
+        "Thriot.Management.Model.Operations.INetworkOperations, Thriot.Management.Model": "Thriot.Management.Operations.Azure.NetworkOperations, Thriot.Management.Operations.Azure",
+        "Thriot.Management.Model.Operations.IDeviceOperations, Thriot.Management.Model": "Thriot.Management.Operations.Azure.DeviceOperations, Thriot.Management.Operations.Azure",
+        "Thriot.Management.Model.Operations.ISettingOperations, Thriot.Management.Model": "Thriot.Management.Operations.Azure.SettingOperations, Thriot.Management.Operations.Azure",
+        "Thriot.Framework.Azure.DataAccess.ICloudStorageClientFactory, Thriot.Framework.Azure": "Thriot.Framework.Azure.DataAccess.AzureCloudStorageClientFactory, Thriot.Framework.Azure"
+    }
+}

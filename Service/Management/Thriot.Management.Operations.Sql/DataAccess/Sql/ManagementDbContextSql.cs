@@ -1,23 +1,22 @@
-﻿using System.Data.Common;
-using System.Data.Entity;
+﻿using System;
+using Microsoft.Data.Entity;
 
 namespace Thriot.Management.Operations.Sql.DataAccess.Sql
 {
     public class ManagementDbContextSql : ManagementDbContext
     {
-        public ManagementDbContextSql(DbConnection dbConnection, bool ownsConnections)
-            : base(dbConnection, ownsConnections)
+        private readonly string _connectionString;
+
+        public ManagementDbContextSql(string connectionString)
         {
-            Database.SetInitializer<ManagementDbContextSql>(null);
-            
-            // dirty hack to make unit tests work
-            // ensure that ef dlls are copied to the right place
-            var _ = typeof(System.Data.Entity.SqlServer.SqlProviderServices);
+            _connectionString = connectionString;
         }
 
-        public ManagementDbContextSql()
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
+            base.OnConfiguring(optionsBuilder);
+
+            optionsBuilder.UseSqlServer(_connectionString);
         }
     }
 }

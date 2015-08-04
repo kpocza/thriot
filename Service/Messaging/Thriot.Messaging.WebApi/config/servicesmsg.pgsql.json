@@ -1,0 +1,5 @@
+﻿{
+    "Services": {
+        "Thriot.Messaging.Services.Storage.IPersistentStorage, Thriot.Messaging.Services": "Thriot.Messaging.Services.Storage.PersistentStoragePgSql, Thriot.Messaging.Services"
+    }
+}

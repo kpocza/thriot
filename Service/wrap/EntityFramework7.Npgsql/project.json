@@ -1,0 +1,23 @@
+{
+  "version": "3.1.0-unstable0101-*",
+  "frameworks": {
+    "net45": {
+      "bin": {
+        "assembly": "../../Misc/EntityFramework7.Npgsql/obj/{configuration}/EntityFramework7.Npgsql.dll",
+        "pdb": "../../Misc/EntityFramework7.Npgsql/obj/{configuration}/EntityFramework7.Npgsql.pdb"
+      },
+      "wrappedProject": "../../Misc/EntityFramework7.Npgsql/EntityFramework7.Npgsql.csproj",
+      "dependencies": {
+        "EntityFramework.Core": "7.0.0-beta6",
+        "EntityFramework.Relational": "7.0.0-beta6",
+        "Ix-Async": "1.2.3",
+        "Microsoft.Framework.DependencyInjection": "1.0.0-beta6",
+        "Microsoft.Framework.DependencyInjection.Abstractions": "1.0.0-beta6",
+        "Microsoft.Framework.Logging.Abstractions": "1.0.0-beta6",
+        "Npgsql": "3.1.0-unstable0101",
+        "Remotion.Linq": "2.0.0-alpha-004",
+        "System.Collections.Immutable": "1.1.36"
+      }
+    }
+  }
+}

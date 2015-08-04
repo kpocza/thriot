@@ -13,7 +13,10 @@ namespace Thriot.Platform.WebsocketService
 
         protected override void OnStart(string[] args)
         {
-            _brain = new Brain();
+            var serviceSetup = new ServicesSetup();
+            serviceSetup.Setup();
+
+            _brain = new Brain(serviceSetup.GetServiceProvider());
             _brain.Start();
         }
 

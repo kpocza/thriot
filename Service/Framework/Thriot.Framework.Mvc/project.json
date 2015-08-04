@@ -1,0 +1,22 @@
+{
+    "version": "1.0.0-*",
+    "description": "",
+    "authors": [ "" ],
+    "tags": [ "" ],
+    "projectUrl": "",
+    "licenseUrl": "",
+
+    "dependencies": {
+        "Microsoft.AspNet.Mvc": "6.0.0-beta6",
+        "Microsoft.AspNet.Http.Features": "1.0.0-beta6"
+
+    },
+
+    "frameworks": {
+        "dnx451": {
+            "dependencies": {
+                "Thriot.Framework": "1.0.0-*"
+            }
+        }
+    }
+}

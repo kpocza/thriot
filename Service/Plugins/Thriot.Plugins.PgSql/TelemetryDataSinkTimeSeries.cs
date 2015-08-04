@@ -70,7 +70,10 @@ namespace Thriot.Plugins.PgSql
                 {
                     var queryNow = allDeviceIds.Skip(idx).Take(500);
                     var concatenatedDeviceIds = string.Join(",", queryNow.Select(q => "'" + q + "'"));
-                    using (var select = new NpgsqlCommand(string.Format("SELECT \"DeviceId\", \"Time\", \"Payload\" FROM \"{0}\" WHERE \"Date\" = @date AND \"DeviceId\" IN ({1})", TableName, concatenatedDeviceIds), sqlConnection))
+                    var datePart = date.Date;
+                    var dateString = $"{datePart.ToString("yyyy")}.{datePart.ToString("MM")}.{datePart.ToString("dd")}";
+                    using (var select = new NpgsqlCommand(
+                        $"SELECT \"DeviceId\", \"Time\", \"Payload\" FROM \"{TableName}\" WHERE \"Date\" = '{dateString}' AND \"DeviceId\" IN ({concatenatedDeviceIds})", sqlConnection))
                     {
                         select.Parameters.AddWithValue("date", date.Date);
 
@@ -79,7 +82,8 @@ namespace Thriot.Plugins.PgSql
                         while (dataReader.Read())
                         {
                             list.Add(new TelemetryData((string)dataReader[0], (string)dataReader[2],
-                                (DateTime)dataReader[1]));
+                                // WORKAROUND: timezone handling in npgsql
+                                ((DateTime)dataReader[1]).ToUniversalTime()));
                         }
                     }
                 }

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Data.Entity;
+using Microsoft.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -18,7 +18,7 @@ namespace Thriot.Framework.Sql
             {
                 query = query.Include(includeExpression);
             }
-            return query.SingleOrDefault(entity => entity.Id == id);
+            return query.Where(entity => entity.Id == id).ToList().SingleOrDefault();
         }
     }
 }

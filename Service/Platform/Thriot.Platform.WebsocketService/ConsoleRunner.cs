@@ -12,7 +12,10 @@ namespace Thriot.Platform.WebsocketService
         {
             AllocConsole();
 
-            _brain = new Brain();
+            var serviceSetup = new ServicesSetup();
+            serviceSetup.Setup();
+
+            _brain = new Brain(serviceSetup.GetServiceProvider());
             _brain.Start();
 
             Console.WriteLine("Started");

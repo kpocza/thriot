@@ -36,14 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Practices.Unity">
-      <HintPath>..\..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Configuration">
-      <HintPath>..\..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
-      <HintPath>..\..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+    <Reference Include="Microsoft.Framework.Configuration.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Framework.Configuration.Abstractions.1.0.0-beta6\lib\net45\Microsoft.Framework.Configuration.Abstractions.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -68,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Batching\MultiWaitHandler.cs" />
     <Compile Include="Crypto.cs" />
+    <Compile Include="DataAccess\ConnectionParametersResolver.cs" />
     <Compile Include="DataAccess\IConnectionParametersResolver.cs" />
     <Compile Include="DataAccess\IDynamicConnectionStringResolver.cs" />
     <Compile Include="DataAccess\LocalConnectionParametersResolver.cs" />
@@ -88,7 +84,7 @@
     <Compile Include="Logging\ILoggerOwner.cs" />
     <Compile Include="Logging\LoggerFactory.cs" />
     <Compile Include="Logging\NLogLogger.cs" />
-    <Compile Include="SingleContainer.cs" />
+    <Compile Include="ServicesResolver.cs" />
     <Compile Include="Validator.cs" />
     <Compile Include="Wrapper.cs" />
     <Compile Include="Exceptions\AlreadyExistsException.cs" />

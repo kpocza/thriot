@@ -1,4 +1,4 @@
-﻿using System.Web.Http;
+﻿using Microsoft.AspNet.Mvc;
 using Thriot.Framework.Logging;
 using Thriot.Messaging.Dto;
 using Thriot.Messaging.Services;
@@ -6,9 +6,9 @@ using Thriot.Messaging.WebApi.Auth;
 
 namespace Thriot.Messaging.WebApi.Controllers
 {
-    [RoutePrefix("v1/messaging")]
-    [MessagingWebApiAuthenticator]
-    public class MessagingV1Controller : ApiController, ILoggerOwner
+    [Route("v1/messaging")]
+    [MessagingWebApiAuthorization]
+    public class MessagingV1Controller : Controller, ILoggerOwner
     {
         private readonly MessagingService _messagingService;
 
@@ -17,37 +17,32 @@ namespace Thriot.Messaging.WebApi.Controllers
             _messagingService = messagingService;
         }
 
-        [HttpGet]
-        [Route("initialize/{deviceId}")]
+        [HttpGet("initialize/{deviceId}")]
         public long Initialize(string deviceId)
         {
             return _messagingService.Initialize(deviceId);
         }
 
-        [HttpPost]
-        [Route("enqueue")]
-        public DeviceListDto Enqueue(EnqueueMessagesDto enqueueMessages)
+        [HttpPost("enqueue")]
+        public DeviceListDto Enqueue([FromBody]EnqueueMessagesDto enqueueMessages)
         {
             return _messagingService.Enqueue(enqueueMessages);
         }
 
-        [HttpPost]
-        [Route("dequeue")]
-        public DequeueMessagesDto Dequeue(DeviceListDto deviceList)
+        [HttpPost("dequeue")]
+        public DequeueMessagesDto Dequeue([FromBody]DeviceListDto deviceList)
         {
             return _messagingService.Dequeue(deviceList);
         }
 
-        [HttpPost]
-        [Route("peek")]
-        public DequeueMessagesDto Peek(DeviceListDto deviceList)
+        [HttpPost("peek")]
+        public DequeueMessagesDto Peek([FromBody]DeviceListDto deviceList)
         {
             return _messagingService.Peek(deviceList);
         }
 
-        [HttpPost]
-        [Route("commit")]
-        public DeviceListDto Commit(DeviceListDto deviceList)
+        [HttpPost("commit")]
+        public DeviceListDto Commit([FromBody]DeviceListDto deviceList)
         {
             return _messagingService.Commit(deviceList);
         }

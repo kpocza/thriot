@@ -1,0 +1,11 @@
+﻿{
+    "SmtpSettings": {
+        "FromAddress": "no-reply@thriot.io",
+        "FromName": "Thriot",
+        "BouncesAddress": "bounces@thriot.io",
+        "Host": "smtp.sendgrid.net",
+        "Port": "587",
+        "UserName": "***",
+        "Password": "***"
+    }
+}

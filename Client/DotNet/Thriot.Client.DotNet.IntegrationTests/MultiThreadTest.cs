@@ -68,7 +68,7 @@ namespace Thriot.Client.DotNet.IntegrationTests
                     var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, deviceId, apiKey);
                     for (var j = 0; j < messageCount; j++)
                     {
-                        ocassionalConnectionClient.RecordTelmetryData("{\"Temperature\": 24, \"Time\":" + DateTime.UtcNow.Ticks + "}");
+                        ocassionalConnectionClient.RecordTelemetryData("{\"Temperature\": 24, \"Time\":" + DateTime.UtcNow.Ticks + "}");
                         Thread.Sleep(10);
                     }
                 });

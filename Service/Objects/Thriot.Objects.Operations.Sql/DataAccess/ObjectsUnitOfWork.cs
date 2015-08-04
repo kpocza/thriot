@@ -1,5 +1,5 @@
 ﻿using System.Data.Common;
-using System.Data.Entity;
+using Microsoft.Data.Entity;
 using Thriot.Framework.Sql;
 
 namespace Thriot.Objects.Operations.Sql.DataAccess
@@ -8,14 +8,10 @@ namespace Thriot.Objects.Operations.Sql.DataAccess
     {
         protected override DbContext GetDbContext(string connectionString, string providerName)
         {
-            var dbProviderFactory = DbProviderFactories.GetFactory(providerName);
-            var dbConnection = dbProviderFactory.CreateConnection();
-            dbConnection.ConnectionString = connectionString;
-
-            return GetDbContextCore(dbConnection);
+            return GetDbContextCore(connectionString);
         }
 
-        protected abstract ObjectsDbContext GetDbContextCore(DbConnection dbConnection);
+        protected abstract ObjectsDbContext GetDbContextCore(string connectionString);
 
         public CompanyRepository GetCompanyRepository()
         {

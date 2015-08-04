@@ -1,19 +1,16 @@
-﻿using System.Globalization;
+﻿using Microsoft.AspNet.Mvc;
+using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
+using System.Text;
 using Thriot.Reporting.Dto;
 
 namespace Thriot.Reporting.WebApi.Formatters
 {
     public static class CsvFormatter
     {
-        public static HttpResponseMessage ToHttpResponseMessage(FlatReportDto flatReport)
+        public static IActionResult ToHttpResponseMessage(FlatReportDto flatReport)
         {
-            var response = new HttpResponseMessage(HttpStatusCode.OK);
-
             using (var stringWriter = new StringWriter())
             {
                 stringWriter.NewLine = "\r\n";
@@ -43,16 +40,10 @@ namespace Thriot.Reporting.WebApi.Formatters
                         stringWriter.WriteLine(valueLine);
                     }
                 }
-                response.Content = new StringContent(stringWriter.ToString());
+                var fileContentResult = new FileContentResult(Encoding.UTF8.GetBytes(stringWriter.ToString()), "text/csv");
+                fileContentResult.FileDownloadName = "telemetry.csv";
+                return fileContentResult;
             }
-
-            response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/csv");
-            response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-            {
-                FileName = "telemetry.csv"
-            };
-
-            return response;
         }
 
         private static string Escaped(string val)

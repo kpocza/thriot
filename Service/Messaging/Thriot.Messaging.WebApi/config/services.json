@@ -1,0 +1,6 @@
+﻿{
+    "Services": {
+        "Thriot.Objects.Model.Operations.ISettingOperations, Thriot.Objects.Model": "Thriot.Objects.Operations.Azure.SettingOperations, Thriot.Objects.Operations.Azure",
+        "Thriot.Framework.Azure.DataAccess.ICloudStorageClientFactory, Thriot.Framework.Azure": "Thriot.Framework.Azure.DataAccess.AzureCloudStorageClientFactory, Thriot.Framework.Azure"
+    }
+}

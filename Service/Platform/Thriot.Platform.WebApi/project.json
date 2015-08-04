@@ -1,0 +1,49 @@
+{
+    "webroot": "wwwroot",
+    "version": "1.0.0-*",
+
+    "dependencies": {
+        "Microsoft.AspNet.Mvc": "6.0.0-beta6",
+        "Microsoft.AspNet.Server.IIS": "1.0.0-beta6",
+        "Microsoft.AspNet.Server.WebListener": "1.0.0-beta6",
+        "Microsoft.AspNet.StaticFiles": "1.0.0-beta6",
+        "Microsoft.Framework.Configuration": "1.0.0-beta6",
+        "Microsoft.Framework.Configuration.Json": "1.0.0-beta6",
+        "Microsoft.AspNet.Cors": "1.0.0-beta6",
+        "Thriot.Framework.Mvc": "1.0.0-*",
+        "Kestrel":  "1.0.0-beta6"
+    },
+
+    "commands": {
+        "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5000",
+        "kestrel": "Microsoft.AspNet.Hosting --server Kestrel --server.urls http://localhost:8001"
+    },
+
+    "frameworks": {
+        "dnx451": {
+            "dependencies": {
+                "Thriot.Objects.Common": "1.0.0-*",
+                "Thriot.Objects.Operations.Azure": "1.0.0-*",
+                "Thriot.Objects.Operations.Sql": "1.0.0-*",
+                "Thriot.Plugins.Azure": "1.0.0-*",
+                "Thriot.Plugins.PgSql": "1.0.0-*",
+                "Thriot.Plugins.Sql": "1.0.0-*",
+                "Thriot.Platform.Services.Messaging": "1.0.0-*",
+                "Thriot.Platform.Services.Telemetry": "1.0.0-*"
+            }
+        }
+    },
+
+    "exclude": [
+        "wwwroot",
+        "node_modules",
+        "bower_components"
+    ],
+    "publishExclude": [
+        "node_modules",
+        "bower_components",
+        "**.xproj",
+        "**.user",
+        "**.vspscc"
+    ]
+}

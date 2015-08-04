@@ -1,59 +1,22 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Xml.Serialization;
 
 namespace Thriot.Platform.Services.Telemetry.Configuration
 {
-    public class TelemetryDataSinkElement : ConfigurationElement
+    [Serializable]
+    public class TelemetryDataSinkElement
     {
-        internal const string NameString = "name";
-        internal const string TypeString = "type";
-        internal const string DescriptionString = "description";
-        internal const string ParameterPresetsString = "parameterPresets";
+        [XmlAttribute("name")]
+        public string Name { get; set; }
 
-        [ConfigurationProperty(NameString, IsRequired = true)]
-        public string Name
-        {
-            get
-            {
-                return (string)this[NameString];
-            }
-            set
-            {
-                this[NameString] = value;
-            }
-        }
+        [XmlAttribute("type")]
+        public string Type { get; set; }
 
-        [ConfigurationProperty(TypeString, IsRequired = true)]
-        public string Type
-        {
-            get
-            {
-                return (string)this[TypeString];
-            }
-            set
-            {
-                this[TypeString] = value;
-            }
-        }
+        [XmlAttribute("description")]
+        public string Description { get; set; }
 
-        [ConfigurationProperty(DescriptionString, IsRequired = false)]
-        public string Description
-        {
-            get
-            {
-                return (string)this[DescriptionString];
-            }
-            set
-            {
-                this[DescriptionString] = value;
-            }
-        }
-
-        [ConfigurationProperty(ParameterPresetsString, IsDefaultCollection = false, IsRequired = false)]
-        [ConfigurationCollection(typeof(KeyValueConfigurationCollection), AddItemName = "param")]
-        public KeyValueConfigurationCollection ParameterPresets
-        {
-            get { return (KeyValueConfigurationCollection)base[ParameterPresetsString]; }
-            set { base[ParameterPresetsString] = value; }
-        }
+        [XmlArray("parameterPresets")]
+        [XmlArrayItem("param")]
+        public TelemetrySinkParameter[] ParameterPresets { get; set; }
     }
 }

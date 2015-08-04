@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Web.Http;
+using Microsoft.AspNet.Mvc;
 using Thriot.Framework.Logging;
 using Thriot.Management.Dto;
 using Thriot.Management.Services;
@@ -7,9 +7,9 @@ using Thriot.Management.WebApi.Auth;
 
 namespace Thriot.Management.WebApi.Controllers
 {
-    [RoutePrefix("v1/networks")]
+    [Route("v1/networks")]
     [WebApiAuthorize]
-    public class NetworksV1Controller : ApiController, IUserPrincipalContext, ILoggerOwner
+    public class NetworksV1Controller : Controller, ILoggerOwner
     {
         private readonly NetworkService _networkService;
         private readonly IAuthenticationContext _authenticationContext;
@@ -18,51 +18,46 @@ namespace Thriot.Management.WebApi.Controllers
         {
             _networkService = networkService;
             _authenticationContext = authenticationContext;
-
-            _networkService.AuthenticationContext.SetUserPrincipalContext(this);
-            _authenticationContext.SetUserPrincipalContext(this);
         }
 
-        [Route("{id}")]
-        public NetworkDto Get(string id) // GET: api/v1/networks/5
+        [HttpGet("{id}")]
+        public NetworkDto GetNetwork(string id) // GET: api/v1/networks/5
         {
             return _networkService.Get(id);
         }
 
-        [Route("")]
-        public string Post(NetworkDto networkDto) // POST: api/v1/networks
+        [HttpPost]
+        public IActionResult CreateNetwork([FromBody]NetworkDto networkDto) // POST: api/v1/networks
         {
-            return _networkService.Create(networkDto);
+            return Json(_networkService.Create(networkDto));
         }
 
-        [Route("")]
-        public void Put(NetworkDto networkDto) // PUT: api/v1/networks
+        [HttpPut]
+        public void UpdateNetwork([FromBody]NetworkDto networkDto) // PUT: api/v1/networks
         {
             _networkService.Update(networkDto);
         }
 
-        [Route("{id}")]
-        public void Delete(string id) // DELETE: api/v1/networks/5
+        [HttpDelete("{id}")]
+        public void DeleteNetwork(string id) // DELETE: api/v1/networks/5
         {
             _networkService.Delete(id);
         }
 
-        [Route("{id}/networks")]
-        [HttpGet]
+        [HttpGet("{id}/networks")]
         public IEnumerable<SmallDto> GetNetworks(string id) // GET: api/v1/networks/5/networks
         {
             return _networkService.ListNetworks(id);
         }
 
-        [Route("{id}/devices")]
-        [HttpGet]
+        [HttpGet("{id}/devices")]
         public IEnumerable<SmallDto> GetDevices(string id) // GET: api/v1/networks/5/devices
         {
             return _networkService.ListDevices(id);
         }
 
-        [Route("{id}/incomingTelemetryDataSinks")]
-        public void Post(string id, [FromBody]List<TelemetryDataSinkParametersDto> telemetryDataSinkParametersDto) // POST: api/v1/networks/5/incomingTelemetryDataSinks
+        [HttpPost("{id}/incomingTelemetryDataSinks")]
+        public void UpdateIncomingTelemetryDataSinks(string id, [FromBody]List<TelemetryDataSinkParametersDto> telemetryDataSinkParametersDto) // POST: api/v1/networks/5/incomingTelemetryDataSinks
         {
             _networkService.UpdateIncomingTelemetryDataSinks(id, telemetryDataSinkParametersDto);
         }

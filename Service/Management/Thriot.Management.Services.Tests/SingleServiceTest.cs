@@ -115,16 +115,6 @@ namespace Thriot.Management.Services.Tests
         {
             private string _userId;
 
-            public void SetUserPrincipalContext(IUserPrincipalContext userPrincipalContext)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IPrincipal BuildContextUserPrincipal(string userId)
-            {
-                throw new System.NotImplementedException();
-            }
-
             public void SetContextUser(string userId)
             {
                 _userId = userId;

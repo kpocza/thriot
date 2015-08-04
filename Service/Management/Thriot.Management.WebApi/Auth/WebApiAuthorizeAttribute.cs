@@ -1,8 +1,6 @@
-﻿using System.Web.Http;
-
-namespace Thriot.Management.WebApi.Auth
+﻿namespace Thriot.Management.WebApi.Auth
 {
-    public class WebApiAuthorizeAttribute : AuthorizeAttribute
+    public class WebApiAuthorizeAttribute : Microsoft.AspNet.Mvc.AuthorizationFilterAttribute
     {
     }
 }

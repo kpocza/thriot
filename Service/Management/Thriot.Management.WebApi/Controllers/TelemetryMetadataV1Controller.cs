@@ -1,4 +1,4 @@
-﻿using System.Web.Http;
+﻿using Microsoft.AspNet.Mvc;
 using Thriot.Framework.Logging;
 using Thriot.Management.Dto;
 using Thriot.Management.Services;
@@ -6,9 +6,9 @@ using Thriot.Management.WebApi.Auth;
 
 namespace Thriot.Management.WebApi.Controllers
 {
-    [RoutePrefix("v1/telemetryMetadata")]
+    [Route("v1/telemetryMetadata")]
     [WebApiAuthorize]
-    public class TelemetryMetadataV1Controller : ApiController, IUserPrincipalContext, ILoggerOwner
+    public class TelemetryMetadataV1Controller : Controller, ILoggerOwner
     {
         private readonly TelemetryMetadataService _telemetryMetadataService;
         private readonly IAuthenticationContext _authenticationContext;
@@ -17,13 +17,10 @@ namespace Thriot.Management.WebApi.Controllers
         {
             _telemetryMetadataService = telemetryMetadataService;
             _authenticationContext = authenticationContext;
-
-            _telemetryMetadataService.AuthenticationContext.SetUserPrincipalContext(this);
-            _authenticationContext.SetUserPrincipalContext(this);
         }
 
-        [Route("")]
-        public TelemetryDataSinksMetadataDto Get() // GET: api/v1/telemetryMetadata
+        [HttpGet]
+        public TelemetryDataSinksMetadataDto GetTelemetryMetadata() // GET: api/v1/telemetryMetadata
         {
             return _telemetryMetadataService.GetIncomingTelemetryDataSinksMetadata();
         }

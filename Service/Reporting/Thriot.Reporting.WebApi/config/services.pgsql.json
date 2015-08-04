@@ -1,0 +1,12 @@
+﻿{
+    "Services": {
+        "Thriot.Objects.Model.Operations.ICompanyOperations, Thriot.Objects.Model": "Thriot.Objects.Operations.Sql.CompanyOperations, Thriot.Objects.Operations.Sql",
+        "Thriot.Objects.Model.Operations.IServiceOperations, Thriot.Objects.Model": "Thriot.Objects.Operations.Sql.ServiceOperations, Thriot.Objects.Operations.Sql",
+        "Thriot.Objects.Model.Operations.INetworkOperations, Thriot.Objects.Model": "Thriot.Objects.Operations.Sql.NetworkOperations, Thriot.Objects.Operations.Sql",
+        "Thriot.Objects.Model.Operations.IDeviceOperations, Thriot.Objects.Model": "Thriot.Objects.Operations.Sql.DeviceOperations, Thriot.Objects.Operations.Sql",
+        "Thriot.Objects.Model.Operations.ISettingOperations, Thriot.Objects.Model": "Thriot.Objects.Operations.Sql.SettingOperations, Thriot.Objects.Operations.Sql",
+        "Thriot.Objects.Operations.Sql.DataAccess.IObjectsUnitOfWorkFactory, Thriot.Objects.Operations.Sql": "Thriot.Objects.Operations.Sql.DataAccess.PgSql.ObjectsUnitOfWorkFactoryPgSql, Thriot.Objects.Operations.Sql"
+    }
+}
+
+

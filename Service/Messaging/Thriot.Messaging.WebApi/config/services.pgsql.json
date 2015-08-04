@@ -1,0 +1,6 @@
+﻿{
+    "Services": {
+        "Thriot.Objects.Model.Operations.ISettingOperations, Thriot.Objects.Model": "Thriot.Objects.Operations.Sql.SettingOperations, Thriot.Objects.Operations.Sql",
+        "Thriot.Objects.Operations.Sql.DataAccess.IObjectsUnitOfWorkFactory, Thriot.Objects.Operations.Sql": "Thriot.Objects.Operations.Sql.DataAccess.PgSql.ObjectsUnitOfWorkFactoryPgSql, Thriot.Objects.Operations.Sql"
+    }
+}

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Thriot.Framework;
 using Thriot.Framework.DataAccess;
 using Thriot.Objects.Model;
 using Thriot.Platform.Services.Telemetry.Metadata;

@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNet.Mvc;
+using System;
 using System.Net;
-using System.Net.Http;
 using System.Text;
-using System.Web.Http;
 using Thriot.Framework.Logging;
 using Thriot.Platform.Model.Messaging;
 using Thriot.Platform.Services.Messaging;
@@ -11,9 +10,9 @@ using Thriot.Platform.WebApi.Models;
 
 namespace Thriot.Platform.WebApi.Controllers
 {
-    [RoutePrefix("v1/messages")]
-    [WebApiDeviceAuthenticator]
-    public class MessagesV1Controller : ApiController, ILoggerOwner
+    [Route("v1/messages")]
+    [WebApiDeviceAuthorization]
+    public class MessagesV1Controller : Controller, ILoggerOwner
     {
         private readonly MessagingService _messagingService;
         private readonly AuthenticationContext _authenticationContext;
@@ -24,67 +23,64 @@ namespace Thriot.Platform.WebApi.Controllers
             _authenticationContext = authenticationContext;
         }
 
-        [Route("sendto/{id}")]
-        [HttpPost]
-        public HttpResponseMessage PostSendToDevice(string id, [FromBody]string base64Payload) // POST: v1/messages/sendto
+        [HttpPost("sendto/{id}")]
+        public IActionResult PostSendToDevice(string id, [FromBody]string base64Payload) // POST: v1/messages/sendto
         {
             var payload = Encoding.UTF8.GetString(Convert.FromBase64String(base64Payload));
 
-            var senderDeviceId = _authenticationContext.GetContextDevice(this.Request);
+            var senderDeviceId = _authenticationContext.GetContextDevice(this.Context.User);
 
             var result = _messagingService.RecordOutgoingMessage(senderDeviceId, id, payload);
 
             if(result == OutgoingState.Fail || result == OutgoingState.Throttled)
-                return Request.CreateResponse(HttpStatusCode.ServiceUnavailable);
+                return new HttpStatusCodeResult((int)HttpStatusCode.ServiceUnavailable);
 
-            return Request.CreateResponse(HttpStatusCode.NoContent);
+            return new NoContentResult();
         }
 
-        [Route("forget")]
-        public HttpResponseMessage Get() // GET: v1/messages/forget
+        [HttpGet("forget")]
+        public IActionResult Get() // GET: v1/messages/forget
         {
-            var deviceId = _authenticationContext.GetContextDevice(this.Request);
+            var deviceId = _authenticationContext.GetContextDevice(this.Context.User);
 
             var message = _messagingService.ReceiveAndForgetOutgoingMessage(deviceId);
 
             if (message.State == OutgoingState.Fail || message.State == OutgoingState.Throttled)
-                return Request.CreateResponse(HttpStatusCode.ServiceUnavailable);
+                return new HttpStatusCodeResult((int)HttpStatusCode.ServiceUnavailable);
 
             if (message.Message == null)
-                return Request.CreateResponse(HttpStatusCode.OK, (string)null);
+                return Json((string)null);
 
-            return Request.CreateResponse(HttpStatusCode.OK, new OutgoingMessageDto(message.Message));
+            return Json(new OutgoingMessageDto(message.Message));
         }
 
-        [Route("peek")]
-        [HttpGet]
-        public HttpResponseMessage Peek() // GET: v1/messages/peek
+        [HttpGet("peek")]
+        public IActionResult Peek() // GET: v1/messages/peek
         {
-            var deviceId = _authenticationContext.GetContextDevice(this.Request);
+            var deviceId = _authenticationContext.GetContextDevice(this.Context.User);
 
             var message = _messagingService.Peek(deviceId);
 
             if (message.State == OutgoingState.Fail || message.State == OutgoingState.Throttled)
-                return Request.CreateResponse(HttpStatusCode.ServiceUnavailable);
+                return new HttpStatusCodeResult((int)HttpStatusCode.ServiceUnavailable);
 
             if (message.Message == null)
-                return Request.CreateResponse(HttpStatusCode.OK, (string)null);
+                return Json((string)null);
 
-            return Request.CreateResponse(HttpStatusCode.OK, new OutgoingMessageDto(message.Message));
+            return Json(new OutgoingMessageDto(message.Message));
         }
 
-        [Route("commit")]
-        [HttpPost]
-        public HttpResponseMessage Commit() // GET: v1/messages/commit
+        [HttpPost("commit")]
+        public IActionResult Commit() // GET: v1/messages/commit
         {
-            var deviceId = _authenticationContext.GetContextDevice(this.Request);
+            var deviceId = _authenticationContext.GetContextDevice(this.Context.User);
 
             var state = _messagingService.Commit(deviceId);
 
             if (state == OutgoingState.Fail || state == OutgoingState.Throttled)
-                return Request.CreateResponse(HttpStatusCode.ServiceUnavailable);
+                return new HttpStatusCodeResult((int)HttpStatusCode.ServiceUnavailable);
 
-            return Request.CreateResponse(HttpStatusCode.NoContent);
+            return new NoContentResult();
         }
 
         private static readonly ILogger _logger = LoggerFactory.GetCurrentClassLogger();
@@ -96,7 +92,7 @@ namespace Thriot.Platform.WebApi.Controllers
 
         public string UserDefinedLogValue
         {
-            get { return _authenticationContext.GetContextDevice(this.Request); }
+            get { return _authenticationContext.GetContextDevice(this.Context.User); }
         }
     }
 }

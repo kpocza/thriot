@@ -20,20 +20,20 @@ namespace Thriot.Client.DotNet.IntegrationTests
         }
 
         [TestMethod]
-        public void SingleDeviceSendTest()
+        public void SingleDeviceRecordTelemetryDataTest()
         {
             var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId, _apiKey);
 
-            ocassionalConnectionClient.RecordTelmetryData("{\"Temperature\": 24, \"Time\":" + DateTime.UtcNow.Ticks + "}");
+            ocassionalConnectionClient.RecordTelemetryData("{\"Temperature\": 24, \"Time\":" + DateTime.UtcNow.Ticks + "}");
         }
 
         [TestMethod]
         [ExpectedHttpStatusCode(HttpStatusCode.Unauthorized)]
-        public void SingleDeviceSendAuthErrorTest()
+        public void SingleDeviceRecordTelemetryDataAuthErrorTest()
         {
             var ocassionalConnectionClient = new OccasionallyConnectionClient(PlatformApi, _deviceId, _apiKey + "aaa");
 
-            ocassionalConnectionClient.RecordTelmetryData("{\"Temperature\": 24, \"Time\":" + DateTime.UtcNow.Ticks + "}");
+            ocassionalConnectionClient.RecordTelemetryData("{\"Temperature\": 24, \"Time\":" + DateTime.UtcNow.Ticks + "}");
         }
 
         [TestMethod]

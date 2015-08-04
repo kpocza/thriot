@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net45": {
+      "wrappedProject": "../../Reporting/Thriot.Reporting.Dto/Thriot.Reporting.Dto.csproj",
+      "bin": {
+        "assembly": "../../Reporting/Thriot.Reporting.Dto/obj/{configuration}/Thriot.Reporting.Dto.dll",
+        "pdb": "../../Reporting/Thriot.Reporting.Dto/obj/{configuration}/Thriot.Reporting.Dto.pdb"
+      },
+      "dependencies": {
+        "Newtonsoft.Json": "6.0.8"
+      }
+    }
+  }
+}

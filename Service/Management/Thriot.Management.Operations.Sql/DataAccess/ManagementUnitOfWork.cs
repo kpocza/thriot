@@ -1,5 +1,4 @@
-﻿using System.Data.Common;
-using System.Data.Entity;
+﻿using Microsoft.Data.Entity;
 using Thriot.Framework.Sql;
 
 namespace Thriot.Management.Operations.Sql.DataAccess
@@ -8,14 +7,10 @@ namespace Thriot.Management.Operations.Sql.DataAccess
     {
         protected override DbContext GetDbContext(string connectionString, string providerName)
         {
-            var dbProviderFactory = DbProviderFactories.GetFactory(providerName);
-            var dbConnection = dbProviderFactory.CreateConnection();
-            dbConnection.ConnectionString = connectionString;
-
-            return GetDbContextCore(dbConnection, true);
+            return GetDbContextCore(connectionString);
         }
 
-        protected abstract ManagementDbContext GetDbContextCore(DbConnection dbConnection, bool ownsConnections);
+        protected abstract ManagementDbContext GetDbContextCore(string connectionString);
 
         public void ExecuteScript(string script)
         {
@@ -55,6 +50,11 @@ namespace Thriot.Management.Operations.Sql.DataAccess
         public SettingRepository GetSettingRepository()
         {
             return new SettingRepository(DbContext);
+        }
+
+        public UserCompanyRepository GetUserCompanyRepository()
+        {
+            return new UserCompanyRepository(DbContext);
         }
     }
 }

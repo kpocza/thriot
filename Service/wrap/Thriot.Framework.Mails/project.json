@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net45": {
+      "wrappedProject": "../../Framework/Thriot.Framework.Mails/Thriot.Framework.Mails.csproj",
+      "bin": {
+        "assembly": "../../Framework/Thriot.Framework.Mails/obj/{configuration}/Thriot.Framework.Mails.dll",
+        "pdb": "../../Framework/Thriot.Framework.Mails/obj/{configuration}/Thriot.Framework.Mails.pdb"
+      },
+      "dependencies": {
+        "Microsoft.AspNet.Razor": "4.0.0-beta6",
+        "Microsoft.Framework.Configuration.Abstractions": "1.0.0-beta6",
+        "Thriot.Framework": "1.0.0-*"
+      }
+    }
+  }
+}

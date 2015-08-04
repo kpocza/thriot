@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+using Microsoft.AspNet.Mvc;
+using Microsoft.Framework.Configuration;
 using Thriot.Framework.Logging;
 using Thriot.Management.Dto;
 using Thriot.Management.Services;
@@ -11,108 +10,100 @@ using Thriot.Web.Models;
 
 namespace Thriot.Management.WebApi.Controllers
 {
-    [RoutePrefix("v1/users")]
-    public class UsersV1Controller : ApiController, IUserPrincipalContext, ILoggerOwner
+    [Route("v1/users")]
+    public class UsersV1Controller : Controller, ILoggerOwner
     {
         private readonly UserService _userService;
         private readonly ISettingProvider _settingProvider;
+        private readonly IConfiguration _configuration;
 
-        public UsersV1Controller(UserService userService, ISettingProvider settingProvider)
+        public UsersV1Controller(UserService userService, ISettingProvider settingProvider, IConfiguration configuration)
         {
             _userService = userService;
             _settingProvider = settingProvider;
-
-            _userService.AuthenticationContext.SetUserPrincipalContext(this);
+            _configuration = configuration;
         }
 
-        [Route("register")]
-        [HttpPost]
-        public RegistrationResultDto Register(RegisterDto register) // POST: api/v1/users/register
+        [HttpPost("register")]
+        public RegistrationResultDto Register([FromBody]RegisterDto register) // POST: api/v1/users/register
         {
             var needsActivation = _settingProvider.EmailActivation;
 
-            _userService.Register(register, new Mailer());
+            _userService.Register(register, new Mailer(_configuration));
 
             return new RegistrationResultDto { NeedsActivation = needsActivation };
         }
 
-        [Route("activate/{userId}/{activationCode}")]
-        [HttpGet]
-        public HttpResponseMessage Activate(string userId, string activationCode)
+        [HttpGet("activate/{userId}/{activationCode}")]
+        public IActionResult Activate(string userId, string activationCode)
         {
             _userService.Activate(userId, activationCode);
 
-            return new HttpResponseMessage(HttpStatusCode.NoContent);
+            return new NoContentResult();
         }
 
-        [Route("resendActivationEmail")]
-        [HttpPost]
-        public HttpResponseMessage ResendActivationEmail(EmailWrapperDto emailWrapperDto)
+        [HttpPost("resendActivationEmail")]
+        public IActionResult ResendActivationEmail([FromBody]EmailWrapperDto emailWrapperDto)
         {
-            _userService.ResendActivationEmail(emailWrapperDto.Email, new Mailer());
+            _userService.ResendActivationEmail(emailWrapperDto.Email, new Mailer(_configuration));
 
-            return new HttpResponseMessage(HttpStatusCode.NoContent);
+            return new NoContentResult();
         }
 
-        [Route("sendForgotPasswordEmail")]
-        [HttpPost]
-        public HttpResponseMessage SendForgotPasswordEmail(EmailWrapperDto emailWrapperDto)
+        [HttpPost("sendForgotPasswordEmail")]
+        public IActionResult SendForgotPasswordEmail([FromBody]EmailWrapperDto emailWrapperDto)
         {
-            _userService.SendForgotPasswordEmail(emailWrapperDto.Email, new Mailer());
+            _userService.SendForgotPasswordEmail(emailWrapperDto.Email, new Mailer(_configuration));
 
-            return new HttpResponseMessage(HttpStatusCode.NoContent);
+            return new NoContentResult();
         }
 
-        [Route("resetPassword")]
-        [HttpPost]
-        public HttpResponseMessage ResetPassword(ResetPasswordDto resetPassword)
+        [HttpPost("resetPassword")]
+        public IActionResult ResetPassword([FromBody]ResetPasswordDto resetPassword)
         {
             _userService.ResetPassword(resetPassword);
 
-            return new HttpResponseMessage(HttpStatusCode.NoContent);
+            return new NoContentResult();
         }
 
-        [Route("changePassword")]
-        [HttpPost]
+        [HttpPost("changePassword")]
         [WebApiAuthorize]
-        public HttpResponseMessage ChangePassword(ChangePasswordDto changePassword)
+        public IActionResult ChangePassword([FromBody]ChangePasswordDto changePassword)
         {
             _userService.ChangePassword(changePassword);
 
-            return new HttpResponseMessage(HttpStatusCode.NoContent);
+            return new NoContentResult();
         }
 
-        [Route("login")]
-        [HttpPost]
-        public HttpResponseMessage Login(LoginDto login) // POST: api/v1/users/login
+        [HttpPost("login")]
+        public IActionResult Login([FromBody]LoginDto login) // POST: api/v1/users/login
         {
             var userId = _userService.Login(login.Email, login.Password);
 
-            return new HttpResponseMessage(HttpStatusCode.NoContent);
+            return new NoContentResult();
         }
 
-        [Route("logoff")]
-        [HttpPost]
-        public HttpResponseMessage Logoff() // POST: api/v1/users/logoff
+        [HttpPost("logoff")]
+        public IActionResult Logoff() // POST: api/v1/users/logoff
         {
             _userService.AuthenticationContext.RemoveContextUser();
 
-            return new HttpResponseMessage(HttpStatusCode.NoContent);
+            return new NoContentResult();
         }
 
-        [Route("me")]
+        [HttpGet("me")]
         [WebApiAuthorize]
         public UserDto Get() // GET: api/v1/users/me
         {
             return _userService.GetMe();
         }
 
-        [Route("byemail/{email}")]
-        [HttpGet]
+        [HttpGet("byemail/{email}/")]
         [WebApiAuthorize]
-        public UserDto FindUser([FromUri]string email) // GET: api/v1/users/email/urlencode(user@domain.com)
+        public UserDto FindUser(string email) // GET: api/v1/users/byemail/urlencode(user@domain.com)
         {
             // Quick and dirty workaround for mono
+            // TODO: check later on kestrel whether it's still needed
             if (Thriot.Framework.Environment.IsMono())
             {
                 email = Uri.UnescapeDataString(email);
@@ -130,7 +121,7 @@ namespace Thriot.Management.WebApi.Controllers
 
         public string UserDefinedLogValue
         {
-            get { return null; }
+            get { return Context?.User?.Identity?.Name; }
         }
     }
 }

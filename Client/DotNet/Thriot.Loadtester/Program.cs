@@ -189,7 +189,7 @@ namespace Thriot.Loadtester
                     var a = doit%10 == 0 ? string.Format(", \"A\": {0}", rnd.Next(10)) : "";
                     var b = doit%15 == 0 ? string.Format(", \"B\": {0}", rnd.Next(20)) : "";
 
-                    ocassionalConnectionClient.RecordTelmetryData(
+                    ocassionalConnectionClient.RecordTelemetryData(
                         string.Format("{{\"Temperature\": {0}, \"Humidity\": {1}, \"Time\": {2}{3}}}", rnd.Next(10) + 18, rnd.Next(40) + 40, DateTime.UtcNow.Second, a + b));
                     cnt++;
                 }

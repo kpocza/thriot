@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net45": {
+      "wrappedProject": "../../Framework/Thriot.Framework/Thriot.Framework.csproj",
+      "bin": {
+        "assembly": "../../Framework/Thriot.Framework/obj/{configuration}/Thriot.Framework.dll",
+        "pdb": "../../Framework/Thriot.Framework/obj/{configuration}/Thriot.Framework.pdb"
+      },
+      "dependencies": {
+        "Ix-Main": "1.2.3",
+        "Microsoft.Framework.Configuration.Abstractions": "1.0.0-beta6",
+        "Newtonsoft.Json": "6.0.8",
+        "NLog": "4.0.0"
+      }
+    }
+  }
+}
