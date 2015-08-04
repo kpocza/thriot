@@ -91,7 +91,7 @@ int ServiceManagementClient::Update(const Service& service)
 
 	Response httpResponse =_restConnection->Put("services", "application/json", jsonBuffer);
 
-	if(httpResponse.Code != 204)
+	if(httpResponse.Code != 200)
 		return httpResponse.Code;
 
 	return 0;
@@ -107,7 +107,7 @@ int ServiceManagementClient::Delete(const string& id)
 {
 	Response httpResponse =_restConnection->Delete("services/" + id);
 
-	if(httpResponse.Code != 204)
+	if(httpResponse.Code != 200)
 		return httpResponse.Code;
 
 	return 0;
@@ -155,7 +155,7 @@ int ServiceManagementClient::UpdateIncomingTelemetryDataSinks(const string& id, 
 
 	Response httpResponse = _restConnection->Post("services/" + id + "/incomingTelemetryDataSinks", "application/json", tdspJsonString);
 
-	if(httpResponse.Code!= 204)
+	if(httpResponse.Code!= 200)
 		return httpResponse.Code;
 
 	return 0;

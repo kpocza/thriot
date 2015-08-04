@@ -93,7 +93,7 @@ int DeviceManagementClient::Update(const Device& device)
 
 	Response httpResponse =_restConnection->Put("devices", "application/json", jsonBuffer);
 
-	if(httpResponse.Code != 204)
+	if(httpResponse.Code != 200)
 		return httpResponse.Code;
 
 	return 0;
@@ -109,7 +109,7 @@ int DeviceManagementClient::Delete(const string& id)
 {
 	Response httpResponse =_restConnection->Delete("devices/" + id);
 
-	if(httpResponse.Code != 204)
+	if(httpResponse.Code != 200)
 		return httpResponse.Code;
 
 	return 0;

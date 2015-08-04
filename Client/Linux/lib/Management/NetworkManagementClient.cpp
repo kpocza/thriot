@@ -98,7 +98,7 @@ int NetworkManagementClient::Update(const Network& network)
 
 	Response httpResponse =_restConnection->Put("networks", "application/json", jsonBuffer);
 
-	if(httpResponse.Code != 204)
+	if(httpResponse.Code != 200)
 		return httpResponse.Code;
 
 	return 0;
@@ -114,7 +114,7 @@ int NetworkManagementClient::Delete(const string& id)
 {
 	Response httpResponse =_restConnection->Delete("networks/" + id);
 
-	if(httpResponse.Code != 204)
+	if(httpResponse.Code != 200)
 		return httpResponse.Code;
 
 	return 0;
@@ -190,7 +190,7 @@ int NetworkManagementClient::UpdateIncomingTelemetryDataSinks(const string& id, 
 
 	Response httpResponse = _restConnection->Post("networks/" + id + "/incomingTelemetryDataSinks", "application/json", tdspJsonString);
 
-	if(httpResponse.Code!= 204)
+	if(httpResponse.Code!= 200)
 		return httpResponse.Code;
 
 	return 0;

@@ -116,7 +116,7 @@ int CompanyManagementClient::Update(const Company& company)
 
 	Response httpResponse =_restConnection->Put("companies", "application/json", jsonBuffer);
 
-	if(httpResponse.Code != 204)
+	if(httpResponse.Code != 200)
 		return httpResponse.Code;
 
 	return 0;
@@ -132,7 +132,7 @@ int CompanyManagementClient::Delete(const string& id)
 {
 	Response httpResponse =_restConnection->Delete("companies/" + id);
 
-	if(httpResponse.Code != 204)
+	if(httpResponse.Code != 200)
 		return httpResponse.Code;
 
 	return 0;
@@ -180,7 +180,7 @@ int CompanyManagementClient::UpdateIncomingTelemetryDataSinks(const string& id, 
 
 	Response httpResponse = _restConnection->Post("companies/" + id + "/incomingTelemetryDataSinks", "application/json", tdspJsonString);
 
-	if(httpResponse.Code!= 204)
+	if(httpResponse.Code!= 200)
 		return httpResponse.Code;
 
 	return 0;
@@ -236,7 +236,7 @@ int CompanyManagementClient::AddUser(const string& companyId, const string& user
 
 	Response httpResponse =_restConnection->Post("companies/addUser", "application/json", jsonBuffer);
 
-	if(httpResponse.Code != 204)
+	if(httpResponse.Code != 200)
 		return httpResponse.Code;
 
 	return 0;

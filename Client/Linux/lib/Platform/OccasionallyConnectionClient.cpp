@@ -35,7 +35,7 @@ int OccasionallyConnectionClient::RecordTelemetryData(const string& message)
 {
 	Response httpResponse = _restConnection->Post("telemetry", "application/json", message);
 
-	if(httpResponse.Code!= 204)
+	if(httpResponse.Code!= 200)
 		return httpResponse.Code;
 
 	return 0;
