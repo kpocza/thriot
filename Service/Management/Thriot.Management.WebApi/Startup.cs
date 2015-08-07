@@ -46,6 +46,8 @@ namespace Thriot.Management.WebApi
                 options.Filters.Add(new LogActionsAttribute());
                 options.Filters.Add(new ApiExceptionFilterAttribute());
             });
+            services.AddCors();
+            services.ConfigureCors(c => c.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials()));
 
             services.AddTransient<Services.UserService>();
             services.AddTransient<Services.CompanyService>();
@@ -82,8 +84,6 @@ namespace Thriot.Management.WebApi
 
             messagingService.Setup(settingProvider.MessagingServiceEndpoint, settingProvider.MessagingServiceApiKey);
             telemetryDataSinkSetupService.Setup(settingProvider.TelemetrySetupServiceEndpoint, settingProvider.TelemetrySetupServiceApiKey);
-            
-            app.UseCors(Microsoft.AspNet.Cors.Core.CorsConstants.AccessControlAllowOrigin);
 
             app.UseCookieAuthentication(options => 
             {
@@ -93,6 +93,8 @@ namespace Thriot.Management.WebApi
                 options.CookieName = "ThriotMgmtAuth";
                 options.AutomaticAuthentication = true;
             });
+
+            app.UseCors("AllowAll");
 
             app.UseMvc();
         }

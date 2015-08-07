@@ -52,6 +52,8 @@ namespace Thriot.Platform.WebApi
                 options.Filters.Add(new LogActionsAttribute());
                 options.Filters.Add(new ApiExceptionFilterAttribute());
             });
+            services.AddCors();
+            services.ConfigureCors(c => c.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials()));
 
             services.AddTransient<TelemetryDataSinkSetupService>();
             services.AddTransient<Services.Messaging.MessagingService>();
@@ -104,7 +106,7 @@ namespace Thriot.Platform.WebApi
             var applicationShutdown = serviceProvider.GetService<IApplicationShutdown>();
             applicationShutdown.ShutdownRequested.Register(MessagingWorkers.Stop);
 
-            app.UseCors(Microsoft.AspNet.Cors.Core.CorsConstants.AccessControlAllowOrigin);
+            app.UseCors("AllowAll");
 
             app.UseMvc();
         }

@@ -82,14 +82,14 @@ $options = @([tuple]::Create("&sql", "Microsoft Sql 2012+ (Express)"), [tuple]::
 $configmsg = Choose "Messaging backend storage" $null $options $configmsg 0
 
 $options = @([tuple]::Create("&yes", "Yes"), [tuple]::Create("&no", "No"));
-$deployConfigs = Choose "Deploy configuration files?" "Answer carefully if your are deploying to a staging/production environment." $options $deployConfigs 1
+$copyConfigs = Choose "Deploy configuration files?" "Answer carefully if your are deploying to a staging/production environment." $options $copyConfigs 1
 
 $options = @([tuple]::Create("&yes", "Yes"), [tuple]::Create("&no", "No"));
 $linuxify = Choose "Is this build targeting a Linux environment?" $null $options $linuxify 1
 
 "Master Management Storage: $config"
 "Messaging storage: $configmsg"
-"Deploy configuration files: $deployConfigs"
+"Deploy configuration files: $copyConfigs"
 "Prepare for Linux environment: $linuxify"
 
 $targetRoot = $(pwd).Path + "\output\" + [DateTime]::Now.ToString("yyyyMMddHHmm") + "_" + $config
@@ -133,7 +133,7 @@ EnsureEmptyDirectory $targetRoot\websocketservice
 
 & $msbuild $solutionRoot\Platform\Thriot.Platform.WebsocketService\Thriot.Platform.WebsocketService.csproj /p:Configuration=$buildConfig  /p:OutDir=$targetRoot\websocketservice
 
-if($deployConfigs -eq "no")
+if($copyConfigs -eq "no")
 {
 	$configDir = "$targetRoot\web\wwwroot\config"
 	rm $configDir\*

@@ -41,6 +41,8 @@ namespace Thriot.Reporting.WebApi
                 options.Filters.Add(new LogActionsAttribute());
                 options.Filters.Add(new ApiExceptionFilterAttribute());
             });
+            services.AddCors();
+            services.ConfigureCors(c => c.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials()));
 
             services.AddTransient<DeviceReportingService>();
             services.AddTransient<NetworkReportingService>();
@@ -69,7 +71,7 @@ namespace Thriot.Reporting.WebApi
 
             telemetryDataSinkSetupService.Setup(settingOperations.Get(Setting.TelemetrySetupServiceEndpoint).Value, settingOperations.Get(Setting.TelemetrySetupServiceApiKey).Value);
 
-            app.UseCors(Microsoft.AspNet.Cors.Core.CorsConstants.AccessControlAllowOrigin);
+            app.UseCors("AllowAll");
 
             app.UseMvc();
         }
