@@ -2,38 +2,38 @@
 
 namespace Thriot.Messaging.PerformanceTest
 {
-    public class WebApiMessagingService : IMessagingService
+    public class WebApiMessagingServiceClient : IMessagingServiceClient
     {
-        readonly MessagingService _messagingService = new MessagingService();
+        readonly MessagingServiceClient _messagingServiceClient = new MessagingServiceClient();
 
         public void Setup(string serviceUrl, string apiKey)
         {
-            _messagingService.Setup(serviceUrl, apiKey);
+            _messagingServiceClient.Setup(serviceUrl, apiKey);
         }
 
         public long Initialize(string deviceId)
         {
-            return _messagingService.Initialize(deviceId);
+            return _messagingServiceClient.Initialize(deviceId);
         }
 
         public DeviceListDto Enqueue(EnqueueMessagesDto enqueueMessages)
         {
-            return _messagingService.Enqueue(enqueueMessages);
+            return _messagingServiceClient.Enqueue(enqueueMessages);
         }
 
         public DequeueMessagesDto Dequeue(DeviceListDto deviceList)
         {
-            return _messagingService.Dequeue(deviceList);
+            return _messagingServiceClient.Dequeue(deviceList);
         }
 
         public DequeueMessagesDto Peek(DeviceListDto deviceList)
         {
-            return _messagingService.Peek(deviceList);
+            return _messagingServiceClient.Peek(deviceList);
         }
 
         public DeviceListDto Commit(DeviceListDto deviceList)
         {
-            return _messagingService.Commit(deviceList);
+            return _messagingServiceClient.Commit(deviceList);
         }
     }
 }

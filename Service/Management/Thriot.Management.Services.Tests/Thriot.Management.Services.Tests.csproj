@@ -135,10 +135,6 @@
       <Project>{EB617FF2-8BE5-4146-BA9D-4D9A08C70CE5}</Project>
       <Name>Thriot.ServiceClient.TelemetrySetup</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Thriot.Management.Dto\Thriot.Management.Dto.csproj">
-      <Project>{17D1CC13-A661-43C8-8845-EFC46F0CE132}</Project>
-      <Name>Thriot.Management.Dto</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Thriot.Management.Model\Thriot.Management.Model.csproj">
       <Project>{f955e692-fd87-4964-9dc3-b3269b1cb92d}</Project>
       <Name>Thriot.Management.Model</Name>

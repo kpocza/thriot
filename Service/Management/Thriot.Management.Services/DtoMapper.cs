@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Thriot.Management.Dto;
+using Thriot.Management.Services.Dto;
 using Thriot.Management.Model;
 using Thriot.ServiceClient.TelemetrySetup;
 

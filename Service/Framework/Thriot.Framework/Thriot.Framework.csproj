@@ -84,7 +84,7 @@
     <Compile Include="Logging\ILoggerOwner.cs" />
     <Compile Include="Logging\LoggerFactory.cs" />
     <Compile Include="Logging\NLogLogger.cs" />
-    <Compile Include="ServicesResolver.cs" />
+    <Compile Include="ServicesConfigLoader.cs" />
     <Compile Include="Validator.cs" />
     <Compile Include="Wrapper.cs" />
     <Compile Include="Exceptions\AlreadyExistsException.cs" />

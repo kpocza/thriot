@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using Thriot.Framework;
-using Thriot.Management.Dto;
+using Thriot.Management.Services.Dto;
 using Thriot.Management.Services;
 using Thriot.ServiceClient.TelemetrySetup;
 using Thriot.TestHelpers;
@@ -72,8 +72,8 @@ namespace Thriot.Objects.Operations.Tests
 
             var userId = userService.Register(new RegisterDto() { Name = "user", Email = EmailHelper.Generate(), Password = "password" }, null);
 
-            var telemetryDataSinkSetupService = Substitute.For<ITelemetryDataSinkSetupService>();
-            telemetryDataSinkSetupService.GetTelemetryDataSinksMetadata().Returns(
+            var telemetryDataSinkSetupServiceClient = Substitute.For<ITelemetryDataSinkSetupServiceClient>();
+            telemetryDataSinkSetupServiceClient.GetTelemetryDataSinksMetadata().Returns(
                 new TelemetryDataSinksMetadataDto
                 {
                     Incoming = new List<TelemetryDataSinkMetadataDto>
@@ -87,7 +87,7 @@ namespace Thriot.Objects.Operations.Tests
                     }
                 });
 
-            _companyService = new CompanyService(_companyOperations, _authenticationContext, telemetryDataSinkSetupService, new CapabilityProvider(settingProvider));
+            _companyService = new CompanyService(_companyOperations, _authenticationContext, telemetryDataSinkSetupServiceClient, new CapabilityProvider(settingProvider));
 
             _authenticationContext.GetContextUser().Returns(userId);
         }

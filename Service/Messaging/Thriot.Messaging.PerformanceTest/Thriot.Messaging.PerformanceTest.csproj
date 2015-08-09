@@ -66,10 +66,6 @@
       <Project>{B242CE85-F186-4107-98FC-1A87538B704D}</Project>
       <Name>Thriot.ServiceClient.Messaging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Thriot.Messaging.Dto\Thriot.Messaging.Dto.csproj">
-      <Project>{512934ab-4e46-42da-935b-537530b7e85b}</Project>
-      <Name>Thriot.Messaging.Dto</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Thriot.Messaging.Services\Thriot.Messaging.Services.csproj">
       <Project>{7894bbe9-ae81-4f95-ad81-ba2b0431698c}</Project>
       <Name>Thriot.Messaging.Services</Name>

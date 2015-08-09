@@ -1,5 +1,5 @@
 ﻿using System.Security.Authentication;
-using Thriot.Management.Dto;
+using Thriot.Management.Services.Dto;
 using Thriot.Management.Model;
 
 namespace Thriot.Management.Services

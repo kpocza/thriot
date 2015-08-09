@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Thriot.Reporting.Dto;
+using Thriot.Reporting.Services.Dto;
 
 namespace Thriot.Reporting.Tests
 {

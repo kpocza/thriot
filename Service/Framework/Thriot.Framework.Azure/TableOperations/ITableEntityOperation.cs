@@ -6,17 +6,14 @@ namespace Thriot.Framework.Azure.TableOperations
 {
     public interface ITableEntityOperation
     {
-        void Insert<TE>(string tableName, TableEntity tableEntity)
-            where TE : TableEntity;
+        void Insert(string tableName, TableEntity tableEntity);
 
         TE Get<TE>(string tableName, PartionKeyRowKeyPair paritionKeyRowKeyPair)
             where TE : TableEntity;
 
-        void Update<TE>(string tableName, TableEntity tableEntity)
-            where TE : TableEntity;
+        void Update(string tableName, TableEntity tableEntity);
 
-        void Upsert<TE>(string tableName, TableEntity tableEntity)
-            where TE : TableEntity;
+        void Upsert(string tableName, TableEntity tableEntity);
 
         void Delete(string tableName, TableEntity tableEntity);
 

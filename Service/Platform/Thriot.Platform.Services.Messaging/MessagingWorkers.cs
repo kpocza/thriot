@@ -12,12 +12,12 @@ namespace Thriot.Platform.Services.Messaging
         public static BatchRunner<long, OutgoingMessageToStoreWithState> BatchRunnerPeek { get; private set; }
         public static BatchRunner<long, OutgoingState> BatchRunnerCommit { get; private set; }
 
-        public static void Start(IBatchParameters batchParameters, IMessagingService messagingService)
+        public static void Start(IBatchParameters batchParameters, IMessagingServiceClient messagingServiceClient)
         {
-            var batchWorkerRecord = new BatchWorkerRecord(messagingService);
-            var batchWorkerReceiveAndForget = new BatchWorkerReceiveAndForget(messagingService);
-            var batchWorkerPeek = new BatchWorkerPeek(messagingService);
-            var batchWorkerCommit = new BatchWorkerCommit(messagingService);
+            var batchWorkerRecord = new BatchWorkerRecord(messagingServiceClient);
+            var batchWorkerReceiveAndForget = new BatchWorkerReceiveAndForget(messagingServiceClient);
+            var batchWorkerPeek = new BatchWorkerPeek(messagingServiceClient);
+            var batchWorkerCommit = new BatchWorkerCommit(messagingServiceClient);
 
             BatchRunnerReceiveAndForget = new BatchRunner<long, OutgoingMessageToStoreWithState>(
                     batchParameters.MessagingReceiveAndForgetCollectionTime,

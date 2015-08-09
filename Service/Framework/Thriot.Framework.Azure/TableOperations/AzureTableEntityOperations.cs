@@ -16,8 +16,7 @@ namespace Thriot.Framework.Azure.TableOperations
             _tableClient = tableClient;
         }
 
-        public void Insert<TE>(string tableName, TableEntity tableEntity)
-            where TE : TableEntity
+        public void Insert(string tableName, TableEntity tableEntity)
         {
             try
             {
@@ -58,8 +57,7 @@ namespace Thriot.Framework.Azure.TableOperations
             }
         }
 
-        public void Update<TE>(string tableName, TableEntity tableEntity)
-            where TE : TableEntity
+        public void Update(string tableName, TableEntity tableEntity)
         {
             try
             {
@@ -77,8 +75,7 @@ namespace Thriot.Framework.Azure.TableOperations
             }
         }
 
-        public void Upsert<TE>(string tableName, TableEntity tableEntity)
-            where TE : TableEntity
+        public void Upsert(string tableName, TableEntity tableEntity)
         {
             try
             {

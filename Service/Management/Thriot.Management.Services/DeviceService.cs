@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Thriot.Framework;
 using Thriot.Framework.Exceptions;
-using Thriot.Management.Dto;
+using Thriot.Management.Services.Dto;
 using Thriot.Management.Model;
 using Thriot.Management.Model.Operations;
 using Thriot.ServiceClient.Messaging;
@@ -13,15 +13,15 @@ namespace Thriot.Management.Services
         private readonly IDeviceOperations _deviceOperations;
         private readonly INetworkOperations _networkOperations;
         private readonly IServiceOperations _serviceOperations;
-        private readonly IMessagingService _messagingService;
+        private readonly IMessagingServiceClient _messagingServiceClient;
 
-        public DeviceService(IDeviceOperations deviceOperations, INetworkOperations networkOperations, IServiceOperations serviceOperations, ICompanyOperations companyOperations, IAuthenticationContext authenticationContext, IMessagingService messagingService) :
+        public DeviceService(IDeviceOperations deviceOperations, INetworkOperations networkOperations, IServiceOperations serviceOperations, ICompanyOperations companyOperations, IAuthenticationContext authenticationContext, IMessagingServiceClient messagingServiceClient) :
             base(companyOperations, authenticationContext)
         {
             _deviceOperations = deviceOperations;
             _networkOperations = networkOperations;
             _serviceOperations = serviceOperations;
-            _messagingService = messagingService;
+            _messagingServiceClient = messagingServiceClient;
         }
 
         public string Create(DeviceDto deviceDto)
@@ -51,7 +51,7 @@ namespace Thriot.Management.Services
 
             var deviceId = _deviceOperations.Create(device);
 
-            var deviceNumericId = _messagingService.Initialize(deviceId);
+            var deviceNumericId = _messagingServiceClient.Initialize(deviceId);
 
             var newDevice = _deviceOperations.Get(deviceId);
             newDevice.NumericId = deviceNumericId;

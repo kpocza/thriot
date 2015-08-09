@@ -4,7 +4,7 @@ using Thriot.ServiceClient.Messaging;
 
 namespace Thriot.Messaging.PerformanceTest
 {
-    public class PureDatabaseCallsPgSql : IMessagingService
+    public class PureDatabaseCallsPgSqlClient : IMessagingServiceClient
     {
         private readonly IPersistentStorage _persistentStorage = new PersistentStoragePgSql(new ConnectionStringResolverPgSql());
 

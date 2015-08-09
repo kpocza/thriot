@@ -28,7 +28,6 @@
                 "Thriot.Plugins.Azure": "1.0.0-*",
                 "Thriot.Plugins.PgSql": "1.0.0-*",
                 "Thriot.Plugins.Sql": "1.0.0-*",
-                "Thriot.Reporting.Dto": "1.0.0-*",
                 "Thriot.Reporting.Services": "1.0.0-*"
             }
         }

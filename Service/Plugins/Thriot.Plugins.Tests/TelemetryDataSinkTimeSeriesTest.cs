@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Thriot.Framework.DataAccess;
-using Thriot.Management.Dto;
+using Thriot.Management.Services.Dto;
 using Thriot.Plugins.Core;
 using Thriot.TestHelpers;
 using NSubstitute;

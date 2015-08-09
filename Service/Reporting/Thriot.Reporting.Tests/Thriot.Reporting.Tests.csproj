@@ -119,10 +119,6 @@
       <Project>{EB617FF2-8BE5-4146-BA9D-4D9A08C70CE5}</Project>
       <Name>Thriot.ServiceClient.TelemetrySetup</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Thriot.Reporting.Dto\Thriot.Reporting.Dto.csproj">
-      <Project>{77179348-0B89-43C2-BBFB-1044CCBAF86E}</Project>
-      <Name>Thriot.Reporting.Dto</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Thriot.Reporting.Services\Thriot.Reporting.Services.csproj">
       <Project>{020767B5-495D-4E39-A29D-B48EB18AF32F}</Project>
       <Name>Thriot.Reporting.Services</Name>

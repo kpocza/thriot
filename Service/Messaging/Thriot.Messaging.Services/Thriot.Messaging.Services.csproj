@@ -59,6 +59,11 @@
     <Compile Include="Caching\CacheItem.cs" />
     <Compile Include="Caching\MessageCache.cs" />
     <Compile Include="DequeueHint.cs" />
+    <Compile Include="Dto\DequeueMessageDto.cs" />
+    <Compile Include="Dto\DequeueMessagesDto.cs" />
+    <Compile Include="Dto\DeviceListDto.cs" />
+    <Compile Include="Dto\EnqueueMessageDto.cs" />
+    <Compile Include="Dto\EnqueueMessagesDto.cs" />
     <Compile Include="ItemConverters.cs" />
     <Compile Include="Storage\DequeueResults.cs" />
     <Compile Include="Storage\EnqueueResult.cs" />
@@ -75,12 +80,6 @@
     <Compile Include="Storage\PersistentStoragePgSql.cs" />
     <Compile Include="Storage\PersistentStorage.cs" />
     <Compile Include="Storage\PersistentStorageStub.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Thriot.Messaging.Dto\Thriot.Messaging.Dto.csproj">
-      <Project>{512934AB-4E46-42DA-935B-537530B7E85B}</Project>
-      <Name>Thriot.Messaging.Dto</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

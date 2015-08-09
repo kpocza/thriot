@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Thriot.Objects.Model.Operations;
 using Thriot.Plugins.Core;
-using Thriot.Reporting.Dto;
+using Thriot.Reporting.Services.Dto;
 
 namespace Thriot.Reporting.Services
 {

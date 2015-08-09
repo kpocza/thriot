@@ -4,7 +4,7 @@ using System.Linq;
 using AutoMapper;
 using Thriot.Framework;
 using Thriot.Framework.Exceptions;
-using Thriot.Management.Dto;
+using Thriot.Management.Services.Dto;
 using Thriot.Management.Model;
 using Thriot.Management.Model.Operations;
 using Thriot.ServiceClient.TelemetrySetup;
@@ -14,14 +14,14 @@ namespace Thriot.Management.Services
     public class ServiceService : ManagementServiceBase
     {
         private readonly IServiceOperations _serviceOperations;
-        private readonly ITelemetryDataSinkSetupService _telemetryDataSinkSetupService;
+        private readonly ITelemetryDataSinkSetupServiceClient _telemetryDataSinkSetupServiceClient;
         private readonly ICapabilityProvider _capabilityProvider;
 
-        public ServiceService(IServiceOperations serviceOperations, ICompanyOperations companyOperations, IAuthenticationContext authenticationContext, ITelemetryDataSinkSetupService telemetryDataSinkSetupService, ICapabilityProvider capabilityProvider) :
+        public ServiceService(IServiceOperations serviceOperations, ICompanyOperations companyOperations, IAuthenticationContext authenticationContext, ITelemetryDataSinkSetupServiceClient telemetryDataSinkSetupServiceClient, ICapabilityProvider capabilityProvider) :
             base(companyOperations, authenticationContext)
         {
             _serviceOperations = serviceOperations;
-            _telemetryDataSinkSetupService = telemetryDataSinkSetupService;
+            _telemetryDataSinkSetupServiceClient = telemetryDataSinkSetupServiceClient;
             _capabilityProvider = capabilityProvider;
         }
 
@@ -113,7 +113,7 @@ namespace Thriot.Management.Services
             {
                 Incoming = Mapper.Map<List<TelemetryDataSinkParametersRemoteDto>>(telemetryDataSinkParametersDtos)
             };
-            _telemetryDataSinkSetupService.PrepareAndValidateIncoming(telemetryDataSinksParametersRemote);
+            _telemetryDataSinkSetupServiceClient.PrepareAndValidateIncoming(telemetryDataSinksParametersRemote);
 
             var telemetryDataSinkParameters = Mapper.Map<List<TelemetryDataSinkParameters>>(telemetryDataSinkParametersDtos);
 

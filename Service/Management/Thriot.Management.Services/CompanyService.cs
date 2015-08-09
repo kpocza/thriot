@@ -4,7 +4,7 @@ using System.Linq;
 using AutoMapper;
 using Thriot.Framework;
 using Thriot.Framework.Exceptions;
-using Thriot.Management.Dto;
+using Thriot.Management.Services.Dto;
 using Thriot.Management.Model;
 using Thriot.Management.Model.Operations;
 using Thriot.ServiceClient.TelemetrySetup;
@@ -13,13 +13,13 @@ namespace Thriot.Management.Services
 {
     public class CompanyService : ManagementServiceBase
     {
-        private readonly ITelemetryDataSinkSetupService _telemetryDataSinkSetupService;
+        private readonly ITelemetryDataSinkSetupServiceClient _telemetryDataSinkSetupServiceClient;
         private readonly ICapabilityProvider _capabilityProvider;
 
-        public CompanyService(ICompanyOperations companyOperations, IAuthenticationContext authenticationContext, ITelemetryDataSinkSetupService telemetryDataSinkSetupService, ICapabilityProvider capabilityProvider)
+        public CompanyService(ICompanyOperations companyOperations, IAuthenticationContext authenticationContext, ITelemetryDataSinkSetupServiceClient telemetryDataSinkSetupService, ICapabilityProvider capabilityProvider)
             : base(companyOperations, authenticationContext)
         {
-            _telemetryDataSinkSetupService = telemetryDataSinkSetupService;
+            _telemetryDataSinkSetupServiceClient = telemetryDataSinkSetupService;
             _capabilityProvider = capabilityProvider;
         }
 
@@ -117,7 +117,7 @@ namespace Thriot.Management.Services
             {
                 Incoming = Mapper.Map<List<TelemetryDataSinkParametersRemoteDto>>(telemetryDataSinkParametersDtos)
             };
-            _telemetryDataSinkSetupService.PrepareAndValidateIncoming(telemetryDataSinksParametersRemote);
+            _telemetryDataSinkSetupServiceClient.PrepareAndValidateIncoming(telemetryDataSinksParametersRemote);
 
             var current = _companyOperations.Get(id);
 

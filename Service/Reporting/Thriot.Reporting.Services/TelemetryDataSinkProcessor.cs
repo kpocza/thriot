@@ -6,7 +6,7 @@ using Thriot.Framework.DataAccess;
 using Thriot.Objects.Model;
 using Thriot.Objects.Model.Operations;
 using Thriot.Plugins.Core;
-using Thriot.Reporting.Dto;
+using Thriot.Reporting.Services.Dto;
 using Thriot.ServiceClient.TelemetrySetup;
 
 namespace Thriot.Reporting.Services
@@ -16,12 +16,12 @@ namespace Thriot.Reporting.Services
         private readonly INetworkOperations _networkOperations;
         private readonly IServiceOperations _serviceOperations;
         private readonly ICompanyOperations _companyOperations;
-        private readonly ITelemetryDataSinkSetupService _telemetryDataSinkSetupService;
+        private readonly ITelemetryDataSinkSetupServiceClient _telemetryDataSinkSetupServiceClient;
         private readonly IDynamicConnectionStringResolver _dynamicConnectionStringResolver;
 
-        public TelemetryDataSinkProcessor(ITelemetryDataSinkSetupService telemetryDataSinkSetupService, INetworkOperations networkOperations, IServiceOperations serviceOperations, ICompanyOperations companyOperations, IDynamicConnectionStringResolver dynamicConnectionStringResolver)
+        public TelemetryDataSinkProcessor(ITelemetryDataSinkSetupServiceClient telemetryDataSinkSetupServiceClient, INetworkOperations networkOperations, IServiceOperations serviceOperations, ICompanyOperations companyOperations, IDynamicConnectionStringResolver dynamicConnectionStringResolver)
         {
-            _telemetryDataSinkSetupService = telemetryDataSinkSetupService;
+            _telemetryDataSinkSetupServiceClient = telemetryDataSinkSetupServiceClient;
             _networkOperations = networkOperations;
             _serviceOperations = serviceOperations;
             _companyOperations = companyOperations;
@@ -33,7 +33,7 @@ namespace Thriot.Reporting.Services
             var list = new List<SinkInfo>();
             var allSinks = GetConfiguredSinks(networkId);
 
-            var telemetryDataSinksMetadata = _telemetryDataSinkSetupService.GetTelemetryDataSinksMetadata();
+            var telemetryDataSinksMetadata = _telemetryDataSinkSetupServiceClient.GetTelemetryDataSinksMetadata();
 
             foreach (var sink in allSinks)
             {
@@ -58,7 +58,7 @@ namespace Thriot.Reporting.Services
         {
             var configuredSinks = GetConfiguredSinks(networkId);
 
-            var telemetryDataSinksMetadata = _telemetryDataSinkSetupService.GetTelemetryDataSinksMetadata();
+            var telemetryDataSinksMetadata = _telemetryDataSinkSetupServiceClient.GetTelemetryDataSinksMetadata();
 
             var workerSink = configuredSinks.SingleOrDefault(sink => String.Equals(sink.SinkName, sinkName, StringComparison.InvariantCultureIgnoreCase));
             if (workerSink == null)

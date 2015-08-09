@@ -50,12 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ITelemetryDataSinkSetupService.cs" />
+    <Compile Include="ITelemetryDataSinkSetupServiceClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TelemetryDataSinkMetadataDto.cs" />
     <Compile Include="TelemetryDataSinksParametersRemoteDto.cs" />
     <Compile Include="TelemetryDataSinkParametersRemoteDto.cs" />
-    <Compile Include="TelemetryDataSinkSetupService.cs" />
+    <Compile Include="TelemetryDataSinkSetupServiceClient.cs" />
     <Compile Include="TelemetryDataSinksMetadataDto.cs" />
   </ItemGroup>
   <ItemGroup>

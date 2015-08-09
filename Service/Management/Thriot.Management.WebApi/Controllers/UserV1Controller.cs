@@ -2,11 +2,11 @@
 using Microsoft.AspNet.Mvc;
 using Microsoft.Framework.Configuration;
 using Thriot.Framework.Logging;
-using Thriot.Management.Dto;
+using Thriot.Management.Services.Dto;
 using Thriot.Management.Services;
 using Thriot.Management.WebApi.Auth;
 using Thriot.Management.WebApi.WebFunctions;
-using Thriot.Web.Models;
+using Thriot.Management.WebApi.Models;
 
 namespace Thriot.Management.WebApi.Controllers
 {

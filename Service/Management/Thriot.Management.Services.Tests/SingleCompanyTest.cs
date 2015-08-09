@@ -3,7 +3,7 @@ using System.Security.Principal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Thriot.Framework;
 using Thriot.Framework.Exceptions;
-using Thriot.Management.Dto;
+using Thriot.Management.Services.Dto;
 using Thriot.Management.Model;
 using Thriot.TestHelpers;
 

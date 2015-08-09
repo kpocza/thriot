@@ -72,11 +72,11 @@ namespace Thriot.Platform.WebApi
             services.AddSingleton<IBatchParameters, BatchParameters>();
             services.AddTransient<IMessagingOperations, MessagingOperations>();
             services.AddTransient<IDeviceAuthenticator, DeviceAuthenticator>();
-            services.AddSingleton<IMessagingService, ServiceClient.Messaging.MessagingService>();
+            services.AddSingleton<IMessagingServiceClient, ServiceClient.Messaging.MessagingServiceClient>();
             services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.DataAccess.ConnectionParametersResolver>();
             services.AddSingleton(_ => configuration);
             
-            foreach (var extraService in Framework.ServicesResolver.Resolve(configuration, "Services"))
+            foreach (var extraService in Framework.ServicesConfigLoader.Load(configuration, "Services"))
             {
                 services.AddTransient(extraService.Key, extraService.Value);
             }
@@ -86,10 +86,10 @@ namespace Thriot.Platform.WebApi
         {
             var serviceProvider = app.ApplicationServices;
 
-            var messagingService = serviceProvider.GetService<IMessagingService>();
+            var messagingServiceClient = serviceProvider.GetService<IMessagingServiceClient>();
             var settingOperations = serviceProvider.GetService<ISettingOperations>();
 
-            messagingService.Setup(settingOperations.Get(Setting.MessagingServiceEndpoint).Value, settingOperations.Get(Setting.MessagingServiceApiKey).Value);
+            messagingServiceClient.Setup(settingOperations.Get(Setting.MessagingServiceEndpoint).Value, settingOperations.Get(Setting.MessagingServiceApiKey).Value);
 
             var telemetryDataSinkMetadataRegistry = (TelemetryDataSinkMetadataRegistry)serviceProvider.GetService<ITelemetryDataSinkMetadataRegistry>();
 
@@ -101,7 +101,7 @@ namespace Thriot.Platform.WebApi
             }
             var batchParameters = serviceProvider.GetService<IBatchParameters>();
 
-            MessagingWorkers.Start(batchParameters, messagingService);
+            MessagingWorkers.Start(batchParameters, messagingServiceClient);
 
             var applicationShutdown = serviceProvider.GetService<IApplicationShutdown>();
             applicationShutdown.ShutdownRequested.Register(MessagingWorkers.Stop);

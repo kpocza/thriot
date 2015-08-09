@@ -79,9 +79,9 @@ namespace Thriot.TestHelpers
             get { return new Objects.Operations.Sql.SettingOperations(GetPlatformUnitOfWorkFactory()); }
         }
 
-        public IMessagingService MessagingService
+        public IMessagingServiceClient MessagingServiceClient
         {
-            get { return InprocMessagingService.Instance; }
+            get { return InprocMessagingServiceClient.Instance; }
         }
 
         public string TelemetryConnectionString => "Server=127.0.0.1;Port=5432;Database=ThriotTelemetry;User Id=thriottelemetry;Password=thriottelemetry;";

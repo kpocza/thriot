@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using Thriot.Framework;
-using Thriot.Management.Dto;
+using Thriot.Management.Services.Dto;
 using Thriot.Management.Services;
 using Thriot.ServiceClient.Messaging;
 using Thriot.ServiceClient.TelemetrySetup;
@@ -190,7 +190,7 @@ namespace Thriot.Objects.Operations.Tests
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
             _authenticationContext = Substitute.For<IAuthenticationContext>();
-            var messagingService = Substitute.For<IMessagingService>();
+            var messagingServiceClient = Substitute.For<IMessagingServiceClient>();
 
             var userOperations = environmentFactory.MgmtUserOperations;
             var companyOperations = environmentFactory.MgmtCompanyOperations;
@@ -210,8 +210,8 @@ namespace Thriot.Objects.Operations.Tests
             _serviceId = _serviceService.Create(new ServiceDto() { CompanyId = _companyId, Name = "new service" });
 
             var networkOperations = environmentFactory.MgmtNetworkOperations;
-            var telemetryDataSinkSetupService = Substitute.For<ITelemetryDataSinkSetupService>();
-            telemetryDataSinkSetupService.GetTelemetryDataSinksMetadata().Returns(
+            var telemetryDataSinkSetupServiceClient = Substitute.For<ITelemetryDataSinkSetupServiceClient>();
+            telemetryDataSinkSetupServiceClient.GetTelemetryDataSinksMetadata().Returns(
                 new TelemetryDataSinksMetadataDto
                 {
                     Incoming = new List<TelemetryDataSinkMetadataDto>
@@ -224,13 +224,13 @@ namespace Thriot.Objects.Operations.Tests
                         }
                     }
                 }); 
-            _networkService = new NetworkService(networkOperations, serviceOperations, companyOperations, _authenticationContext, telemetryDataSinkSetupService);
+            _networkService = new NetworkService(networkOperations, serviceOperations, companyOperations, _authenticationContext, telemetryDataSinkSetupServiceClient);
 
-            messagingService.Initialize("1234").ReturnsForAnyArgs(1);
+            messagingServiceClient.Initialize("1234").ReturnsForAnyArgs(1);
 
             var deviceOperations = environmentFactory.MgmtDeviceOperations;
             _deviceService = new DeviceService(deviceOperations, networkOperations, serviceOperations, companyOperations,
-                _authenticationContext, messagingService);
+                _authenticationContext, messagingServiceClient);
         }
 
         private string CreateParentNetwork()

@@ -24,7 +24,6 @@
         "dnx451": {
             "dependencies": {
                 "Thriot.Framework.Mails": "1.0.0-*",
-                "Thriot.Management.Dto": "1.0.0-*",
                 "Thriot.Management.Operations.Azure": "1.0.0-*",
                 "Thriot.Management.Operations.Sql": "1.0.0-*",
                 "Thriot.Management.Services": "1.0.0-*"

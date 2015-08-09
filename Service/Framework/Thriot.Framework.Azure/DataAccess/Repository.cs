@@ -18,7 +18,7 @@ namespace Thriot.Framework.Azure.DataAccess
         public void Create(T tableEntity)
         {
             tableEntity.PrepareBeforeSave();
-            _tableEntityOperation.Insert<T>(TableName, tableEntity);
+            _tableEntityOperation.Insert(TableName, tableEntity);
         }
 
         public T Get(PartionKeyRowKeyPair paritionKeyRowKeyPair)
@@ -34,13 +34,13 @@ namespace Thriot.Framework.Azure.DataAccess
         public void Update(T tableEntity)
         {
             tableEntity.PrepareBeforeSave();
-            _tableEntityOperation.Update<T>(TableName, tableEntity);
+            _tableEntityOperation.Update(TableName, tableEntity);
         }
 
         public void Upsert(T tableEntity)
         {
             tableEntity.PrepareBeforeSave();
-            _tableEntityOperation.Upsert<T>(TableName, tableEntity);
+            _tableEntityOperation.Upsert(TableName, tableEntity);
         }
 
         public void Delete(T tableEntity)

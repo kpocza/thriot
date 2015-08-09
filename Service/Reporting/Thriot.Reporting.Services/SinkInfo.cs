@@ -1,4 +1,4 @@
-﻿using Thriot.Reporting.Dto;
+﻿using Thriot.Reporting.Services.Dto;
 
 namespace Thriot.Reporting.Services
 {

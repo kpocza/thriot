@@ -3,7 +3,7 @@ using System.Linq;
 using System.Security.Authentication;
 using Thriot.Framework;
 using Thriot.Framework.Exceptions;
-using Thriot.Management.Dto;
+using Thriot.Management.Services.Dto;
 using Thriot.Management.Model.Operations;
 using Thriot.ServiceClient.TelemetrySetup;
 using Thriot.TestHelpers;
@@ -485,8 +485,8 @@ namespace Thriot.Management.Services.Tests
         {
             var id = _networkService.Create(GetNetwork());
 
-            var telemetryDataSinkSetupService = Substitute.For<ITelemetryDataSinkSetupService>();
-            telemetryDataSinkSetupService.GetTelemetryDataSinksMetadata().Returns(
+            var telemetryDataSinkSetupServiceClient = Substitute.For<ITelemetryDataSinkSetupServiceClient>();
+            telemetryDataSinkSetupServiceClient.GetTelemetryDataSinksMetadata().Returns(
                 new TelemetryDataSinksMetadataDto
                 {
                     Incoming =
@@ -501,7 +501,7 @@ namespace Thriot.Management.Services.Tests
                         }
                 });
 
-            var networkService = new NetworkService(_networkOperations, _serviceOperations, _companyOperations, _authenticationContext, telemetryDataSinkSetupService);
+            var networkService = new NetworkService(_networkOperations, _serviceOperations, _companyOperations, _authenticationContext, telemetryDataSinkSetupServiceClient);
 
             networkService.UpdateIncomingTelemetryDataSinks(id, new List<TelemetryDataSinkParametersDto>
                     {

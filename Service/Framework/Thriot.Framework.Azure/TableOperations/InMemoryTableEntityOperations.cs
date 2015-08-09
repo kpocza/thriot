@@ -7,7 +7,7 @@ namespace Thriot.Framework.Azure.TableOperations
 {
     public class InMemoryTableEntityOperations : ITableEntityOperation
     {
-        public void Insert<TE>(string tableName, TableEntity tableEntity) where TE : TableEntity
+        public void Insert(string tableName, TableEntity tableEntity)
         {
             InMemoryDatabase.Instance.Get(tableName).Add(tableEntity);
         }
@@ -22,12 +22,12 @@ namespace Thriot.Framework.Azure.TableOperations
             return Serializers.FromJsonString<TE>(entity);
         }
 
-        public void Update<TE>(string tableName, TableEntity tableEntity) where TE : TableEntity
+        public void Update(string tableName, TableEntity tableEntity)
         {
             InMemoryDatabase.Instance.Get(tableName).Update(tableEntity);
         }
 
-        public void Upsert<TE>(string tableName, TableEntity tableEntity) where TE : TableEntity
+        public void Upsert(string tableName, TableEntity tableEntity)
         {
             InMemoryDatabase.Instance.Get(tableName).Upsert(tableEntity);
         }

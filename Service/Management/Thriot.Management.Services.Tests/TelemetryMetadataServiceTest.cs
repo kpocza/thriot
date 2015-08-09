@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Security.Authentication;
 using Thriot.Framework;
-using Thriot.Management.Dto;
+using Thriot.Management.Services.Dto;
 using Thriot.ServiceClient.TelemetrySetup;
 using Thriot.TestHelpers;
 using TelemetrySetup = Thriot.ServiceClient.TelemetrySetup;
@@ -27,13 +27,13 @@ namespace Thriot.Management.Services.Tests
         [TestMethod]
         public void GetIncomingTest()
         {
-            var telemetryDataSinkSetupService = Substitute.For<ITelemetryDataSinkSetupService>();
+            var telemetryDataSinkSetupServiceClient = Substitute.For<ITelemetryDataSinkSetupServiceClient>();
 
             var msm = new TelemetryDataSinksMetadataDto { Incoming = new List<TelemetryDataSinkMetadataDto>() };
 
-            telemetryDataSinkSetupService.GetTelemetryDataSinksMetadata().Returns(msm);
+            telemetryDataSinkSetupServiceClient.GetTelemetryDataSinksMetadata().Returns(msm);
 
-            var messageMetadataService = new TelemetryMetadataService(telemetryDataSinkSetupService, null, _authenticationContext);
+            var messageMetadataService = new TelemetryMetadataService(telemetryDataSinkSetupServiceClient, null, _authenticationContext);
 
             var incoming = messageMetadataService.GetIncomingTelemetryDataSinksMetadata();
             Assert.AreEqual(0, incoming.Incoming.Count);
@@ -45,9 +45,9 @@ namespace Thriot.Management.Services.Tests
         {
             _authenticationContext.GetContextUser().Returns((string)null);
 
-            var telemetryDataSinkSetupService = Substitute.For<ITelemetryDataSinkSetupService>();
+            var telemetryDataSinkSetupServiceClient = Substitute.For<ITelemetryDataSinkSetupServiceClient>();
 
-            var telemetryMetadataService = new TelemetryMetadataService(telemetryDataSinkSetupService, null, _authenticationContext);
+            var telemetryMetadataService = new TelemetryMetadataService(telemetryDataSinkSetupServiceClient, null, _authenticationContext);
 
             telemetryMetadataService.GetIncomingTelemetryDataSinksMetadata();
         }

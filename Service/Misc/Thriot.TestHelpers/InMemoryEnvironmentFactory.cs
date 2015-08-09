@@ -66,7 +66,7 @@ namespace Thriot.TestHelpers
             get { return new Objects.Operations.Azure.SettingOperations(GetCloudStorageClientFactory()); }
         }
 
-        public IMessagingService MessagingService
+        public IMessagingServiceClient MessagingServiceClient
         {
             get { return InMemoryMessagingService.Instance; }
         }

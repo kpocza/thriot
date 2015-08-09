@@ -82,7 +82,7 @@
     <Compile Include="DevPgSqlConnectionParametersResolver.cs" />
     <Compile Include="DevSqlConnectionParametersResolver.cs" />
     <Compile Include="EnvironmentFactoryFactory.cs" />
-    <Compile Include="InprocMessagingService.cs" />
+    <Compile Include="InprocMessagingServiceClient.cs" />
     <Compile Include="InMemoryMessagingService.cs" />
     <Compile Include="SettingInitializer.cs" />
     <Compile Include="PgSqlEnvironmentFactory.cs" />
@@ -108,10 +108,6 @@
       <Project>{72721CBB-098D-499B-B037-1CCEACBC4524}</Project>
       <Name>Thriot.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Management\Thriot.Management.Dto\Thriot.Management.Dto.csproj">
-      <Project>{17D1CC13-A661-43C8-8845-EFC46F0CE132}</Project>
-      <Name>Thriot.Management.Dto</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Management\Thriot.Management.Model\Thriot.Management.Model.csproj">
       <Project>{F955E692-FD87-4964-9DC3-B3269B1CB92D}</Project>
       <Name>Thriot.Management.Model</Name>
@@ -123,10 +119,6 @@
     <ProjectReference Include="..\..\Management\Thriot.Management.Operations.Sql\Thriot.Management.Operations.Sql.csproj">
       <Project>{b5f4aff8-5386-4cc9-9e0d-f53958e5522a}</Project>
       <Name>Thriot.Management.Operations.Sql</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Messaging\Thriot.Messaging.Dto\Thriot.Messaging.Dto.csproj">
-      <Project>{512934ab-4e46-42da-935b-537530b7e85b}</Project>
-      <Name>Thriot.Messaging.Dto</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Messaging\Thriot.Messaging.Services\Thriot.Messaging.Services.csproj">
       <Project>{7894bbe9-ae81-4f95-ad81-ba2b0431698c}</Project>

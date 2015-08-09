@@ -10,19 +10,19 @@ namespace Thriot.Platform.Services.Messaging
 {
     internal class BatchWorkerRecord : IBatchWorker<OutgoingMessageToStore, OutgoingState>
     {
-        private readonly IMessagingService _messagingService;
+        private readonly IMessagingServiceClient _messagingServiceClient;
         private static readonly ILogger Logger = LoggerFactory.GetCurrentClassLogger();
 
-        public BatchWorkerRecord(IMessagingService messagingService)
+        public BatchWorkerRecord(IMessagingServiceClient messagingServiceClient)
         {
-            _messagingService = messagingService;
+            _messagingServiceClient = messagingServiceClient;
         }
 
         public IDictionary<Guid, OutgoingState> Process(IEnumerable<BatchItem<OutgoingMessageToStore>> parameters)
         {
             try
             {
-                var successfullDevices = _messagingService.Enqueue(new EnqueueMessagesDto
+                var successfullDevices = _messagingServiceClient.Enqueue(new EnqueueMessagesDto
                 {
                     Messages = parameters.Select(p => new EnqueueMessageDto
                     {

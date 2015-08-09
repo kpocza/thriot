@@ -40,7 +40,7 @@ namespace Thriot.Messaging.WebApi
             services.AddTransient<Services.MessagingService>();
             services.AddSingleton(_ => configuration);
 
-            foreach (var extraService in Framework.ServicesResolver.Resolve(configuration, "Services"))
+            foreach (var extraService in Framework.ServicesConfigLoader.Load(configuration, "Services"))
             {
                 services.AddTransient(extraService.Key, extraService.Value);
             }

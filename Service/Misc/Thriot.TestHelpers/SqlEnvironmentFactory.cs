@@ -79,9 +79,9 @@ namespace Thriot.TestHelpers
             get { return new Objects.Operations.Sql.SettingOperations(GetPlatformUnitOfWorkFactory()); }
         }
 
-        public IMessagingService MessagingService
+        public IMessagingServiceClient MessagingServiceClient
         {
-            get { return InprocMessagingService.Instance; }
+            get { return InprocMessagingServiceClient.Instance; }
         }
 
         public string TelemetryConnectionString

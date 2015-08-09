@@ -22,12 +22,12 @@ namespace Thriot.Messaging.PerformanceTest
         private const int EnqueueBatch = 100;
         private const int DequeueBatch = 1000;
 
-        private static IMessagingService _messagingService;
+        private static IMessagingServiceClient _messagingServiceClient;
 
         public static void Main(string[] args)
         {
             //_messagingService = new PureDatabaseCalls();
-            _messagingService = new PureDatabaseCallsPgSql();
+            _messagingServiceClient = new PureDatabaseCallsPgSqlClient();
             //_messagingService = new InprocMessagingService();
 
             //_messagingService = new WebApiMessagingService();
@@ -37,7 +37,7 @@ namespace Thriot.Messaging.PerformanceTest
 
             for (int i = 0; i < QueueSize; i++)
             {
-                _deviceIds.Add(_messagingService.Initialize(Identity.Next()));
+                _deviceIds.Add(_messagingServiceClient.Initialize(Identity.Next()));
                 if (i % _stepSize == 0)
                 {
                     Console.WriteLine("Idx: " + i);
@@ -85,7 +85,7 @@ namespace Thriot.Messaging.PerformanceTest
                     }).ToList()
                 };
 
-                _messagingService.Enqueue(msgs);
+                _messagingServiceClient.Enqueue(msgs);
 
                 Interlocked.Increment(ref _enc);
                 Interlocked.Add(ref _encI, msgs.Messages.Count);
@@ -118,7 +118,7 @@ namespace Thriot.Messaging.PerformanceTest
                     deviceIdSet.Add(_deviceIds[rndD.Next(QueueSize)]);
                 }
 
-                var result = _messagingService.Dequeue(new DeviceListDto { DeviceIds = deviceIdSet.ToList()});
+                var result = _messagingServiceClient.Dequeue(new DeviceListDto { DeviceIds = deviceIdSet.ToList()});
 
                 Interlocked.Increment(ref _dec);
                 Interlocked.Add(ref _decI, result.Messages.Count);
@@ -153,8 +153,8 @@ namespace Thriot.Messaging.PerformanceTest
                     deviceIdSet.Add(_deviceIds[rndD.Next(QueueSize)]);
                 }
 
-                var result = _messagingService.Peek(new DeviceListDto { DeviceIds = deviceIdSet.ToList() });
-                _messagingService.Commit(new DeviceListDto
+                var result = _messagingServiceClient.Peek(new DeviceListDto { DeviceIds = deviceIdSet.ToList() });
+                _messagingServiceClient.Commit(new DeviceListDto
                 {
                     DeviceIds = result.Messages.Select(m => m.DeviceId).ToList()
                 });

@@ -64,10 +64,10 @@ namespace Thriot.Management.WebApi
             services.AddTransient<Services.IMailer, WebApi.WebFunctions.Mailer>();
             services.AddSingleton(_ => configuration);
 
-            services.AddSingleton<ServiceClient.TelemetrySetup.ITelemetryDataSinkSetupService, ServiceClient.TelemetrySetup.TelemetryDataSinkSetupService>();
-            services.AddSingleton<ServiceClient.Messaging.IMessagingService, ServiceClient.Messaging.MessagingService>();
+            services.AddSingleton<ServiceClient.TelemetrySetup.ITelemetryDataSinkSetupServiceClient, ServiceClient.TelemetrySetup.TelemetryDataSinkSetupServiceClient>();
+            services.AddSingleton<ServiceClient.Messaging.IMessagingServiceClient, ServiceClient.Messaging.MessagingServiceClient>();
 
-            foreach(var extraService in Framework.ServicesResolver.Resolve(configuration, "Services"))
+            foreach(var extraService in Framework.ServicesConfigLoader.Load(configuration, "Services"))
             {
                 services.AddTransient(extraService.Key, extraService.Value);
             }
@@ -77,13 +77,13 @@ namespace Thriot.Management.WebApi
         {
             var serviceProvider = app.ApplicationServices;
 
-            var messagingService = serviceProvider.GetService<ServiceClient.Messaging.IMessagingService>();
-            var telemetryDataSinkSetupService = serviceProvider.GetService<ServiceClient.TelemetrySetup.ITelemetryDataSinkSetupService>();
+            var messagingServiceClient = serviceProvider.GetService<ServiceClient.Messaging.IMessagingServiceClient>();
+            var telemetryDataSinkSetupServiceClient = serviceProvider.GetService<ServiceClient.TelemetrySetup.ITelemetryDataSinkSetupServiceClient>();
 
             var settingProvider = (Services.SettingProvider)serviceProvider.GetService<Services.ISettingProvider>();
 
-            messagingService.Setup(settingProvider.MessagingServiceEndpoint, settingProvider.MessagingServiceApiKey);
-            telemetryDataSinkSetupService.Setup(settingProvider.TelemetrySetupServiceEndpoint, settingProvider.TelemetrySetupServiceApiKey);
+            messagingServiceClient.Setup(settingProvider.MessagingServiceEndpoint, settingProvider.MessagingServiceApiKey);
+            telemetryDataSinkSetupServiceClient.Setup(settingProvider.TelemetrySetupServiceEndpoint, settingProvider.TelemetrySetupServiceApiKey);
 
             app.UseCookieAuthentication(options => 
             {

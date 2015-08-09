@@ -48,7 +48,7 @@ namespace Thriot.Reporting.WebApi
             services.AddTransient<NetworkReportingService>();
             services.AddTransient<DeviceAuthenticationContext>();
             services.AddTransient<NetworkAuthenticationContext>();
-            services.AddSingleton<ITelemetryDataSinkSetupService, TelemetryDataSinkSetupService>();
+            services.AddSingleton<ITelemetryDataSinkSetupServiceClient, TelemetryDataSinkSetupServiceClient>();
             services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.DataAccess.ConnectionParametersResolver>();
             services.AddSingleton<Framework.DataAccess.IDynamicConnectionStringResolver, DynamicConnectionStringResolver>();
             services.AddTransient<ITelemetryDataSinkProcessor, TelemetryDataSinkProcessor>();
@@ -56,7 +56,7 @@ namespace Thriot.Reporting.WebApi
             services.AddTransient<INetworkAuthenticator, Objects.Common.NetworkAuthenticator> ();
             services.AddSingleton(_ => configuration);
 
-            foreach (var extraService in Framework.ServicesResolver.Resolve(configuration, "Services"))
+            foreach (var extraService in Framework.ServicesConfigLoader.Load(configuration, "Services"))
             {
                 services.AddTransient(extraService.Key, extraService.Value);
             }
@@ -66,10 +66,10 @@ namespace Thriot.Reporting.WebApi
         {
             var serviceProvider = app.ApplicationServices;
 
-            var telemetryDataSinkSetupService = serviceProvider.GetService<ITelemetryDataSinkSetupService>();
+            var telemetryDataSinkSetupServiceClient = serviceProvider.GetService<ITelemetryDataSinkSetupServiceClient>();
             var settingOperations = serviceProvider.GetService<ISettingOperations>();
 
-            telemetryDataSinkSetupService.Setup(settingOperations.Get(Setting.TelemetrySetupServiceEndpoint).Value, settingOperations.Get(Setting.TelemetrySetupServiceApiKey).Value);
+            telemetryDataSinkSetupServiceClient.Setup(settingOperations.Get(Setting.TelemetrySetupServiceEndpoint).Value, settingOperations.Get(Setting.TelemetrySetupServiceApiKey).Value);
 
             app.UseCors("AllowAll");
 

@@ -76,11 +76,11 @@ namespace Thriot.Platform.WebsocketService
 
             SetupTelemetryDataSinkMetadataRegistry(settingOperations);
 
-            var messagingService = _serviceProvider.GetService<IMessagingService>();
-            messagingService.Setup(settingOperations.Get(Setting.MessagingServiceEndpoint).Value, settingOperations.Get(Setting.MessagingServiceApiKey).Value);
+            var messagingServiceClient = _serviceProvider.GetService<IMessagingServiceClient>();
+            messagingServiceClient.Setup(settingOperations.Get(Setting.MessagingServiceEndpoint).Value, settingOperations.Get(Setting.MessagingServiceApiKey).Value);
 
             var batchParameters = _serviceProvider.GetService<IBatchParameters>();
-            MessagingWorkers.Start(batchParameters, messagingService);
+            MessagingWorkers.Start(batchParameters, messagingServiceClient);
 
             _persistentConnectionReceiveAndForgetWorker =_serviceProvider.GetService<PersistentConnectionReceiveAndForgetWorker>();
             _persistentConnectionReceiveAndForgetWorker.Start();
@@ -94,13 +94,13 @@ namespace Thriot.Platform.WebsocketService
 
         private void SetupTelemetryDataSinkMetadataRegistry(ISettingOperations settingOperations)
         {
-            var telemetryDataSinkSetupService = _serviceProvider.GetService<ITelemetryDataSinkSetupService>();
+            var telemetryDataSinkSetupServiceClient = _serviceProvider.GetService<ITelemetryDataSinkSetupServiceClient>();
 
-            telemetryDataSinkSetupService.Setup(settingOperations.Get(Setting.TelemetrySetupServiceEndpoint).Value,
+            telemetryDataSinkSetupServiceClient.Setup(settingOperations.Get(Setting.TelemetrySetupServiceEndpoint).Value,
                 settingOperations.Get(Setting.TelemetrySetupServiceApiKey).Value);
 
             var telemetryDataSinkMetadataRegistry = (TelemetryDataSinkMetadataRegistry)_serviceProvider.GetService<ITelemetryDataSinkMetadataRegistry>();
-            var telemetryDataSinksMetadata = telemetryDataSinkSetupService.GetTelemetryDataSinksMetadata();
+            var telemetryDataSinksMetadata = telemetryDataSinkSetupServiceClient.GetTelemetryDataSinksMetadata();
 
             var telemeryDataSection = new TelemetryDataSection
             {

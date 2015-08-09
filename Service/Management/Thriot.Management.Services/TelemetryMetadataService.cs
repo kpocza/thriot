@@ -1,28 +1,28 @@
-﻿using Thriot.Management.Dto;
+﻿using Thriot.Management.Services.Dto;
 using Thriot.Management.Model.Operations;
 using Thriot.ServiceClient.TelemetrySetup;
-using Mgmt = Thriot.Management.Dto;
-using TelemetryDataSinkMetadataDto = Thriot.Management.Dto.TelemetryDataSinkMetadataDto;
-using TelemetryDataSinksMetadataDto = Thriot.Management.Dto.TelemetryDataSinksMetadataDto;
+using Mgmt = Thriot.Management.Services.Dto;
+using TelemetryDataSinkMetadataDto = Thriot.Management.Services.Dto.TelemetryDataSinkMetadataDto;
+using TelemetryDataSinksMetadataDto = Thriot.Management.Services.Dto.TelemetryDataSinksMetadataDto;
 
 namespace Thriot.Management.Services
 {
     public class TelemetryMetadataService : ManagementServiceBase
     {
-        private readonly ITelemetryDataSinkSetupService _telemetryDataSinkSetupService;
+        private readonly ITelemetryDataSinkSetupServiceClient _telemetryDataSinkSetupServiceClient;
 
-        public TelemetryMetadataService(ITelemetryDataSinkSetupService telemetryDataSinkSetupService,
+        public TelemetryMetadataService(ITelemetryDataSinkSetupServiceClient telemetryDataSinkSetupServiceClient,
             ICompanyOperations companyOperations, IAuthenticationContext authenticationContext)
             : base(companyOperations, authenticationContext)
         {
-            _telemetryDataSinkSetupService = telemetryDataSinkSetupService;
+            _telemetryDataSinkSetupServiceClient = telemetryDataSinkSetupServiceClient;
         }
 
         public TelemetryDataSinksMetadataDto GetIncomingTelemetryDataSinksMetadata()
         {
             Authenticate();
 
-            var result = _telemetryDataSinkSetupService.GetTelemetryDataSinksMetadata();
+            var result = _telemetryDataSinkSetupServiceClient.GetTelemetryDataSinksMetadata();
             return new TelemetryDataSinksMetadataDto
             {
                 Incoming =

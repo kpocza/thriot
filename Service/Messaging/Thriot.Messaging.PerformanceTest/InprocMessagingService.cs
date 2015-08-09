@@ -11,11 +11,11 @@ using MSvc = Thriot.Messaging.Services;
 
 namespace Thriot.Messaging.PerformanceTest
 {
-    public class InprocMessagingService : IMessagingService
+    public class InprocMessagingServiceClient : IMessagingServiceClient
     {
         private readonly MessagingService _messagingService;
 
-        public InprocMessagingService()
+        public InprocMessagingServiceClient()
         {
             _messagingService = new MessagingService(new MessageCache(), new PersistentStorage(new ConnectionStringResolver()));
         }
@@ -35,9 +35,9 @@ namespace Thriot.Messaging.PerformanceTest
             return new ServiceClient.Messaging.DeviceListDto
             {
                 DeviceIds =
-                    _messagingService.Enqueue(new Messaging.Dto.EnqueueMessagesDto
+                    _messagingService.Enqueue(new Services.Dto.EnqueueMessagesDto
                     {
-                        Messages = enqueueMessages.Messages.ConvertAll(m => new Messaging.Dto.EnqueueMessageDto
+                        Messages = enqueueMessages.Messages.ConvertAll(m => new Services.Dto.EnqueueMessageDto
                         {
                             DeviceId = m.DeviceId,
                             Payload = m.Payload,
@@ -52,7 +52,7 @@ namespace Thriot.Messaging.PerformanceTest
             return new ServiceClient.Messaging.DequeueMessagesDto
             {
                 Messages =
-                    _messagingService.Dequeue(new Messaging.Dto.DeviceListDto { DeviceIds = deviceList.DeviceIds })
+                    _messagingService.Dequeue(new Services.Dto.DeviceListDto { DeviceIds = deviceList.DeviceIds })
                         .Messages.ConvertAll(m => new ServiceClient.Messaging.DequeueMessageDto
                         {
                             DeviceId = m.DeviceId,
@@ -68,7 +68,7 @@ namespace Thriot.Messaging.PerformanceTest
             return new ServiceClient.Messaging.DequeueMessagesDto
             {
                 Messages =
-                    _messagingService.Peek(new Messaging.Dto.DeviceListDto { DeviceIds = deviceList.DeviceIds })
+                    _messagingService.Peek(new Services.Dto.DeviceListDto { DeviceIds = deviceList.DeviceIds })
                         .Messages.ConvertAll(m => new ServiceClient.Messaging.DequeueMessageDto
                         {
                             DeviceId = m.DeviceId,
@@ -84,7 +84,7 @@ namespace Thriot.Messaging.PerformanceTest
             return new ServiceClient.Messaging.DeviceListDto
             {
                 DeviceIds =
-                    _messagingService.Commit(new Messaging.Dto.DeviceListDto { DeviceIds = deviceList.DeviceIds })
+                    _messagingService.Commit(new Services.Dto.DeviceListDto { DeviceIds = deviceList.DeviceIds })
                         .DeviceIds
             };
         }

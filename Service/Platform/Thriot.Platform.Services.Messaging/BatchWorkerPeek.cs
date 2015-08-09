@@ -4,16 +4,16 @@ namespace Thriot.Platform.Services.Messaging
 {
     internal class BatchWorkerPeek : BatchWorkerReceive
     {
-        private readonly IMessagingService _messagingService;
+        private readonly IMessagingServiceClient _messagingServiceClient;
 
-        public BatchWorkerPeek(IMessagingService messagingService)
+        public BatchWorkerPeek(IMessagingServiceClient messagingServiceClient)
         {
-            _messagingService = messagingService;
+            _messagingServiceClient = messagingServiceClient;
         }
 
         protected override DequeueMessagesDto Receive(DeviceListDto deviceList)
         {
-            return _messagingService.Peek(deviceList);
+            return _messagingServiceClient.Peek(deviceList);
         }
     }
 }

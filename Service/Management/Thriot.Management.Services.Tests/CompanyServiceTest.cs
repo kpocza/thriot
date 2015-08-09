@@ -3,7 +3,7 @@ using System.Linq;
 using System.Security.Authentication;
 using Thriot.Framework;
 using Thriot.Framework.Exceptions;
-using Thriot.Management.Dto;
+using Thriot.Management.Services.Dto;
 using Thriot.Management.Model.Operations;
 using Thriot.ServiceClient.TelemetrySetup;
 using Thriot.TestHelpers;
@@ -207,8 +207,8 @@ namespace Thriot.Management.Services.Tests
         {
             var id = _companyService.Create("new company");
 
-            var telemetryDataSinkSetupService = Substitute.For<ITelemetryDataSinkSetupService>();
-            telemetryDataSinkSetupService.GetTelemetryDataSinksMetadata().Returns(
+            var telemetryDataSinkSetupServiceClient = Substitute.For<ITelemetryDataSinkSetupServiceClient>();
+            telemetryDataSinkSetupServiceClient.GetTelemetryDataSinksMetadata().Returns(
                 new TelemetryDataSinksMetadataDto
                 {
                     Incoming = new List<TelemetryDataSinkMetadataDto>
@@ -222,7 +222,7 @@ namespace Thriot.Management.Services.Tests
                     }
                 });
 
-            var companyService = new CompanyService(_companyOperations, _authenticationContext, telemetryDataSinkSetupService, null);
+            var companyService = new CompanyService(_companyOperations, _authenticationContext, telemetryDataSinkSetupServiceClient, null);
 
             companyService.UpdateIncomingTelemetryDataSinks(id, new List<TelemetryDataSinkParametersDto>
                     {

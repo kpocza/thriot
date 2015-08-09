@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Thriot.Management.Dto;
+using Thriot.Management.Services.Dto;
 using Thriot.Plugins.Core;
 using Thriot.TestHelpers;
 using NSubstitute;

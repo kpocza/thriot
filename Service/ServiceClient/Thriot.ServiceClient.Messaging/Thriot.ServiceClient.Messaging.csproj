@@ -63,8 +63,8 @@
     <Compile Include="DeviceListDto.cs" />
     <Compile Include="EnqueueMessageDto.cs" />
     <Compile Include="EnqueueMessagesDto.cs" />
-    <Compile Include="IMessagingService.cs" />
-    <Compile Include="MessagingService.cs" />
+    <Compile Include="IMessagingServiceClient.cs" />
+    <Compile Include="MessagingServiceClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Thriot.Framework;
 using Thriot.Framework.Logging;
-using Thriot.Reporting.Dto;
+using Thriot.Reporting.Services.Dto;
 using Thriot.Reporting.Services;
 using Thriot.Reporting.WebApi.Auth;
 using Thriot.Reporting.WebApi.Formatters;

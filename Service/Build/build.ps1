@@ -230,7 +230,7 @@ if($linuxify -eq "yes")
 
 	LinuxifyNLogConfig $targetRoot\websocketservice\nlog.config
 
-	cp $solutionRoot\Build\templates\config\linux\tinyproxy.conf $targetRoot\install\configtemplates
-	cp $solutionRoot\Build\templates\config\linux\settings.sql $targetRoot\install\storage
-	cp $solutionRoot\Build\templates\config\linux\run.sh $targetRoot\install
+	cp $solutionRoot\Build\templates\config\tinyproxy.conf $targetRoot\install\configtemplates
+	cp $solutionRoot\Build\templates\config\settings.sql $targetRoot\install\storage
+	cp $solutionRoot\Build\templates\config\run.sh $targetRoot\install
 }

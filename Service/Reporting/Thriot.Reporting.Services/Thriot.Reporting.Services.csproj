@@ -49,6 +49,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\CurrentDataDeviceDto.cs" />
+    <Compile Include="Dto\CurrentDataReportDto.cs" />
+    <Compile Include="Dto\FlatPair.cs" />
+    <Compile Include="Dto\FlatReportDto.cs" />
+    <Compile Include="Dto\FlatRowDto.cs" />
+    <Compile Include="Dto\SinkAndDeviceDto.cs" />
+    <Compile Include="Dto\SinkAndNetworkDto.cs" />
+    <Compile Include="Dto\SinkInfoDto.cs" />
+    <Compile Include="Dto\SinkType.cs" />
+    <Compile Include="Dto\TimeSeriesDeviceDto.cs" />
+    <Compile Include="Dto\TimeSeriesReportDto.cs" />
+    <Compile Include="Dto\TimeSeriesRowDto.cs" />
     <Compile Include="FlatDtoConverters.cs" />
     <Compile Include="StructuredDtoConverters.cs" />
     <Compile Include="ITelemetryDataSinkProcessor.cs" />
@@ -74,10 +86,6 @@
     <ProjectReference Include="..\..\ServiceClient\Thriot.ServiceClient.TelemetrySetup\Thriot.ServiceClient.TelemetrySetup.csproj">
       <Project>{eb617ff2-8be5-4146-ba9d-4d9a08c70ce5}</Project>
       <Name>Thriot.ServiceClient.TelemetrySetup</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Thriot.Reporting.Dto\Thriot.Reporting.Dto.csproj">
-      <Project>{77179348-0B89-43C2-BBFB-1044CCBAF86E}</Project>
-      <Name>Thriot.Reporting.Dto</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

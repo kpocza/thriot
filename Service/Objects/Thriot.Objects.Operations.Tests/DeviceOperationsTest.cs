@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using Thriot.Framework;
-using Thriot.Management.Dto;
+using Thriot.Management.Services.Dto;
 using Thriot.Management.Services;
 using Thriot.ServiceClient.Messaging;
 using Thriot.TestHelpers;
@@ -21,7 +21,7 @@ namespace Thriot.Objects.Operations.Tests
         private ServiceService _serviceService;
         private NetworkService _networkService;
         private DeviceService _deviceService;
-        private IMessagingService _messagingService;
+        private IMessagingServiceClient _messagingServiceClient;
 
 
         [TestInitialize]
@@ -117,7 +117,7 @@ namespace Thriot.Objects.Operations.Tests
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
             _authenticationContext = Substitute.For<IAuthenticationContext>();
-            _messagingService = Substitute.For<IMessagingService>();
+            _messagingServiceClient = Substitute.For<IMessagingServiceClient>();
 
             var userOperations = environmentFactory.MgmtUserOperations;
             var companyOperations = environmentFactory.MgmtCompanyOperations;
@@ -149,11 +149,11 @@ namespace Thriot.Objects.Operations.Tests
 
             _networkId = _networkService.Create(network);
 
-            _messagingService.Initialize("1234").ReturnsForAnyArgs(1);
+            _messagingServiceClient.Initialize("1234").ReturnsForAnyArgs(1);
 
             var deviceOperations = environmentFactory.MgmtDeviceOperations;
             _deviceService = new DeviceService(deviceOperations, networkOperations, serviceOperations, companyOperations,
-                _authenticationContext, _messagingService);
+                _authenticationContext, _messagingServiceClient);
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Thriot.Framework;
-using Thriot.Messaging.Dto;
+using Thriot.Messaging.Services.Dto;
 
 namespace Thriot.Messaging.Services.Tests
 {

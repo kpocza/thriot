@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNet.Mvc;
 using Thriot.Framework.Logging;
-using Thriot.Messaging.Dto;
+using Thriot.Messaging.Services.Dto;
 using Thriot.Messaging.Services;
 using Thriot.Messaging.WebApi.Auth;
 

@@ -4,17 +4,17 @@ namespace Thriot.Platform.Services.Messaging
 {
     internal class BatchWorkerReceiveAndForget : BatchWorkerReceive
     {
-        private readonly IMessagingService _messagingService;
+        private readonly IMessagingServiceClient _messagingServiceClient;
 
-        public BatchWorkerReceiveAndForget(IMessagingService messagingService)
+        public BatchWorkerReceiveAndForget(IMessagingServiceClient messagingServiceClient)
         {
-            _messagingService = messagingService;
+            _messagingServiceClient = messagingServiceClient;
             
         }
 
         protected override DequeueMessagesDto Receive(DeviceListDto deviceList)
         {
-            return _messagingService.Dequeue(deviceList);
+            return _messagingServiceClient.Dequeue(deviceList);
         }
     }
 }

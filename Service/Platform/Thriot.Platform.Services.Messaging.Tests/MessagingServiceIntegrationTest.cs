@@ -20,7 +20,7 @@ namespace Thriot.Platform.Services.Messaging.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var pltDeviceOperations = environmentFactory.ObjDeviceOperations;
 
-            MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingService);
+            MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingServiceClient);
 
             var messagingService = new MessagingService(new MessagingOperations(), pltDeviceOperations);
 
@@ -45,7 +45,7 @@ namespace Thriot.Platform.Services.Messaging.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var pltDeviceOperations = environmentFactory.ObjDeviceOperations;
 
-            MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingService);
+            MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingServiceClient);
 
             var messagingService = new MessagingService(new MessagingOperations(), pltDeviceOperations);
 
@@ -59,7 +59,7 @@ namespace Thriot.Platform.Services.Messaging.Tests
         public void PeekOutgoingMessageRealTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingService);
+            MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingServiceClient);
 
             var pltDeviceOperations = environmentFactory.ObjDeviceOperations;
 
@@ -86,7 +86,7 @@ namespace Thriot.Platform.Services.Messaging.Tests
         public void CommitOutgoingMessageRealTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingService);
+            MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingServiceClient);
 
             var pltDeviceOperations = environmentFactory.ObjDeviceOperations;
 

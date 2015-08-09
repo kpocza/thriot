@@ -10,19 +10,19 @@ namespace Thriot.Platform.Services.Messaging
 {
     internal class BatchWorkerCommit : IBatchWorker<long, OutgoingState>
     {
-        private readonly IMessagingService _messagingService;
+        private readonly IMessagingServiceClient _messagingServiceClient;
         private static readonly ILogger Logger = LoggerFactory.GetCurrentClassLogger();
 
-        public BatchWorkerCommit(IMessagingService messagingService)
+        public BatchWorkerCommit(IMessagingServiceClient messagingServiceClient)
         {
-            _messagingService = messagingService;
+            _messagingServiceClient = messagingServiceClient;
         }
 
         public IDictionary<Guid, OutgoingState> Process(IEnumerable<BatchItem<long>> deviceIds)
         {
             try
             {
-                _messagingService.Commit(new DeviceListDto
+                _messagingServiceClient.Commit(new DeviceListDto
                 {
                     DeviceIds = deviceIds.Select(d => d.Parameter).ToList()
                 });

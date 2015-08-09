@@ -4,7 +4,7 @@ using Thriot.ServiceClient.Messaging;
 
 namespace Thriot.Messaging.PerformanceTest
 {
-    public class PureDatabaseCalls : IMessagingService
+    public class PureDatabaseCallsClient : IMessagingServiceClient
     {
         private readonly IPersistentStorage _persistentStorage = new PersistentStorage(new ConnectionStringResolver());
 

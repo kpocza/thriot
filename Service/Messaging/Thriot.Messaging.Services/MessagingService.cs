@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Thriot.Messaging.Dto;
+using Thriot.Messaging.Services.Dto;
 using Thriot.Messaging.Services.Caching;
 using Thriot.Messaging.Services.Storage;
 

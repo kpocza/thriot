@@ -11,9 +11,9 @@ using MSvc = Thriot.Messaging.Services;
 
 namespace Thriot.TestHelpers
 {
-    public class InMemoryMessagingService : IMessagingService
+    public class InMemoryMessagingService : IMessagingServiceClient
     {
-        public static readonly IMessagingService Instance = new InMemoryMessagingService();
+        public static readonly IMessagingServiceClient Instance = new InMemoryMessagingService();
         private readonly MessagingService _messagingService;
 
         private InMemoryMessagingService()
@@ -35,9 +35,9 @@ namespace Thriot.TestHelpers
             return new ServiceClient.Messaging.DeviceListDto
             {
                 DeviceIds =
-                    _messagingService.Enqueue(new Messaging.Dto.EnqueueMessagesDto
+                    _messagingService.Enqueue(new Messaging.Services.Dto.EnqueueMessagesDto
                     {
-                        Messages = enqueueMessages.Messages.ConvertAll(m => new Messaging.Dto.EnqueueMessageDto
+                        Messages = enqueueMessages.Messages.ConvertAll(m => new Messaging.Services.Dto.EnqueueMessageDto
                         {
                             DeviceId = m.DeviceId,
                             Payload = m.Payload,
@@ -53,7 +53,7 @@ namespace Thriot.TestHelpers
             return new ServiceClient.Messaging.DequeueMessagesDto
             {
                 Messages =
-                    _messagingService.Dequeue(new Messaging.Dto.DeviceListDto {DeviceIds = deviceList.DeviceIds})
+                    _messagingService.Dequeue(new Messaging.Services.Dto.DeviceListDto {DeviceIds = deviceList.DeviceIds})
                         .Messages.ConvertAll(m => new ServiceClient.Messaging.DequeueMessageDto
                         {
                             DeviceId = m.DeviceId,
@@ -70,7 +70,7 @@ namespace Thriot.TestHelpers
             return new ServiceClient.Messaging.DequeueMessagesDto
             {
                 Messages =
-                    _messagingService.Peek(new Messaging.Dto.DeviceListDto { DeviceIds = deviceList.DeviceIds })
+                    _messagingService.Peek(new Messaging.Services.Dto.DeviceListDto { DeviceIds = deviceList.DeviceIds })
                         .Messages.ConvertAll(m => new ServiceClient.Messaging.DequeueMessageDto
                         {
                             DeviceId = m.DeviceId,
@@ -87,7 +87,7 @@ namespace Thriot.TestHelpers
             return new ServiceClient.Messaging.DeviceListDto
             {
                 DeviceIds =
-                    _messagingService.Commit(new Messaging.Dto.DeviceListDto {DeviceIds = deviceList.DeviceIds})
+                    _messagingService.Commit(new Messaging.Services.Dto.DeviceListDto {DeviceIds = deviceList.DeviceIds})
                         .DeviceIds
             };
         }

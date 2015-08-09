@@ -30,7 +30,7 @@ namespace Thriot.TestHelpers
 
         Objects.Model.Operations.ISettingOperations ObjSettingOperations { get; }
 
-        IMessagingService MessagingService { get; }
+        IMessagingServiceClient MessagingServiceClient { get; }
 
         string TelemetryConnectionString { get; }
 

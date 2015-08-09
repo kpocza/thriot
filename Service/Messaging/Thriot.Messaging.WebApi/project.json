@@ -21,7 +21,6 @@
     "frameworks": {
         "dnx451": {
             "dependencies": {
-                "Thriot.Messaging.Dto": "1.0.0-*",
                 "Thriot.Messaging.Services": "1.0.0-*",
                 "Thriot.Objects.Operations.Azure": "1.0.0-*",
                 "Thriot.Objects.Operations.Sql": "1.0.0-*"

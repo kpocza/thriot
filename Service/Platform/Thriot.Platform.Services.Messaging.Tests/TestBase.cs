@@ -1,6 +1,6 @@
 ﻿using NSubstitute;
 using Thriot.Framework;
-using Thriot.Management.Dto;
+using Thriot.Management.Services.Dto;
 using Thriot.Management.Services;
 using Thriot.ServiceClient.Messaging;
 using Thriot.TestHelpers;
@@ -19,13 +19,13 @@ namespace Thriot.Platform.Services.Messaging.Tests
         private ServiceService _serviceService;
         private NetworkService _networkService;
         protected DeviceService _deviceService;
-        private IMessagingService _messagingService;
+        private IMessagingServiceClient _messagingServiceClient;
 
         protected void Initialize()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
             _authenticationContext = Substitute.For<IAuthenticationContext>();
-            _messagingService = environmentFactory.MessagingService;
+            _messagingServiceClient = environmentFactory.MessagingServiceClient;
 
             var userOperations = environmentFactory.MgmtUserOperations;
             var companyOperations = environmentFactory.MgmtCompanyOperations;
@@ -59,7 +59,7 @@ namespace Thriot.Platform.Services.Messaging.Tests
 
             var deviceOperations = environmentFactory.MgmtDeviceOperations;
             _deviceService = new DeviceService(deviceOperations, networkOperations, serviceOperations, companyOperations,
-                _authenticationContext, _messagingService);
+                _authenticationContext, _messagingServiceClient);
 
             var device = new DeviceDto()
             {

@@ -19,7 +19,7 @@ namespace Thriot.Reporting.Tests
             var networkOperations = Substitute.For<INetworkOperations>();
             var serviceOperations = Substitute.For<IServiceOperations>();
             var companyOperations = Substitute.For<ICompanyOperations>();
-            var telemetryDataSinkSetupService = Substitute.For<ITelemetryDataSinkSetupService>();
+            var telemetryDataSinkSetupServiceClient = Substitute.For<ITelemetryDataSinkSetupServiceClient>();
 
             networkOperations.Get("2").Returns(new Network
             {
@@ -43,7 +43,7 @@ namespace Thriot.Reporting.Tests
                 }
             });
 
-            telemetryDataSinkSetupService.GetTelemetryDataSinksMetadata()
+            telemetryDataSinkSetupServiceClient.GetTelemetryDataSinksMetadata()
                 .Returns(c => new TelemetryDataSinksMetadataDto()
                 {
                     Incoming = new List<TelemetryDataSinkMetadataDto>
@@ -65,7 +65,7 @@ namespace Thriot.Reporting.Tests
                     }
                 });
 
-            var telemetryDataSinkProcessor = new TelemetryDataSinkProcessor(telemetryDataSinkSetupService, networkOperations, serviceOperations, companyOperations, new DynamicConnectionStringResolver(null));
+            var telemetryDataSinkProcessor = new TelemetryDataSinkProcessor(telemetryDataSinkSetupServiceClient, networkOperations, serviceOperations, companyOperations, new DynamicConnectionStringResolver(null));
 
             var sinks = telemetryDataSinkProcessor.GetSinksForNetwork("2");
 
@@ -78,7 +78,7 @@ namespace Thriot.Reporting.Tests
             var networkOperations = Substitute.For<INetworkOperations>();
             var serviceOperations = Substitute.For<IServiceOperations>();
             var companyOperations = Substitute.For<ICompanyOperations>();
-            var telemetryDataSinkSetupService = Substitute.For<ITelemetryDataSinkSetupService>();
+            var telemetryDataSinkSetupServiceClient = Substitute.For<ITelemetryDataSinkSetupServiceClient>();
 
             networkOperations.Get("2").Returns(new Network
             {
@@ -108,7 +108,7 @@ namespace Thriot.Reporting.Tests
                 }
             });
 
-            telemetryDataSinkSetupService.GetTelemetryDataSinksMetadata()
+            telemetryDataSinkSetupServiceClient.GetTelemetryDataSinksMetadata()
                 .Returns(c => new TelemetryDataSinksMetadataDto()
                 {
                     Incoming = new List<TelemetryDataSinkMetadataDto>
@@ -123,7 +123,7 @@ namespace Thriot.Reporting.Tests
                     }
                 });
 
-            var telemetryDataSinkProcessor = new TelemetryDataSinkProcessor(telemetryDataSinkSetupService, networkOperations, serviceOperations, companyOperations, new DynamicConnectionStringResolver(null));
+            var telemetryDataSinkProcessor = new TelemetryDataSinkProcessor(telemetryDataSinkSetupServiceClient, networkOperations, serviceOperations, companyOperations, new DynamicConnectionStringResolver(null));
 
             var sinks = telemetryDataSinkProcessor.GetSinksForNetwork("2");
 
@@ -136,7 +136,7 @@ namespace Thriot.Reporting.Tests
             var networkOperations = Substitute.For<INetworkOperations>();
             var serviceOperations = Substitute.For<IServiceOperations>();
             var companyOperations = Substitute.For<ICompanyOperations>();
-            var telemetryDataSinkSetupService = Substitute.For<ITelemetryDataSinkSetupService>();
+            var telemetryDataSinkSetupServiceClient = Substitute.For<ITelemetryDataSinkSetupServiceClient>();
 
             networkOperations.Get("2").Returns(new Network
             {
@@ -164,7 +164,7 @@ namespace Thriot.Reporting.Tests
                 }
             });
 
-            telemetryDataSinkSetupService.GetTelemetryDataSinksMetadata()
+            telemetryDataSinkSetupServiceClient.GetTelemetryDataSinksMetadata()
                 .Returns(c => new TelemetryDataSinksMetadataDto()
                 {
                     Incoming = new List<TelemetryDataSinkMetadataDto>
@@ -179,7 +179,7 @@ namespace Thriot.Reporting.Tests
                     }
                 });
 
-            var telemetryDataSinkProcessor = new TelemetryDataSinkProcessor(telemetryDataSinkSetupService, networkOperations, serviceOperations, companyOperations, new DynamicConnectionStringResolver(null));
+            var telemetryDataSinkProcessor = new TelemetryDataSinkProcessor(telemetryDataSinkSetupServiceClient, networkOperations, serviceOperations, companyOperations, new DynamicConnectionStringResolver(null));
 
             var sinks = telemetryDataSinkProcessor.GetSinksForNetwork("2");
 
@@ -192,7 +192,7 @@ namespace Thriot.Reporting.Tests
             var networkOperations = Substitute.For<INetworkOperations>();
             var serviceOperations = Substitute.For<IServiceOperations>();
             var companyOperations = Substitute.For<ICompanyOperations>();
-            var telemetryDataSinkSetupService = Substitute.For<ITelemetryDataSinkSetupService>();
+            var telemetryDataSinkSetupServiceClient = Substitute.For<ITelemetryDataSinkSetupServiceClient>();
 
             networkOperations.Get("2").Returns(new Network
             {
@@ -228,7 +228,7 @@ namespace Thriot.Reporting.Tests
                 }
             });
 
-            telemetryDataSinkSetupService.GetTelemetryDataSinksMetadata()
+            telemetryDataSinkSetupServiceClient.GetTelemetryDataSinksMetadata()
                 .Returns(c => new TelemetryDataSinksMetadataDto()
                 {
                     Incoming = new List<TelemetryDataSinkMetadataDto>
@@ -243,7 +243,7 @@ namespace Thriot.Reporting.Tests
                     }
                 });
 
-            var telemetryDataSinkProcessor = new TelemetryDataSinkProcessor(telemetryDataSinkSetupService, networkOperations, serviceOperations, companyOperations, new DynamicConnectionStringResolver(null));
+            var telemetryDataSinkProcessor = new TelemetryDataSinkProcessor(telemetryDataSinkSetupServiceClient, networkOperations, serviceOperations, companyOperations, new DynamicConnectionStringResolver(null));
 
             var sinks = telemetryDataSinkProcessor.GetSinksForNetwork("2");
 
@@ -256,7 +256,7 @@ namespace Thriot.Reporting.Tests
             var networkOperations = Substitute.For<INetworkOperations>();
             var serviceOperations = Substitute.For<IServiceOperations>();
             var companyOperations = Substitute.For<ICompanyOperations>();
-            var telemetryDataSinkSetupService = Substitute.For<ITelemetryDataSinkSetupService>();
+            var telemetryDataSinkSetupServiceClient = Substitute.For<ITelemetryDataSinkSetupServiceClient>();
 
             networkOperations.Get("2").Returns(new Network
             {
@@ -285,7 +285,7 @@ namespace Thriot.Reporting.Tests
                 }
             });
 
-            telemetryDataSinkSetupService.GetTelemetryDataSinksMetadata()
+            telemetryDataSinkSetupServiceClient.GetTelemetryDataSinksMetadata()
                 .Returns(c => new TelemetryDataSinksMetadataDto()
                 {
                     Incoming = new List<TelemetryDataSinkMetadataDto>
@@ -300,7 +300,7 @@ namespace Thriot.Reporting.Tests
                     }
                 });
 
-            var telemetryDataSinkProcessor = new TelemetryDataSinkProcessor(telemetryDataSinkSetupService, networkOperations, serviceOperations, companyOperations, new DynamicConnectionStringResolver(null));
+            var telemetryDataSinkProcessor = new TelemetryDataSinkProcessor(telemetryDataSinkSetupServiceClient, networkOperations, serviceOperations, companyOperations, new DynamicConnectionStringResolver(null));
 
             var sinks = telemetryDataSinkProcessor.GetSinksForNetwork("2");
 
@@ -313,7 +313,7 @@ namespace Thriot.Reporting.Tests
             var networkOperations = Substitute.For<INetworkOperations>();
             var serviceOperations = Substitute.For<IServiceOperations>();
             var companyOperations = Substitute.For<ICompanyOperations>();
-            var telemetryDataSinkSetupService = Substitute.For<ITelemetryDataSinkSetupService>();
+            var telemetryDataSinkSetupServiceClient = Substitute.For<ITelemetryDataSinkSetupServiceClient>();
 
             networkOperations.Get("2").Returns(new Network
             {
@@ -332,7 +332,7 @@ namespace Thriot.Reporting.Tests
                 }
             });
 
-            telemetryDataSinkSetupService.GetTelemetryDataSinksMetadata()
+            telemetryDataSinkSetupServiceClient.GetTelemetryDataSinksMetadata()
                 .Returns(c => new TelemetryDataSinksMetadataDto()
                 {
                     Incoming = new List<TelemetryDataSinkMetadataDto>
@@ -347,7 +347,7 @@ namespace Thriot.Reporting.Tests
                     }
                 });
 
-            var telemetryDataSinkProcessor = new TelemetryDataSinkProcessor(telemetryDataSinkSetupService, networkOperations, serviceOperations, companyOperations, new DynamicConnectionStringResolver(null));
+            var telemetryDataSinkProcessor = new TelemetryDataSinkProcessor(telemetryDataSinkSetupServiceClient, networkOperations, serviceOperations, companyOperations, new DynamicConnectionStringResolver(null));
 
             var sink = telemetryDataSinkProcessor.WorkerTelemetryDataSink("currentdata", "2");
 
@@ -360,7 +360,7 @@ namespace Thriot.Reporting.Tests
             var networkOperations = Substitute.For<INetworkOperations>();
             var serviceOperations = Substitute.For<IServiceOperations>();
             var companyOperations = Substitute.For<ICompanyOperations>();
-            var telemetryDataSinkSetupService = Substitute.For<ITelemetryDataSinkSetupService>();
+            var telemetryDataSinkSetupServiceClient = Substitute.For<ITelemetryDataSinkSetupServiceClient>();
 
             networkOperations.Get("2").Returns(new Network
             {
@@ -379,13 +379,13 @@ namespace Thriot.Reporting.Tests
                 }
             });
 
-            telemetryDataSinkSetupService.GetTelemetryDataSinksMetadata()
+            telemetryDataSinkSetupServiceClient.GetTelemetryDataSinksMetadata()
                 .Returns(c => new TelemetryDataSinksMetadataDto()
                 {
                     Incoming = new List<TelemetryDataSinkMetadataDto>()
                 });
 
-            var telemetryDataSinkProcessor = new TelemetryDataSinkProcessor(telemetryDataSinkSetupService, networkOperations, serviceOperations, companyOperations, new DynamicConnectionStringResolver(null));
+            var telemetryDataSinkProcessor = new TelemetryDataSinkProcessor(telemetryDataSinkSetupServiceClient, networkOperations, serviceOperations, companyOperations, new DynamicConnectionStringResolver(null));
 
             var sink = telemetryDataSinkProcessor.WorkerTelemetryDataSink("currentdatanosuch", "2");
 

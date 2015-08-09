@@ -12,7 +12,6 @@
         "Thriot.Framework": "1.0.0-*",
         "Thriot.ServiceClient.Messaging": "1.0.0-*",
         "Thriot.ServiceClient.TelemetrySetup": "1.0.0-*",
-        "Thriot.Management.Dto": "1.0.0-*",
         "Thriot.Management.Model": "1.0.0-*"
       }
     }

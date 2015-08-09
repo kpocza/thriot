@@ -3,7 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Thriot.Reporting.Dto;
+using Thriot.Reporting.Services.Dto;
 
 namespace Thriot.Reporting.WebApi.Formatters
 {

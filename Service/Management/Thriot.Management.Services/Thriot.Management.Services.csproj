@@ -54,6 +54,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CapabilityProvider.cs" />
+    <Compile Include="Dto\ChangePasswordDto.cs" />
+    <Compile Include="Dto\CompanyDto.cs" />
+    <Compile Include="Dto\CompanyUserDto.cs" />
+    <Compile Include="Dto\DeviceDto.cs" />
+    <Compile Include="Dto\InfoDto.cs" />
+    <Compile Include="Dto\LoginDto.cs" />
+    <Compile Include="Dto\NetworkDto.cs" />
+    <Compile Include="Dto\RegisterDto.cs" />
+    <Compile Include="Dto\RegistrationResultDto.cs" />
+    <Compile Include="Dto\ResetPasswordDto.cs" />
+    <Compile Include="Dto\ServiceDto.cs" />
+    <Compile Include="Dto\SmallDto.cs" />
+    <Compile Include="Dto\SmallUserDto.cs" />
+    <Compile Include="Dto\TelemetryDataSinkMetadataDto.cs" />
+    <Compile Include="Dto\TelemetryDataSinkParametersDto.cs" />
+    <Compile Include="Dto\TelemetryDataSinkSettingsDto.cs" />
+    <Compile Include="Dto\TelemetryDataSinksMetadataDto.cs" />
+    <Compile Include="Dto\UrlInfoDto.cs" />
+    <Compile Include="Dto\UserDto.cs" />
     <Compile Include="InfoService.cs" />
     <Compile Include="CompanyService.cs" />
     <Compile Include="DeviceService.cs" />
@@ -85,10 +104,6 @@
     <ProjectReference Include="..\..\ServiceClient\Thriot.ServiceClient.TelemetrySetup\Thriot.ServiceClient.TelemetrySetup.csproj">
       <Project>{EB617FF2-8BE5-4146-BA9D-4D9A08C70CE5}</Project>
       <Name>Thriot.ServiceClient.TelemetrySetup</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Thriot.Management.Dto\Thriot.Management.Dto.csproj">
-      <Project>{17d1cc13-a661-43c8-8845-efc46f0ce132}</Project>
-      <Name>Thriot.Management.Dto</Name>
     </ProjectReference>
     <ProjectReference Include="..\Thriot.Management.Model\Thriot.Management.Model.csproj">
       <Project>{f955e692-fd87-4964-9dc3-b3269b1cb92d}</Project>
