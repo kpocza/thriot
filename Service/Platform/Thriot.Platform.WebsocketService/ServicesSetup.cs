@@ -13,7 +13,7 @@ using Thriot.Platform.PersistentConnections;
 using Thriot.Platform.Services.Messaging;
 using Thriot.Platform.Services.Telemetry;
 using Thriot.Platform.Services.Telemetry.Metadata;
-using Thriot.ServiceClient.TelemetrySetup;
+using Thriot.Platform.Services.Client;
 
 namespace Thriot.Platform.WebsocketService
 {
@@ -44,7 +44,7 @@ namespace Thriot.Platform.WebsocketService
             _services.AddSingleton<ITelemetryDataSinkMetadataRegistry, TelemetryDataSinkMetadataRegistry>();
             _services.AddTransient<ITelemetryDataSinkResolver, TelemetryDataSinkResolver>();
             _services.AddSingleton<IBatchParameters, BatchParameters>();
-            _services.AddSingleton<ITelemetryDataSinkSetupServiceClient, ServiceClient.TelemetrySetup.TelemetryDataSinkSetupServiceClient>();
+            _services.AddSingleton<Platform.Services.Client.ITelemetryDataSinkSetupServiceClient, Platform.Services.Client.TelemetryDataSinkSetupServiceClient>();
             _services.AddTransient<IMessagingOperations, MessagingOperations>();
             _services.AddSingleton<ConnectionRegistry>();
             _services.AddSingleton<PusherRegistry>();
@@ -54,7 +54,7 @@ namespace Thriot.Platform.WebsocketService
             _services.AddTransient<Platform.Services.Messaging.MessagingService>();
             _services.AddTransient<Platform.Services.Telemetry.TelemetryDataService>();
             _services.AddTransient<IDeviceAuthenticator, DeviceAuthenticator>();
-            _services.AddSingleton<Thriot.ServiceClient.Messaging.IMessagingServiceClient, Thriot.ServiceClient.Messaging.MessagingServiceClient>();
+            _services.AddSingleton<Thriot.Messaging.Services.Client.IMessagingServiceClient, Thriot.Messaging.Services.Client.MessagingServiceClient>();
             _services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.DataAccess.ConnectionParametersResolver>();
             _services.AddSingleton(_ => configuration);
 

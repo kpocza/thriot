@@ -213,6 +213,10 @@
       <Project>{72721cbb-098d-499b-b037-1cceacbc4524}</Project>
       <Name>Thriot.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Messaging\Thriot.Messaging.Services.Client\Thriot.Messaging.Services.Client.csproj">
+      <Project>{961b3b90-6d9c-4f20-b9cb-b5f698a33ba2}</Project>
+      <Name>Thriot.Messaging.Services.Client</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Objects\Thriot.Objects.Common\Thriot.Objects.Common.csproj">
       <Project>{ad67078e-e373-409e-886f-a0270ce3d555}</Project>
       <Name>Thriot.Objects.Common</Name>
@@ -241,14 +245,6 @@
       <Project>{fe9571d9-2b37-4e4c-a838-955a3ca5235f}</Project>
       <Name>Thriot.Plugins.Sql</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ServiceClient\Thriot.ServiceClient.Messaging\Thriot.ServiceClient.Messaging.csproj">
-      <Project>{B242CE85-F186-4107-98FC-1A87538B704D}</Project>
-      <Name>Thriot.ServiceClient.Messaging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ServiceClient\Thriot.ServiceClient.TelemetrySetup\Thriot.ServiceClient.TelemetrySetup.csproj">
-      <Project>{eb617ff2-8be5-4146-ba9d-4d9a08c70ce5}</Project>
-      <Name>Thriot.ServiceClient.TelemetrySetup</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Thriot.Platform.Model\Thriot.Platform.Model.csproj">
       <Project>{2a0959ed-854c-43a6-b8e5-a8818cbb35ce}</Project>
       <Name>Thriot.Platform.Model</Name>
@@ -256,6 +252,10 @@
     <ProjectReference Include="..\Thriot.Platform.PersistentConnections\Thriot.Platform.PersistentConnections.csproj">
       <Project>{1099f633-4ac5-4bf9-a368-3b1840164fa0}</Project>
       <Name>Thriot.Platform.PersistentConnections</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Thriot.Platform.Services.Client\Thriot.Platform.Services.Client.csproj">
+      <Project>{58f2f85e-92ed-4ddf-beb7-43e860b860c1}</Project>
+      <Name>Thriot.Platform.Services.Client</Name>
     </ProjectReference>
     <ProjectReference Include="..\Thriot.Platform.Services.Messaging\Thriot.Platform.Services.Messaging.csproj">
       <Project>{6C337D0B-BFB0-417B-8E11-57B917F4BF81}</Project>

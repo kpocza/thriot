@@ -10,8 +10,8 @@
       "dependencies": {
         "Thriot.Framework": "1.0.0-*",
         "Thriot.Objects.Model": "1.0.0-*",
-        "Thriot.ServiceClient.Messaging": "1.0.0-*",
-        "Thriot.Platform.Model": "1.0.0-*"
+        "Thriot.Platform.Model": "1.0.0-*",
+        "Thriot.Messaging.Services.Client": "1.0.0-*"
       }
     }
   }

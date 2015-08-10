@@ -7,7 +7,7 @@ using Thriot.Objects.Model;
 using Thriot.Objects.Model.Operations;
 using Thriot.Plugins.Core;
 using Thriot.Reporting.Services.Dto;
-using Thriot.ServiceClient.TelemetrySetup;
+using Thriot.Platform.Services.Client;
 
 namespace Thriot.Reporting.Services
 {

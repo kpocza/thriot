@@ -4,7 +4,7 @@ using System.Linq;
 using Thriot.Framework.Batching;
 using Thriot.Framework.Logging;
 using Thriot.Platform.Model.Messaging;
-using Thriot.ServiceClient.Messaging;
+using Thriot.Messaging.Services.Client;
 
 namespace Thriot.Platform.Services.Messaging
 {
@@ -22,7 +22,7 @@ namespace Thriot.Platform.Services.Messaging
         {
             try
             {
-                _messagingServiceClient.Commit(new DeviceListDto
+                _messagingServiceClient.Commit(new DeviceListDtoClient
                 {
                     DeviceIds = deviceIds.Select(d => d.Parameter).ToList()
                 });

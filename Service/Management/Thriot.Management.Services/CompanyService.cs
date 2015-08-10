@@ -7,7 +7,7 @@ using Thriot.Framework.Exceptions;
 using Thriot.Management.Services.Dto;
 using Thriot.Management.Model;
 using Thriot.Management.Model.Operations;
-using Thriot.ServiceClient.TelemetrySetup;
+using Thriot.Platform.Services.Client;
 
 namespace Thriot.Management.Services
 {
@@ -113,9 +113,9 @@ namespace Thriot.Management.Services
             Validator.ValidateId(id);
             AuthorizeCompany(id);
 
-            var telemetryDataSinksParametersRemote = new TelemetryDataSinksParametersRemoteDto
+            var telemetryDataSinksParametersRemote = new TelemetryDataSinksParametersDtoClient
             {
-                Incoming = Mapper.Map<List<TelemetryDataSinkParametersRemoteDto>>(telemetryDataSinkParametersDtos)
+                Incoming = Mapper.Map<List<TelemetryDataSinkParametersDtoClient>>(telemetryDataSinkParametersDtos)
             };
             _telemetryDataSinkSetupServiceClient.PrepareAndValidateIncoming(telemetryDataSinksParametersRemote);
 

@@ -1,6 +1,6 @@
 ﻿using Thriot.Management.Services.Dto;
 using Thriot.Management.Model.Operations;
-using Thriot.ServiceClient.TelemetrySetup;
+using Thriot.Platform.Services.Client;
 using Mgmt = Thriot.Management.Services.Dto;
 using TelemetryDataSinkMetadataDto = Thriot.Management.Services.Dto.TelemetryDataSinkMetadataDto;
 using TelemetryDataSinksMetadataDto = Thriot.Management.Services.Dto.TelemetryDataSinksMetadataDto;

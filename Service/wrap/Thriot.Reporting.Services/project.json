@@ -12,7 +12,7 @@
         "Thriot.Framework": "1.0.0-*",
         "Thriot.Objects.Model": "1.0.0-*",
         "Thriot.Plugins.Core": "1.0.0-*",
-        "Thriot.ServiceClient.TelemetrySetup": "1.0.0-*"
+        "Thriot.Platform.Services.Client": "1.0.0-*"
       }
     }
   }

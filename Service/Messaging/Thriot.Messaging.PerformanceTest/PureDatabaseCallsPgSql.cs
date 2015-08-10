@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Thriot.Messaging.Services.Storage;
-using Thriot.ServiceClient.Messaging;
+using Thriot.Messaging.Services.Client;
 
 namespace Thriot.Messaging.PerformanceTest
 {
@@ -17,9 +17,9 @@ namespace Thriot.Messaging.PerformanceTest
             return _persistentStorage.InitializeDevice(deviceId);
         }
 
-        public DeviceListDto Enqueue(EnqueueMessagesDto enqueueMessages)
+        public DeviceListDtoClient Enqueue(EnqueueMessagesDtoClient enqueueMessages)
         {
-            return new DeviceListDto
+            return new DeviceListDtoClient
             {
                 DeviceIds =
                     _persistentStorage.Enqueue(enqueueMessages.Messages.ConvertAll(m => new EnqueueItem
@@ -32,14 +32,14 @@ namespace Thriot.Messaging.PerformanceTest
             };
         }
 
-        public DequeueMessagesDto Dequeue(DeviceListDto deviceList)
+        public DequeueMessagesDtoClient Dequeue(DeviceListDtoClient deviceList)
         {
-            return new DequeueMessagesDto
+            return new DequeueMessagesDtoClient
             {
                 Messages =
                     _persistentStorage.Dequeue(
                         deviceList.DeviceIds.ConvertAll(id => new DeviceIdWithOpHint {DeviceId = id, Index = -1})).Messages
-                        .Select(d => new DequeueMessageDto
+                        .Select(d => new DequeueMessageDtoClient
                         {
                             DeviceId = d.Id,
                             MessageId = d.MessageId,
@@ -50,14 +50,14 @@ namespace Thriot.Messaging.PerformanceTest
             };
         }
 
-        public DequeueMessagesDto Peek(DeviceListDto deviceList)
+        public DequeueMessagesDtoClient Peek(DeviceListDtoClient deviceList)
         {
-            return new DequeueMessagesDto
+            return new DequeueMessagesDtoClient
             {
                 Messages =
                     _persistentStorage.Peek(
                         deviceList.DeviceIds.ConvertAll(id => new DeviceIdWithOpHint { DeviceId = id, Index = -1 })).Messages
-                        .Select(d => new DequeueMessageDto
+                        .Select(d => new DequeueMessageDtoClient
                         {
                             DeviceId = d.Id,
                             MessageId = d.MessageId,
@@ -68,9 +68,9 @@ namespace Thriot.Messaging.PerformanceTest
             };
         }
 
-        public DeviceListDto Commit(DeviceListDto deviceList)
+        public DeviceListDtoClient Commit(DeviceListDtoClient deviceList)
         {
-            return new DeviceListDto
+            return new DeviceListDtoClient
             {
                 DeviceIds = _persistentStorage.Commit(deviceList.DeviceIds).Select(d => d.Id).ToList()
             };

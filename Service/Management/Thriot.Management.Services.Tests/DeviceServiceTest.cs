@@ -4,7 +4,7 @@ using NSubstitute;
 using Thriot.Framework;
 using Thriot.Framework.Exceptions;
 using Thriot.Management.Services.Dto;
-using Thriot.ServiceClient.Messaging;
+using Thriot.Messaging.Services.Client;
 using Thriot.TestHelpers;
 
 namespace Thriot.Management.Services.Tests

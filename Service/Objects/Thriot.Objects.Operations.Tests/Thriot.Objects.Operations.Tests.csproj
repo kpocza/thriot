@@ -117,17 +117,17 @@
       <Project>{74101052-2463-4AAA-BEC2-76F239D9B77C}</Project>
       <Name>Thriot.Management.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Messaging\Thriot.Messaging.Services.Client\Thriot.Messaging.Services.Client.csproj">
+      <Project>{961b3b90-6d9c-4f20-b9cb-b5f698a33ba2}</Project>
+      <Name>Thriot.Messaging.Services.Client</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Misc\Thriot.TestHelpers\Thriot.TestHelpers.csproj">
       <Project>{F554A376-529D-4FA6-9E4F-AFBE87C32861}</Project>
       <Name>Thriot.TestHelpers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ServiceClient\Thriot.ServiceClient.Messaging\Thriot.ServiceClient.Messaging.csproj">
-      <Project>{B242CE85-F186-4107-98FC-1A87538B704D}</Project>
-      <Name>Thriot.ServiceClient.Messaging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ServiceClient\Thriot.ServiceClient.TelemetrySetup\Thriot.ServiceClient.TelemetrySetup.csproj">
-      <Project>{eb617ff2-8be5-4146-ba9d-4d9a08c70ce5}</Project>
-      <Name>Thriot.ServiceClient.TelemetrySetup</Name>
+    <ProjectReference Include="..\..\Platform\Thriot.Platform.Services.Client\Thriot.Platform.Services.Client.csproj">
+      <Project>{58f2f85e-92ed-4ddf-beb7-43e860b860c1}</Project>
+      <Name>Thriot.Platform.Services.Client</Name>
     </ProjectReference>
     <ProjectReference Include="..\Thriot.Objects.Model\Thriot.Objects.Model.csproj">
       <Project>{5A84EBC0-E8A7-4789-972B-B4B46A2834EE}</Project>

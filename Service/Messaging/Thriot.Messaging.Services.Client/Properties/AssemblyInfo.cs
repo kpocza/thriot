@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Thriot.ServiceClient.TelemetrySetup")]
+[assembly: AssemblyTitle("Thriot.Messaging.Services.Client")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Thriot.ServiceClient.TelemetrySetup")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyProduct("Thriot.Messaging.Services.Client")]
+[assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("77640218-4bd3-43c8-a427-7190e89a01a1")]
+[assembly: Guid("961b3b90-6d9c-4f20-b9cb-b5f698a33ba2")]
 
 // Version information for an assembly consists of the following four values:
 //

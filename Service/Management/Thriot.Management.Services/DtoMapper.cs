@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Thriot.Management.Services.Dto;
 using Thriot.Management.Model;
-using Thriot.ServiceClient.TelemetrySetup;
+using Thriot.Platform.Services.Client;
 
 namespace Thriot.Management.Services
 {
@@ -40,7 +40,7 @@ namespace Thriot.Management.Services
             Mapper.CreateMap<TelemetryDataSinkSettings, TelemetryDataSinkSettingsDto>()
                 .AfterMap((t, tdto) => tdto.Incoming.ForEach(i => i.SinkName = i.SinkName.ToLowerInvariant()));
             Mapper.CreateMap<TelemetryDataSinkSettingsDto, TelemetryDataSinkSettings>();
-            Mapper.CreateMap<TelemetryDataSinkParametersDto, TelemetryDataSinkParametersRemoteDto>();
+            Mapper.CreateMap<TelemetryDataSinkParametersDto, TelemetryDataSinkParametersDtoClient>();
         }
     }
 }

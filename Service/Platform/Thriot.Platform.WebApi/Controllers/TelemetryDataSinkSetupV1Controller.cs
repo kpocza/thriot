@@ -23,7 +23,7 @@ namespace Thriot.Platform.WebApi.Controllers
         }
 
         [HttpPost("prepareAndValidate")]
-        public void PrepareAndValidate([FromBody]TelemetryDataSinksParametersRemoteDto telemetryDataSinksParameters) // GET: v1/telemetryDataSinkSetup/prepareAndValidate
+        public void PrepareAndValidate([FromBody]TelemetryDataSinksParametersDto telemetryDataSinksParameters) // GET: v1/telemetryDataSinkSetup/prepareAndValidate
         {
             _telemetryDataSinkSetupService.PrepareAndValidateIncoming(telemetryDataSinksParameters.Incoming);
         }

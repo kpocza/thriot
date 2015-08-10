@@ -1,7 +1,7 @@
 ﻿using Thriot.Framework.Batching;
 using Thriot.Platform.Model;
 using Thriot.Platform.Model.Messaging;
-using Thriot.ServiceClient.Messaging;
+using Thriot.Messaging.Services.Client;
 
 namespace Thriot.Platform.Services.Messaging
 {

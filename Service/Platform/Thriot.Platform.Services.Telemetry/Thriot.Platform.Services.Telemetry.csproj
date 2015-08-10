@@ -62,9 +62,9 @@
     <Compile Include="Configuration\TelemetrySinkParameter.cs" />
     <Compile Include="DtoMapper.cs" />
     <Compile Include="Dtos\TelemetryDataSinkMetadataDto.cs" />
-    <Compile Include="Dtos\TelemetryDataSinkParametersRemoteDto.cs" />
+    <Compile Include="Dtos\TelemetryDataSinkParametersDto.cs" />
     <Compile Include="Dtos\TelemetryDataSinksMetadataDto.cs" />
-    <Compile Include="Dtos\TelemetryDataSinksParametersRemoteDto.cs" />
+    <Compile Include="Dtos\TelemetryDataSinksParametersDto.cs" />
     <Compile Include="ITelemetryDataSinkResolver.cs" />
     <Compile Include="Metadata\ITelemetryDataSinkMetadataRegistry.cs" />
     <Compile Include="Metadata\TelemetryDataSinkMetadata.cs" />

@@ -2,7 +2,7 @@
 using System.Text;
 using Newtonsoft.Json;
 
-namespace Thriot.ServiceClient.Messaging
+namespace Thriot.Messaging.Services.Client
 {
     public class MessagingServiceClient : IMessagingServiceClient
     {
@@ -29,24 +29,24 @@ namespace Thriot.ServiceClient.Messaging
             }
         }
 
-        public DeviceListDto Enqueue(EnqueueMessagesDto enqueueMessages)
+        public DeviceListDtoClient Enqueue(EnqueueMessagesDtoClient enqueueMessages)
         {
-            return PostRequest<DeviceListDto>("enqueue", enqueueMessages);
+            return PostRequest<DeviceListDtoClient>("enqueue", enqueueMessages);
         }
 
-        public DequeueMessagesDto Dequeue(DeviceListDto deviceList)
+        public DequeueMessagesDtoClient Dequeue(DeviceListDtoClient deviceList)
         {
-            return PostRequest<DequeueMessagesDto>("dequeue", deviceList);
+            return PostRequest<DequeueMessagesDtoClient>("dequeue", deviceList);
         }
 
-        public DequeueMessagesDto Peek(DeviceListDto deviceList)
+        public DequeueMessagesDtoClient Peek(DeviceListDtoClient deviceList)
         {
-            return PostRequest<DequeueMessagesDto>("peek", deviceList);
+            return PostRequest<DequeueMessagesDtoClient>("peek", deviceList);
         }
 
-        public DeviceListDto Commit(DeviceListDto deviceList)
+        public DeviceListDtoClient Commit(DeviceListDtoClient deviceList)
         {
-            return PostRequest<DeviceListDto>("commit", deviceList);
+            return PostRequest<DeviceListDtoClient>("commit", deviceList);
         }
 
         private T PostRequest<T>(string operationUrl, object request)

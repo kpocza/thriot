@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Thriot.ServiceClient.TelemetrySetup
+namespace Thriot.Platform.Services.Telemetry.Dtos
 {
-    public class TelemetryDataSinkParametersRemoteDto
+    public class TelemetryDataSinkParametersDto
     {
         public string SinkName { get; set; }
 

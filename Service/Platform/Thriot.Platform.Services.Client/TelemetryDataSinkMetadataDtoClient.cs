@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Thriot.ServiceClient.TelemetrySetup
+namespace Thriot.Platform.Services.Client
 {
-    public class TelemetryDataSinkMetadataDto
+    public class TelemetryDataSinkMetadataDtoClient
     {
         public string Name { get; set; }
 

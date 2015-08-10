@@ -4,7 +4,7 @@ using Thriot.Framework.Exceptions;
 using Thriot.Management.Services.Dto;
 using Thriot.Management.Model;
 using Thriot.Management.Model.Operations;
-using Thriot.ServiceClient.Messaging;
+using Thriot.Messaging.Services.Client;
 
 namespace Thriot.Management.Services
 {

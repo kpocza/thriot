@@ -48,9 +48,9 @@ namespace Thriot.Platform.Services.Telemetry.Tests
             var telemetryDataSinkSetupService = new TelemetryDataSinkSetupService(telemetryDataSinkMetadataRegistry,
                 telemetryDataSinkPreparator);
 
-            var telemetryDataSinkParametersList = new List<TelemetryDataSinkParametersRemoteDto>
+            var telemetryDataSinkParametersList = new List<TelemetryDataSinkParametersDto>
             {
-                new TelemetryDataSinkParametersRemoteDto
+                new TelemetryDataSinkParametersDto
                 {
                     SinkName = "test",
                     Parameters =

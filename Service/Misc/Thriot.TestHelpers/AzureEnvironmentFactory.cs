@@ -2,7 +2,7 @@
 using Thriot.Framework.Azure.TableOperations;
 using Thriot.Plugins.Azure;
 using Thriot.Plugins.Core;
-using Thriot.ServiceClient.Messaging;
+using Thriot.Messaging.Services.Client;
 
 namespace Thriot.TestHelpers
 {

@@ -1,6 +1,6 @@
 ﻿using Thriot.Management.Model.Operations;
 using Thriot.Plugins.Core;
-using Thriot.ServiceClient.Messaging;
+using Thriot.Messaging.Services.Client;
 using MgmtOp = Thriot.Management.Model.Operations;
 using ObjOp = Thriot.Objects.Model.Operations;
 

@@ -2,14 +2,10 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-using Thriot.Framework;
 using Thriot.Management.Services.Dto;
 using Thriot.Management.Services;
-using Thriot.ServiceClient.TelemetrySetup;
+using Thriot.Platform.Services.Client;
 using Thriot.TestHelpers;
-using TelemetryDataSinkMetadataDto = Thriot.ServiceClient.TelemetrySetup.TelemetryDataSinkMetadataDto;
-using TelemetryDataSinksMetadataDto = Thriot.ServiceClient.TelemetrySetup.TelemetryDataSinksMetadataDto;
-using TelemetrySetup = Thriot.ServiceClient.TelemetrySetup;
 
 namespace Thriot.Objects.Operations.Tests
 {
@@ -74,11 +70,11 @@ namespace Thriot.Objects.Operations.Tests
 
             var telemetryDataSinkSetupServiceClient = Substitute.For<ITelemetryDataSinkSetupServiceClient>();
             telemetryDataSinkSetupServiceClient.GetTelemetryDataSinksMetadata().Returns(
-                new TelemetryDataSinksMetadataDto
+                new TelemetryDataSinksMetadataDtoClient
                 {
-                    Incoming = new List<TelemetryDataSinkMetadataDto>
+                    Incoming = new List<TelemetryDataSinkMetadataDtoClient>
                     {
-                        new TelemetryDataSinkMetadataDto
+                        new TelemetryDataSinkMetadataDtoClient
                         {
                             Name = "test",
                             Description = null,

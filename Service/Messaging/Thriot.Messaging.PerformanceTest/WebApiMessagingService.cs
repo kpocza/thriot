@@ -1,4 +1,4 @@
-﻿using Thriot.ServiceClient.Messaging;
+﻿using Thriot.Messaging.Services.Client;
 
 namespace Thriot.Messaging.PerformanceTest
 {
@@ -16,22 +16,22 @@ namespace Thriot.Messaging.PerformanceTest
             return _messagingServiceClient.Initialize(deviceId);
         }
 
-        public DeviceListDto Enqueue(EnqueueMessagesDto enqueueMessages)
+        public DeviceListDtoClient Enqueue(EnqueueMessagesDtoClient enqueueMessages)
         {
             return _messagingServiceClient.Enqueue(enqueueMessages);
         }
 
-        public DequeueMessagesDto Dequeue(DeviceListDto deviceList)
+        public DequeueMessagesDtoClient Dequeue(DeviceListDtoClient deviceList)
         {
             return _messagingServiceClient.Dequeue(deviceList);
         }
 
-        public DequeueMessagesDto Peek(DeviceListDto deviceList)
+        public DequeueMessagesDtoClient Peek(DeviceListDtoClient deviceList)
         {
             return _messagingServiceClient.Peek(deviceList);
         }
 
-        public DeviceListDto Commit(DeviceListDto deviceList)
+        public DeviceListDtoClient Commit(DeviceListDtoClient deviceList)
         {
             return _messagingServiceClient.Commit(deviceList);
         }

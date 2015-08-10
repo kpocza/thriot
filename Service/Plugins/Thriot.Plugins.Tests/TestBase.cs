@@ -1,7 +1,7 @@
 ﻿using NSubstitute;
 using Thriot.Management.Services.Dto;
 using Thriot.Management.Services;
-using Thriot.ServiceClient.Messaging;
+using Thriot.Messaging.Services.Client;
 using Thriot.TestHelpers;
 
 namespace Thriot.Plugins.Tests

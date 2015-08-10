@@ -79,13 +79,13 @@
       <Project>{5A84EBC0-E8A7-4789-972B-B4B46A2834EE}</Project>
       <Name>Thriot.Objects.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Platform\Thriot.Platform.Services.Client\Thriot.Platform.Services.Client.csproj">
+      <Project>{58f2f85e-92ed-4ddf-beb7-43e860b860c1}</Project>
+      <Name>Thriot.Platform.Services.Client</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Plugins\Thriot.Plugins.Core\Thriot.Plugins.Core.csproj">
       <Project>{D84F1A4C-1539-416A-A40A-A72AA2A5F360}</Project>
       <Name>Thriot.Plugins.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ServiceClient\Thriot.ServiceClient.TelemetrySetup\Thriot.ServiceClient.TelemetrySetup.csproj">
-      <Project>{eb617ff2-8be5-4146-ba9d-4d9a08c70ce5}</Project>
-      <Name>Thriot.ServiceClient.TelemetrySetup</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

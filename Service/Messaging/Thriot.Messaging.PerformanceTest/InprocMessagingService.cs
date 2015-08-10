@@ -1,13 +1,8 @@
 ﻿using Thriot.Messaging.Services;
+using Thriot.Messaging.Services.Client;
+using Thriot.Messaging.Services.Dto;
 using Thriot.Messaging.Services.Caching;
 using Thriot.Messaging.Services.Storage;
-using Thriot.ServiceClient.Messaging;
-using DequeueMessageDto = Thriot.ServiceClient.Messaging.DequeueMessageDto;
-using DequeueMessagesDto = Thriot.ServiceClient.Messaging.DequeueMessagesDto;
-using DeviceListDto = Thriot.ServiceClient.Messaging.DeviceListDto;
-using EnqueueMessagesDto = Thriot.ServiceClient.Messaging.EnqueueMessagesDto;
-using MessagingService = Thriot.Messaging.Services.MessagingService;
-using MSvc = Thriot.Messaging.Services;
 
 namespace Thriot.Messaging.PerformanceTest
 {
@@ -30,14 +25,14 @@ namespace Thriot.Messaging.PerformanceTest
             return _messagingService.Initialize(deviceId);
         }
 
-        public ServiceClient.Messaging.DeviceListDto Enqueue(ServiceClient.Messaging.EnqueueMessagesDto enqueueMessages)
+        public DeviceListDtoClient Enqueue(EnqueueMessagesDtoClient enqueueMessages)
         {
-            return new ServiceClient.Messaging.DeviceListDto
+            return new DeviceListDtoClient
             {
                 DeviceIds =
-                    _messagingService.Enqueue(new Services.Dto.EnqueueMessagesDto
+                    _messagingService.Enqueue(new EnqueueMessagesDto
                     {
-                        Messages = enqueueMessages.Messages.ConvertAll(m => new Services.Dto.EnqueueMessageDto
+                        Messages = enqueueMessages.Messages.ConvertAll(m => new EnqueueMessageDto
                         {
                             DeviceId = m.DeviceId,
                             Payload = m.Payload,
@@ -47,13 +42,13 @@ namespace Thriot.Messaging.PerformanceTest
             };
         }
 
-        public ServiceClient.Messaging.DequeueMessagesDto Dequeue(ServiceClient.Messaging.DeviceListDto deviceList)
+        public DequeueMessagesDtoClient Dequeue(DeviceListDtoClient deviceList)
         {
-            return new ServiceClient.Messaging.DequeueMessagesDto
+            return new DequeueMessagesDtoClient
             {
                 Messages =
-                    _messagingService.Dequeue(new Services.Dto.DeviceListDto { DeviceIds = deviceList.DeviceIds })
-                        .Messages.ConvertAll(m => new ServiceClient.Messaging.DequeueMessageDto
+                    _messagingService.Dequeue(new DeviceListDto { DeviceIds = deviceList.DeviceIds })
+                        .Messages.ConvertAll(m => new DequeueMessageDtoClient
                         {
                             DeviceId = m.DeviceId,
                             MessageId = m.MessageId,
@@ -63,13 +58,13 @@ namespace Thriot.Messaging.PerformanceTest
             };
         }
 
-        public ServiceClient.Messaging.DequeueMessagesDto Peek(ServiceClient.Messaging.DeviceListDto deviceList)
+        public DequeueMessagesDtoClient Peek(DeviceListDtoClient deviceList)
         {
-            return new ServiceClient.Messaging.DequeueMessagesDto
+            return new DequeueMessagesDtoClient
             {
                 Messages =
-                    _messagingService.Peek(new Services.Dto.DeviceListDto { DeviceIds = deviceList.DeviceIds })
-                        .Messages.ConvertAll(m => new ServiceClient.Messaging.DequeueMessageDto
+                    _messagingService.Peek(new DeviceListDto { DeviceIds = deviceList.DeviceIds })
+                        .Messages.ConvertAll(m => new DequeueMessageDtoClient
                         {
                             DeviceId = m.DeviceId,
                             MessageId = m.MessageId,
@@ -79,12 +74,12 @@ namespace Thriot.Messaging.PerformanceTest
             };
         }
 
-        public ServiceClient.Messaging.DeviceListDto Commit(ServiceClient.Messaging.DeviceListDto deviceList)
+        public DeviceListDtoClient Commit(DeviceListDtoClient deviceList)
         {
-            return new ServiceClient.Messaging.DeviceListDto
+            return new DeviceListDtoClient
             {
                 DeviceIds =
-                    _messagingService.Commit(new Services.Dto.DeviceListDto { DeviceIds = deviceList.DeviceIds })
+                    _messagingService.Commit(new DeviceListDto { DeviceIds = deviceList.DeviceIds })
                         .DeviceIds
             };
         }

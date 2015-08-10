@@ -10,7 +10,7 @@ namespace Thriot.Platform.Services.Telemetry
         public static void Setup()
         {
             Mapper.CreateMap<TelemetryDataSinkMetadata, TelemetryDataSinkMetadataDto>().AfterMap((entity, dto) => dto.TypeName = entity.Type.AssemblyQualifiedName);
-            Mapper.CreateMap<TelemetryDataSinkParametersRemoteDto, TelemetryDataSinkParameters>();
+            Mapper.CreateMap<TelemetryDataSinkParametersDto, TelemetryDataSinkParameters>();
         }
     }
 }

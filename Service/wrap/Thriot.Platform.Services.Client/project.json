@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net45": {
+      "wrappedProject": "../../Platform/Thriot.Platform.Services.Client/Thriot.Platform.Services.Client.csproj",
+      "bin": {
+        "assembly": "../../Platform/Thriot.Platform.Services.Client/obj/{configuration}/Thriot.Platform.Services.Client.dll",
+        "pdb": "../../Platform/Thriot.Platform.Services.Client/obj/{configuration}/Thriot.Platform.Services.Client.pdb"
+      },
+      "dependencies": {
+        "Newtonsoft.Json": "6.0.8"
+      }
+    }
+  }
+}

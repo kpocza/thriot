@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Thriot.Framework;
-using Thriot.ServiceClient.Messaging;
+using Thriot.Messaging.Services.Client;
 
 namespace Thriot.Messaging.PerformanceTest
 {
@@ -74,9 +74,9 @@ namespace Thriot.Messaging.PerformanceTest
                     deviceIdSet.Add(_deviceIds[rndE.Next(QueueSize)]);
                 }
 
-                var msgs = new EnqueueMessagesDto
+                var msgs = new EnqueueMessagesDtoClient
                 {
-                    Messages = deviceIdSet.Select(d => new EnqueueMessageDto
+                    Messages = deviceIdSet.Select(d => new EnqueueMessageDtoClient
                     {
                         DeviceId = d,
                         Payload = Enumerable.Range(1, 200).Select(i => (byte)i).ToArray(),
@@ -118,7 +118,7 @@ namespace Thriot.Messaging.PerformanceTest
                     deviceIdSet.Add(_deviceIds[rndD.Next(QueueSize)]);
                 }
 
-                var result = _messagingServiceClient.Dequeue(new DeviceListDto { DeviceIds = deviceIdSet.ToList()});
+                var result = _messagingServiceClient.Dequeue(new DeviceListDtoClient { DeviceIds = deviceIdSet.ToList()});
 
                 Interlocked.Increment(ref _dec);
                 Interlocked.Add(ref _decI, result.Messages.Count);
@@ -153,8 +153,8 @@ namespace Thriot.Messaging.PerformanceTest
                     deviceIdSet.Add(_deviceIds[rndD.Next(QueueSize)]);
                 }
 
-                var result = _messagingServiceClient.Peek(new DeviceListDto { DeviceIds = deviceIdSet.ToList() });
-                _messagingServiceClient.Commit(new DeviceListDto
+                var result = _messagingServiceClient.Peek(new DeviceListDtoClient { DeviceIds = deviceIdSet.ToList() });
+                _messagingServiceClient.Commit(new DeviceListDtoClient
                 {
                     DeviceIds = result.Messages.Select(m => m.DeviceId).ToList()
                 });

@@ -2,7 +2,6 @@
 using System.Linq;
 using SuperSocket.SocketBase.Config;
 using Microsoft.Framework.DependencyInjection;
-using Thriot.Framework;
 using Thriot.Objects.Model;
 using Thriot.Objects.Model.Operations;
 using Thriot.Platform.Model;
@@ -10,8 +9,8 @@ using Thriot.Platform.PersistentConnections;
 using Thriot.Platform.Services.Messaging;
 using Thriot.Platform.Services.Telemetry.Configuration;
 using Thriot.Platform.Services.Telemetry.Metadata;
-using Thriot.ServiceClient.Messaging;
-using Thriot.ServiceClient.TelemetrySetup;
+using Thriot.Messaging.Services.Client;
+using Thriot.Platform.Services.Client;
 
 namespace Thriot.Platform.WebsocketService
 {

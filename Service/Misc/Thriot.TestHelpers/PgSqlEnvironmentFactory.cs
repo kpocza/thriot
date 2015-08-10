@@ -4,7 +4,7 @@ using Thriot.Objects.Operations.Sql.DataAccess;
 using Thriot.Objects.Operations.Sql.DataAccess.PgSql;
 using Thriot.Plugins.Core;
 using Thriot.Plugins.PgSql;
-using Thriot.ServiceClient.Messaging;
+using Thriot.Messaging.Services.Client;
 
 namespace Thriot.TestHelpers
 {

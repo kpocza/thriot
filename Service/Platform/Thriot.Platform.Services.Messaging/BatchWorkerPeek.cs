@@ -1,4 +1,4 @@
-using Thriot.ServiceClient.Messaging;
+using Thriot.Messaging.Services.Client;
 
 namespace Thriot.Platform.Services.Messaging
 {
@@ -11,7 +11,7 @@ namespace Thriot.Platform.Services.Messaging
             _messagingServiceClient = messagingServiceClient;
         }
 
-        protected override DequeueMessagesDto Receive(DeviceListDto deviceList)
+        protected override DequeueMessagesDtoClient Receive(DeviceListDtoClient deviceList)
         {
             return _messagingServiceClient.Peek(deviceList);
         }

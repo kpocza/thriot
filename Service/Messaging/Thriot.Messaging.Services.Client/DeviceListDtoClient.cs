@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Thriot.ServiceClient.Messaging
+namespace Thriot.Messaging.Services.Client
 {
-    public class DeviceListDto
+    public class DeviceListDtoClient
     {
         public List<long> DeviceIds { get; set; }
     }

@@ -2,7 +2,7 @@
 using System.Text;
 using Newtonsoft.Json;
 
-namespace Thriot.ServiceClient.TelemetrySetup
+namespace Thriot.Platform.Services.Client
 {
     public class TelemetryDataSinkSetupServiceClient : ITelemetryDataSinkSetupServiceClient
     {
@@ -16,7 +16,7 @@ namespace Thriot.ServiceClient.TelemetrySetup
             _serviceUrl = serviceUrl;
         }
 
-        public TelemetryDataSinksMetadataDto GetTelemetryDataSinksMetadata()
+        public TelemetryDataSinksMetadataDtoClient GetTelemetryDataSinksMetadata()
         {
             using (var wc = new WebClient())
             {
@@ -25,11 +25,11 @@ namespace Thriot.ServiceClient.TelemetrySetup
                 wc.Headers.Add(TelemetrySetupServiceApiKey, _apiKey);
 
                 var str = wc.DownloadString(_serviceUrl + "/metadata");
-                return JsonConvert.DeserializeObject<TelemetryDataSinksMetadataDto>(str);
+                return JsonConvert.DeserializeObject<TelemetryDataSinksMetadataDtoClient>(str);
             }
         }
 
-        public void PrepareAndValidateIncoming(TelemetryDataSinksParametersRemoteDto telemetryDataSinksParameters)
+        public void PrepareAndValidateIncoming(TelemetryDataSinksParametersDtoClient telemetryDataSinksParameters)
         {
             using (var wc = new WebClient())
             {

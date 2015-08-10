@@ -120,6 +120,10 @@
       <Project>{b5f4aff8-5386-4cc9-9e0d-f53958e5522a}</Project>
       <Name>Thriot.Management.Operations.Sql</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Messaging\Thriot.Messaging.Services.Client\Thriot.Messaging.Services.Client.csproj">
+      <Project>{961b3b90-6d9c-4f20-b9cb-b5f698a33ba2}</Project>
+      <Name>Thriot.Messaging.Services.Client</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Messaging\Thriot.Messaging.Services\Thriot.Messaging.Services.csproj">
       <Project>{7894bbe9-ae81-4f95-ad81-ba2b0431698c}</Project>
       <Name>Thriot.Messaging.Services</Name>
@@ -155,10 +159,6 @@
     <ProjectReference Include="..\..\Plugins\Thriot.Plugins.Sql\Thriot.Plugins.Sql.csproj">
       <Project>{fe9571d9-2b37-4e4c-a838-955a3ca5235f}</Project>
       <Name>Thriot.Plugins.Sql</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ServiceClient\Thriot.ServiceClient.Messaging\Thriot.ServiceClient.Messaging.csproj">
-      <Project>{B242CE85-F186-4107-98FC-1A87538B704D}</Project>
-      <Name>Thriot.ServiceClient.Messaging</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

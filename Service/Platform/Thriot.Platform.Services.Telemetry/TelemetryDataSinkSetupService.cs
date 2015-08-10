@@ -24,7 +24,7 @@ namespace Thriot.Platform.Services.Telemetry
             return new TelemetryDataSinksMetadataDto {Incoming = incoming};
         }
 
-        public void PrepareAndValidateIncoming(List<TelemetryDataSinkParametersRemoteDto> telemetryDataSinkParametersList)
+        public void PrepareAndValidateIncoming(List<TelemetryDataSinkParametersDto> telemetryDataSinkParametersList)
         {
             var parameters = Mapper.Map<List<TelemetryDataSinkParameters>>(telemetryDataSinkParametersList);
 

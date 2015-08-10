@@ -20,7 +20,7 @@ using Thriot.Platform.Services.Telemetry;
 using Thriot.Platform.Services.Telemetry.Configuration;
 using Thriot.Platform.Services.Telemetry.Metadata;
 using Thriot.Platform.WebApi.Auth;
-using Thriot.ServiceClient.Messaging;
+using Thriot.Messaging.Services.Client;
 
 namespace Thriot.Platform.WebApi
 {
@@ -72,7 +72,7 @@ namespace Thriot.Platform.WebApi
             services.AddSingleton<IBatchParameters, BatchParameters>();
             services.AddTransient<IMessagingOperations, MessagingOperations>();
             services.AddTransient<IDeviceAuthenticator, DeviceAuthenticator>();
-            services.AddSingleton<IMessagingServiceClient, ServiceClient.Messaging.MessagingServiceClient>();
+            services.AddSingleton<IMessagingServiceClient, MessagingServiceClient>();
             services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.DataAccess.ConnectionParametersResolver>();
             services.AddSingleton(_ => configuration);
             

@@ -4,7 +4,7 @@ using System.Linq;
 using Thriot.Framework.Batching;
 using Thriot.Framework.Logging;
 using Thriot.Platform.Model.Messaging;
-using Thriot.ServiceClient.Messaging;
+using Thriot.Messaging.Services.Client;
 
 namespace Thriot.Platform.Services.Messaging
 {
@@ -17,7 +17,7 @@ namespace Thriot.Platform.Services.Messaging
             try
             {
                 var successfullItems =
-                    Receive(new DeviceListDto {DeviceIds = deviceIds.Select(d => d.Parameter).ToList()});
+                    Receive(new DeviceListDtoClient {DeviceIds = deviceIds.Select(d => d.Parameter).ToList()});
 
                 var receiveResults = new Dictionary<Guid, OutgoingMessageToStoreWithState>();
 
@@ -43,7 +43,7 @@ namespace Thriot.Platform.Services.Messaging
             }
         }
 
-        protected abstract DequeueMessagesDto Receive(DeviceListDto deviceList);
+        protected abstract DequeueMessagesDtoClient Receive(DeviceListDtoClient deviceList);
 
         public bool IsItemThrottled(IEnumerable<WorkItem<long, OutgoingMessageToStoreWithState>> existingItems, long newItem)
         {

@@ -64,8 +64,8 @@ namespace Thriot.Management.WebApi
             services.AddTransient<Services.IMailer, WebApi.WebFunctions.Mailer>();
             services.AddSingleton(_ => configuration);
 
-            services.AddSingleton<ServiceClient.TelemetrySetup.ITelemetryDataSinkSetupServiceClient, ServiceClient.TelemetrySetup.TelemetryDataSinkSetupServiceClient>();
-            services.AddSingleton<ServiceClient.Messaging.IMessagingServiceClient, ServiceClient.Messaging.MessagingServiceClient>();
+            services.AddSingleton<Platform.Services.Client.ITelemetryDataSinkSetupServiceClient, Platform.Services.Client.TelemetryDataSinkSetupServiceClient>();
+            services.AddSingleton<Messaging.Services.Client.IMessagingServiceClient, Messaging.Services.Client.MessagingServiceClient>();
 
             foreach(var extraService in Framework.ServicesConfigLoader.Load(configuration, "Services"))
             {
@@ -77,8 +77,8 @@ namespace Thriot.Management.WebApi
         {
             var serviceProvider = app.ApplicationServices;
 
-            var messagingServiceClient = serviceProvider.GetService<ServiceClient.Messaging.IMessagingServiceClient>();
-            var telemetryDataSinkSetupServiceClient = serviceProvider.GetService<ServiceClient.TelemetrySetup.ITelemetryDataSinkSetupServiceClient>();
+            var messagingServiceClient = serviceProvider.GetService<Messaging.Services.Client.IMessagingServiceClient>();
+            var telemetryDataSinkSetupServiceClient = serviceProvider.GetService<Platform.Services.Client.ITelemetryDataSinkSetupServiceClient>();
 
             var settingProvider = (Services.SettingProvider)serviceProvider.GetService<Services.ISettingProvider>();
 

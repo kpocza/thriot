@@ -5,7 +5,7 @@ using NSubstitute;
 using Thriot.Objects.Model;
 using Thriot.Objects.Model.Operations;
 using Thriot.Reporting.Services;
-using Thriot.ServiceClient.TelemetrySetup;
+using Thriot.Platform.Services.Client;
 using Thriot.Framework;
 
 namespace Thriot.Reporting.Tests
@@ -44,18 +44,18 @@ namespace Thriot.Reporting.Tests
             });
 
             telemetryDataSinkSetupServiceClient.GetTelemetryDataSinksMetadata()
-                .Returns(c => new TelemetryDataSinksMetadataDto()
+                .Returns(c => new TelemetryDataSinksMetadataDtoClient()
                 {
-                    Incoming = new List<TelemetryDataSinkMetadataDto>
+                    Incoming = new List<TelemetryDataSinkMetadataDtoClient>
                     {
-                        new TelemetryDataSinkMetadataDto
+                        new TelemetryDataSinkMetadataDtoClient
                         {
                             Name = "currentdata",
                             ParametersPresets = new Dictionary<string, string>(),
                             ParametersToInput = new List<string>(),
                             TypeName = typeof (IncomingStubs.CurrentDataStub).AssemblyQualifiedName
                         },
-                        new TelemetryDataSinkMetadataDto
+                        new TelemetryDataSinkMetadataDtoClient
                         {
                             Name = "timeseries",
                             ParametersPresets = new Dictionary<string, string>(),
@@ -109,11 +109,11 @@ namespace Thriot.Reporting.Tests
             });
 
             telemetryDataSinkSetupServiceClient.GetTelemetryDataSinksMetadata()
-                .Returns(c => new TelemetryDataSinksMetadataDto()
+                .Returns(c => new TelemetryDataSinksMetadataDtoClient()
                 {
-                    Incoming = new List<TelemetryDataSinkMetadataDto>
+                    Incoming = new List<TelemetryDataSinkMetadataDtoClient>
                     {
-                        new TelemetryDataSinkMetadataDto
+                        new TelemetryDataSinkMetadataDtoClient
                         {
                             Name = "currentdata",
                             ParametersPresets = new Dictionary<string, string>(),
@@ -165,11 +165,11 @@ namespace Thriot.Reporting.Tests
             });
 
             telemetryDataSinkSetupServiceClient.GetTelemetryDataSinksMetadata()
-                .Returns(c => new TelemetryDataSinksMetadataDto()
+                .Returns(c => new TelemetryDataSinksMetadataDtoClient()
                 {
-                    Incoming = new List<TelemetryDataSinkMetadataDto>
+                    Incoming = new List<TelemetryDataSinkMetadataDtoClient>
                     {
-                        new TelemetryDataSinkMetadataDto
+                        new TelemetryDataSinkMetadataDtoClient
                         {
                             Name = "currentdata",
                             ParametersPresets = new Dictionary<string, string>(),
@@ -229,11 +229,11 @@ namespace Thriot.Reporting.Tests
             });
 
             telemetryDataSinkSetupServiceClient.GetTelemetryDataSinksMetadata()
-                .Returns(c => new TelemetryDataSinksMetadataDto()
+                .Returns(c => new TelemetryDataSinksMetadataDtoClient()
                 {
-                    Incoming = new List<TelemetryDataSinkMetadataDto>
+                    Incoming = new List<TelemetryDataSinkMetadataDtoClient>
                     {
-                        new TelemetryDataSinkMetadataDto
+                        new TelemetryDataSinkMetadataDtoClient
                         {
                             Name = "currentdata",
                             ParametersPresets = new Dictionary<string, string>(),
@@ -286,11 +286,11 @@ namespace Thriot.Reporting.Tests
             });
 
             telemetryDataSinkSetupServiceClient.GetTelemetryDataSinksMetadata()
-                .Returns(c => new TelemetryDataSinksMetadataDto()
+                .Returns(c => new TelemetryDataSinksMetadataDtoClient()
                 {
-                    Incoming = new List<TelemetryDataSinkMetadataDto>
+                    Incoming = new List<TelemetryDataSinkMetadataDtoClient>
                     {
-                        new TelemetryDataSinkMetadataDto
+                        new TelemetryDataSinkMetadataDtoClient
                         {
                             Name = "currentdata",
                             ParametersPresets = new Dictionary<string, string>(),
@@ -333,11 +333,11 @@ namespace Thriot.Reporting.Tests
             });
 
             telemetryDataSinkSetupServiceClient.GetTelemetryDataSinksMetadata()
-                .Returns(c => new TelemetryDataSinksMetadataDto()
+                .Returns(c => new TelemetryDataSinksMetadataDtoClient()
                 {
-                    Incoming = new List<TelemetryDataSinkMetadataDto>
+                    Incoming = new List<TelemetryDataSinkMetadataDtoClient>
                     {
-                        new TelemetryDataSinkMetadataDto
+                        new TelemetryDataSinkMetadataDtoClient
                         {
                             Name = "currentdata",
                             ParametersPresets = new Dictionary<string, string>(),
@@ -380,9 +380,9 @@ namespace Thriot.Reporting.Tests
             });
 
             telemetryDataSinkSetupServiceClient.GetTelemetryDataSinksMetadata()
-                .Returns(c => new TelemetryDataSinksMetadataDto()
+                .Returns(c => new TelemetryDataSinksMetadataDtoClient()
                 {
-                    Incoming = new List<TelemetryDataSinkMetadataDto>()
+                    Incoming = new List<TelemetryDataSinkMetadataDtoClient>()
                 });
 
             var telemetryDataSinkProcessor = new TelemetryDataSinkProcessor(telemetryDataSinkSetupServiceClient, networkOperations, serviceOperations, companyOperations, new DynamicConnectionStringResolver(null));
