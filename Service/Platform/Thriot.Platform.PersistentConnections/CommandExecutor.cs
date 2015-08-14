@@ -6,6 +6,7 @@ using Thriot.Platform.Model.Messaging;
 using Thriot.Platform.PersistentConnections.Commands;
 using Thriot.Platform.Services.Messaging;
 using Thriot.Platform.Services.Telemetry;
+using Thriot.Platform.Services.Telemetry.Recording;
 
 namespace Thriot.Platform.PersistentConnections
 {
@@ -18,10 +19,10 @@ namespace Thriot.Platform.PersistentConnections
         private readonly IDeviceAuthenticator _deviceAuthenticator;
         private readonly IDeviceOperations _deviceOperations;
         private readonly MessagingService _messagingService;
-        private readonly TelemetryDataService _telemetryDataService;
+        private readonly ITelemetryDataService _telemetryDataService;
         private static readonly ILogger Logger = LoggerFactory.GetCurrentClassLogger();
 
-        public CommandExecutor(PusherRegistry pusherRegistry, ConnectionRegistry connectionRegistry, IMessagingOperations outgoingMessageReader, IDeviceAuthenticator deviceAuthenticator, IDeviceOperations deviceOperations, MessagingService messagingService, TelemetryDataService telemetryDataService)
+        public CommandExecutor(PusherRegistry pusherRegistry, ConnectionRegistry connectionRegistry, IMessagingOperations outgoingMessageReader, IDeviceAuthenticator deviceAuthenticator, IDeviceOperations deviceOperations, MessagingService messagingService, ITelemetryDataService telemetryDataService)
         {
             _pusherRegistry = pusherRegistry;
             _connectionRegistry = connectionRegistry;

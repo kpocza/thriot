@@ -65,13 +65,16 @@
     <Compile Include="Dtos\TelemetryDataSinkParametersDto.cs" />
     <Compile Include="Dtos\TelemetryDataSinksMetadataDto.cs" />
     <Compile Include="Dtos\TelemetryDataSinksParametersDto.cs" />
+    <Compile Include="Recording\ITelemetryDataService.cs" />
     <Compile Include="ITelemetryDataSinkResolver.cs" />
     <Compile Include="Metadata\ITelemetryDataSinkMetadataRegistry.cs" />
     <Compile Include="Metadata\TelemetryDataSinkMetadata.cs" />
     <Compile Include="Metadata\TelemetryDataSinkMetadataRegistry.cs" />
     <Compile Include="Metadata\TelemetryDataSinksMetadata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TelemetryDataService.cs" />
+    <Compile Include="Recording\DirectTelemetryDataService.cs" />
+    <Compile Include="Recording\QueueingTelemetryDataService.cs" />
+    <Compile Include="Recording\TelemetryDataServiceBase.cs" />
     <Compile Include="TelemetryDataSinkPreparator.cs" />
     <Compile Include="TelemetryDataSinkResolver.cs" />
     <Compile Include="TelemetryDataSinkSetupService.cs" />

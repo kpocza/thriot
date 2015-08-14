@@ -89,8 +89,7 @@
     <Compile Include="AssemblyInit.cs" />
     <Compile Include="IncomingStubs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TelemetryDataServiceIntegrationTest.cs" />
-    <Compile Include="TelemetryDataServiceTest.cs" />
+    <Compile Include="LocalTelemetryDataServiceTest.cs" />
     <Compile Include="TelemetryDataSinkMetadataRegistryTest.cs" />
     <Compile Include="TelemetryDataSinkPreparatorTest.cs" />
     <Compile Include="TelemetryDataSinkResolverTest.cs" />

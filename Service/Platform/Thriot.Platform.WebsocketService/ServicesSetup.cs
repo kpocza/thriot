@@ -4,6 +4,7 @@ using System.Reflection;
 using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
 using Thriot.Framework;
+using Thriot.Messaging.Services.Client;
 using Thriot.Objects.Common;
 using Thriot.Objects.Model;
 using Thriot.Objects.Model.Operations;
@@ -14,6 +15,7 @@ using Thriot.Platform.Services.Messaging;
 using Thriot.Platform.Services.Telemetry;
 using Thriot.Platform.Services.Telemetry.Metadata;
 using Thriot.Platform.Services.Client;
+using Thriot.Platform.Services.Telemetry.Recording;
 
 namespace Thriot.Platform.WebsocketService
 {
@@ -44,17 +46,17 @@ namespace Thriot.Platform.WebsocketService
             _services.AddSingleton<ITelemetryDataSinkMetadataRegistry, TelemetryDataSinkMetadataRegistry>();
             _services.AddTransient<ITelemetryDataSinkResolver, TelemetryDataSinkResolver>();
             _services.AddSingleton<IBatchParameters, BatchParameters>();
-            _services.AddSingleton<Platform.Services.Client.ITelemetryDataSinkSetupServiceClient, Platform.Services.Client.TelemetryDataSinkSetupServiceClient>();
+            _services.AddSingleton<ITelemetryDataSinkSetupServiceClient, TelemetryDataSinkSetupServiceClient>();
             _services.AddTransient<IMessagingOperations, MessagingOperations>();
             _services.AddSingleton<ConnectionRegistry>();
             _services.AddSingleton<PusherRegistry>();
             _services.AddTransient<CommandExecutor>();
             _services.AddTransient<PersistentConnectionReceiveAndForgetWorker>();
             _services.AddTransient<PersistentConnectionPeekWorker>();
-            _services.AddTransient<Platform.Services.Messaging.MessagingService>();
-            _services.AddTransient<Platform.Services.Telemetry.TelemetryDataService>();
+            _services.AddTransient<MessagingService>();
+            _services.AddTransient<ITelemetryDataService, DirectTelemetryDataService>();
             _services.AddTransient<IDeviceAuthenticator, DeviceAuthenticator>();
-            _services.AddSingleton<Thriot.Messaging.Services.Client.IMessagingServiceClient, Thriot.Messaging.Services.Client.MessagingServiceClient>();
+            _services.AddSingleton<IMessagingServiceClient, MessagingServiceClient>();
             _services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.DataAccess.ConnectionParametersResolver>();
             _services.AddSingleton(_ => configuration);
 

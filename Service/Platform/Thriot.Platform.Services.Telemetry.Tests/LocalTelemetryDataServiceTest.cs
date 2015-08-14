@@ -6,12 +6,13 @@ using Newtonsoft.Json.Linq;
 using NSubstitute;
 using Thriot.Framework;
 using Thriot.Framework.Exceptions;
+using Thriot.Platform.Services.Telemetry.Recording;
 using Thriot.Plugins.Core;
 
 namespace Thriot.Platform.Services.Telemetry.Tests
 {
     [TestClass]
-    public class TelemetryDataServiceTest
+    public class LocalTelemetryDataServiceTest : TestBase
     {
         [TestMethod]
         public void IncomingTelemetryDataTest()
@@ -38,7 +39,7 @@ namespace Thriot.Platform.Services.Telemetry.Tests
             telemetryDataSinkResolver.ResolveIncoming(deviceId)
                 .Returns(new List<ITelemetryDataSink>() { new IncomingStubs.CurrentDataStub(), new IncomingStubs.TimeSeriesStub() });
 
-            var telemetryDataService = new TelemetryDataService(telemetryDataSinkResolver);
+            var telemetryDataService = new DirectTelemetryDataService(telemetryDataSinkResolver);
 
             telemetryDataService.RecordTelemetryData(deviceId, JToken.Parse("{\"Temperature\": 24, \"Time\":" + DateTime.UtcNow.Ticks + "}"));
 
@@ -51,7 +52,7 @@ namespace Thriot.Platform.Services.Telemetry.Tests
         {
             var telemetryDataSinkResolver = Substitute.For<ITelemetryDataSinkResolver>();
 
-            var telemetryDataService = new TelemetryDataService(telemetryDataSinkResolver);
+            var telemetryDataService = new DirectTelemetryDataService(telemetryDataSinkResolver);
 
             telemetryDataService.RecordTelemetryData(null, JToken.Parse("{\"Temperature\": 24, \"Time\":" + DateTime.UtcNow.Ticks + "}"));
         }
@@ -62,7 +63,7 @@ namespace Thriot.Platform.Services.Telemetry.Tests
         {
             var telemetryDataSinkResolver = Substitute.For<ITelemetryDataSinkResolver>();
 
-            var telemetryDataService = new TelemetryDataService(telemetryDataSinkResolver);
+            var telemetryDataService = new DirectTelemetryDataService(telemetryDataSinkResolver);
 
             telemetryDataService.RecordTelemetryData("1234", null);
         }
@@ -73,7 +74,7 @@ namespace Thriot.Platform.Services.Telemetry.Tests
         {
             var telemetryDataSinkResolver = Substitute.For<ITelemetryDataSinkResolver>();
 
-            var telemetryDataService = new TelemetryDataService(telemetryDataSinkResolver);
+            var telemetryDataService = new DirectTelemetryDataService(telemetryDataSinkResolver);
 
             telemetryDataService.RecordTelemetryData("1234", JToken.Parse("{\"LongString\": \"" + string.Join(",", Enumerable.Range(0, 1000)) + "\"}"));
         }
@@ -87,9 +88,28 @@ namespace Thriot.Platform.Services.Telemetry.Tests
             telemetryDataSinkResolver.ResolveIncoming("1234")
                 .Returns(new List<ITelemetryDataSink>());
 
-            var telemetryDataService = new TelemetryDataService(telemetryDataSinkResolver);
+            var telemetryDataService = new DirectTelemetryDataService(telemetryDataSinkResolver);
 
             telemetryDataService.RecordTelemetryData("1234", JToken.Parse("{\"Temperature\": 24, \"Time\":" + DateTime.UtcNow.Ticks + "}"));
+        }
+
+        [TestMethod]
+        public void IncomingTelemetryDataRealDeviceTest()
+        {
+            Initialize();
+
+            IncomingStubs.Initialize(_deviceId);
+
+            var telemetryDataSinkResolver = Substitute.For<ITelemetryDataSinkResolver>();
+
+            telemetryDataSinkResolver.ResolveIncoming(_deviceId)
+                .Returns(new List<ITelemetryDataSink>() { new IncomingStubs.CurrentDataStub(), new IncomingStubs.TimeSeriesStub() });
+
+            var telemetryDataService = new DirectTelemetryDataService(telemetryDataSinkResolver);
+
+            telemetryDataService.RecordTelemetryData(_deviceId, JToken.Parse("{\"Temperature\": 24, \"Time\":" + DateTime.UtcNow.Ticks + "}"));
+
+            Assert.AreEqual(2, IncomingStubs.RecordCounter);
         }
     }
 }

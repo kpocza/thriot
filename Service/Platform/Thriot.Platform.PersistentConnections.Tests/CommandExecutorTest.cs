@@ -10,6 +10,7 @@ using Thriot.Platform.Model.Messaging;
 using Thriot.Platform.PersistentConnections.Commands;
 using Thriot.Platform.Services.Messaging;
 using Thriot.Platform.Services.Telemetry;
+using Thriot.Platform.Services.Telemetry.Recording;
 using Thriot.Plugins.Core;
 using Thriot.TestHelpers;
 
@@ -496,7 +497,7 @@ namespace Thriot.Platform.PersistentConnections.Tests
             var inc = Substitute.For<ITelemetryDataSink>();
 
             telemetryDataSinkResolver.ResolveIncoming(null).ReturnsForAnyArgs(new List<ITelemetryDataSink>(){inc});
-            var telemetryDataService = new TelemetryDataService(telemetryDataSinkResolver);
+            var telemetryDataService = new DirectTelemetryDataService(telemetryDataSinkResolver);
 
             var commandExecutor = new CommandExecutor(pusherRegistry, connectionRegistry, null, deviceAuthenticator, deviceOperations, null, telemetryDataService);
 
@@ -530,7 +531,7 @@ namespace Thriot.Platform.PersistentConnections.Tests
             connectionRegistry.RegisterInitiatedConnection(connection);
 
             telemetryDataSinkResolver.ResolveIncoming(null).ReturnsForAnyArgs(new List<ITelemetryDataSink>() { });
-            var telemetryDataService = new TelemetryDataService(telemetryDataSinkResolver);
+            var telemetryDataService = new DirectTelemetryDataService(telemetryDataSinkResolver);
 
             var commandExecutor = new CommandExecutor(pusherRegistry, connectionRegistry, null, deviceAuthenticator, deviceOperations, null, telemetryDataService);
 
@@ -564,7 +565,7 @@ namespace Thriot.Platform.PersistentConnections.Tests
             connectionRegistry.RegisterInitiatedConnection(connection);
 
             telemetryDataSinkResolver.ResolveIncoming(null).ReturnsForAnyArgs(new List<ITelemetryDataSink>());
-            var telemetryDataService = new TelemetryDataService(telemetryDataSinkResolver);
+            var telemetryDataService = new DirectTelemetryDataService(telemetryDataSinkResolver);
 
             var commandExecutor = new CommandExecutor(pusherRegistry, connectionRegistry, null, deviceAuthenticator, deviceOperations, null, telemetryDataService);
 

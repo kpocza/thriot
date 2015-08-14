@@ -21,6 +21,7 @@ using Thriot.Platform.Services.Telemetry.Configuration;
 using Thriot.Platform.Services.Telemetry.Metadata;
 using Thriot.Platform.WebApi.Auth;
 using Thriot.Messaging.Services.Client;
+using Thriot.Platform.Services.Telemetry.Recording;
 
 namespace Thriot.Platform.WebApi
 {
@@ -56,9 +57,9 @@ namespace Thriot.Platform.WebApi
             services.ConfigureCors(c => c.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials()));
 
             services.AddTransient<TelemetryDataSinkSetupService>();
-            services.AddTransient<Services.Messaging.MessagingService>();
+            services.AddTransient<MessagingService>();
             services.AddTransient<AuthenticationContext>();
-            services.AddTransient<TelemetryDataService>();
+            services.AddTransient<ITelemetryDataService, DirectTelemetryDataService>();
             services.AddTransient<TelemetryDataSinkPreparator>();
             services.AddTransient<ICompanyOperations, Objects.Common.CachingOperations.CompanyOperations>();
             services.AddTransient<IServiceOperations, Objects.Common.CachingOperations.ServiceOperations>();
