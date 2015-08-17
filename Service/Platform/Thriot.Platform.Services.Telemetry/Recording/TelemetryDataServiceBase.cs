@@ -12,7 +12,7 @@ namespace Thriot.Platform.Services.Telemetry.Recording
     public abstract class TelemetryDataServiceBase : ITelemetryDataService
     {
         private const int IncomingMessageSizeLimit = 1024;
-        private readonly ITelemetryDataSinkResolver _telemetryDataSinkResolver;
+        protected readonly ITelemetryDataSinkResolver _telemetryDataSinkResolver;
 
         protected TelemetryDataServiceBase(ITelemetryDataSinkResolver telemetryDataSinkResolver)
         {
@@ -34,14 +34,14 @@ namespace Thriot.Platform.Services.Telemetry.Recording
             if (nativePayload.Length > IncomingMessageSizeLimit)
                 throw new ArgumentException($"Too long for {deviceId}", nameof(payload));
 
-            var message = new TelemetryData(deviceId, nativePayload, DateTime.UtcNow);
+            var telemetryData = new TelemetryData(deviceId, nativePayload, DateTime.UtcNow);
 
             var telemetryDataSinks = _telemetryDataSinkResolver.ResolveIncoming(deviceId);
 
             if (!telemetryDataSinks.Any())
                 throw new ArgumentException($"No incoming telemetry data sinks registered for {deviceId}");
 
-            RecordTelemetryDataWorker(telemetryDataSinks, message);
+            RecordTelemetryDataWorker(telemetryDataSinks, telemetryData);
         }
 
         protected abstract void RecordTelemetryDataWorker(IEnumerable<ITelemetryDataSink> telemetryDataSinks, TelemetryData telemetryData);

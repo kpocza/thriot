@@ -1,6 +1,7 @@
 ﻿using Thriot.Framework.Azure.DataAccess;
 using Thriot.Plugins.Core;
 using Thriot.Messaging.Services.Client;
+using Thriot.TestHelpers.InMemoryStorage;
 
 namespace Thriot.TestHelpers
 {

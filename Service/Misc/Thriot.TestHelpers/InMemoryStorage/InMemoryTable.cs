@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Net;
 using Microsoft.WindowsAzure.Storage.Table;
+using Thriot.Framework;
 using Thriot.Framework.Azure.DataAccess;
 using Thriot.Framework.DataAccess;
 
-namespace Thriot.Framework.Azure.TableOperations
+namespace Thriot.TestHelpers.InMemoryStorage
 {
     public class InMemoryTable
     {

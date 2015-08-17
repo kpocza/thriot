@@ -12,7 +12,7 @@ using Thriot.Plugins.Core;
 namespace Thriot.Platform.Services.Telemetry.Tests
 {
     [TestClass]
-    public class LocalTelemetryDataServiceTest : TestBase
+    public class DirectTelemetryDataServiceTest : TestBase
     {
         [TestMethod]
         public void IncomingTelemetryDataTest()
@@ -108,6 +108,25 @@ namespace Thriot.Platform.Services.Telemetry.Tests
             var telemetryDataService = new DirectTelemetryDataService(telemetryDataSinkResolver);
 
             telemetryDataService.RecordTelemetryData(_deviceId, JToken.Parse("{\"Temperature\": 24, \"Time\":" + DateTime.UtcNow.Ticks + "}"));
+
+            Assert.AreEqual(2, IncomingStubs.RecordCounter);
+        }
+
+        [TestMethod]
+        public void IncomingTelemetryDataRealDevice2Test()
+        {
+            Initialize();
+
+            IncomingStubs.Initialize(_deviceId);
+
+            var telemetryDataSinkResolver = Substitute.For<ITelemetryDataSinkResolver>();
+
+            telemetryDataSinkResolver.ResolveIncoming(_deviceId)
+                .Returns(new List<ITelemetryDataSink>() { new IncomingStubs.CurrentDataStub(), new IncomingStubs.TimeSeriesStub() });
+
+            var telemetryDataService = new DirectTelemetryDataService(telemetryDataSinkResolver);
+
+            telemetryDataService.RecordTelemetryData(new TelemetryData(_deviceId, "{\"Temperature\": 24, \"Time\":" + DateTime.UtcNow.Ticks + "}", DateTime.UtcNow));
 
             Assert.AreEqual(2, IncomingStubs.RecordCounter);
         }

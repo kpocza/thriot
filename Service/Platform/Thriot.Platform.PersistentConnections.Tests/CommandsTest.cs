@@ -129,11 +129,12 @@ namespace Thriot.Platform.PersistentConnections.Tests
         [TestMethod]
         public void SendToCommandTest()
         {
-            var sendToCommand = new SendToCommand("deviceId {\"Temperature\":24, \"Time\":" + DateTime.UtcNow.Ticks + "}");
+            var ticks = DateTime.UtcNow.Ticks;
+            var sendToCommand = new SendToCommand("deviceId {\"Temperature\":24, \"Time\":" + ticks + "}");
 
             Assert.IsTrue(sendToCommand.IsValid);
             Assert.AreEqual("deviceId", sendToCommand.DeviceId);
-            Assert.AreEqual("{\"Temperature\":24, \"Time\":" + DateTime.UtcNow.Ticks + "}", sendToCommand.Message);
+            Assert.AreEqual("{\"Temperature\":24, \"Time\":" + ticks + "}", sendToCommand.Message);
         }
 
         [TestMethod]

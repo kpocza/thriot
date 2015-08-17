@@ -1,6 +1,7 @@
-﻿using Thriot.Framework.Azure.TableOperations;
+﻿using Thriot.Framework.Azure.DataAccess;
+using Thriot.Framework.Azure.TableOperations;
 
-namespace Thriot.Framework.Azure.DataAccess
+namespace Thriot.TestHelpers.InMemoryStorage
 {
     public class InMemoryCloudStorageClientFactory : ICloudStorageClientFactory
     {

@@ -5,16 +5,16 @@ namespace Thriot.Platform.Services.Telemetry.Recording
 {
     public class QueueingTelemetryDataService : TelemetryDataServiceBase
     {
-        private readonly IQueueAdapter _queueAdapter;
+        private readonly IQueueSendAdapter _queueSendAdapter;
 
-        public QueueingTelemetryDataService(ITelemetryDataSinkResolver telemetryDataSinkResolver, IQueueAdapter queueAdapter) : base(telemetryDataSinkResolver)
+        public QueueingTelemetryDataService(ITelemetryDataSinkResolver telemetryDataSinkResolver, IQueueSendAdapter queueSendAdapter) : base(telemetryDataSinkResolver)
         {
-            _queueAdapter = queueAdapter;
+            _queueSendAdapter = queueSendAdapter;
         }
 
         protected override void RecordTelemetryDataWorker(IEnumerable<ITelemetryDataSink> telemetryDataSinks, TelemetryData telemetryData)
         {
-            _queueAdapter.Send(telemetryData);
+            _queueSendAdapter.Send(telemetryData);
         }
     }
 }

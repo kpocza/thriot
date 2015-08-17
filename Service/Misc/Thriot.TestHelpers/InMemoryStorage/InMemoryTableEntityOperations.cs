@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.WindowsAzure.Storage.Table;
+using Thriot.Framework;
 using Thriot.Framework.Azure.DataAccess;
+using Thriot.Framework.Azure.TableOperations;
 
-namespace Thriot.Framework.Azure.TableOperations
+namespace Thriot.TestHelpers.InMemoryStorage
 {
     public class InMemoryTableEntityOperations : ITableEntityOperation
     {

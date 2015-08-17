@@ -82,6 +82,10 @@
     <Compile Include="DevPgSqlConnectionParametersResolver.cs" />
     <Compile Include="DevSqlConnectionParametersResolver.cs" />
     <Compile Include="EnvironmentFactoryFactory.cs" />
+    <Compile Include="InMemoryStorage\InMemoryCloudStorageClientFactory.cs" />
+    <Compile Include="InMemoryStorage\InMemoryDatabase.cs" />
+    <Compile Include="InMemoryStorage\InMemoryTable.cs" />
+    <Compile Include="InMemoryStorage\InMemoryTableEntityOperations.cs" />
     <Compile Include="InprocMessagingServiceClient.cs" />
     <Compile Include="InMemoryMessagingService.cs" />
     <Compile Include="SettingInitializer.cs" />

@@ -80,6 +80,7 @@ namespace Thriot.Platform.PersistentConnections.Tests
                 {
                     persistentConnection.ReceivedWithAnyArgs().SendMessage(null);
                     ok = true;
+                    break;
                 }
                 catch (ReceivedCallsException)
                 {
@@ -87,9 +88,9 @@ namespace Thriot.Platform.PersistentConnections.Tests
                 }
             }
 
-            Assert.IsTrue(ok);
-
             persistentConnectionWorker.Stop();
+
+            Assert.IsTrue(ok);
         }
 
 
@@ -138,6 +139,7 @@ namespace Thriot.Platform.PersistentConnections.Tests
                 {
                     persistentConnection.ReceivedWithAnyArgs().SendMessage(null);
                     ok = true;
+                    break;
                 }
                 catch (ReceivedCallsException)
                 {
@@ -145,9 +147,9 @@ namespace Thriot.Platform.PersistentConnections.Tests
                 }
             }
 
-            Assert.IsTrue(ok);
-
             persistentConnectionWorker.Stop();
+
+            Assert.IsTrue(ok);
         }
 
     }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Concurrent;
 
-namespace Thriot.Framework.Azure.TableOperations
+namespace Thriot.TestHelpers.InMemoryStorage
 {
     public class InMemoryDatabase
     {
