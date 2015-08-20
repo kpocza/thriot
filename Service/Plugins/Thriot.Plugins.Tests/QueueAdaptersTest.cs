@@ -1,38 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NSubstitute;
-using Thriot.Platform.Services.Telemetry.Recording;
 using Thriot.Plugins.Core;
 using Thriot.TestHelpers;
-using Thriot.TestHelpers.InMemoryQueue;
 
-namespace Thriot.Platform.Services.Telemetry.Tests
+namespace Thriot.Plugins.Tests
 {
     [TestClass]
-    public class QueueProcessorTest
+    public class QueueAdaptersTest
     {
         [TestMethod]
-        public void StartStopTest()
-        {
-            var queueReceiverAdapter = Substitute.For<IQueueReceiveAdapter>();
-
-            var queueProcessor = new QueueProcessor(queueReceiverAdapter, null);
-
-            queueProcessor.Start();
-
-            queueReceiverAdapter.ReceivedWithAnyArgs().Start(null);
-            queueReceiverAdapter.DidNotReceive().Stop();
-
-            queueProcessor.Stop();
-
-            queueReceiverAdapter.Received().Stop();
-        }
-
-        [TestMethod]
-        public void ProcessElementTest()
+        public void QueueSendReceiveTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
 
@@ -40,21 +19,17 @@ namespace Thriot.Platform.Services.Telemetry.Tests
             queueSendAdapter.Clear();
 
             var queueReceiverAdapter = environmentFactory.QueueReceiveAdapter;
-            var directTelemetryDataService = Substitute.For<IDirectTelemetryDataService>();
 
             int COUNT = 50;
 
             var outputList = new List<TelemetryData>(COUNT);
-            directTelemetryDataService.When(d => d.RecordTelemetryData(Arg.Any<TelemetryData>())).Do(call => outputList.Add((TelemetryData)call.Args()[0]));
-
-            var queueProcessor = new QueueProcessor(queueReceiverAdapter, directTelemetryDataService);
-            queueProcessor.Start();
+            queueReceiverAdapter.Start(td => outputList.Add(td));
 
             var inputList = new List<TelemetryData>(COUNT);
 
             for (var i = 0; i < COUNT; i++)
             {
-                var inputTd = new TelemetryData((i%5).ToString(), $"{{\"p\": {i}}}", DateTime.UtcNow);
+                var inputTd = new TelemetryData((i % 5).ToString(), $"{{\"p\": {i}}}", DateTime.UtcNow);
                 inputList.Add(inputTd);
                 queueSendAdapter.Send(inputTd);
             }
@@ -70,7 +45,7 @@ namespace Thriot.Platform.Services.Telemetry.Tests
                         var input = inputList[i];
                         var output = outputList[i];
 
-                        if (input.DeviceId != output.DeviceId || input.Payload != output.Payload)
+                        if (input.DeviceId != output.DeviceId.Trim() || input.Payload != output.Payload)
                         {
                             isOk = false;
                             break;
@@ -85,7 +60,7 @@ namespace Thriot.Platform.Services.Telemetry.Tests
                 Thread.Sleep(100);
             }
 
-            queueProcessor.Stop();
+            queueReceiverAdapter.Stop();
 
             Assert.IsTrue(ok);
         }

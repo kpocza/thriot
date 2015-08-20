@@ -78,7 +78,9 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
@@ -88,6 +90,7 @@
     <Compile Include="TelemetryDataSinkCurrentTest.cs" />
     <Compile Include="TelemetryDataSinkTimeSeriesTest.cs" />
     <Compile Include="TestBase.cs" />
+    <Compile Include="QueueAdaptersTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

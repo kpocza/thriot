@@ -49,6 +49,8 @@
     <Compile Include="ITelemetryDataSinkCurrent.cs" />
     <Compile Include="ITelemetryDataSinkTimeSeries.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueueItem.cs" />
+    <Compile Include="SerialQueueReceiveAdapter.cs" />
     <Compile Include="TelemetryData.cs" />
   </ItemGroup>
   <ItemGroup>

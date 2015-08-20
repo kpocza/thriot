@@ -1,4 +1,5 @@
-﻿using NLog;
+﻿using System;
+using NLog;
 
 namespace Thriot.Framework.Logging
 {
@@ -69,6 +70,11 @@ namespace Thriot.Framework.Logging
         public void Warning(string message, params object[] values)
         {
             _logger.Warn(message, values);
+        }
+
+        public void Exception(Exception exception)
+        {
+            Error(exception.ToString());
         }
     }
 }

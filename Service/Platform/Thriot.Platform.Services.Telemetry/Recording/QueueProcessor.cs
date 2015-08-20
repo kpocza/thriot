@@ -18,7 +18,7 @@ namespace Thriot.Platform.Services.Telemetry.Recording
 
         public void Start()
         {
-            _queueReceiveAdapter.StartReceiver(telemetryData =>
+            _queueReceiveAdapter.Start(telemetryData =>
             {
                 try
                 {
@@ -37,7 +37,7 @@ namespace Thriot.Platform.Services.Telemetry.Recording
 
         public void Stop()
         {
-            _queueReceiveAdapter.StopReceiver();
+            _queueReceiveAdapter.Stop();
         }
     }
 }

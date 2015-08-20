@@ -24,7 +24,7 @@ namespace Thriot.Framework.Mails
             }
             catch(Exception ex)
             {
-                Logger.Error(ex.ToString());
+                Logger.Exception(ex);
             }
         }
     }

@@ -3,6 +3,7 @@ using Thriot.Framework.Azure.TableOperations;
 using Thriot.Plugins.Azure;
 using Thriot.Plugins.Core;
 using Thriot.Messaging.Services.Client;
+using Thriot.TestHelpers.InMemoryQueue;
 
 namespace Thriot.TestHelpers
 {
@@ -17,80 +18,39 @@ namespace Thriot.TestHelpers
             return cloudStorageClientFactory;
         }
 
-        public Management.Model.Operations.IUserOperations MgmtUserOperations
-        {
-            get { return new Management.Operations.Azure.UserOperations(GetCloudStorageClientFactory()); }
-        }
+        public Management.Model.Operations.IUserOperations MgmtUserOperations => new Management.Operations.Azure.UserOperations(GetCloudStorageClientFactory());
 
-        public Management.Model.Operations.ICompanyOperations MgmtCompanyOperations
-        {
-            get { return new Management.Operations.Azure.CompanyOperations(GetCloudStorageClientFactory()); }
-        }
+        public Management.Model.Operations.ICompanyOperations MgmtCompanyOperations => new Management.Operations.Azure.CompanyOperations(GetCloudStorageClientFactory());
 
-        public Management.Model.Operations.IServiceOperations MgmtServiceOperations
-        {
-            get { return new Management.Operations.Azure.ServiceOperations(GetCloudStorageClientFactory()); }
-        }
+        public Management.Model.Operations.IServiceOperations MgmtServiceOperations => new Management.Operations.Azure.ServiceOperations(GetCloudStorageClientFactory());
 
-        public Management.Model.Operations.INetworkOperations MgmtNetworkOperations
-        {
-            get { return new Management.Operations.Azure.NetworkOperations(GetCloudStorageClientFactory()); }
-        }
+        public Management.Model.Operations.INetworkOperations MgmtNetworkOperations => new Management.Operations.Azure.NetworkOperations(GetCloudStorageClientFactory());
 
-        public Management.Model.Operations.IDeviceOperations MgmtDeviceOperations
-        {
-            get { return new Management.Operations.Azure.DeviceOperations(GetCloudStorageClientFactory()); }
-        }
+        public Management.Model.Operations.IDeviceOperations MgmtDeviceOperations => new Management.Operations.Azure.DeviceOperations(GetCloudStorageClientFactory());
 
-        public Management.Model.Operations.ISettingOperations MgmtSettingOperations
-        {
-            get { return new Management.Operations.Azure.SettingOperations(GetCloudStorageClientFactory()); }
-        }
+        public Management.Model.Operations.ISettingOperations MgmtSettingOperations => new Management.Operations.Azure.SettingOperations(GetCloudStorageClientFactory());
 
-        public Objects.Model.Operations.ICompanyOperations ObjCompanyOperations
-        {
-            get { return new Objects.Operations.Azure.CompanyOperations(GetCloudStorageClientFactory()); }
-        }
+        public Objects.Model.Operations.ICompanyOperations ObjCompanyOperations => new Objects.Operations.Azure.CompanyOperations(GetCloudStorageClientFactory());
 
-        public Objects.Model.Operations.IServiceOperations ObjServiceOperations
-        {
-            get { return new Objects.Operations.Azure.ServiceOperations(GetCloudStorageClientFactory()); }
-        }
+        public Objects.Model.Operations.IServiceOperations ObjServiceOperations => new Objects.Operations.Azure.ServiceOperations(GetCloudStorageClientFactory());
 
-        public Objects.Model.Operations.INetworkOperations ObjNetworkOperations
-        {
-            get { return new Objects.Operations.Azure.NetworkOperations(GetCloudStorageClientFactory()); }
-        }
+        public Objects.Model.Operations.INetworkOperations ObjNetworkOperations => new Objects.Operations.Azure.NetworkOperations(GetCloudStorageClientFactory());
 
-        public Objects.Model.Operations.IDeviceOperations ObjDeviceOperations
-        {
-            get { return new Objects.Operations.Azure.DeviceOperations(GetCloudStorageClientFactory()); }
-        }
+        public Objects.Model.Operations.IDeviceOperations ObjDeviceOperations => new Objects.Operations.Azure.DeviceOperations(GetCloudStorageClientFactory());
 
-        public Objects.Model.Operations.ISettingOperations ObjSettingOperations
-        {
-            get { return new Objects.Operations.Azure.SettingOperations(GetCloudStorageClientFactory()); }
-        }
+        public Objects.Model.Operations.ISettingOperations ObjSettingOperations => new Objects.Operations.Azure.SettingOperations(GetCloudStorageClientFactory());
 
-        public IMessagingServiceClient MessagingServiceClient
-        {
-            get { return InprocMessagingServiceClient.Instance; }
-        }
+        public IMessagingServiceClient MessagingServiceClient => InprocMessagingServiceClient.Instance;
 
-        public string TelemetryConnectionString
-        {
-            get { return "UseDevelopmentStorage=true"; }
-        }
+        public string TelemetryConnectionString => "UseDevelopmentStorage=true";
 
-        public ITelemetryDataSinkCurrent TelemetryDataSinkCurrent
-        {
-            get { return new TelemetryDataSinkCurrent(); }
-        }
+        public ITelemetryDataSinkCurrent TelemetryDataSinkCurrent => new TelemetryDataSinkCurrent();
 
-        public ITelemetryDataSinkTimeSeries TelemetryDataSinkTimeSeries
-        {
-            get { return new TelemetryDataSinkTimeSeries(); }
-        }
+        public ITelemetryDataSinkTimeSeries TelemetryDataSinkTimeSeries => new TelemetryDataSinkTimeSeries();
+
+        public IQueueSendAdapter QueueSendAdapter => new InMemoryQueueSendAdapter();
+
+        public IQueueReceiveAdapter QueueReceiveAdapter => new InMemorySerialQueueReceiveAdapter();
 
         private static volatile bool _created = false;
 

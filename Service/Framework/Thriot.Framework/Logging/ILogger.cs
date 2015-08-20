@@ -1,4 +1,6 @@
-﻿namespace Thriot.Framework.Logging
+﻿using System;
+
+namespace Thriot.Framework.Logging
 {
     public interface ILogger
     {
@@ -19,5 +21,6 @@
 
         void Warning(string message);
         void Warning(string message, params object[] values);
+        void Exception(Exception exception);
     }
 }

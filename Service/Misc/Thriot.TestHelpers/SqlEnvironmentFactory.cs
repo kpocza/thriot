@@ -24,79 +24,40 @@ namespace Thriot.TestHelpers
             return new ObjectsUnitOfWorkFactorySql(connectionParameterResolver);
         }
 
-        public Management.Model.Operations.IUserOperations MgmtUserOperations
-        {
-            get { return new Management.Operations.Sql.UserOperations(GetManagementUnitOfWorkFactory()); }
-        }
+        public Management.Model.Operations.IUserOperations MgmtUserOperations => new Management.Operations.Sql.UserOperations(GetManagementUnitOfWorkFactory());
 
-        public Management.Model.Operations.ICompanyOperations MgmtCompanyOperations
-        {
-            get { return new Management.Operations.Sql.CompanyOperations(GetManagementUnitOfWorkFactory()); }
-        }
+        public Management.Model.Operations.ICompanyOperations MgmtCompanyOperations => new Management.Operations.Sql.CompanyOperations(GetManagementUnitOfWorkFactory());
 
-        public Management.Model.Operations.IServiceOperations MgmtServiceOperations
-        {
-            get { return new Management.Operations.Sql.ServiceOperations(GetManagementUnitOfWorkFactory()); }
-        }
+        public Management.Model.Operations.IServiceOperations MgmtServiceOperations => new Management.Operations.Sql.ServiceOperations(GetManagementUnitOfWorkFactory());
 
-        public Management.Model.Operations.INetworkOperations MgmtNetworkOperations
-        {
-            get { return new Management.Operations.Sql.NetworkOperations(GetManagementUnitOfWorkFactory()); }
-        }
+        public Management.Model.Operations.INetworkOperations MgmtNetworkOperations => new Management.Operations.Sql.NetworkOperations(GetManagementUnitOfWorkFactory());
 
-        public Management.Model.Operations.IDeviceOperations MgmtDeviceOperations
-        {
-            get { return new Management.Operations.Sql.DeviceOperations(GetManagementUnitOfWorkFactory()); }
-        }
+        public Management.Model.Operations.IDeviceOperations MgmtDeviceOperations => new Management.Operations.Sql.DeviceOperations(GetManagementUnitOfWorkFactory());
 
-        public Management.Model.Operations.ISettingOperations MgmtSettingOperations
-        {
-            get { return new Management.Operations.Sql.SettingOperations(GetManagementUnitOfWorkFactory()); }
-        }
+        public Management.Model.Operations.ISettingOperations MgmtSettingOperations => new Management.Operations.Sql.SettingOperations(GetManagementUnitOfWorkFactory());
 
-        public Objects.Model.Operations.ICompanyOperations ObjCompanyOperations
-        {
-            get { return new Objects.Operations.Sql.CompanyOperations(GetPlatformUnitOfWorkFactory()); }
-        }
+        public Objects.Model.Operations.ICompanyOperations ObjCompanyOperations => new Objects.Operations.Sql.CompanyOperations(GetPlatformUnitOfWorkFactory());
 
-        public Objects.Model.Operations.IServiceOperations ObjServiceOperations
-        {
-            get { return new Objects.Operations.Sql.ServiceOperations(GetPlatformUnitOfWorkFactory()); }
-        }
+        public Objects.Model.Operations.IServiceOperations ObjServiceOperations => new Objects.Operations.Sql.ServiceOperations(GetPlatformUnitOfWorkFactory());
 
-        public Objects.Model.Operations.INetworkOperations ObjNetworkOperations
-        {
-            get { return new Objects.Operations.Sql.NetworkOperations(GetPlatformUnitOfWorkFactory()); }
-        }
+        public Objects.Model.Operations.INetworkOperations ObjNetworkOperations => new Objects.Operations.Sql.NetworkOperations(GetPlatformUnitOfWorkFactory());
 
-        public Objects.Model.Operations.IDeviceOperations ObjDeviceOperations
-        {
-            get { return new Objects.Operations.Sql.DeviceOperations(GetPlatformUnitOfWorkFactory()); }
-        }
+        public Objects.Model.Operations.IDeviceOperations ObjDeviceOperations => new Objects.Operations.Sql.DeviceOperations(GetPlatformUnitOfWorkFactory());
 
-        public Objects.Model.Operations.ISettingOperations ObjSettingOperations
-        {
-            get { return new Objects.Operations.Sql.SettingOperations(GetPlatformUnitOfWorkFactory()); }
-        }
+        public Objects.Model.Operations.ISettingOperations ObjSettingOperations => new Objects.Operations.Sql.SettingOperations(GetPlatformUnitOfWorkFactory());
 
-        public IMessagingServiceClient MessagingServiceClient
-        {
-            get { return InprocMessagingServiceClient.Instance; }
-        }
+        public IMessagingServiceClient MessagingServiceClient => InprocMessagingServiceClient.Instance;
 
-        public string TelemetryConnectionString
-        {
-            get { return @"Server=.\SQLEXPRESS;Database=ThriotTelemetry;Trusted_Connection=True;"; }
-        }
+        public string TelemetryConnectionString => @"Server=.\SQLEXPRESS;Database=ThriotTelemetry;Trusted_Connection=True;";
 
-        public ITelemetryDataSinkCurrent TelemetryDataSinkCurrent
-        {
-            get { return new TelemetryDataSinkCurrent(); }
-        }
+        public ITelemetryDataSinkCurrent TelemetryDataSinkCurrent => new TelemetryDataSinkCurrent();
 
-        public ITelemetryDataSinkTimeSeries TelemetryDataSinkTimeSeries
-        {
-            get { return new TelemetryDataSinkTimeSeries(); }
-        }
+        public ITelemetryDataSinkTimeSeries TelemetryDataSinkTimeSeries => new TelemetryDataSinkTimeSeries();
+
+        public string QueueConnectionString => @"Server=.\SQLEXPRESS;Database=ThriotQueue;Trusted_Connection=True;";
+
+        public IQueueSendAdapter QueueSendAdapter => new Thriot.Plugins.Sql.QueueSendAdapter(QueueConnectionString);
+
+        public IQueueReceiveAdapter QueueReceiveAdapter => new Thriot.Plugins.Sql.QueueReceiveAdapter(QueueConnectionString);
     }
 } 
