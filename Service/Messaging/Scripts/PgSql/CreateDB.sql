@@ -1,4 +1,4 @@
-﻿CREATE OR REPLACE FUNCTION CreateDatabase() RETURNS int AS $$
+﻿DO $$
 BEGIN
 	IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE' AND lower(TABLE_NAME)=lower('Setting')) THEN
 		-- Tables --
@@ -75,11 +75,8 @@ BEGIN
 
 		INSERT INTO Setting(Key, Value) VALUES('Version', '1');
 	END IF;
-	RETURN 0;
 END
-$$ LANGUAGE plpgsql;
-
-SELECT * FROM CreateDatabase();
+$$;
 
 -- Stored Procedures --
 

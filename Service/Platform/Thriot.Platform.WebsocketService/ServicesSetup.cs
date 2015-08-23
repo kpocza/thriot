@@ -16,6 +16,7 @@ using Thriot.Platform.Services.Telemetry;
 using Thriot.Platform.Services.Telemetry.Metadata;
 using Thriot.Platform.Services.Client;
 using Thriot.Platform.Services.Telemetry.Recording;
+using Thriot.Plugins.Core;
 
 namespace Thriot.Platform.WebsocketService
 {
@@ -34,8 +35,22 @@ namespace Thriot.Platform.WebsocketService
             configurationBuilder.AddJsonFile("config/services.json");
             configurationBuilder.AddJsonFile("config/connectionstring.json");
 
+            configurationBuilder.AddJsonFile("config/telemetryqueue.json", true);
+
             var configuration = configurationBuilder.Build();
 
+            ConfigureThriotServices(configuration);
+
+            ConfigureTelemetryDataService(configuration);
+        }
+
+        public IServiceProvider GetServiceProvider()
+        {
+            return _services.BuildServiceProvider();
+        }
+
+        private void ConfigureThriotServices(IConfiguration configuration)
+        {
             _services.AddTransient<ICompanyOperations, Objects.Common.CachingOperations.CompanyOperations>();
             _services.AddTransient<IServiceOperations, Objects.Common.CachingOperations.ServiceOperations>();
             _services.AddTransient<INetworkOperations, Objects.Common.CachingOperations.NetworkOperations>();
@@ -54,21 +69,37 @@ namespace Thriot.Platform.WebsocketService
             _services.AddTransient<PersistentConnectionReceiveAndForgetWorker>();
             _services.AddTransient<PersistentConnectionPeekWorker>();
             _services.AddTransient<MessagingService>();
-            _services.AddTransient<ITelemetryDataService, DirectTelemetryDataService>();
             _services.AddTransient<IDeviceAuthenticator, DeviceAuthenticator>();
             _services.AddSingleton<IMessagingServiceClient, MessagingServiceClient>();
             _services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.DataAccess.ConnectionParametersResolver>();
             _services.AddSingleton(_ => configuration);
 
-            foreach (var extraService in Framework.ServicesConfigLoader.Load(configuration, "Services"))
+            foreach (var extraService in ConfigurationAdapter.LoadServiceConfiguration(configuration, "Services"))
             {
                 _services.AddTransient(extraService.Key, extraService.Value);
             }
         }
 
-        public IServiceProvider GetServiceProvider()
+        private void ConfigureTelemetryDataService(IConfiguration configuration)
         {
-            return _services.BuildServiceProvider();
+            if (!ConfigurationAdapter.HasRootSection(configuration, "TelemetryQueue"))
+            {
+                _services.AddTransient<ITelemetryDataService, DirectTelemetryDataService>();
+            }
+            else
+            {
+                _services.AddTransient<ITelemetryDataService, QueueingTelemetryDataService>();
+
+                var telemetryQueueConfiguration = ConfigurationAdapter.AsMap(configuration, "TelemetryQueue");
+                var queueSendAdapterType = Type.GetType(telemetryQueueConfiguration["QueueSendAdapter"]);
+
+                _services.AddTransient<IQueueSendAdapter>(_ =>
+                {
+                    var queueSendAdapter = (IQueueSendAdapter)Activator.CreateInstance(queueSendAdapterType);
+                    queueSendAdapter.Setup(telemetryQueueConfiguration);
+                    return queueSendAdapter;
+                });
+            }
         }
     }
 }

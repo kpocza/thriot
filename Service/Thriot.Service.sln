@@ -169,6 +169,22 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Messaging.Services.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Platform.Services.Client", "Platform\Thriot.Platform.Services.Client\Thriot.Platform.Services.Client.csproj", "{58F2F85E-92ED-4DDF-BEB7-43E860B860C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Platform.TelemetryQueueService", "Platform\Thriot.Platform.TelemetryQueueService\Thriot.Platform.TelemetryQueueService.csproj", "{C31751AB-C2F0-41AD-B92D-296538FFEF42}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{A8C271CF-663A-492A-B734-5E715E7E1B83}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{F46D1329-7B7B-4AE3-A876-553C48E346C4}"
+	ProjectSection(SolutionItems) = preProject
+		Platform\Scripts\Sql\CreateTelemetryQueue.sql = Platform\Scripts\Sql\CreateTelemetryQueue.sql
+		Platform\Scripts\Sql\DropTelemetryQueue.sql = Platform\Scripts\Sql\DropTelemetryQueue.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PgSql", "PgSql", "{86052A9D-88C1-4D64-9F14-547A6D8C8E5E}"
+	ProjectSection(SolutionItems) = preProject
+		Platform\Scripts\PgSql\CreateTelemetryQueue.sql = Platform\Scripts\PgSql\CreateTelemetryQueue.sql
+		Platform\Scripts\PgSql\DropTelemetryQueue.sql = Platform\Scripts\PgSql\DropTelemetryQueue.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Azure|Any CPU = Azure|Any CPU
@@ -648,6 +664,16 @@ Global
 		{58F2F85E-92ED-4DDF-BEB7-43E860B860C1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{58F2F85E-92ED-4DDF-BEB7-43E860B860C1}.Sql|Any CPU.ActiveCfg = Debug|Any CPU
 		{58F2F85E-92ED-4DDF-BEB7-43E860B860C1}.Sql|Any CPU.Build.0 = Debug|Any CPU
+		{C31751AB-C2F0-41AD-B92D-296538FFEF42}.Azure|Any CPU.ActiveCfg = Debug|Any CPU
+		{C31751AB-C2F0-41AD-B92D-296538FFEF42}.Azure|Any CPU.Build.0 = Debug|Any CPU
+		{C31751AB-C2F0-41AD-B92D-296538FFEF42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C31751AB-C2F0-41AD-B92D-296538FFEF42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C31751AB-C2F0-41AD-B92D-296538FFEF42}.PgSql|Any CPU.ActiveCfg = Debug|Any CPU
+		{C31751AB-C2F0-41AD-B92D-296538FFEF42}.PgSql|Any CPU.Build.0 = Debug|Any CPU
+		{C31751AB-C2F0-41AD-B92D-296538FFEF42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C31751AB-C2F0-41AD-B92D-296538FFEF42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C31751AB-C2F0-41AD-B92D-296538FFEF42}.Sql|Any CPU.ActiveCfg = Debug|Any CPU
+		{C31751AB-C2F0-41AD-B92D-296538FFEF42}.Sql|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -712,6 +738,10 @@ Global
 		{FADDA2D1-03B4-4DEF-8D24-DD1CA4E81F4A} = {A7461ACE-ABB7-4359-BAEC-3494430B7A63}
 		{961B3B90-6D9C-4F20-B9CB-B5F698A33BA2} = {2205AEEA-ABE7-43AC-A1BD-93AC8A84469F}
 		{58F2F85E-92ED-4DDF-BEB7-43E860B860C1} = {1BB195CE-8252-4DDE-83B9-74ACCA99087D}
+		{C31751AB-C2F0-41AD-B92D-296538FFEF42} = {1BB195CE-8252-4DDE-83B9-74ACCA99087D}
+		{A8C271CF-663A-492A-B734-5E715E7E1B83} = {1BB195CE-8252-4DDE-83B9-74ACCA99087D}
+		{F46D1329-7B7B-4AE3-A876-553C48E346C4} = {A8C271CF-663A-492A-B734-5E715E7E1B83}
+		{86052A9D-88C1-4D64-9F14-547A6D8C8E5E} = {A8C271CF-663A-492A-B734-5E715E7E1B83}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.WindowsAzure.Storage.6.0.1304.1\lib\NET45

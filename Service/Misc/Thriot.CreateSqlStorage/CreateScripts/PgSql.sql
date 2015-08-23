@@ -1,5 +1,4 @@
-﻿CREATE OR REPLACE FUNCTION CreateDatabase() RETURNS int AS $$
--- BEGIN: InitialDatabase
+﻿DO $$
 BEGIN
 	IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE' AND lower(TABLE_NAME)=lower('Setting')) THEN
 		create table "Company" (
@@ -68,9 +67,5 @@ BEGIN
 
 		INSERT INTO "Setting"("Category", "Config", "Value") VALUES('Version', 'Database', '1');
 	END IF;
-RETURN 0;
 END
-$$ LANGUAGE plpgsql;
--- END: InitialDatabase
-
-SELECT * FROM CreateDatabase()
+$$

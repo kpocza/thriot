@@ -1,0 +1,8 @@
+﻿{
+    "TelemetryQueue": {
+        "QueueSendAdapter": "Thriot.Plugins.Azure.QueueSendAdapter, Thriot.Plugins.Azure",
+        "QueueReceiveAdapter": "Thriot.Plugins.Azure.QueueReceiveAdapter, Thriot.Plugins.Azure",
+        "ConnectionString": "UseDevelopmentStorage=true",
+        "QueueName": "telemetry"
+    }
+}

@@ -12,7 +12,7 @@ namespace Thriot.Client.DotNet.IntegrationTests
     public class MultiThreadTest : TestBase
     {
         [TestMethod]
-        public void MultiDeviceManySendTest()
+        public void MultiDeviceManyRecordTelemetryTest()
         {
             var managementClient = new ManagementClient(ManagementApi);
 
@@ -78,7 +78,7 @@ namespace Thriot.Client.DotNet.IntegrationTests
         }
 
         [TestMethod]
-        public void MultiDeviceRecordAndReceiveOutgoingTest()
+        public void MultiDeviceSendAndReceiveOutgoingTest()
         {
             var managementClient = new ManagementClient(ManagementApi);
 

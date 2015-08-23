@@ -10,7 +10,8 @@
       "dependencies": {
         "Npgsql": "3.1.0-unstable0101",
         "Thriot.Framework": "1.0.0-*",
-        "Thriot.Plugins.Core": "1.0.0-*"
+        "Thriot.Plugins.Core": "1.0.0-*",
+        "Newtonsoft.Json": "6.0.8"
       }
     }
   }

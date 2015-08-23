@@ -10,11 +10,11 @@ namespace Thriot.Plugins.Sql
 {
     public class QueueReceiveAdapter : SerialQueueReceiveAdapter
     {
-        private readonly string _connectionString;
+        private string _connectionString;
 
-        public QueueReceiveAdapter(string connectionString)
+        public override void Setup(IDictionary<string, string> parameters)
         {
-            _connectionString = connectionString;
+            _connectionString = parameters["ConnectionString"];
         }
 
         protected override IEnumerable<QueueItem> DequeueItemsCore(int maxDequeueCount, int expirationMinutes)
@@ -36,7 +36,7 @@ namespace Thriot.Plugins.Sql
                     {
                         var colId = reader.GetOrdinal("Id");
                         var colDeviceId = reader.GetOrdinal("DeviceId");
-                        var colData = reader.GetOrdinal("Data");
+                        var colData = reader.GetOrdinal("Payload");
                         var colRecordedAt = reader.GetOrdinal("RecordedAt");
 
                         while (reader.Read())

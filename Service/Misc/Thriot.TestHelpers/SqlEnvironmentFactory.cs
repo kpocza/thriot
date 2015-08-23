@@ -1,4 +1,5 @@
-﻿using Thriot.Management.Operations.Sql.DataAccess;
+﻿using System.Collections.Generic;
+using Thriot.Management.Operations.Sql.DataAccess;
 using Thriot.Management.Operations.Sql.DataAccess.Sql;
 using Thriot.Objects.Operations.Sql.DataAccess;
 using Thriot.Objects.Operations.Sql.DataAccess.Sql;
@@ -56,8 +57,24 @@ namespace Thriot.TestHelpers
 
         public string QueueConnectionString => @"Server=.\SQLEXPRESS;Database=ThriotQueue;Trusted_Connection=True;";
 
-        public IQueueSendAdapter QueueSendAdapter => new Thriot.Plugins.Sql.QueueSendAdapter(QueueConnectionString);
+        public IQueueSendAdapter QueueSendAdapter
+        {
+            get
+            {
+                var queueSendAdapter = new QueueSendAdapter();
+                queueSendAdapter.Setup(new Dictionary<string, string> { { "ConnectionString", QueueConnectionString } });
+                return queueSendAdapter;
+            }
+        }
 
-        public IQueueReceiveAdapter QueueReceiveAdapter => new Thriot.Plugins.Sql.QueueReceiveAdapter(QueueConnectionString);
+        public IQueueReceiveAdapter QueueReceiveAdapter
+        {
+            get
+            {
+                var queueReceiveAdapter = new QueueReceiveAdapter();
+                queueReceiveAdapter.Setup(new Dictionary<string, string> { { "ConnectionString", QueueConnectionString } });
+                return queueReceiveAdapter;
+            }
+        }
     }
 } 

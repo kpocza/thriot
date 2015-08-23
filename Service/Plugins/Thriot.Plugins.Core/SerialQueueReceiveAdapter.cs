@@ -11,6 +11,7 @@ namespace Thriot.Plugins.Core
         private readonly Thread _thread;
         private readonly CancellationTokenSource _cts;
         private Action<TelemetryData> _itemProcessorAction;
+        private int _emptyCounter = 0;
 
         private const int MaxDequeueCount = 32;
         private const int ExpirationMinutes = 3;
@@ -22,6 +23,8 @@ namespace Thriot.Plugins.Core
             _cts = new CancellationTokenSource();
             _thread = new Thread(Body);
         }
+
+        public abstract void Setup(IDictionary<string, string> parameters);
 
         public void Start(Action<TelemetryData> itemProcessorAction)
         {
@@ -43,9 +46,11 @@ namespace Thriot.Plugins.Core
 
                 if (!items.Any())
                 {
-                    Thread.Sleep(50);
+                    _emptyCounter = Math.Min(_emptyCounter + 1, 10);
+                    Thread.Sleep(_emptyCounter*50);
                     continue;
                 }
+                _emptyCounter = 0;
 
                 var startProcessingAt = DateTime.UtcNow;
                 var selected = new List<QueueItem>();

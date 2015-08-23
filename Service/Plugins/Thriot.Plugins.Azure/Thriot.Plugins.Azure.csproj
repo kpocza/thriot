@@ -76,6 +76,8 @@
   <ItemGroup>
     <Compile Include="CurrentDataTableEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueueReceiveAdapter.cs" />
+    <Compile Include="QueueSendAdapter.cs" />
     <Compile Include="TelemetryDataSinkBase.cs" />
     <Compile Include="TelemetryDataSinkCurrent.cs" />
     <Compile Include="TelemetryDataSinkTimeSeries.cs" />

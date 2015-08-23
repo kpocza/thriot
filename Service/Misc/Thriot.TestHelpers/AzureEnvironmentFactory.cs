@@ -1,4 +1,5 @@
-﻿using Thriot.Framework.Azure.DataAccess;
+﻿using System.Collections.Generic;
+using Thriot.Framework.Azure.DataAccess;
 using Thriot.Framework.Azure.TableOperations;
 using Thriot.Plugins.Azure;
 using Thriot.Plugins.Core;
@@ -48,9 +49,27 @@ namespace Thriot.TestHelpers
 
         public ITelemetryDataSinkTimeSeries TelemetryDataSinkTimeSeries => new TelemetryDataSinkTimeSeries();
 
-        public IQueueSendAdapter QueueSendAdapter => new InMemoryQueueSendAdapter();
+        public string QueueConnectionString => "UseDevelopmentStorage=true";
 
-        public IQueueReceiveAdapter QueueReceiveAdapter => new InMemorySerialQueueReceiveAdapter();
+        public IQueueSendAdapter QueueSendAdapter
+        {
+            get
+            {
+                var queueSendAdapter = new QueueSendAdapter();
+                queueSendAdapter.Setup(new Dictionary<string, string> { { "ConnectionString", QueueConnectionString }, { "QueueName", "telemetry" } });
+                return queueSendAdapter;
+            }
+        } 
+
+        public IQueueReceiveAdapter QueueReceiveAdapter
+        {
+            get
+            {
+                var queueReceiveAdapter = new QueueReceiveAdapter();
+                queueReceiveAdapter.Setup(new Dictionary<string, string> { { "ConnectionString", QueueConnectionString }, { "QueueName", "telemetry" } });
+                return queueReceiveAdapter;
+            }
+        }
 
         private static volatile bool _created = false;
 

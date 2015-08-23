@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using Thriot.Platform.Services.Telemetry.Recording;
 using Thriot.Plugins.Core;
 using Thriot.TestHelpers;
-using Thriot.TestHelpers.InMemoryQueue;
 
 namespace Thriot.Platform.Services.Telemetry.Tests
 {
@@ -70,7 +68,7 @@ namespace Thriot.Platform.Services.Telemetry.Tests
                         var input = inputList[i];
                         var output = outputList[i];
 
-                        if (input.DeviceId != output.DeviceId || input.Payload != output.Payload)
+                        if (input.DeviceId != output.DeviceId.Trim() || input.Payload != output.Payload)
                         {
                             isOk = false;
                             break;

@@ -6,9 +6,6 @@ namespace Thriot.Platform.WebsocketService
 {
     static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
         static void Main()
         {
             SetupNetworking();
@@ -19,12 +16,11 @@ namespace Thriot.Platform.WebsocketService
             }
             else
             {
-                ServiceBase[] ServicesToRun;
-                ServicesToRun = new ServiceBase[] 
+                var servicesToRun = new ServiceBase[] 
                 { 
                     new WebSocketServiceInstance() 
                 };
-                ServiceBase.Run(ServicesToRun);
+                ServiceBase.Run(servicesToRun);
             }
         }
 

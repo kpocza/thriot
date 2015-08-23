@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
@@ -8,18 +9,18 @@ namespace Thriot.Plugins.Sql
 {
     public class QueueSendAdapter : IQueueSendAdapter
     {
-        private readonly string _connectionString;
+        private string _connectionString;
 
-        public QueueSendAdapter(string connectionString)
+        public void Setup(IDictionary<string, string> parameters)
         {
-            _connectionString = connectionString;
+            _connectionString = parameters["ConnectionString"];
         }
 
         public void Send(TelemetryData telemetryData)
         {
             var dataTable = new DataTable("EnqueueItemType");
-            dataTable.Columns.Add("DeviceId", typeof (long));
-            dataTable.Columns.Add("Data", typeof (byte[]));
+            dataTable.Columns.Add("DeviceId", typeof (string));
+            dataTable.Columns.Add("Payload", typeof (byte[]));
             dataTable.Columns.Add("RecordedAt", typeof (DateTime));
 
             var dataRow = dataTable.NewRow();

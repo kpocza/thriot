@@ -34,21 +34,26 @@ namespace Thriot.Messaging.WebApi
                 options.Filters.Add(new ApiExceptionFilterAttribute());
             });
 
+            ConfigureThriotServices(services, configuration);
+        }
+
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            app.UseMvc();
+        }
+
+        private void ConfigureThriotServices(IServiceCollection services, IConfiguration configuration)
+        {
             services.AddSingleton<Services.Caching.IMessageCache, Services.Caching.MessageCache>();
             services.AddSingleton<Services.Storage.IConnectionStringResolver, ConnectionStringResolver>();
             services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.DataAccess.ConnectionParametersResolver>();
             services.AddTransient<Services.MessagingService>();
             services.AddSingleton(_ => configuration);
 
-            foreach (var extraService in Framework.ServicesConfigLoader.Load(configuration, "Services"))
+            foreach (var extraService in Framework.ConfigurationAdapter.LoadServiceConfiguration(configuration, "Services"))
             {
                 services.AddTransient(extraService.Key, extraService.Value);
             }
-        }
-
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            app.UseMvc();
         }
     }
 }

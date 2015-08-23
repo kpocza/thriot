@@ -133,6 +133,10 @@ EnsureEmptyDirectory $targetRoot\websocketservice
 
 & $msbuild $solutionRoot\Platform\Thriot.Platform.WebsocketService\Thriot.Platform.WebsocketService.csproj /p:Configuration=$buildConfig  /p:OutDir=$targetRoot\websocketservice
 
+EnsureEmptyDirectory $targetRoot\telemetryqueueservice
+
+& $msbuild $solutionRoot\Platform\Thriot.Platform.TelemetryQueueService\Thriot.Platform.TelemetryQueueService.csproj /p:Configuration=$buildConfig  /p:OutDir=$targetRoot\telemetryqueueservice
+
 if($copyConfigs -eq "no")
 {
 	$configDir = "$targetRoot\web\wwwroot\config"
@@ -160,6 +164,11 @@ if($copyConfigs -eq "no")
 
 	$configDir = "$targetRoot\websocketservice\config"
 	rm $configDir\connectionstring*
+	ConfigKeeper $configDir "services" $config
+
+	$configDir = "$targetRoot\telemetryqueueservice\config"
+	rm $configDir\connectionstring*
+	rm $configDir\telemetryqueue*
 	ConfigKeeper $configDir "services" $config
 }
 else
@@ -189,6 +198,11 @@ else
 	$configDir = "$targetRoot\websocketservice\config"
 	ConfigKeeper $configDir "connectionstring" $config
 	ConfigKeeper $configDir "services" $config
+
+	$configDir = "$targetRoot\telemetryqueueservice\config"
+	ConfigKeeper $configDir "connectionstring" $config
+	ConfigKeeper $configDir "services" $config
+	ConfigKeeper $configDir "telemetryqueue" $config
 }
 
 EnsureEmptyDirectory $targetRoot\install\configtemplates
@@ -229,6 +243,7 @@ if($linuxify -eq "yes")
 	}
 
 	LinuxifyNLogConfig $targetRoot\websocketservice\nlog.config
+	LinuxifyNLogConfig $targetRoot\telemetryqueueservice\nlog.config
 
 	cp $solutionRoot\Build\templates\config\tinyproxy.conf $targetRoot\install\configtemplates
 	cp $solutionRoot\Build\templates\config\settings.sql $targetRoot\install\storage

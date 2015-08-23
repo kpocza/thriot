@@ -46,33 +46,13 @@ namespace Thriot.Management.WebApi
                 options.Filters.Add(new LogActionsAttribute());
                 options.Filters.Add(new ApiExceptionFilterAttribute());
             });
+
             services.AddCors();
             services.ConfigureCors(c => c.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials()));
 
-            services.AddTransient<Services.UserService>();
-            services.AddTransient<Services.CompanyService>();
-            services.AddTransient<Services.ServiceService>();
-            services.AddTransient<Services.NetworkService>();
-            services.AddTransient<Services.DeviceService>();
-            services.AddTransient<Services.InfoService>();
-            services.AddTransient<Services.TelemetryMetadataService>();
-            services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.DataAccess.ConnectionParametersResolver>();
-            services.AddScoped<Services.IAuthenticationContext, WebApi.Auth.WebAuthenticationContext>();
-            services.AddSingleton<Services.ISettingProvider, Services.SettingProvider>();
-            services.AddTransient<Services.ICapabilityProvider, Services.CapabilityProvider>();
-            services.AddTransient<Services.IEnvironmentPrebuilder, Services.EnvironmentPrebuilder>();
-            services.AddTransient<Services.IMailer, WebApi.WebFunctions.Mailer>();
-            services.AddSingleton(_ => configuration);
-
-            services.AddSingleton<Platform.Services.Client.ITelemetryDataSinkSetupServiceClient, Platform.Services.Client.TelemetryDataSinkSetupServiceClient>();
-            services.AddSingleton<Messaging.Services.Client.IMessagingServiceClient, Messaging.Services.Client.MessagingServiceClient>();
-
-            foreach(var extraService in Framework.ServicesConfigLoader.Load(configuration, "Services"))
-            {
-                services.AddTransient(extraService.Key, extraService.Value);
-            }
+            ConfigureThriotServices(services, configuration);
         }
-        
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             var serviceProvider = app.ApplicationServices;
@@ -97,6 +77,32 @@ namespace Thriot.Management.WebApi
             app.UseCors("AllowAll");
 
             app.UseMvc();
+        }
+
+        private void ConfigureThriotServices(IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddTransient<Services.UserService>();
+            services.AddTransient<Services.CompanyService>();
+            services.AddTransient<Services.ServiceService>();
+            services.AddTransient<Services.NetworkService>();
+            services.AddTransient<Services.DeviceService>();
+            services.AddTransient<Services.InfoService>();
+            services.AddTransient<Services.TelemetryMetadataService>();
+            services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.DataAccess.ConnectionParametersResolver>();
+            services.AddScoped<Services.IAuthenticationContext, WebApi.Auth.WebAuthenticationContext>();
+            services.AddSingleton<Services.ISettingProvider, Services.SettingProvider>();
+            services.AddTransient<Services.ICapabilityProvider, Services.CapabilityProvider>();
+            services.AddTransient<Services.IEnvironmentPrebuilder, Services.EnvironmentPrebuilder>();
+            services.AddTransient<Services.IMailer, WebApi.WebFunctions.Mailer>();
+            services.AddSingleton(_ => configuration);
+
+            services.AddSingleton<Platform.Services.Client.ITelemetryDataSinkSetupServiceClient, Platform.Services.Client.TelemetryDataSinkSetupServiceClient>();
+            services.AddSingleton<Messaging.Services.Client.IMessagingServiceClient, Messaging.Services.Client.MessagingServiceClient>();
+
+            foreach (var extraService in Framework.ConfigurationAdapter.LoadServiceConfiguration(configuration, "Services"))
+            {
+                services.AddTransient(extraService.Key, extraService.Value);
+            }
         }
 
         private Framework.Mails.MailTemplate GetTemplate(string name)

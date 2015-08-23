@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Builder;
+﻿using System;
+using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Framework.Configuration;
@@ -22,6 +23,7 @@ using Thriot.Platform.Services.Telemetry.Metadata;
 using Thriot.Platform.WebApi.Auth;
 using Thriot.Messaging.Services.Client;
 using Thriot.Platform.Services.Telemetry.Recording;
+using Thriot.Plugins.Core;
 
 namespace Thriot.Platform.WebApi
 {
@@ -46,6 +48,8 @@ namespace Thriot.Platform.WebApi
             configurationBuilder.AddJsonFile("config/services.json");
             configurationBuilder.AddJsonFile("config/connectionstring.json");
 
+            configurationBuilder.AddJsonFile("config/telemetryqueue.json", true);
+
             var configuration = configurationBuilder.Build();
 
             services.AddMvc().Configure<MvcOptions>(options =>
@@ -53,34 +57,13 @@ namespace Thriot.Platform.WebApi
                 options.Filters.Add(new LogActionsAttribute());
                 options.Filters.Add(new ApiExceptionFilterAttribute());
             });
+
             services.AddCors();
             services.ConfigureCors(c => c.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials()));
 
-            services.AddTransient<TelemetryDataSinkSetupService>();
-            services.AddTransient<MessagingService>();
-            services.AddTransient<AuthenticationContext>();
-            services.AddTransient<ITelemetryDataService, DirectTelemetryDataService>();
-            services.AddTransient<TelemetryDataSinkPreparator>();
-            services.AddTransient<ICompanyOperations, Objects.Common.CachingOperations.CompanyOperations>();
-            services.AddTransient<IServiceOperations, Objects.Common.CachingOperations.ServiceOperations>();
-            services.AddTransient<INetworkOperations, Objects.Common.CachingOperations.NetworkOperations>();
-            services.AddTransient<IDeviceOperations, Objects.Common.CachingOperations.DeviceOperations>();
-            services.AddTransient<ISettingOperations, Objects.Common.CachingOperations.SettingOperations>();
-            services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
-            services.AddSingleton<Framework.DataAccess.IDynamicConnectionStringResolver, DynamicConnectionStringResolver>();
-            services.AddSingleton<ITelemetryDataSinkMetadataRegistry, TelemetryDataSinkMetadataRegistry>();
-            services.AddTransient<ITelemetryDataSinkResolver, TelemetryDataSinkResolver>();
-            services.AddSingleton<IBatchParameters, BatchParameters>();
-            services.AddTransient<IMessagingOperations, MessagingOperations>();
-            services.AddTransient<IDeviceAuthenticator, DeviceAuthenticator>();
-            services.AddSingleton<IMessagingServiceClient, MessagingServiceClient>();
-            services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.DataAccess.ConnectionParametersResolver>();
-            services.AddSingleton(_ => configuration);
-            
-            foreach (var extraService in Framework.ServicesConfigLoader.Load(configuration, "Services"))
-            {
-                services.AddTransient(extraService.Key, extraService.Value);
-            }
+            ConfigureThriotServices(services, configuration);
+
+            ConfigureTelemetryDataService(services, configuration);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -110,6 +93,56 @@ namespace Thriot.Platform.WebApi
             app.UseCors("AllowAll");
 
             app.UseMvc();
+        }
+
+        private void ConfigureThriotServices(IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddTransient<TelemetryDataSinkSetupService>();
+            services.AddTransient<MessagingService>();
+            services.AddTransient<AuthenticationContext>();
+            services.AddTransient<TelemetryDataSinkPreparator>();
+            services.AddTransient<ICompanyOperations, Objects.Common.CachingOperations.CompanyOperations>();
+            services.AddTransient<IServiceOperations, Objects.Common.CachingOperations.ServiceOperations>();
+            services.AddTransient<INetworkOperations, Objects.Common.CachingOperations.NetworkOperations>();
+            services.AddTransient<IDeviceOperations, Objects.Common.CachingOperations.DeviceOperations>();
+            services.AddTransient<ISettingOperations, Objects.Common.CachingOperations.SettingOperations>();
+            services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+            services.AddSingleton<Framework.DataAccess.IDynamicConnectionStringResolver, DynamicConnectionStringResolver>();
+            services.AddSingleton<ITelemetryDataSinkMetadataRegistry, TelemetryDataSinkMetadataRegistry>();
+            services.AddTransient<ITelemetryDataSinkResolver, TelemetryDataSinkResolver>();
+            services.AddSingleton<IBatchParameters, BatchParameters>();
+            services.AddTransient<IMessagingOperations, MessagingOperations>();
+            services.AddTransient<IDeviceAuthenticator, DeviceAuthenticator>();
+            services.AddSingleton<IMessagingServiceClient, MessagingServiceClient>();
+            services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.DataAccess.ConnectionParametersResolver>();
+            services.AddSingleton(_ => configuration);
+
+            foreach (var extraService in ConfigurationAdapter.LoadServiceConfiguration(configuration, "Services"))
+            {
+                services.AddTransient(extraService.Key, extraService.Value);
+            }
+        }
+
+        private void ConfigureTelemetryDataService(IServiceCollection services, IConfiguration configuration)
+        {
+            if (!ConfigurationAdapter.HasRootSection(configuration, "TelemetryQueue"))
+            {
+                services.AddTransient<ITelemetryDataService, DirectTelemetryDataService>();
+            }
+            else
+            {
+                services.AddTransient<ITelemetryDataService, QueueingTelemetryDataService>();
+
+                var telemetryQueueConfiguration = ConfigurationAdapter.AsMap(configuration, "TelemetryQueue");
+                var queueSendAdapterType = Type.GetType(telemetryQueueConfiguration["QueueSendAdapter"]);
+
+                services.AddTransient<IQueueSendAdapter>(_ =>
+                {
+                    var queueSendAdapter = (IQueueSendAdapter)Activator.CreateInstance(queueSendAdapterType);
+                    queueSendAdapter.Setup(telemetryQueueConfiguration);
+                    return queueSendAdapter;
+                });
+            }
         }
     }
 }

@@ -44,22 +44,7 @@ namespace Thriot.Reporting.WebApi
             services.AddCors();
             services.ConfigureCors(c => c.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials()));
 
-            services.AddTransient<DeviceReportingService>();
-            services.AddTransient<NetworkReportingService>();
-            services.AddTransient<DeviceAuthenticationContext>();
-            services.AddTransient<NetworkAuthenticationContext>();
-            services.AddSingleton<ITelemetryDataSinkSetupServiceClient, TelemetryDataSinkSetupServiceClient>();
-            services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.DataAccess.ConnectionParametersResolver>();
-            services.AddSingleton<Framework.DataAccess.IDynamicConnectionStringResolver, DynamicConnectionStringResolver>();
-            services.AddTransient<ITelemetryDataSinkProcessor, TelemetryDataSinkProcessor>();
-            services.AddTransient<IDeviceAuthenticator, Objects.Common.DeviceAuthenticator> ();
-            services.AddTransient<INetworkAuthenticator, Objects.Common.NetworkAuthenticator> ();
-            services.AddSingleton(_ => configuration);
-
-            foreach (var extraService in Framework.ServicesConfigLoader.Load(configuration, "Services"))
-            {
-                services.AddTransient(extraService.Key, extraService.Value);
-            }
+            ConfigureThriotServices(services, configuration);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -74,6 +59,26 @@ namespace Thriot.Reporting.WebApi
             app.UseCors("AllowAll");
 
             app.UseMvc();
+        }
+
+        private void ConfigureThriotServices(IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddTransient<DeviceReportingService>();
+            services.AddTransient<NetworkReportingService>();
+            services.AddTransient<DeviceAuthenticationContext>();
+            services.AddTransient<NetworkAuthenticationContext>();
+            services.AddSingleton<ITelemetryDataSinkSetupServiceClient, TelemetryDataSinkSetupServiceClient>();
+            services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.DataAccess.ConnectionParametersResolver>();
+            services.AddSingleton<Framework.DataAccess.IDynamicConnectionStringResolver, DynamicConnectionStringResolver>();
+            services.AddTransient<ITelemetryDataSinkProcessor, TelemetryDataSinkProcessor>();
+            services.AddTransient<IDeviceAuthenticator, Objects.Common.DeviceAuthenticator>();
+            services.AddTransient<INetworkAuthenticator, Objects.Common.NetworkAuthenticator>();
+            services.AddSingleton(_ => configuration);
+
+            foreach (var extraService in Framework.ConfigurationAdapter.LoadServiceConfiguration(configuration, "Services"))
+            {
+                services.AddTransient(extraService.Key, extraService.Value);
+            }
         }
     }
 }

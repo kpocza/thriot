@@ -1,11 +1,11 @@
-﻿using Thriot.Management.Operations.Sql.DataAccess;
+﻿using System.Collections.Generic;
+using Thriot.Management.Operations.Sql.DataAccess;
 using Thriot.Management.Operations.Sql.DataAccess.PgSql;
 using Thriot.Objects.Operations.Sql.DataAccess;
 using Thriot.Objects.Operations.Sql.DataAccess.PgSql;
 using Thriot.Plugins.Core;
 using Thriot.Plugins.PgSql;
 using Thriot.Messaging.Services.Client;
-using Thriot.TestHelpers.InMemoryQueue;
 
 namespace Thriot.TestHelpers
 {
@@ -54,9 +54,26 @@ namespace Thriot.TestHelpers
         public ITelemetryDataSinkCurrent TelemetryDataSinkCurrent => new TelemetryDataSinkCurrent();
 
         public ITelemetryDataSinkTimeSeries TelemetryDataSinkTimeSeries => new TelemetryDataSinkTimeSeries();
+        public string QueueConnectionString => "Server=127.0.0.1;Port=5432;Database=ThriotQueue;User Id=thriotqueue;Password=thriotqueue;";
 
-        public IQueueSendAdapter QueueSendAdapter => new InMemoryQueueSendAdapter();
+        public IQueueSendAdapter QueueSendAdapter
+        {
+            get
+            {
+                var queueSendAdapter = new QueueSendAdapter();
+                queueSendAdapter.Setup(new Dictionary<string, string> { { "ConnectionString", QueueConnectionString } });
+                return queueSendAdapter;
+            }
+        }
 
-        public IQueueReceiveAdapter QueueReceiveAdapter => new InMemorySerialQueueReceiveAdapter();
+        public IQueueReceiveAdapter QueueReceiveAdapter
+        {
+            get
+            {
+                var queueReceiveAdapter = new QueueReceiveAdapter();
+                queueReceiveAdapter.Setup(new Dictionary<string, string> { { "ConnectionString", QueueConnectionString } });
+                return queueReceiveAdapter;
+            }
+        }
     }
 } 
