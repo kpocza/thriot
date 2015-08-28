@@ -35,6 +35,9 @@ namespace Thriot.Platform.WebApi
         {
             _appEnv = appEnv;
 
+            Framework.Logging.NLogLogger.SetConfiguration(
+                Path.Combine(Path.Combine(appEnv.ApplicationBasePath, "config"), "web.nlog"));
+
             DtoMapper.Setup();
 
             ServicePointManager.DefaultConnectionLimit = 10000;

@@ -28,7 +28,12 @@ namespace Thriot.Platform.TelemetryQueueService
 
         public void Setup()
         {
-            var configurationBuilder = new ConfigurationBuilder(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+            var appFolter = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+            Framework.Logging.NLogLogger.SetConfiguration(
+                Path.Combine(Path.Combine(appFolter, "config"), "nlog.config"));
+
+            var configurationBuilder = new ConfigurationBuilder(appFolter);
             configurationBuilder.AddJsonFile("config/services.json");
             configurationBuilder.AddJsonFile("config/connectionstring.json");
 

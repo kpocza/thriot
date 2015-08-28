@@ -1,5 +1,6 @@
 ﻿using System;
 using NLog;
+using NLog.Config;
 
 namespace Thriot.Framework.Logging
 {
@@ -10,6 +11,11 @@ namespace Thriot.Framework.Logging
         public NLogLogger(Logger logger)
         {
             _logger = logger;
+        }
+
+        public static void SetConfiguration(string fileName)
+        {
+            LogManager.Configuration = new XmlLoggingConfiguration(fileName, true);
         }
 
         public void Debug(string message)

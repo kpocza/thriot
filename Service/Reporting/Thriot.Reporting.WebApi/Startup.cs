@@ -23,6 +23,9 @@ namespace Thriot.Reporting.WebApi
         {
             _appEnv = appEnv;
 
+            Framework.Logging.NLogLogger.SetConfiguration(
+                System.IO.Path.Combine(System.IO.Path.Combine(appEnv.ApplicationBasePath, "config"), "web.nlog"));
+
             ServicePointManager.DefaultConnectionLimit = 10000;
             ServicePointManager.Expect100Continue = false;
             ServicePointManager.UseNagleAlgorithm = false;

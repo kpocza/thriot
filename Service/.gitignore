@@ -30,3 +30,5 @@ _NCrunch_*
 *.ncrunchproject
 *.ncrunchsolution
 **/nCrunchTemp_*
+
+.*.swp

@@ -16,6 +16,9 @@ namespace Thriot.Messaging.WebApi
         public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
         {
             _appEnv = appEnv;
+
+            Framework.Logging.NLogLogger.SetConfiguration(
+                System.IO.Path.Combine(System.IO.Path.Combine(appEnv.ApplicationBasePath, "config"), "web.nlog"));
         }
 
         public void ConfigureServices(IServiceCollection services)

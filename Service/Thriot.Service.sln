@@ -36,6 +36,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{7480DBBF-9FA7-4714-9219-37B52D113E8A}"
 	ProjectSection(SolutionItems) = preProject
 		Build\build.ps1 = Build\build.ps1
+		Build\configure.ps1 = Build\configure.ps1
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Management.Operations.Sql", "Management\Thriot.Management.Operations.Sql\Thriot.Management.Operations.Sql.csproj", "{B5F4AFF8-5386-4CC9-9E0D-F53958E5522A}"
@@ -123,6 +124,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{E1175B
 	ProjectSection(SolutionItems) = preProject
 		Build\templates\config\run.sh = Build\templates\config\run.sh
 		Build\templates\config\settings.sql = Build\templates\config\settings.sql
+		Build\templates\config\telemetryqueue.azure.json = Build\templates\config\telemetryqueue.azure.json
+		Build\templates\config\telemetryqueue.pgsql.json = Build\templates\config\telemetryqueue.pgsql.json
+		Build\templates\config\telemetryqueue.sql.json = Build\templates\config\telemetryqueue.sql.json
 		Build\templates\config\tinyproxy.conf = Build\templates\config\tinyproxy.conf
 	EndProjectSection
 EndProject

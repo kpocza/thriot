@@ -3,7 +3,8 @@ param
 	[string]$config,
 	[string]$configmsg,
 	[string]$copyConfigs,
-	[string]$linuxify
+	[string]$linuxify,
+	[string]$queueconfig
 )
 
 function Choose([string]$title, [string]$message, [array]$opts, [string]$actual, [int]$default)
@@ -87,10 +88,14 @@ $copyConfigs = Choose "Deploy configuration files?" "Answer carefully if your ar
 $options = @([tuple]::Create("&yes", "Yes"), [tuple]::Create("&no", "No"));
 $linuxify = Choose "Is this build targeting a Linux environment?" $null $options $linuxify 1
 
+$options = @([tuple]::Create("&no", "Do not use queue"), [tuple]::Create("&azure", "Azure Queue"), [tuple]::Create("&sql", "Microsoft Sql-based queue"), [tuple]::Create("&pgsql", "PostgreSql-based queue"));
+$queueconfig = Choose "Queueing solution" $null $options $queueconfig 0
+
 "Master Management Storage: $config"
 "Messaging storage: $configmsg"
 "Deploy configuration files: $copyConfigs"
 "Prepare for Linux environment: $linuxify"
+"Queueing solution: $queueconfig"
 
 $targetRoot = $(pwd).Path + "\output\" + [DateTime]::Now.ToString("yyyyMMddHHmm") + "_" + $config
 $solutionRoot = $(Split-Path -parent $(pwd))
@@ -133,9 +138,11 @@ EnsureEmptyDirectory $targetRoot\websocketservice
 
 & $msbuild $solutionRoot\Platform\Thriot.Platform.WebsocketService\Thriot.Platform.WebsocketService.csproj /p:Configuration=$buildConfig  /p:OutDir=$targetRoot\websocketservice
 
-EnsureEmptyDirectory $targetRoot\telemetryqueueservice
+if($queueconfig -ne "no") {
+	EnsureEmptyDirectory $targetRoot\telemetryqueueservice
 
-& $msbuild $solutionRoot\Platform\Thriot.Platform.TelemetryQueueService\Thriot.Platform.TelemetryQueueService.csproj /p:Configuration=$buildConfig  /p:OutDir=$targetRoot\telemetryqueueservice
+	& $msbuild $solutionRoot\Platform\Thriot.Platform.TelemetryQueueService\Thriot.Platform.TelemetryQueueService.csproj /p:Configuration=$buildConfig  /p:OutDir=$targetRoot\telemetryqueueservice
+}
 
 if($copyConfigs -eq "no")
 {
@@ -166,10 +173,12 @@ if($copyConfigs -eq "no")
 	rm $configDir\connectionstring*
 	ConfigKeeper $configDir "services" $config
 
-	$configDir = "$targetRoot\telemetryqueueservice\config"
-	rm $configDir\connectionstring*
-	rm $configDir\telemetryqueue*
-	ConfigKeeper $configDir "services" $config
+	if($queueconfig -ne "no") {
+		$configDir = "$targetRoot\telemetryqueueservice\config"
+		rm $configDir\connectionstring*
+		rm $configDir\telemetryqueue*
+		ConfigKeeper $configDir "services" $config
+	}
 }
 else
 {
@@ -199,10 +208,15 @@ else
 	ConfigKeeper $configDir "connectionstring" $config
 	ConfigKeeper $configDir "services" $config
 
-	$configDir = "$targetRoot\telemetryqueueservice\config"
-	ConfigKeeper $configDir "connectionstring" $config
-	ConfigKeeper $configDir "services" $config
-	ConfigKeeper $configDir "telemetryqueue" $config
+	if($queueconfig -ne "no") {
+		$configDir = "$targetRoot\telemetryqueueservice\config"
+		ConfigKeeper $configDir "connectionstring" $config
+		ConfigKeeper $configDir "services" $config
+
+		ConfigKeeper $configDir "telemetryqueue" $queueconfig
+		cp $configDir/telemetryqueue.json $targetRoot\papi\approot\packages\Thriot.Platform.WebApi\1.0.0\root\config
+		cp $configDir/telemetryqueue.json $targetRoot\websocketservice\config
+	}
 }
 
 EnsureEmptyDirectory $targetRoot\install\configtemplates
@@ -236,14 +250,12 @@ if($configmsg -eq "pgsql")
 
 if($linuxify -eq "yes")
 {
-	foreach($dir in ("api", "msvc", "papi", "rapi"))
-	{
-		LinuxifyNLogConfig $targetRoot\$dir\wwwroot\web.nlog
-		mv $targetRoot\$dir\wwwroot\web.nlog $targetRoot\$dir\approot\packages\NLog\4.0.0\lib\net45\NLog.dll.nlog
-	}
-
-	LinuxifyNLogConfig $targetRoot\websocketservice\nlog.config
-	LinuxifyNLogConfig $targetRoot\telemetryqueueservice\nlog.config
+	LinuxifyNLogConfig $targetRoot\api\approot\packages\Thriot.Management.WebApi\1.0.0\root\config\web.nlog
+	LinuxifyNLogConfig $targetRoot\papi\approot\packages\Thriot.Platform.WebApi\1.0.0\root\config\web.nlog
+	LinuxifyNLogConfig $targetRoot\rapi\approot\packages\Thriot.Reporting.WebApi\1.0.0\root\config\web.nlog
+	LinuxifyNLogConfig $targetRoot\msvc\approot\packages\Thriot.Messaging.WebApi\1.0.0\root\config\web.nlog
+	LinuxifyNLogConfig $targetRoot\websocketservice\config\nlog.config
+	LinuxifyNLogConfig $targetRoot\telemetryqueueservice\config\nlog.config
 
 	cp $solutionRoot\Build\templates\config\tinyproxy.conf $targetRoot\install\configtemplates
 	cp $solutionRoot\Build\templates\config\settings.sql $targetRoot\install\storage

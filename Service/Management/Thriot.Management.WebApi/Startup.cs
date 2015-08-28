@@ -30,6 +30,9 @@ namespace Thriot.Management.WebApi
             ApiExceptionRegistry.AddItem(typeof(ActivationRequiredException), HttpStatusCode.Forbidden);
             ApiExceptionRegistry.AddItem(typeof(ActivationException), HttpStatusCode.Forbidden);
             ApiExceptionRegistry.AddItem(typeof(ConfirmationException), HttpStatusCode.Forbidden);
+
+            Framework.Logging.NLogLogger.SetConfiguration(
+                System.IO.Path.Combine(System.IO.Path.Combine(appEnv.ApplicationBasePath, "config"), "web.nlog"));
         }
 
         public void ConfigureServices(IServiceCollection services)
