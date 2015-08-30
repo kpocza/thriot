@@ -4,7 +4,8 @@ param
 	[string]$configmsg,
 	[string]$copyConfigs,
 	[string]$linuxify,
-	[string]$queueconfig
+	[string]$queueconfig,
+	[string]$targetToPassFile = ""
 )
 
 function Choose([string]$title, [string]$message, [array]$opts, [string]$actual, [int]$default)
@@ -59,7 +60,7 @@ function PublishASPNET5([string]$project, [string]$target)
 {
 	dnu publish $project --no-source --configuration $buildConfig -o $target
 
-	#WORKAROUND for publish bug
+	#WORKAROUND for publish bug (beta6)
 	mkdir $target\approot\runtimes\$dnxFullName
 	cp -Recu $runtimeFolder\* $target\approot\runtimes\$dnxFullName
 
@@ -123,7 +124,7 @@ RestoreASPNET5 $solutionRoot\Reporting\Thriot.Reporting.WebApi
 RestoreASPNET5 $solutionRoot\Messaging\Thriot.Messaging.WebApi
 RestoreASPNET5 $solutionRoot\Web\Thriot.Web
 
-# WORKAROUND to have project.lock.json files so that dnu publish can find the nuget packages
+# WORKAROUND to have project.lock.json files so that dnu publish can find the nuget packages (beta6)
 RestoreASPNET5 $solutionRoot\wrap
 
 & $msbuild $solutionRoot\Thriot.Service.sln /p:Configuration=$buildConfig
@@ -138,7 +139,8 @@ EnsureEmptyDirectory $targetRoot\websocketservice
 
 & $msbuild $solutionRoot\Platform\Thriot.Platform.WebsocketService\Thriot.Platform.WebsocketService.csproj /p:Configuration=$buildConfig  /p:OutDir=$targetRoot\websocketservice
 
-if($queueconfig -ne "no") {
+if($queueconfig -ne "no") 
+{
 	EnsureEmptyDirectory $targetRoot\telemetryqueueservice
 
 	& $msbuild $solutionRoot\Platform\Thriot.Platform.TelemetryQueueService\Thriot.Platform.TelemetryQueueService.csproj /p:Configuration=$buildConfig  /p:OutDir=$targetRoot\telemetryqueueservice
@@ -220,32 +222,36 @@ else
 }
 
 EnsureEmptyDirectory $targetRoot\install\configtemplates
-EnsureEmptyDirectory $targetRoot\install\storage\messaging
 EnsureEmptyDirectory $targetRoot\install\storage\management
+EnsureEmptyDirectory $targetRoot\install\storage\messaging
+EnsureEmptyDirectory $targetRoot\install\storage\queue
 
-if($config -eq "azure")
-{
+if($config -eq "azure") {
 	& $msbuild $solutionRoot\Misc\Thriot.CreateAzureStorage\Thriot.CreateAzureStorage.csproj /p:Configuration=Debug  /p:OutDir=$targetRoot\install\storage\management
 }
 
-if($config -eq "sql")
-{
+if($config -eq "sql") {
 	& $msbuild $solutionRoot\Misc\Thriot.CreateSqlStorage\Thriot.CreateSqlStorage.csproj /p:Configuration=Debug  /p:OutDir=$targetRoot\install\storage\management
 }
 
-if($config -eq "pgsql")
-{
+if($config -eq "pgsql") {
 	& $msbuild $solutionRoot\Misc\Thriot.CreateSqlStorage\Thriot.CreateSqlStorage.csproj /p:Configuration=PgSql  /p:OutputPath=$targetRoot\install\storage\management
 }
 
-if($configmsg -eq "sql")
-{
+if($configmsg -eq "sql") {
 	cp $solutionRoot\Messaging\Scripts\Sql\* $targetRoot\install\storage\messaging
 }
 
-if($configmsg -eq "pgsql")
-{
+if($configmsg -eq "pgsql") {
 	cp $solutionRoot\Messaging\Scripts\PgSql\* $targetRoot\install\storage\messaging
+}
+
+if($queueconfig -eq "sql") {
+	cp $solutionRoot\Platform\Scripts\Sql\* $targetRoot\install\storage\queue
+}
+
+if($queueconfig -eq "pgsql") {
+	cp $solutionRoot\Platform\Scripts\PgSql\* $targetRoot\install\storage\queue
 }
 
 if($linuxify -eq "yes")
@@ -255,9 +261,15 @@ if($linuxify -eq "yes")
 	LinuxifyNLogConfig $targetRoot\rapi\approot\packages\Thriot.Reporting.WebApi\1.0.0\root\config\web.nlog
 	LinuxifyNLogConfig $targetRoot\msvc\approot\packages\Thriot.Messaging.WebApi\1.0.0\root\config\web.nlog
 	LinuxifyNLogConfig $targetRoot\websocketservice\config\nlog.config
-	LinuxifyNLogConfig $targetRoot\telemetryqueueservice\config\nlog.config
+	if($queueconfig -ne "no") {
+		LinuxifyNLogConfig $targetRoot\telemetryqueueservice\config\nlog.config
+	}
 
 	cp $solutionRoot\Build\templates\config\tinyproxy.conf $targetRoot\install\configtemplates
 	cp $solutionRoot\Build\templates\config\settings.sql $targetRoot\install\storage
 	cp $solutionRoot\Build\templates\config\run.sh $targetRoot\install
+}
+
+if($targetToPassFile -ne "") {
+	$targetRoot > $targetToPassFile
 }

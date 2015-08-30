@@ -1,0 +1,229 @@
+/*
+  It specifies where the central management database resides and the telemetry data goes by default.
+  The telemetry data target can be configured using telemetry data sinks.
+  Explanataion of the possible values:
+    azure - Azure Table Storage, 
+    sql - Microsoft SQL Server 2012+ (Express), 
+    pgsql - PostgreSQL 9.4+.
+*/
+$build.config=azure | sql | pgsql
+
+/*
+  Specifies where the M2M messages are stored while delivering them
+  Explanataion of the possible values:
+    sql - Microsoft SQL Server 2012+ (Express), 
+    pgsql - PostgreSQL 9.4+.
+*/
+$build.configmsg=sql | pgsql
+
+/*
+  Specifies whether the configuration files are to be copied to the target
+  yes is the recommended paramter for the first deployment. 
+  In case of subsequent deployment "no" is recommended to avoid accidentally overwriting of configuration files.
+*/
+$build.copyConfigs=yes | no
+
+/*
+  Copy some linux specific configuration files and scripts to the installation kit and changes some paths to the Linux-way.
+*/
+$build.linuxify=no | yes
+
+/*
+  Specifies whether queueing is to be used or not for telemetry data.
+  If any kind of queueing configuration is selected the telemetry data is first put into the queue that is processed by a separate process.
+  Explanataion of the possible values:
+    no - No queueing
+    azure - Azure Storage Queue
+	sql - Microsoft SQL 2012+ (Express)-based queue (in many cases using SQL as queue is an antipattern)
+	pgsql - PostgrSql 9.4+-based queue (in many cases using SQL as queue is an antipattern)
+*/
+$build.queueconfig=no | azure | sql | pgsql
+
+
+/*
+  Connectionstring to the management database.
+  This is a free-format value, depends on the storage type.
+*/
+$connectionstring.management=
+
+/*
+  Connectionstring to the M2M messaging database.
+  This is a free-format value, depends on the storage type.
+*/
+$connectionstring.messaging=
+
+
+/*
+  It will be added to the web projects siteroot.js as the management api root path.
+  Generally it ends with a version number (v1).
+  Eg.
+   http://localhost/api/v1
+   http://localhost:8000/v1
+   http://api.thriot.io/management/v1
+*/
+$api.management=
+
+/*
+  It will be added to the web projects siteroot.js as the reporting api root path.
+  Generally it ends with a version number (v1).
+  Eg.
+   http://localhost/rapi/v1
+   http://localhost:8002/v1
+   http://api.thriot.io/reporting/v1
+*/
+$api.reporting=
+
+
+/*
+  From address for reg/activation/password messages.
+  eg. no-reploy@thriot.io
+*/
+$smtp.fromaddress=
+
+/*
+  Sender name that is displayed for $smtp.fromaddress
+*/
+$smtp.fromname=
+
+/*
+  Bounces address for mistaken messages.
+  eg. bounces@...
+*/
+$smtp.bouncesaddress=
+
+/*
+  SMTP server address
+  eg. smtp.sendgrid.net
+*/
+$smtp.host=
+
+/*
+  SMTP port number
+  eg. 587
+*/
+$smtp.port=
+
+/*
+  Username for SMTP server
+*/
+$smtp.username=
+
+/*
+  Password for SMTP server
+*/
+$smtp.password=
+
+
+/*
+  The connection string for the telemetry queue.
+  Set to the connectionstring of the telemetry queue according to $build.queueconfig
+  If $build.queueconfig is "no" then set this to empty
+*/
+$queue.connectionstring=
+
+/*
+  The queue name for the telemetry queue.
+  Set to the name of the telemetry queue according to $build.queueconfig
+  If $build.queueconfig is "no" then set this to empty
+  Queue name is not everytime necessary (eg. sql, pgsql, but azure queues has)
+*/
+$queue.name=
+
+
+/*
+  All logs will be placed below this folder.
+*/
+$path.logroot=c:\Thriot\log
+
+
+/*
+  Set whether we need email activation after registration or 
+  everybody can register without validating the registration email address.
+  For public sites true is recommended.
+  Possible values: true and false
+*/
+$runtime.emailactivation=false | true
+
+/*
+  The operation mode of the system.
+  Can be ServiceProvider for multicompany, multitenant environment.
+  Can be SingleCompany where only a single company exists with multiple services.
+  Can be SingleService where only a single servie exists under a single Company.
+  Read documentation at http://portal.thriot.io for further explanation.
+*/
+$runtime.serviceprofile=ServiceProvider | SingleCompany | SingleService
+
+
+/*
+  Default telemetry recording table storage settings for azure sinks.
+*/
+$telemetry.connectionazure=
+
+/*
+  Default telemetry recording table storage settings for sql/pgsql sinks.
+*/
+$telemetry.connectionsql=
+
+
+/*
+  Microservice endpoint for the messaging services to be used from other services.
+  Generally this is the messaging api url suffixed by messaging.
+  Eg.
+     http://localhost/msvc/v1/messaging
+     http://localhost:8003/v1/messaging
+     http://thriotbe.cloudapp.net/v1/messaging
+*/
+$microservice.messagingserviceendpoint=
+
+/*
+  Microservice endpoint for the platform telemetry setup service to be used from other services.
+  Generally this is the platform api url suffixed by telemetryDataSingSetup.
+  Eg.
+     http://localhost/papi/v1/telemetryDataSingSetup
+     http://localhost:8001/v1/telemetryDataSingSetup
+     http://api.thriot.io/platform/v1/telemetryDataSingSetup
+*/
+$microservice.telemetrysetupserviceendpoint=
+
+
+/*
+  Public url for the management api.
+  Equals to $api.management in most of the times.
+*/
+$publicurl.management=
+
+/*
+  Public url for the platform api.
+  Eg.
+     http://localhost/papi/v1
+     http://localhost:8001/v1
+     http://api.cloudapp.net/platform/v1
+*/
+$publicurl.platformapi=
+
+/*
+  Public url for the platform websocket services.
+  Eg.
+     ws://localhost:8080
+     ws://api.cloudapp.net:8080
+*/
+$publicurl.platformwebsocket=
+
+/*
+  Public url for the reporting api.
+  Eg.
+     http://localhost/rapi/v1
+     http://localhost:8002/v1
+     http://api.cloudapp.net/reporting/v1
+*/
+$publicurl.reportingapi=
+
+/*
+  Public url for the Central website.
+  Eg.
+     http://localhost
+     http://localhost:7999
+     http://central.thriot.io
+*/
+$publicurl.web=
+

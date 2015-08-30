@@ -36,6 +36,16 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{7480DBBF-9FA7-4714-9219-37B52D113E8A}"
 	ProjectSection(SolutionItems) = preProject
 		Build\build.ps1 = Build\build.ps1
+		Build\buildconfigure.ps1 = Build\buildconfigure.ps1
+		Build\config.azure.txt = Build\config.azure.txt
+		Build\config.azureexpress.txt = Build\config.azureexpress.txt
+		Build\config.azurewqueue.txt = Build\config.azurewqueue.txt
+		Build\config.pgsql.txt = Build\config.pgsql.txt
+		Build\config.pgsqllinux.txt = Build\config.pgsqllinux.txt
+		Build\config.pgsqlwqueue.txt = Build\config.pgsqlwqueue.txt
+		Build\config.sql.txt = Build\config.sql.txt
+		Build\config.sqlwqueue.txt = Build\config.sqlwqueue.txt
+		Build\config.template.txt = Build\config.template.txt
 		Build\configure.ps1 = Build\configure.ps1
 	EndProjectSection
 EndProject

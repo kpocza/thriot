@@ -31,12 +31,12 @@ namespace Thriot.Platform.WebsocketService
 
         public void Setup()
         {
-            var appFolter = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var appFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
             Framework.Logging.NLogLogger.SetConfiguration(
-                Path.Combine(Path.Combine(appFolter, "config"), "nlog.config"));
+                Path.Combine(Path.Combine(appFolder, "config"), "nlog.config"));
 
-            var configurationBuilder = new ConfigurationBuilder(appFolter);
+            var configurationBuilder = new ConfigurationBuilder(appFolder);
             configurationBuilder.AddJsonFile("config/services.json");
             configurationBuilder.AddJsonFile("config/connectionstring.json");
 
