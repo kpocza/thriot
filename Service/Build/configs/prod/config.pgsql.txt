@@ -1,0 +1,37 @@
+$build.config=pgsql
+$build.configmsg=pgsql
+$build.copyConfigs=yes
+$build.linuxify=no
+$build.queueconfig=no
+
+$connectionstring.management=Server=127.0.0.1;Port=5432;Database=Thriot;User Id=thriot;Password=****************"
+$connectionstring.messaging=Server=127.0.0.1;Port=5432;Database=ThriotMessaging;User Id=thriotmessaging;Password=****************
+
+$smtp.fromaddress=no-reply@thriot.io
+$smtp.fromname=Thriot
+$smtp.bouncesaddress=bounces@thriot.io
+$smtp.host=smtp.sendgrid.net
+$smtp.port=587
+$smtp.username=***
+$smtp.password=***
+
+$queue.connectionstring=n/a
+$queue.name=n/a
+
+$path.logroot=c:\Thriot\log
+
+$runtime.emailactivation=true
+$runtime.serviceprofile=ServiceProvider
+
+$telemetry.connectionazure=UseDevelopmentStorage=true
+$telemetry.connectionsql=Server=*******;Port=5432;Database=****;User Id=******;Password=*****;
+
+$microservice.messagingserviceendpoint=http://localhost/msvc/v1/messaging
+$microservice.telemetrysetupserviceendpoint=http://localhost/papi/v1/telemetryDataSinkSetup
+
+$publicurl.managementapi=http://thriotpgsql.cloudapp.net/api/v1
+$publicurl.platformapi=http://thriotpgsql.cloudapp.net/papi/v1
+$publicurl.platformwebsocket=ws://thriotpgsql.cloudapp.net:8080
+$publicurl.reportingapi=http://thriotpgsql.cloudapp.net/rapi/v1
+$publicurl.web=http://thriotpgsql.cloudapp.net 
+

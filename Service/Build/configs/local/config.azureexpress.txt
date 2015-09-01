@@ -7,9 +7,6 @@ $build.queueconfig=no
 $connectionstring.management=UseDevelopmentStorage=true
 $connectionstring.messaging=Server=.\SQLEXPRESS;Database=ThriotMessaging;Trusted_Connection=True;
 
-$api.management=http://localhost:8000/v1
-$api.reporting=http://localhost:8002/v1
-
 $smtp.fromaddress=no-reply@thriot.io
 $smtp.fromname=Thriot
 $smtp.bouncesaddress=bounces@thriot.io
@@ -32,7 +29,7 @@ $telemetry.connectionsql=Server=.\SQLEXPRESS;Database=ThriotTelemetry;Trusted_Co
 $microservice.messagingserviceendpoint=http://localhost:8003/v1/messaging
 $microservice.telemetrysetupserviceendpoint=http://localhost:8001/v1/telemetryDataSinkSetup
 
-$publicurl.management=http://localhost:8000
+$publicurl.managementapi=http://localhost:8000
 $publicurl.platformapi=http://localhost:8001
 $publicurl.platformwebsocket=ws://localhost:8080
 $publicurl.reportingapi=http://localhost:8002

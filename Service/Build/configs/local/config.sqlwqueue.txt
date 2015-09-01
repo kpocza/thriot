@@ -7,9 +7,6 @@ $build.queueconfig=sql
 $connectionstring.management=Server=.\SQLEXPRESS;Database=Thriot;Trusted_Connection=True;
 $connectionstring.messaging=Server=.\SQLEXPRESS;Database=ThriotMessaging;Trusted_Connection=True;
 
-$api.management=http://localhost/api/v1
-$api.reporting=http://localhost/rapi/v1
-
 $smtp.fromaddress=no-reply@thriot.io
 $smtp.fromname=Thriot
 $smtp.bouncesaddress=bounces@thriot.io
@@ -32,7 +29,7 @@ $telemetry.connectionsql=Server=.\SQLEXPRESS;Database=ThriotTelemetry;Trusted_Co
 $microservice.messagingserviceendpoint=http://localhost/msvc/v1/messaging
 $microservice.telemetrysetupserviceendpoint=http://localhost/papi/v1/telemetryDataSinkSetup
 
-$publicurl.management=http://localhost/api/v1
+$publicurl.managementapi=http://localhost/api/v1
 $publicurl.platformapi=http://localhost/papi/v1
 $publicurl.platformwebsocket=ws://localhost:8080
 $publicurl.reportingapi=http://localhost/rapi/v1

@@ -7,9 +7,6 @@ $build.queueconfig=no
 $connectionstring.management=Server=127.0.0.1;Port=5432;Database=Thriot;User Id=thriot;Password=thriot;
 $connectionstring.messaging=Server=127.0.0.1;Port=5432;Database=ThriotMessaging;User Id=thriotmessaging;Password=thriotmessaging;
 
-$api.management=http://localhost/api/v1
-$api.reporting=http://localhost/rapi/v1
-
 $smtp.fromaddress=no-reply@thriot.io
 $smtp.fromname=Thriot
 $smtp.bouncesaddress=bounces@thriot.io
@@ -27,12 +24,12 @@ $runtime.emailactivation=false
 $runtime.serviceprofile=ServiceProvider
 
 $telemetry.connectionazure=UseDevelopmentStorage=true
-$telemetry.connectionsql=Server=Server=127.0.0.1;Port=5432;Database=ThriotTelemetry;User Id=thriottelemetry;Password=thriottelemetry
+$telemetry.connectionsql=Server=127.0.0.1;Port=5432;Database=ThriotTelemetry;User Id=thriottelemetry;Password=thriottelemetry
 
 $microservice.messagingserviceendpoint=http://localhost/msvc/v1/messaging
 $microservice.telemetrysetupserviceendpoint=http://localhost/papi/v1/telemetryDataSinkSetup
 
-$publicurl.management=http://localhost/api/v1
+$publicurl.managementapi=http://localhost/api/v1
 $publicurl.platformapi=http://localhost/papi/v1
 $publicurl.platformwebsocket=ws://localhost:8080
 $publicurl.reportingapi=http://localhost/rapi/v1

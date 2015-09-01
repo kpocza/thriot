@@ -54,27 +54,6 @@ $connectionstring.messaging=
 
 
 /*
-  It will be added to the web projects siteroot.js as the management api root path.
-  Generally it ends with a version number (v1).
-  Eg.
-   http://localhost/api/v1
-   http://localhost:8000/v1
-   http://api.thriot.io/management/v1
-*/
-$api.management=
-
-/*
-  It will be added to the web projects siteroot.js as the reporting api root path.
-  Generally it ends with a version number (v1).
-  Eg.
-   http://localhost/rapi/v1
-   http://localhost:8002/v1
-   http://api.thriot.io/reporting/v1
-*/
-$api.reporting=
-
-
-/*
   From address for reg/activation/password messages.
   eg. no-reploy@thriot.io
 */
@@ -188,9 +167,14 @@ $microservice.telemetrysetupserviceendpoint=
 
 /*
   Public url for the management api.
-  Equals to $api.management in most of the times.
+  It will be added to the web projects siteroot.js as the management api root path.
+  Generally it ends with a version number (v1).
+  Eg.
+   http://localhost/api/v1
+   http://localhost:8000/v1
+   http://api.thriot.io/management/v1
 */
-$publicurl.management=
+$publicurl.managementapi=
 
 /*
   Public url for the platform api.
@@ -211,10 +195,12 @@ $publicurl.platformwebsocket=
 
 /*
   Public url for the reporting api.
+  It will be added to the web projects siteroot.js as the reporting api root path.
+  Generally it ends with a version number (v1).
   Eg.
-     http://localhost/rapi/v1
-     http://localhost:8002/v1
-     http://api.cloudapp.net/reporting/v1
+   http://localhost/rapi/v1
+   http://localhost:8002/v1
+   http://api.thriot.io/reporting/v1
 */
 $publicurl.reportingapi=
 

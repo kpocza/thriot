@@ -37,7 +37,7 @@ namespace Thriot.CreateSqlStorage
                 CreateSettingIfNotExist(settingRepository, SettingId.GetConnection("TelemetryConnectionAzure"), "telemetry.connectionazure", "UseDevelopmentStorage=true");
                 CreateSettingIfNotExist(settingRepository, SettingId.GetConnection("TelemetryConnectionSql"), "telemetry.connectionsql", ConfigurationManager.AppSettings["TelemetryConnectionSql"]);
                 CreateSettingIfNotExist(settingRepository, Setting.WebsiteUrl, "publicurl.web", "http://localhost");
-                CreateSettingIfNotExist(settingRepository, Setting.ManagementApiUrl, "publicurl.management", "http://localhost/api/v1");
+                CreateSettingIfNotExist(settingRepository, Setting.ManagementApiUrl, "publicurl.managementapi", "http://localhost/api/v1");
                 CreateSettingIfNotExist(settingRepository, Setting.PlatformApiUrl, "publicurl.platformapi", "http://localhost/papi/v1");
                 CreateSettingIfNotExist(settingRepository, Setting.PlatformWsUrl, "publicurl.platformwebsocket", "ws://localhost:8080");
                 CreateSettingIfNotExist(settingRepository, Setting.ReportingApiUrl, "publicurl.reportingapi", "http://localhost/rapi/v1");

@@ -28,7 +28,7 @@ function ReplaceLogPath([string]$configFolder, [string]$file, [string]$to)
 	}
 }
 
-($build,$connectionstring,$telemetry,$microservice,$queue,$publicurl,$api,$runtime,$path,$smtp)=(@{},@{},@{},@{},@{},@{},@{},@{},@{},@{})
+($build,$connectionstring,$telemetry,$microservice,$queue,$publicurl,$runtime,$path,$smtp)=(@{},@{},@{},@{},@{},@{},@{},@{},@{})
 
 cat $configFile |? {$_.StartsWith("$")} |% {$_ -replace '^(.*?)\=(.*)','$1="$2"'} | Invoke-Expression
 
@@ -36,7 +36,6 @@ cat $configFile |? {$_.StartsWith("$")} |% {$_ -replace '^(.*?)\=(.*)','$1="$2"'
 $build
 $connectionstring
 $smtp
-$api
 $path
 $queue
 $telemetry
@@ -62,8 +61,8 @@ $configFolders |? {Test-Path $_} |% {
 	ReplaceParameter $_ "telemetryqueue.json" "ConnectionString" $queue.connectionstring
 	ReplaceParameter $_ "telemetryqueue.json" "QueueName" $queue.name
 
-	ReplaceParameter $_ "siteRoots.js" "managementRoot" $api.management
-	ReplaceParameter $_ "siteRoots.js" "reportingRoot" $api.reporting
+	ReplaceParameter $_ "siteRoots.js" "managementRoot" $publicurl.managementapi
+	ReplaceParameter $_ "siteRoots.js" "reportingRoot" $publicurl.reportingapi
 
 	ReplaceParameter $_ "smtpsettings.json" "FromAddress" $smtp.fromaddress
 	ReplaceParameter $_ "smtpsettings.json" "FromName" $smtp.fromname
