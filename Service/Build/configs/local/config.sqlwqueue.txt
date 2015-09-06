@@ -15,7 +15,7 @@ $smtp.port=587
 $smtp.username=***
 $smtp.password=***
 
-$queue.connectionstring=Server=.\SQLEXPRESS;Database=ThriotQueue;Trusted_Connection=True;
+$queue.connectionstring=Server=.\SQLEXPRESS;Database=ThriotTelemetryQueue;Trusted_Connection=True;
 $queue.name=n/a
 
 $path.logroot=C:\Thriot\log

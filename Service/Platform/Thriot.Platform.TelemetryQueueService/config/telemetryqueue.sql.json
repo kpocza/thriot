@@ -2,6 +2,6 @@
     "TelemetryQueue": {
         "QueueSendAdapter": "Thriot.Plugins.Sql.QueueSendAdapter, Thriot.Plugins.Sql",
         "QueueReceiveAdapter": "Thriot.Plugins.Sql.QueueReceiveAdapter, Thriot.Plugins.Sql",
-        "ConnectionString": "Server=.\\SQLEXPRESS;Database=ThriotQueue;Trusted_Connection=True;"
+        "ConnectionString": "Server=.\\SQLEXPRESS;Database=ThriotTelemetryQueue;Trusted_Connection=True;"
     }
 }

@@ -15,7 +15,7 @@ $smtp.port=587
 $smtp.username=***
 $smtp.password=***
 
-$queue.connectionstring=Server=127.0.0.1;Port=5432;Database=ThriotQueue;User Id=thriotqueue;Password=thriotqueue;
+$queue.connectionstring=Server=127.0.0.1;Port=5432;Database=ThriotTelemetryQueue;User Id=thriottelemetryqueue;Password=thriottelemetryqueue;
 $queue.name=n/a
 
 $path.logroot=c:\Thriot\log

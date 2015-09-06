@@ -54,7 +54,7 @@ namespace Thriot.TestHelpers
         public ITelemetryDataSinkCurrent TelemetryDataSinkCurrent => new TelemetryDataSinkCurrent();
 
         public ITelemetryDataSinkTimeSeries TelemetryDataSinkTimeSeries => new TelemetryDataSinkTimeSeries();
-        public string QueueConnectionString => "Server=127.0.0.1;Port=5432;Database=ThriotQueue;User Id=thriotqueue;Password=thriotqueue;";
+        public string QueueConnectionString => "Server=127.0.0.1;Port=5432;Database=ThriotTelemetryQueue;User Id=thriottelemetryqueue;Password=thriottelemetryqueue;";
 
         public IQueueSendAdapter QueueSendAdapter
         {

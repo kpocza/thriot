@@ -55,7 +55,7 @@ namespace Thriot.TestHelpers
 
         public ITelemetryDataSinkTimeSeries TelemetryDataSinkTimeSeries => new TelemetryDataSinkTimeSeries();
 
-        public string QueueConnectionString => @"Server=.\SQLEXPRESS;Database=ThriotQueue;Trusted_Connection=True;";
+        public string QueueConnectionString => @"Server=.\SQLEXPRESS;Database=ThriotTelemetryQueue;Trusted_Connection=True;";
 
         public IQueueSendAdapter QueueSendAdapter
         {

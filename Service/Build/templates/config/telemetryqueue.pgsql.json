@@ -2,6 +2,6 @@
     "TelemetryQueue": {
         "QueueSendAdapter": "Thriot.Plugins.PgSql.QueueSendAdapter, Thriot.Plugins.PgSql",
         "QueueReceiveAdapter": "Thriot.Plugins.PgSql.QueueReceiveAdapter, Thriot.Plugins.PgSql",
-        "ConnectionString": "Server=127.0.0.1;Port=5432;Database=ThriotQueue;User Id=thriotqueue;Password=thriotqueue;"
+        "ConnectionString": "Server=127.0.0.1;Port=5432;Database=ThriotTelemetryQueue;User Id=thriottelemetryqueue;Password=thriottelemetryqueue;"
     }
 }
