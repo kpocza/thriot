@@ -3,8 +3,8 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
-using Microsoft.Framework.Runtime;
 using System.Net;
+using Microsoft.Dnx.Runtime;
 using Thriot.Framework.Mvc.ApiExceptions;
 using Thriot.Framework.Mvc.Logging;
 using Thriot.Management.Model.Exceptions;
@@ -44,7 +44,8 @@ namespace Thriot.Management.WebApi
             
             var configuration = configurationBuilder.Build();
 
-            services.AddMvc().Configure<MvcOptions>(options =>
+            services.AddMvc();
+            services.Configure<MvcOptions>(options =>
             {
                 options.Filters.Add(new LogActionsAttribute());
                 options.Filters.Add(new ApiExceptionFilterAttribute());

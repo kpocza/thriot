@@ -8,10 +8,10 @@
         "pdb": "../../Plugins/Thriot.Plugins.PgSql/obj/{configuration}/Thriot.Plugins.PgSql.pdb"
       },
       "dependencies": {
-        "Npgsql": "3.1.0-unstable0101",
+        "Npgsql": "3.1.0-alpha1",
         "Thriot.Framework": "1.0.0-*",
         "Thriot.Plugins.Core": "1.0.0-*",
-        "Newtonsoft.Json": "6.0.8"
+        "Newtonsoft.Json": "7.0.1"
       }
     }
   }

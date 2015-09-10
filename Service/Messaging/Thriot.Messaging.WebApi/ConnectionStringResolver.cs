@@ -13,9 +13,6 @@ namespace Thriot.Messaging.WebApi
             _configuration = configuration;
         }
 
-        public string ConnectionString
-        {
-            get { return _configuration.Get($"ConnectionString:MessagingConnection"); }
-        }
+        public string ConnectionString => _configuration[$"ConnectionString:MessagingConnection"];
     }
 }

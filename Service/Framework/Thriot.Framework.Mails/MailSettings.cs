@@ -13,17 +13,17 @@ namespace Thriot.Framework.Mails
             _configuration = configuration;
         }
 
-        public MailAddress From => new MailAddress(_configuration.Get("SmtpSettings:FromAddress"), _configuration.Get("SmtpSettings:FromName"));
+        public MailAddress From => new MailAddress(_configuration["SmtpSettings:FromAddress"], _configuration["SmtpSettings:FromName"]);
 
-        public string SmtpServer => _configuration.Get("SmtpSettings:Host");
+        public string SmtpServer => _configuration["SmtpSettings:Host"];
 
-        public int SmtpPort => int.Parse(_configuration.Get("SmtpSettings:Port"));
+        public int SmtpPort => int.Parse(_configuration["SmtpSettings:Port"]);
 
-        public string Username => _configuration.Get("SmtpSettings:UserName");
+        public string Username => _configuration["SmtpSettings:UserName"];
 
-        public string Password => _configuration.Get("SmtpSettings:Password");
+        public string Password => _configuration["SmtpSettings:Password"];
 
-        public string BouncesAddress => _configuration.Get("SmtpSettings:BouncesAddress");
+        public string BouncesAddress => _configuration["SmtpSettings:BouncesAddress"];
 
         public Stream GetImageContent(string fileName)
         {

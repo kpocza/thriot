@@ -9,19 +9,19 @@ namespace Thriot.Framework
     {
         public static bool HasRootSection(IConfiguration configuration, string parentKey)
         {
-            return configuration.GetConfigurationSections().Any(section => section.Key == parentKey);
+            return configuration.GetChildren().Any(section => section.Key == parentKey);
         }
 
         public static IDictionary<string, string> AsMap(IConfiguration configuration, string parentKey)
         {
             var dictionary = new Dictionary<string, string>();
 
-            foreach (var section in configuration.GetConfigurationSection(parentKey).GetConfigurationSections())
+            foreach (var section in configuration.GetSection(parentKey).GetChildren())
             {
                 var key = section.Key;
-                var value = configuration.Get($"{parentKey}:{key}");
+                var value = configuration[key];
 
-                dictionary.Add(key, value);
+                dictionary.Add(key.Substring(parentKey.Length + 1), value);
             }
 
             return dictionary;

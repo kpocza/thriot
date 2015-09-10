@@ -13,8 +13,8 @@ namespace Thriot.Framework.DataAccess
 
         public string ManagementConnectionName => "ManagementConnection";
 
-        public string ManagementConnectionString => _configuration.Get($"ConnectionString:{ManagementConnectionName}:ConnectionString");
+        public string ManagementConnectionString => _configuration[$"ConnectionString:{ManagementConnectionName}:ConnectionString"];
 
-        public string ManagementConnectionProvider => _configuration.Get($"ConnectionString:{ManagementConnectionName}:ProviderName");
+        public string ManagementConnectionProvider => _configuration[$"ConnectionString:{ManagementConnectionName}:ProviderName"];
     }
 }

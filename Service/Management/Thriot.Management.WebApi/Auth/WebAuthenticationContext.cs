@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNet.Hosting;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Security.Claims;
+using Microsoft.AspNet.Http;
 using Thriot.Management.Services;
 
 namespace Thriot.Management.WebApi.Auth

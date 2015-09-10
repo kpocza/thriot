@@ -27,19 +27,19 @@ namespace Thriot.Plugins.PgSql
             {
                 sqlConnection.Open();
 
-                using (var sqlCommand = new NpgsqlCommand("Dequeue", sqlConnection))
+                using (var sqlCommand = new NpgsqlCommand("dequeue", sqlConnection))
                 {
                     sqlCommand.CommandType = CommandType.StoredProcedure;
 
-                    sqlCommand.Parameters.AddWithValue("Count", maxDequeueCount);
-                    sqlCommand.Parameters.AddWithValue("ExpiredMins", expirationMinutes);
+                    sqlCommand.Parameters.AddWithValue("count", maxDequeueCount);
+                    sqlCommand.Parameters.AddWithValue("expiredmins", expirationMinutes);
 
                     using (var reader = sqlCommand.ExecuteReader())
                     {
-                        var colId = reader.GetOrdinal("Id");
-                        var colDeviceId = reader.GetOrdinal("DeviceId");
-                        var colData = reader.GetOrdinal("Payload");
-                        var colRecordedAt = reader.GetOrdinal("RecordedAt");
+                        var colId = reader.GetOrdinal("id");
+                        var colDeviceId = reader.GetOrdinal("deviceid");
+                        var colData = reader.GetOrdinal("payload");
+                        var colRecordedAt = reader.GetOrdinal("recordedat");
 
                         while (reader.Read())
                         {

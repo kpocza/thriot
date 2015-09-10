@@ -8,8 +8,8 @@
         "pdb": "../../Platform/Thriot.Platform.Services.Telemetry/obj/{configuration}/Thriot.Platform.Services.Telemetry.pdb"
       },
       "dependencies": {
-        "AutoMapper": "3.3.1",
-        "Newtonsoft.Json": "6.0.8",
+        "AutoMapper": "4.0.4",
+        "Newtonsoft.Json": "7.0.1",
         "Thriot.Framework": "1.0.0-*",
         "Thriot.Objects.Model": "1.0.0-*",
         "Thriot.Plugins.Core": "1.0.0-*",

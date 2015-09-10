@@ -35,11 +35,11 @@ namespace Thriot.Plugins.PgSql
             {
                 sqlConnection.Open();
 
-                using (var sqlCommand = new NpgsqlCommand("Enqueue", sqlConnection))
+                using (var sqlCommand = new NpgsqlCommand("enqueue", sqlConnection))
                 {
                     sqlCommand.CommandType = CommandType.StoredProcedure;
 
-                    var enqueueItems = new NpgsqlParameter("EnqueueItemsJson", NpgsqlDbType.Json);
+                    var enqueueItems = new NpgsqlParameter("enqueueitemsjson", NpgsqlDbType.Json);
                     enqueueItems.Value = JsonConvert.SerializeObject(jsonSource);
                     sqlCommand.Parameters.Add(enqueueItems);
 
@@ -54,7 +54,7 @@ namespace Thriot.Plugins.PgSql
             {
                 sqlConnection.Open();
 
-                using (var sqlCommand = new NpgsqlCommand("Clear", sqlConnection))
+                using (var sqlCommand = new NpgsqlCommand("clear", sqlConnection))
                 {
                     sqlCommand.CommandType = CommandType.StoredProcedure;
 

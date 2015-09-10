@@ -8,7 +8,7 @@
         "pdb": "../../Management/Thriot.Management.Services/obj/{configuration}/Thriot.Management.Services.pdb"
       },
       "dependencies": {
-        "AutoMapper": "3.3.1",
+        "AutoMapper": "4.0.4",
         "Thriot.Framework": "1.0.0-*",
         "Thriot.Management.Model": "1.0.0-*",
         "Thriot.Messaging.Services.Client": "1.0.0-*",

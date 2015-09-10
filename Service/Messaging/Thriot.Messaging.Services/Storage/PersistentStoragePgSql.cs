@@ -24,10 +24,10 @@ namespace Thriot.Messaging.Services.Storage
             {
                 connection.Open();
 
-                using (var command = new NpgsqlCommand("RegisterDevice", connection))
+                using (var command = new NpgsqlCommand("registerdevice", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("Uid", deviceId);
+                    command.Parameters.AddWithValue("uid", deviceId);
 
                     return (long)command.ExecuteScalar();
                 }
@@ -43,7 +43,7 @@ namespace Thriot.Messaging.Services.Storage
             {
                 connection.Open();
 
-                using (var command = new NpgsqlCommand("Enqueue", connection))
+                using (var command = new NpgsqlCommand("enqueue", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     var jsonSource = items.Select(
@@ -56,19 +56,19 @@ namespace Thriot.Messaging.Services.Storage
                                 senderuid = item.SenderDeviceId
                             }).ToList();
                     
-                    var messages = new NpgsqlParameter("MessagesJson", NpgsqlDbType.Json);
+                    var messages = new NpgsqlParameter("messagesjson", NpgsqlDbType.Json);
                     messages.Value = JsonConvert.SerializeObject(jsonSource);
                     command.Parameters.Add(messages);
 
                     using (var reader = command.ExecuteReader())
                     {
 
-                        var colDeviceId = reader.GetOrdinal("DeviceId");
-                        var colDequeueIndex = reader.GetOrdinal("DequeueIndex");
-                        var colEnqueueIndex = reader.GetOrdinal("EnqueueIndex");
-                        var colPeek = reader.GetOrdinal("Peek");
-                        var colVersion = reader.GetOrdinal("Version");
-                        var colMessageId = reader.GetOrdinal("MessageId");
+                        var colDeviceId = reader.GetOrdinal("deviceid");
+                        var colDequeueIndex = reader.GetOrdinal("dequeueindex");
+                        var colEnqueueIndex = reader.GetOrdinal("enqueueindex");
+                        var colPeek = reader.GetOrdinal("peek");
+                        var colVersion = reader.GetOrdinal("version");
+                        var colMessageId = reader.GetOrdinal("messageid");
 
                         var enqueueResults = new List<EnqueueResult>();
 
@@ -95,12 +95,12 @@ namespace Thriot.Messaging.Services.Storage
 
         public DequeueResults Dequeue(IEnumerable<DeviceIdWithOpHint> deviceIds)
         {
-            return Retrieve("Dequeue", deviceIds);
+            return Retrieve("dequeue", deviceIds);
         }
 
         public DequeueResults Peek(IEnumerable<DeviceIdWithOpHint> deviceIds)
         {
-            return Retrieve("Peek", deviceIds);
+            return Retrieve("peek", deviceIds);
         }
 
         public IReadOnlyCollection<DeviceEntry> Commit(IEnumerable<long> deviceIds)
@@ -112,12 +112,12 @@ namespace Thriot.Messaging.Services.Storage
             {
                 connection.Open();
 
-                using (var command = new NpgsqlCommand("Commit", connection))
+                using (var command = new NpgsqlCommand("commit", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
                     var commitItemsJsonSource = deviceIds.Select(item => new CommitData {deviceid = item}).ToList();
-                    var messages = new NpgsqlParameter("CommitItemsJson", NpgsqlDbType.Json);
+                    var messages = new NpgsqlParameter("commititemsjson", NpgsqlDbType.Json);
                     messages.Value = JsonConvert.SerializeObject(commitItemsJsonSource);
                     command.Parameters.Add(messages);
 
@@ -125,11 +125,11 @@ namespace Thriot.Messaging.Services.Storage
 
                     using (var reader = command.ExecuteReader())
                     {
-                        var colDeviceId = reader.GetOrdinal("DeviceId");
-                        var colDequeueIndex = reader.GetOrdinal("DequeueIndex");
-                        var colEnqueueIndex = reader.GetOrdinal("EnqueueIndex");
-                        var colPeek = reader.GetOrdinal("Peek");
-                        var colVersion = reader.GetOrdinal("Version");
+                        var colDeviceId = reader.GetOrdinal("deviceid");
+                        var colDequeueIndex = reader.GetOrdinal("dequeueindex");
+                        var colEnqueueIndex = reader.GetOrdinal("enqueueindex");
+                        var colPeek = reader.GetOrdinal("peek");
+                        var colVersion = reader.GetOrdinal("version");
 
                         while (reader.Read())
                         {
@@ -167,7 +167,7 @@ namespace Thriot.Messaging.Services.Storage
                     var dequeueItemsJsonSource =
                         deviceIds.Select(item => new RetrieveData {deviceid = item.DeviceId, index = item.Index ?? -1}).ToList();
 
-                    var dequeueItems = new NpgsqlParameter("DequeueItemsJson", NpgsqlDbType.Json);
+                    var dequeueItems = new NpgsqlParameter("dequeueitemsjson", NpgsqlDbType.Json);
                     dequeueItems.Value = JsonConvert.SerializeObject(dequeueItemsJsonSource);
                     command.Parameters.Add(dequeueItems);
 
@@ -177,16 +177,16 @@ namespace Thriot.Messaging.Services.Storage
 
                     using (var reader = command.ExecuteReader())
                     {
-                        var colIsMessage = reader.GetOrdinal("IsMessage");
-                        var colDeviceId = reader.GetOrdinal("DeviceId");
-                        var colDequeueIndex = reader.GetOrdinal("DequeueIndex");
-                        var colEnqueueIndex = reader.GetOrdinal("EnqueueIndex");
-                        var colPeek = reader.GetOrdinal("Peek");
-                        var colVersion = reader.GetOrdinal("Version");
-                        var colMessageId = reader.GetOrdinal("MessageId");
-                        var colPayload = reader.GetOrdinal("Payload");
-                        var colTimestamp = reader.GetOrdinal("Timestamp");
-                        var colSenderUid = reader.GetOrdinal("SenderUid");
+                        var colIsMessage = reader.GetOrdinal("ismessage");
+                        var colDeviceId = reader.GetOrdinal("deviceid");
+                        var colDequeueIndex = reader.GetOrdinal("dequeueindex");
+                        var colEnqueueIndex = reader.GetOrdinal("enqueueindex");
+                        var colPeek = reader.GetOrdinal("peek");
+                        var colVersion = reader.GetOrdinal("version");
+                        var colMessageId = reader.GetOrdinal("messageid");
+                        var colPayload = reader.GetOrdinal("payload");
+                        var colTimestamp = reader.GetOrdinal("timestamp");
+                        var colSenderUid = reader.GetOrdinal("senderuid");
 
                         while (reader.Read())
                         {

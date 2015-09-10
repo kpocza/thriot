@@ -8,8 +8,8 @@
         "pdb": "../../Messaging/Thriot.Messaging.Services/obj/{configuration}/Thriot.Messaging.Services.pdb"
       },
       "dependencies": {
-        "Newtonsoft.Json": "6.0.8",
-        "Npgsql": "3.1.0-unstable0101"
+        "Newtonsoft.Json": "7.0.1",
+        "Npgsql": "3.1.0-alpha1"
       }
     }
   }

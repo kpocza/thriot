@@ -8,7 +8,7 @@
         "pdb": "../../Platform/Thriot.Platform.Model/obj/{configuration}/Thriot.Platform.Model.pdb"
       },
       "dependencies": {
-        "Newtonsoft.Json": "6.0.8",
+        "Newtonsoft.Json": "7.0.1",
         "Thriot.Framework": "1.0.0-*"
       }
     }

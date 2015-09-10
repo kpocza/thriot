@@ -8,7 +8,7 @@
         "pdb": "../../Reporting/Thriot.Reporting.Services/obj/{configuration}/Thriot.Reporting.Services.pdb"
       },
       "dependencies": {
-        "Newtonsoft.Json": "6.0.8",
+        "Newtonsoft.Json": "7.0.1",
         "Thriot.Framework": "1.0.0-*",
         "Thriot.Objects.Model": "1.0.0-*",
         "Thriot.Plugins.Core": "1.0.0-*",

@@ -15,7 +15,7 @@
         "Microsoft.Data.OData": "5.6.2",
         "Microsoft.Data.Services.Client": "5.6.2",
         "Microsoft.WindowsAzure.ConfigurationManager": "3.1.0",
-        "Newtonsoft.Json": "6.0.8",
+        "Newtonsoft.Json": "7.0.1",
         "System.Spatial": "5.6.2",
         "WindowsAzure.Storage": "4.3.0",
         "Thriot.Framework": "1.0.0-*"

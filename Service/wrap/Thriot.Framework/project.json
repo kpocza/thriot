@@ -8,10 +8,10 @@
         "pdb": "../../Framework/Thriot.Framework/obj/{configuration}/Thriot.Framework.pdb"
       },
       "dependencies": {
-        "Ix-Main": "1.2.3",
-        "Microsoft.Framework.Configuration.Abstractions": "1.0.0-beta6",
-        "Newtonsoft.Json": "6.0.8",
-        "NLog": "4.0.0"
+        "Ix-Main": "1.2.5",
+        "Microsoft.Framework.Configuration.Abstractions": "1.0.0-beta7",
+        "Newtonsoft.Json": "7.0.1",
+        "NLog": "4.1.0"
       }
     }
   }

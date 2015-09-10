@@ -8,8 +8,8 @@
         "pdb": "../../Framework/Thriot.Framework.Mails/obj/{configuration}/Thriot.Framework.Mails.pdb"
       },
       "dependencies": {
-        "Microsoft.AspNet.Razor": "4.0.0-beta6",
-        "Microsoft.Framework.Configuration.Abstractions": "1.0.0-beta6",
+        "Microsoft.AspNet.Razor": "4.0.0-beta7",
+        "Microsoft.Framework.Configuration.Abstractions": "1.0.0-beta7",
         "Thriot.Framework": "1.0.0-*"
       }
     }
