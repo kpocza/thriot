@@ -70,7 +70,7 @@ namespace Thriot.Platform.TelemetryQueueService
             _services.AddTransient<IDirectTelemetryDataService, DirectTelemetryDataService>();
             _services.AddTransient<QueueProcessor>();
 
-            var telemetryQueueConfiguration = ConfigurationAdapter.AsMap(configuration, "TelemetryQueue");
+            var telemetryQueueConfiguration = configuration.AsMap("TelemetryQueue");
             var queueReceiveAdapterType = Type.GetType(telemetryQueueConfiguration["QueueReceiveAdapter"]);
 
             _services.AddTransient<IQueueReceiveAdapter>(_ =>
@@ -81,7 +81,7 @@ namespace Thriot.Platform.TelemetryQueueService
             });
 
 
-            foreach (var extraService in ConfigurationAdapter.LoadServiceConfiguration(configuration, "Services"))
+            foreach (var extraService in configuration.AsTypeMap("Services"))
             {
                 _services.AddTransient(extraService.Key, extraService.Value);
             }

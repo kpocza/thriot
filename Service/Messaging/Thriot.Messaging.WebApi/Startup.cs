@@ -4,6 +4,7 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Dnx.Runtime;
+using Thriot.Framework;
 using Thriot.Framework.Mvc.ApiExceptions;
 using Thriot.Framework.Mvc.Logging;
 
@@ -54,7 +55,7 @@ namespace Thriot.Messaging.WebApi
             services.AddTransient<Services.MessagingService>();
             services.AddSingleton(_ => configuration);
 
-            foreach (var extraService in Framework.ConfigurationAdapter.LoadServiceConfiguration(configuration, "Services"))
+            foreach (var extraService in configuration.AsTypeMap("Services"))
             {
                 services.AddTransient(extraService.Key, extraService.Value);
             }

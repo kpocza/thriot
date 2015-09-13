@@ -121,7 +121,7 @@ namespace Thriot.Platform.WebApi
             services.AddSingleton<Framework.DataAccess.IConnectionParametersResolver, Framework.DataAccess.ConnectionParametersResolver>();
             services.AddSingleton(_ => configuration);
 
-            foreach (var extraService in ConfigurationAdapter.LoadServiceConfiguration(configuration, "Services"))
+            foreach (var extraService in configuration.AsTypeMap("Services"))
             {
                 services.AddTransient(extraService.Key, extraService.Value);
             }
@@ -129,7 +129,7 @@ namespace Thriot.Platform.WebApi
 
         private void ConfigureTelemetryDataService(IServiceCollection services, IConfiguration configuration)
         {
-            if (!ConfigurationAdapter.HasRootSection(configuration, "TelemetryQueue"))
+            if (!configuration.HasRootSection("TelemetryQueue"))
             {
                 services.AddTransient<ITelemetryDataService, DirectTelemetryDataService>();
             }
@@ -137,7 +137,7 @@ namespace Thriot.Platform.WebApi
             {
                 services.AddTransient<ITelemetryDataService, QueueingTelemetryDataService>();
 
-                var telemetryQueueConfiguration = ConfigurationAdapter.AsMap(configuration, "TelemetryQueue");
+                var telemetryQueueConfiguration = configuration.AsMap("TelemetryQueue");
                 var queueSendAdapterType = Type.GetType(telemetryQueueConfiguration["QueueSendAdapter"]);
 
                 services.AddTransient<IQueueSendAdapter>(_ =>

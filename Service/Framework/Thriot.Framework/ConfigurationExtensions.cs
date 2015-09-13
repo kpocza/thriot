@@ -5,14 +5,14 @@ using System.Linq;
 
 namespace Thriot.Framework
 {
-    public static class ConfigurationAdapter
+    public static class ConfigurationExtensions
     {
-        public static bool HasRootSection(IConfiguration configuration, string parentKey)
+        public static bool HasRootSection(this IConfiguration configuration, string parentKey)
         {
             return configuration.GetChildren().Any(section => section.Key == parentKey);
         }
 
-        public static IDictionary<string, string> AsMap(IConfiguration configuration, string parentKey)
+        public static IDictionary<string, string> AsMap(this IConfiguration configuration, string parentKey)
         {
             var dictionary = new Dictionary<string, string>();
 
@@ -27,9 +27,9 @@ namespace Thriot.Framework
             return dictionary;
         }
 
-        public static IDictionary<Type, Type> LoadServiceConfiguration(IConfiguration configuration, string servicesKey)
+        public static IDictionary<Type, Type> AsTypeMap(this IConfiguration configuration, string parentKey)
         {
-            return AsMap(configuration, servicesKey).ToDictionary(d => Type.GetType(d.Key), d => Type.GetType(d.Value));
+            return AsMap(configuration, parentKey).ToDictionary(d => Type.GetType(d.Key), d => Type.GetType(d.Value));
         }
     }
 }

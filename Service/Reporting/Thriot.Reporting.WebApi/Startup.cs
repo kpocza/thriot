@@ -5,6 +5,7 @@ using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Dnx.Runtime;
 using System.Net;
+using Thriot.Framework;
 using Thriot.Framework.Mvc.ApiExceptions;
 using Thriot.Framework.Mvc.Logging;
 using Thriot.Objects.Model;
@@ -79,7 +80,7 @@ namespace Thriot.Reporting.WebApi
             services.AddTransient<INetworkAuthenticator, Objects.Common.NetworkAuthenticator>();
             services.AddSingleton(_ => configuration);
 
-            foreach (var extraService in Framework.ConfigurationAdapter.LoadServiceConfiguration(configuration, "Services"))
+            foreach (var extraService in configuration.AsTypeMap(, "Services"))
             {
                 services.AddTransient(extraService.Key, extraService.Value);
             }

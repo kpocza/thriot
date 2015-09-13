@@ -5,6 +5,7 @@ using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
 using System.Net;
 using Microsoft.Dnx.Runtime;
+using Thriot.Framework;
 using Thriot.Framework.Mvc.ApiExceptions;
 using Thriot.Framework.Mvc.Logging;
 using Thriot.Management.Model.Exceptions;
@@ -103,7 +104,7 @@ namespace Thriot.Management.WebApi
             services.AddSingleton<Platform.Services.Client.ITelemetryDataSinkSetupServiceClient, Platform.Services.Client.TelemetryDataSinkSetupServiceClient>();
             services.AddSingleton<Messaging.Services.Client.IMessagingServiceClient, Messaging.Services.Client.MessagingServiceClient>();
 
-            foreach (var extraService in Framework.ConfigurationAdapter.LoadServiceConfiguration(configuration, "Services"))
+            foreach (var extraService in configuration.AsTypeMap("Services"))
             {
                 services.AddTransient(extraService.Key, extraService.Value);
             }
