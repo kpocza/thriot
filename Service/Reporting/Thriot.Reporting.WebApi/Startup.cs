@@ -80,7 +80,7 @@ namespace Thriot.Reporting.WebApi
             services.AddTransient<INetworkAuthenticator, Objects.Common.NetworkAuthenticator>();
             services.AddSingleton(_ => configuration);
 
-            foreach (var extraService in configuration.AsTypeMap(, "Services"))
+            foreach (var extraService in configuration.AsTypeMap("Services"))
             {
                 services.AddTransient(extraService.Key, extraService.Value);
             }
