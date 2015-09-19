@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using Thriot.Framework.Azure.DataAccess;
 using Thriot.Framework.Azure.TableOperations;
-using Thriot.Plugins.Azure;
 using Thriot.Plugins.Core;
 using Thriot.Messaging.Services.Client;
-using Thriot.TestHelpers.InMemoryQueue;
 
 namespace Thriot.TestHelpers
 {
@@ -45,9 +43,9 @@ namespace Thriot.TestHelpers
 
         public string TelemetryConnectionString => "UseDevelopmentStorage=true";
 
-        public ITelemetryDataSinkCurrent TelemetryDataSinkCurrent => new TelemetryDataSinkCurrent();
+        public ITelemetryDataSinkCurrent TelemetryDataSinkCurrent => InstanceCreator.Create<ITelemetryDataSinkCurrent>("Thriot.Plugins.Azure.TelemetryDataSinkCurrent, Thriot.Plugins.Azure");
 
-        public ITelemetryDataSinkTimeSeries TelemetryDataSinkTimeSeries => new TelemetryDataSinkTimeSeries();
+        public ITelemetryDataSinkTimeSeries TelemetryDataSinkTimeSeries => InstanceCreator.Create<ITelemetryDataSinkTimeSeries>("Thriot.Plugins.Azure.TelemetryDataSinkTimeSeries, Thriot.Plugins.Azure");
 
         public string QueueConnectionString => "UseDevelopmentStorage=true";
 
@@ -55,7 +53,7 @@ namespace Thriot.TestHelpers
         {
             get
             {
-                var queueSendAdapter = new QueueSendAdapter();
+                var queueSendAdapter = InstanceCreator.Create<IQueueSendAdapter>("Thriot.Plugins.Azure.QueueSendAdapter, Thriot.Plugins.Azure");
                 queueSendAdapter.Setup(new Dictionary<string, string> { { "ConnectionString", QueueConnectionString }, { "QueueName", "telemetry" } });
                 return queueSendAdapter;
             }
@@ -65,7 +63,7 @@ namespace Thriot.TestHelpers
         {
             get
             {
-                var queueReceiveAdapter = new QueueReceiveAdapter();
+                var queueReceiveAdapter = InstanceCreator.Create<IQueueReceiveAdapter>("Thriot.Plugins.Azure.QueueReceiveAdapter, Thriot.Plugins.Azure");
                 queueReceiveAdapter.Setup(new Dictionary<string, string> { { "ConnectionString", QueueConnectionString }, { "QueueName", "telemetry" } });
                 return queueReceiveAdapter;
             }

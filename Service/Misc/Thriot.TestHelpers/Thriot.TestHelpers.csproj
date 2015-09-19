@@ -91,6 +91,7 @@
     <Compile Include="InMemoryStorage\InMemoryTableEntityOperations.cs" />
     <Compile Include="InprocMessagingServiceClient.cs" />
     <Compile Include="InMemoryMessagingService.cs" />
+    <Compile Include="InstanceCreator.cs" />
     <Compile Include="SettingInitializer.cs" />
     <Compile Include="PgSqlEnvironmentFactory.cs" />
     <Compile Include="EmailHelper.cs" />
@@ -151,21 +152,9 @@
       <Project>{2A0959ED-854C-43A6-B8E5-A8818CBB35CE}</Project>
       <Name>Thriot.Platform.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Plugins\Thriot.Plugins.Azure\Thriot.Plugins.Azure.csproj">
-      <Project>{65436FF0-E291-429C-8FB3-D914C1FFAAA6}</Project>
-      <Name>Thriot.Plugins.Azure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Plugins\Thriot.Plugins.Core\Thriot.Plugins.Core.csproj">
       <Project>{D84F1A4C-1539-416A-A40A-A72AA2A5F360}</Project>
       <Name>Thriot.Plugins.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Plugins\Thriot.Plugins.PgSql\Thriot.Plugins.PgSql.csproj">
-      <Project>{6c1f185c-bbd2-4a90-b565-58f03d46cabe}</Project>
-      <Name>Thriot.Plugins.PgSql</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Plugins\Thriot.Plugins.Sql\Thriot.Plugins.Sql.csproj">
-      <Project>{fe9571d9-2b37-4e4c-a838-955a3ca5235f}</Project>
-      <Name>Thriot.Plugins.Sql</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

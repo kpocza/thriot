@@ -4,7 +4,6 @@ using Thriot.Management.Operations.Sql.DataAccess.PgSql;
 using Thriot.Objects.Operations.Sql.DataAccess;
 using Thriot.Objects.Operations.Sql.DataAccess.PgSql;
 using Thriot.Plugins.Core;
-using Thriot.Plugins.PgSql;
 using Thriot.Messaging.Services.Client;
 
 namespace Thriot.TestHelpers
@@ -51,16 +50,17 @@ namespace Thriot.TestHelpers
 
         public string TelemetryConnectionString => "Server=127.0.0.1;Port=5432;Database=ThriotTelemetry;User Id=thriottelemetry;Password=thriottelemetry;";
 
-        public ITelemetryDataSinkCurrent TelemetryDataSinkCurrent => new TelemetryDataSinkCurrent();
+        public ITelemetryDataSinkCurrent TelemetryDataSinkCurrent => InstanceCreator.Create<ITelemetryDataSinkCurrent>("Thriot.Plugins.PgSql.TelemetryDataSinkCurrent, Thriot.Plugins.PgSql");
 
-        public ITelemetryDataSinkTimeSeries TelemetryDataSinkTimeSeries => new TelemetryDataSinkTimeSeries();
+        public ITelemetryDataSinkTimeSeries TelemetryDataSinkTimeSeries => InstanceCreator.Create<ITelemetryDataSinkTimeSeries>("Thriot.Plugins.PgSql.TelemetryDataSinkTimeSeries, Thriot.Plugins.PgSql");
+
         public string QueueConnectionString => "Server=127.0.0.1;Port=5432;Database=ThriotTelemetryQueue;User Id=thriottelemetryqueue;Password=thriottelemetryqueue;";
 
         public IQueueSendAdapter QueueSendAdapter
         {
             get
             {
-                var queueSendAdapter = new QueueSendAdapter();
+                var queueSendAdapter = InstanceCreator.Create<IQueueSendAdapter>("Thriot.Plugins.PgSql.QueueSendAdapter, Thriot.Plugins.PgSql");
                 queueSendAdapter.Setup(new Dictionary<string, string> { { "ConnectionString", QueueConnectionString } });
                 return queueSendAdapter;
             }
@@ -70,7 +70,7 @@ namespace Thriot.TestHelpers
         {
             get
             {
-                var queueReceiveAdapter = new QueueReceiveAdapter();
+                var queueReceiveAdapter = InstanceCreator.Create<IQueueReceiveAdapter>("Thriot.Plugins.PgSql.QueueReceiveAdapter, Thriot.Plugins.PgSql");
                 queueReceiveAdapter.Setup(new Dictionary<string, string> { { "ConnectionString", QueueConnectionString } });
                 return queueReceiveAdapter;
             }

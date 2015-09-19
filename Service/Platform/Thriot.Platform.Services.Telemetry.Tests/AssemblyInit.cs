@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Thriot.Framework;
 using Thriot.TestHelpers;
 
 namespace Thriot.Platform.Services.Telemetry.Tests
@@ -9,6 +10,8 @@ namespace Thriot.Platform.Services.Telemetry.Tests
         [AssemblyInitialize]
         public static void AssemblyInitFunction(TestContext context)
         {
+            AssemblyResolver.Initialize();
+
             Management.Services.DtoMapper.Setup();
             DtoMapper.Setup();
 

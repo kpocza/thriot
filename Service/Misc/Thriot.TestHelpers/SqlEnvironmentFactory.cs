@@ -4,7 +4,6 @@ using Thriot.Management.Operations.Sql.DataAccess.Sql;
 using Thriot.Objects.Operations.Sql.DataAccess;
 using Thriot.Objects.Operations.Sql.DataAccess.Sql;
 using Thriot.Plugins.Core;
-using Thriot.Plugins.Sql;
 using Thriot.Messaging.Services.Client;
 
 namespace Thriot.TestHelpers
@@ -51,9 +50,9 @@ namespace Thriot.TestHelpers
 
         public string TelemetryConnectionString => @"Server=.\SQLEXPRESS;Database=ThriotTelemetry;Trusted_Connection=True;";
 
-        public ITelemetryDataSinkCurrent TelemetryDataSinkCurrent => new TelemetryDataSinkCurrent();
+        public ITelemetryDataSinkCurrent TelemetryDataSinkCurrent => InstanceCreator.Create<ITelemetryDataSinkCurrent>("Thriot.Plugins.Sql.TelemetryDataSinkCurrent, Thriot.Plugins.Sql");
 
-        public ITelemetryDataSinkTimeSeries TelemetryDataSinkTimeSeries => new TelemetryDataSinkTimeSeries();
+        public ITelemetryDataSinkTimeSeries TelemetryDataSinkTimeSeries => InstanceCreator.Create<ITelemetryDataSinkTimeSeries>("Thriot.Plugins.Sql.TelemetryDataSinkTimeSeries, Thriot.Plugins.Sql");
 
         public string QueueConnectionString => @"Server=.\SQLEXPRESS;Database=ThriotTelemetryQueue;Trusted_Connection=True;";
 
@@ -61,7 +60,7 @@ namespace Thriot.TestHelpers
         {
             get
             {
-                var queueSendAdapter = new QueueSendAdapter();
+                var queueSendAdapter = InstanceCreator.Create<IQueueSendAdapter>("Thriot.Plugins.Sql.QueueSendAdapter, Thriot.Plugins.Sql");
                 queueSendAdapter.Setup(new Dictionary<string, string> { { "ConnectionString", QueueConnectionString } });
                 return queueSendAdapter;
             }
@@ -71,7 +70,7 @@ namespace Thriot.TestHelpers
         {
             get
             {
-                var queueReceiveAdapter = new QueueReceiveAdapter();
+                var queueReceiveAdapter = InstanceCreator.Create<IQueueReceiveAdapter>("Thriot.Plugins.Sql.QueueReceiveAdapter, Thriot.Plugins.Sql");
                 queueReceiveAdapter.Setup(new Dictionary<string, string> { { "ConnectionString", QueueConnectionString } });
                 return queueReceiveAdapter;
             }
