@@ -41,7 +41,7 @@ namespace Thriot.Framework
 
         private static string GetPluginsDirectory()
         {
-            var currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var currentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             do
             {
                 var pluginsDirectory = Path.Combine(currentDirectory, "plugins");
