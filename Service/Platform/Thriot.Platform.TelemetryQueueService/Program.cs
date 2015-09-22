@@ -1,6 +1,7 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.ServiceProcess;
+using Thriot.Framework;
+using Environment = System.Environment;
 
 namespace Thriot.Platform.TelemetryQueueService
 {
@@ -8,6 +9,8 @@ namespace Thriot.Platform.TelemetryQueueService
     {
         static void Main()
         {
+            AssemblyResolver.Initialize();
+
             SetupNetworking();
 
             if (Environment.UserInteractive)

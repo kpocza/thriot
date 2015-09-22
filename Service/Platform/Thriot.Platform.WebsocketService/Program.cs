@@ -1,6 +1,7 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.ServiceProcess;
+using Thriot.Framework;
+using Environment = System.Environment;
 
 namespace Thriot.Platform.WebsocketService
 {

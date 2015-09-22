@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using Thriot.Framework;
 
 namespace Thriot.Platform.WebsocketService
 {
@@ -7,6 +8,7 @@ namespace Thriot.Platform.WebsocketService
     {
         internal void Run()
         {
+            AssemblyResolver.Initialize();
             AllocConsole();
 
             var serviceSetup = new ServicesSetup();

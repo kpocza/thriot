@@ -1,4 +1,5 @@
 ﻿using System.ServiceProcess;
+using Thriot.Framework;
 
 namespace Thriot.Platform.WebsocketService
 {
@@ -13,6 +14,8 @@ namespace Thriot.Platform.WebsocketService
 
         protected override void OnStart(string[] args)
         {
+            AssemblyResolver.Initialize();
+
             var serviceSetup = new ServicesSetup();
             serviceSetup.Setup();
 

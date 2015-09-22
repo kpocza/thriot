@@ -35,6 +35,8 @@ namespace Thriot.Platform.WebApi
         {
             _appEnv = appEnv;
 
+            AssemblyResolver.Initialize();
+
             Framework.Logging.NLogLogger.SetConfiguration(
                 Path.Combine(Path.Combine(appEnv.ApplicationBasePath, "config"), "web.nlog"));
 

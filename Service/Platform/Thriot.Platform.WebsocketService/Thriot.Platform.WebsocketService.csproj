@@ -233,21 +233,9 @@
       <Project>{d28f31a2-4794-4df4-95ff-2174c64d733d}</Project>
       <Name>Thriot.Objects.Operations.Sql</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Plugins\Thriot.Plugins.Azure\Thriot.Plugins.Azure.csproj">
-      <Project>{65436ff0-e291-429c-8fb3-d914c1ffaaa6}</Project>
-      <Name>Thriot.Plugins.Azure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Plugins\Thriot.Plugins.Core\Thriot.Plugins.Core.csproj">
       <Project>{D84F1A4C-1539-416A-A40A-A72AA2A5F360}</Project>
       <Name>Thriot.Plugins.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Plugins\Thriot.Plugins.PgSql\Thriot.Plugins.PgSql.csproj">
-      <Project>{6c1f185c-bbd2-4a90-b565-58f03d46cabe}</Project>
-      <Name>Thriot.Plugins.PgSql</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Plugins\Thriot.Plugins.Sql\Thriot.Plugins.Sql.csproj">
-      <Project>{fe9571d9-2b37-4e4c-a838-955a3ca5235f}</Project>
-      <Name>Thriot.Plugins.Sql</Name>
     </ProjectReference>
     <ProjectReference Include="..\Thriot.Platform.Model\Thriot.Platform.Model.csproj">
       <Project>{2a0959ed-854c-43a6-b8e5-a8818cbb35ce}</Project>

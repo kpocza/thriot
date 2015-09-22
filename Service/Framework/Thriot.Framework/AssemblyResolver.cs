@@ -18,13 +18,18 @@ namespace Thriot.Framework
             lock (_lock)
             {
                 var pluginsDirectory = GetPluginsDirectory();
+                if (pluginsDirectory == null)
+                    return null;
+
                 var searchParent = Path.Combine(pluginsDirectory, "bin");
+                if (!Directory.Exists(searchParent))
+                    return null;
 
                 foreach (var childDir in new DirectoryInfo(searchParent).GetDirectories())
                 {
                     var childDirectoryPath = childDir.FullName;
 
-                    var filePath = Path.Combine(childDirectoryPath, args.Name + ".dll");
+                    var filePath = Path.Combine(childDirectoryPath, args.Name.Split(new[] {','})[0] + ".dll");
 
                     if(File.Exists(filePath))
                         return Assembly.LoadFile(filePath);
@@ -37,10 +42,13 @@ namespace Thriot.Framework
         private static string GetPluginsDirectory()
         {
             var currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
             do
             {
                 var pluginsDirectory = Path.Combine(currentDirectory, "plugins");
+                if (Directory.Exists(pluginsDirectory))
+                    return pluginsDirectory;
+
+                pluginsDirectory = Path.Combine(currentDirectory, "Plugins");
                 if (Directory.Exists(pluginsDirectory))
                     return pluginsDirectory;
 
