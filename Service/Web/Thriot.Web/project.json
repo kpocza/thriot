@@ -12,12 +12,12 @@
         "Microsoft.AspNet.Mvc.Core": "6.0.0-beta7",
         "Microsoft.Framework.Configuration.Abstractions": "1.0.0-beta7",
         "Newtonsoft.Json": "7.0.1",
-        "Kestrel": "1.0.0-beta6"
+        "Microsoft.AspNet.Server.Kestrel": "1.0.0-beta7"
     },
 
     "commands": {
         "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:12345",
-        "kestrel": "Microsoft.AspNet.Hosting --server Kestrel --server.urls http://localhost:7999"
+        "kestrel": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.Kestrel --server.urls http://localhost:7999"
     },
 
     "frameworks": {
