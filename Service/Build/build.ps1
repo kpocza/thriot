@@ -139,6 +139,13 @@ EnsureEmptyDirectory $targetRoot\websocketservice
 
 & $msbuild $solutionRoot\Platform\Thriot.Platform.WebsocketService\Thriot.Platform.WebsocketService.csproj /p:Configuration=$buildConfig  /p:OutDir=$targetRoot\websocketservice
 
+EnsureEmptyDirectory $targetRoot\plugins\bin
+
+& $msbuild $solutionRoot\Plugins\Thriot.Plugins.Azure\Thriot.Plugins.Azure.csproj /p:Configuration=$buildConfig  /p:OutDir=$targetRoot\plugins\bin\azure
+& $msbuild $solutionRoot\Plugins\Thriot.Plugins.Sql\Thriot.Plugins.Sql.csproj /p:Configuration=$buildConfig  /p:OutDir=$targetRoot\plugins\bin\sql
+& $msbuild $solutionRoot\Plugins\Thriot.Plugins.PgSql\Thriot.Plugins.PgSql.csproj /p:Configuration=$buildConfig  /p:OutDir=$targetRoot\plugins\bin\pgsql
+
+
 if($queueconfig -ne "no") 
 {
 	EnsureEmptyDirectory $targetRoot\telemetryqueueservice
