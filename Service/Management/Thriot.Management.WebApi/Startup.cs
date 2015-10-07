@@ -4,7 +4,9 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
 using System.Net;
+using Microsoft.AspNet.Authentication.Cookies;
 using Microsoft.Dnx.Runtime;
+using Microsoft.Framework.OptionsModel;
 using Thriot.Framework;
 using Thriot.Framework.Mvc.ApiExceptions;
 using Thriot.Framework.Mvc.Logging;
@@ -70,17 +72,27 @@ namespace Thriot.Management.WebApi
             messagingServiceClient.Setup(settingProvider.MessagingServiceEndpoint, settingProvider.MessagingServiceApiKey);
             telemetryDataSinkSetupServiceClient.Setup(settingProvider.TelemetrySetupServiceEndpoint, settingProvider.TelemetrySetupServiceApiKey);
 
-            app.UseCookieAuthentication(options => 
-            {
-                options.CookieHttpOnly = false;
-                options.ExpireTimeSpan = System.TimeSpan.FromMinutes(60);
-                options.SlidingExpiration = true;
-                options.CookieName = "ThriotMgmtAuth";
-                options.AutomaticAuthentication = true;
-            });
+            //app.UseCookieAuthentication(options => 
+            //{
+            //    options.CookieHttpOnly = false;
+            //    options.ExpireTimeSpan = System.TimeSpan.FromMinutes(60);
+            //    options.SlidingExpiration = true;
+            //    options.CookieName = "ThriotMgmtAuth";
+            //    options.AutomaticAuthentication = true;
+            //});
+
+            // workaround for HTTP 401 -> 302 anomaly
+            app.UseMiddleware<Thriot.Management.WebApi.Auth.WorkaroundCookieAuthenticationMiddleware>(
+                new ConfigureOptions<CookieAuthenticationOptions>(options =>
+                {
+                    options.CookieHttpOnly = false;
+                    options.ExpireTimeSpan = System.TimeSpan.FromMinutes(60);
+                    options.SlidingExpiration = true;
+                    options.CookieName = "ThriotMgmtAuth";
+                    options.AutomaticAuthentication = true;
+                }) {Name = ""});
 
             app.UseCors("AllowAll");
-
             app.UseMvc();
         }
 
