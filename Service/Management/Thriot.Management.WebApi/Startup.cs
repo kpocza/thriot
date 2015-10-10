@@ -72,25 +72,18 @@ namespace Thriot.Management.WebApi
             messagingServiceClient.Setup(settingProvider.MessagingServiceEndpoint, settingProvider.MessagingServiceApiKey);
             telemetryDataSinkSetupServiceClient.Setup(settingProvider.TelemetrySetupServiceEndpoint, settingProvider.TelemetrySetupServiceApiKey);
 
-            //app.UseCookieAuthentication(options => 
-            //{
-            //    options.CookieHttpOnly = false;
-            //    options.ExpireTimeSpan = System.TimeSpan.FromMinutes(60);
-            //    options.SlidingExpiration = true;
-            //    options.CookieName = "ThriotMgmtAuth";
-            //    options.AutomaticAuthentication = true;
-            //});
-
-            // workaround for HTTP 401 -> 302 anomaly
-            app.UseMiddleware<Thriot.Management.WebApi.Auth.WorkaroundCookieAuthenticationMiddleware>(
-                new ConfigureOptions<CookieAuthenticationOptions>(options =>
+            app.UseCookieAuthentication(options =>
+            {
+                options.CookieHttpOnly = false;
+                options.ExpireTimeSpan = System.TimeSpan.FromMinutes(60);
+                options.SlidingExpiration = true;
+                options.CookieName = "ThriotMgmtAuth";
+                options.AutomaticAuthentication = true;
+                ((CookieAuthenticationNotifications)options.Notifications).OnApplyRedirect = context =>
                 {
-                    options.CookieHttpOnly = false;
-                    options.ExpireTimeSpan = System.TimeSpan.FromMinutes(60);
-                    options.SlidingExpiration = true;
-                    options.CookieName = "ThriotMgmtAuth";
-                    options.AutomaticAuthentication = true;
-                }) {Name = ""});
+                    context.Response.StatusCode = 401;
+                };
+            });
 
             app.UseCors("AllowAll");
             app.UseMvc();
