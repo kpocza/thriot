@@ -4,9 +4,8 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
 using System.Net;
-using Microsoft.AspNet.Authentication.Cookies;
+using IdentityServer3.Core.Configuration;
 using Microsoft.Dnx.Runtime;
-using Microsoft.Framework.OptionsModel;
 using Thriot.Framework;
 using Thriot.Framework.Mvc.ApiExceptions;
 using Thriot.Framework.Mvc.Logging;
@@ -82,20 +81,24 @@ namespace Thriot.Management.WebApi
             //});
 
             // workaround for HTTP 401 -> 302 anomaly
-            app.UseMiddleware<Thriot.Management.WebApi.Auth.WorkaroundCookieAuthenticationMiddleware>(
-                new ConfigureOptions<CookieAuthenticationOptions>(options =>
-                {
-                    options.CookieHttpOnly = false;
-                    options.ExpireTimeSpan = System.TimeSpan.FromMinutes(60);
-                    options.SlidingExpiration = true;
-                    options.CookieName = "ThriotMgmtAuth";
-                    options.AutomaticAuthentication = true;
-                }) {Name = ""});
+            //app.UseMiddleware<Thriot.Management.WebApi.Auth.WorkaroundCookieAuthenticationMiddleware>(
+            //    new ConfigureOptions<CookieAuthenticationOptions>(options =>
+            //    {
+            //        options.CookieHttpOnly = false;
+            //        options.ExpireTimeSpan = System.TimeSpan.FromMinutes(60);
+            //        options.SlidingExpiration = true;
+            //        options.CookieName = "ThriotMgmtAuth";
+            //        options.AutomaticAuthentication = true;
+            //    }) {Name = ""});
+            app.UseOAuthBearerAuthentication();
+            app.UseIdentityServer(new IdentityServerOptions
+            {
+            });
 
             app.UseCors("AllowAll");
             app.UseMvc();
         }
-
+        
         private void ConfigureThriotServices(IServiceCollection services, IConfiguration configuration)
         {
             services.AddTransient<Services.UserService>();
