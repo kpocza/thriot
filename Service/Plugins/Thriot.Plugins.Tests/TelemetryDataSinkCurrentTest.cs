@@ -15,7 +15,7 @@ namespace Thriot.Plugins.Tests
     {
         protected virtual ITelemetryDataSinkCurrent GetTelemetryDataSinkCurrent()
         {
-            return EnvironmentFactoryFactory.Create().TelemetryDataSinkCurrent;
+            return EnvironmentFactoryFactory.Create().TelemetryEnvironment.TelemetryDataSinkCurrent;
         }
 
         [TestInitialize]
@@ -120,7 +120,7 @@ namespace Thriot.Plugins.Tests
 
             var dynamicConnectionStringResolver = new DynamicConnectionStringResolver(settingOperation);
 
-            settingOperation.Get(null).ReturnsForAnyArgs(new Setting(SettingId.GetConnection("ResolvableConnectionString"), EnvironmentFactoryFactory.Create().TelemetryConnectionString));
+            settingOperation.Get(null).ReturnsForAnyArgs(new Setting(SettingId.GetConnection("ResolvableConnectionString"), EnvironmentFactoryFactory.Create().TelemetryEnvironment.TelemetryConnectionString));
 
             var telemetryDataSinkCurrent = GetTelemetryDataSinkCurrent();
             telemetryDataSinkCurrent.Setup(dynamicConnectionStringResolver, new Dictionary<string, string>

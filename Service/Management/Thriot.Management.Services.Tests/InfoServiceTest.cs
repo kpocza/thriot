@@ -15,7 +15,7 @@ namespace Thriot.Management.Services.Tests
             var authenticationContext = Substitute.For<IAuthenticationContext>();
             authenticationContext.GetContextUser().Returns("12345");
 
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
             var capabilityProvider = new CapabilityProvider(settingProvider);
 
             var infoService = new InfoService(authenticationContext, settingProvider, capabilityProvider);
@@ -38,7 +38,7 @@ namespace Thriot.Management.Services.Tests
             var authenticationContext = Substitute.For<IAuthenticationContext>();
             authenticationContext.GetContextUser().Returns("12345");
 
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
 
             var infoService = new InfoService(authenticationContext, settingProvider, null);
 

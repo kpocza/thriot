@@ -15,8 +15,8 @@ namespace Thriot.Management.Operations.Tests
         public void CreateCompanyTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create(); 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var companyOperations = environmentFactory.MgmtCompanyOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var companyOperations = environmentFactory.ManagementEnvironment.MgmtCompanyOperations;
 
             var salt = Crypto.GenerateSalt();
             var passwordHash = Crypto.CalcualteHash("password", salt);
@@ -33,8 +33,8 @@ namespace Thriot.Management.Operations.Tests
         public void GetCompanyTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var companyOperations = environmentFactory.MgmtCompanyOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var companyOperations = environmentFactory.ManagementEnvironment.MgmtCompanyOperations;
 
             var salt = Crypto.GenerateSalt();
             var passwordHash = Crypto.CalcualteHash("password", salt);
@@ -59,8 +59,8 @@ namespace Thriot.Management.Operations.Tests
         public void ListCompaniesTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var companyOperations = environmentFactory.MgmtCompanyOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var companyOperations = environmentFactory.ManagementEnvironment.MgmtCompanyOperations;
 
             var salt = Crypto.GenerateSalt();
             var passwordHash = Crypto.CalcualteHash("password", salt);
@@ -88,8 +88,8 @@ namespace Thriot.Management.Operations.Tests
         public void DeleteCompanyTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var companyOperations = environmentFactory.MgmtCompanyOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var companyOperations = environmentFactory.ManagementEnvironment.MgmtCompanyOperations;
 
             var salt = Crypto.GenerateSalt();
             var passwordHash = Crypto.CalcualteHash("password", salt);
@@ -113,8 +113,8 @@ namespace Thriot.Management.Operations.Tests
         public void UpdateCompanyTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var companyOperations = environmentFactory.MgmtCompanyOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var companyOperations = environmentFactory.ManagementEnvironment.MgmtCompanyOperations;
 
             var salt = Crypto.GenerateSalt();
             var passwordHash = Crypto.CalcualteHash("password", salt);
@@ -146,8 +146,8 @@ namespace Thriot.Management.Operations.Tests
         public void UpdateCompany2Test()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var companyOperations = environmentFactory.MgmtCompanyOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var companyOperations = environmentFactory.ManagementEnvironment.MgmtCompanyOperations;
 
             var salt = Crypto.GenerateSalt();
             var passwordHash = Crypto.CalcualteHash("password", salt);
@@ -187,8 +187,8 @@ namespace Thriot.Management.Operations.Tests
         public void AddUserTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var companyOperations = environmentFactory.MgmtCompanyOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var companyOperations = environmentFactory.ManagementEnvironment.MgmtCompanyOperations;
 
             var salt = Crypto.GenerateSalt();
             var passwordHash = Crypto.CalcualteHash("password", salt);

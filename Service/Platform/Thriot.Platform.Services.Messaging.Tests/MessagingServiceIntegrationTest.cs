@@ -18,9 +18,9 @@ namespace Thriot.Platform.Services.Messaging.Tests
         public void ReceiveAndForgetOutgoingMessageRealTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var pltDeviceOperations = environmentFactory.ObjDeviceOperations;
+            var pltDeviceOperations = environmentFactory.ManagementEnvironment.ObjDeviceOperations;
 
-            MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingServiceClient);
+            MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingEnvironment.MessagingServiceClient);
 
             var messagingService = new MessagingService(new MessagingOperations(), pltDeviceOperations);
 
@@ -43,9 +43,9 @@ namespace Thriot.Platform.Services.Messaging.Tests
         public void RecordOutgoingMessageRealTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var pltDeviceOperations = environmentFactory.ObjDeviceOperations;
+            var pltDeviceOperations = environmentFactory.ManagementEnvironment.ObjDeviceOperations;
 
-            MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingServiceClient);
+            MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingEnvironment.MessagingServiceClient);
 
             var messagingService = new MessagingService(new MessagingOperations(), pltDeviceOperations);
 
@@ -59,9 +59,9 @@ namespace Thriot.Platform.Services.Messaging.Tests
         public void PeekOutgoingMessageRealTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingServiceClient);
+            MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingEnvironment.MessagingServiceClient);
 
-            var pltDeviceOperations = environmentFactory.ObjDeviceOperations;
+            var pltDeviceOperations = environmentFactory.ManagementEnvironment.ObjDeviceOperations;
 
             var messagingService = new MessagingService(new MessagingOperations(), pltDeviceOperations);
 
@@ -86,9 +86,9 @@ namespace Thriot.Platform.Services.Messaging.Tests
         public void CommitOutgoingMessageRealTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingServiceClient);
+            MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingEnvironment.MessagingServiceClient);
 
-            var pltDeviceOperations = environmentFactory.ObjDeviceOperations;
+            var pltDeviceOperations = environmentFactory.ManagementEnvironment.ObjDeviceOperations;
 
             var messagingService = new MessagingService(new MessagingOperations(), pltDeviceOperations);
 

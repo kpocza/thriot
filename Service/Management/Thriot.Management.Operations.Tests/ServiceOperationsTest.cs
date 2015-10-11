@@ -15,7 +15,7 @@ namespace Thriot.Management.Operations.Tests
         public void CreateServiceTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var serviceOperations = environmentFactory.MgmtServiceOperations;
+            var serviceOperations = environmentFactory.ManagementEnvironment.MgmtServiceOperations;
 
             var companyId = CreateCompany();
 
@@ -28,7 +28,7 @@ namespace Thriot.Management.Operations.Tests
         public void GetServiceTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var serviceOperations = environmentFactory.MgmtServiceOperations;
+            var serviceOperations = environmentFactory.ManagementEnvironment.MgmtServiceOperations;
 
             var companyId = CreateCompany();
 
@@ -55,8 +55,8 @@ namespace Thriot.Management.Operations.Tests
         public void ListServicesTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var companyOperations = environmentFactory.MgmtCompanyOperations;
-            var serviceOperations = environmentFactory.MgmtServiceOperations;
+            var companyOperations = environmentFactory.ManagementEnvironment.MgmtCompanyOperations;
+            var serviceOperations = environmentFactory.ManagementEnvironment.MgmtServiceOperations;
 
             var companyId = CreateCompany();
 
@@ -82,8 +82,8 @@ namespace Thriot.Management.Operations.Tests
         public void DeleteServiceTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var companyOperations = environmentFactory.MgmtCompanyOperations;
-            var serviceOperations = environmentFactory.MgmtServiceOperations;
+            var companyOperations = environmentFactory.ManagementEnvironment.MgmtCompanyOperations;
+            var serviceOperations = environmentFactory.ManagementEnvironment.MgmtServiceOperations;
 
             var companyId = CreateCompany();
 
@@ -104,8 +104,8 @@ namespace Thriot.Management.Operations.Tests
         public void UpdateServiceTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var companyOperations = environmentFactory.MgmtCompanyOperations;
-            var serviceOperations = environmentFactory.MgmtServiceOperations;
+            var companyOperations = environmentFactory.ManagementEnvironment.MgmtCompanyOperations;
+            var serviceOperations = environmentFactory.ManagementEnvironment.MgmtServiceOperations;
 
             var companyId = CreateCompany();
 
@@ -132,7 +132,7 @@ namespace Thriot.Management.Operations.Tests
         public void UpdateService2Test()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var serviceOperations = environmentFactory.MgmtServiceOperations;
+            var serviceOperations = environmentFactory.ManagementEnvironment.MgmtServiceOperations;
 
             var companyId = CreateCompany();
 
@@ -167,8 +167,8 @@ namespace Thriot.Management.Operations.Tests
         private string CreateCompany()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var companyOperations = environmentFactory.MgmtCompanyOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var companyOperations = environmentFactory.ManagementEnvironment.MgmtCompanyOperations;
 
             var salt = Crypto.GenerateSalt();
             var passwordHash = Crypto.CalcualteHash("password", salt);

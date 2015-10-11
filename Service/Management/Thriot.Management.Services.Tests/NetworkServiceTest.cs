@@ -69,9 +69,9 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var companyOperations = environmentFactory.MgmtCompanyOperations;
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var companyOperations = environmentFactory.ManagementEnvironment.MgmtCompanyOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
             var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
 
             var userId1 = userService.Register(new RegisterDto() { Name = "user", Email = EmailHelper.Generate(), Password = "password" }, null);
@@ -83,7 +83,7 @@ namespace Thriot.Management.Services.Tests
 
             var companyId1 = companyService.Create("new company1");
 
-            var serviceOperations = environmentFactory.MgmtServiceOperations;
+            var serviceOperations = environmentFactory.ManagementEnvironment.MgmtServiceOperations;
             var serviceService = new ServiceService(serviceOperations, companyOperations, authenticationContext, null, new CapabilityProvider(settingProvider));
 
             var serviceId1 = serviceService.Create(new ServiceDto() { CompanyId = companyId1, Name = "svc" });
@@ -99,7 +99,7 @@ namespace Thriot.Management.Services.Tests
                 Name = "test"
             };
 
-            var networkOperations = environmentFactory.MgmtNetworkOperations;
+            var networkOperations = environmentFactory.ManagementEnvironment.MgmtNetworkOperations;
             var networkService = new NetworkService(networkOperations, serviceOperations, companyOperations, authenticationContext, null);
             networkService.Create(network);
         }
@@ -111,9 +111,9 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var companyOperations = environmentFactory.MgmtCompanyOperations;
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var companyOperations = environmentFactory.ManagementEnvironment.MgmtCompanyOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
             var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
 
             var userId1 = userService.Register(new RegisterDto() { Name = "user", Email = EmailHelper.Generate(), Password = "password" }, null);
@@ -124,7 +124,7 @@ namespace Thriot.Management.Services.Tests
 
             var companyId1 = companyService.Create("new company1");
 
-            var serviceOperations = environmentFactory.MgmtServiceOperations;
+            var serviceOperations = environmentFactory.ManagementEnvironment.MgmtServiceOperations;
             var serviceService = new ServiceService(serviceOperations, companyOperations, authenticationContext, null, new CapabilityProvider(settingProvider));
 
             var serviceId1 = serviceService.Create(new ServiceDto() { CompanyId = companyId1, Name = "svc" });
@@ -138,7 +138,7 @@ namespace Thriot.Management.Services.Tests
                 Name = "test"
             };
 
-            var networkOperations = environmentFactory.MgmtNetworkOperations;
+            var networkOperations = environmentFactory.ManagementEnvironment.MgmtNetworkOperations;
             var networkService = new NetworkService(networkOperations, serviceOperations, companyOperations, authenticationContext, null);
             networkService.Create(network);
         }
@@ -150,9 +150,9 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var companyOperations = environmentFactory.MgmtCompanyOperations;
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var companyOperations = environmentFactory.ManagementEnvironment.MgmtCompanyOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
             var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
 
             var userId1 = userService.Register(new RegisterDto() { Name = "user", Email = EmailHelper.Generate(), Password = "password" }, null);
@@ -163,7 +163,7 @@ namespace Thriot.Management.Services.Tests
 
             var companyId1 = companyService.Create("new company1");
 
-            var serviceOperations = environmentFactory.MgmtServiceOperations;
+            var serviceOperations = environmentFactory.ManagementEnvironment.MgmtServiceOperations;
             var serviceService = new ServiceService(serviceOperations, companyOperations, authenticationContext, null, new CapabilityProvider(settingProvider));
 
             var serviceId1 = serviceService.Create(new ServiceDto { CompanyId = companyId1, Name = "svc" });
@@ -172,7 +172,7 @@ namespace Thriot.Management.Services.Tests
 
             var serviceId2 = serviceService.Create(new ServiceDto() { CompanyId = companyId2, Name = "svc" });
 
-            var networkOperations = environmentFactory.MgmtNetworkOperations;
+            var networkOperations = environmentFactory.ManagementEnvironment.MgmtNetworkOperations;
             var networkService = new NetworkService(networkOperations, serviceOperations, companyOperations, authenticationContext, null);
 
             var networkId2 = networkService.Create(new NetworkDto() {ServiceId = serviceId2, CompanyId = companyId2, Name = "svc" });
@@ -562,9 +562,9 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             _authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            _companyOperations = environmentFactory.MgmtCompanyOperations;
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            _companyOperations = environmentFactory.ManagementEnvironment.MgmtCompanyOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
             var userService = new UserService(userOperations, _authenticationContext, settingProvider, null);
 
             _userId = userService.Register(new RegisterDto() { Name = "user", Email = EmailHelper.Generate(), Password = "password" }, null);
@@ -575,11 +575,11 @@ namespace Thriot.Management.Services.Tests
 
             _companyId = _companyService.Create("new company");
 
-            _serviceOperations = environmentFactory.MgmtServiceOperations;
+            _serviceOperations = environmentFactory.ManagementEnvironment.MgmtServiceOperations;
             _serviceService = new ServiceService(_serviceOperations, _companyOperations, _authenticationContext, null, new CapabilityProvider(settingProvider));
             _serviceId = _serviceService.Create(new ServiceDto() { CompanyId = _companyId, Name = "new service" });
 
-            _networkOperations = environmentFactory.MgmtNetworkOperations;
+            _networkOperations = environmentFactory.ManagementEnvironment.MgmtNetworkOperations;
             _networkService = new NetworkService(_networkOperations, _serviceOperations, _companyOperations, _authenticationContext, null);
         }
     }

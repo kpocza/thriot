@@ -12,7 +12,7 @@ namespace Thriot.Management.Operations.Tests
         public void UpdateSettingTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var settingOperations = environmentFactory.MgmtSettingOperations;
+            var settingOperations = environmentFactory.ManagementEnvironment.MgmtSettingOperations;
 
             var settingId = new SettingId(Identity.Next(), Identity.Next());
 

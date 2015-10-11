@@ -9,7 +9,7 @@ namespace Thriot.TestHelpers
         public static void Init()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var settingOperations = environmentFactory.MgmtSettingOperations;
+            var settingOperations = environmentFactory.ManagementEnvironment.MgmtSettingOperations;
 
             SafeEnsureSetting(settingOperations, Setting.ServiceProfile, ServiceProfile.ServiceProvider.ToString());
             SafeEnsureSetting(settingOperations, Setting.EmailActivation, "false");
@@ -30,7 +30,7 @@ namespace Thriot.TestHelpers
         public static void RemoveExtraEntries()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var settingOperations = environmentFactory.MgmtSettingOperations;
+            var settingOperations = environmentFactory.ManagementEnvironment.MgmtSettingOperations;
 
             SafeDeleteSetting(settingOperations, Setting.PrebuiltCompany);
             SafeDeleteSetting(settingOperations, Setting.PrebuiltService);

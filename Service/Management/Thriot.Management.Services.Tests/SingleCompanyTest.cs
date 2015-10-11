@@ -98,10 +98,10 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = new TestAuthenticationContext();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var serviceOperations = environmentFactory.MgmtServiceOperations;
-            var companyOperations = environmentFactory.MgmtCompanyOperations;
-            var settingOperations = environmentFactory.MgmtSettingOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var serviceOperations = environmentFactory.ManagementEnvironment.MgmtServiceOperations;
+            var companyOperations = environmentFactory.ManagementEnvironment.MgmtCompanyOperations;
+            var settingOperations = environmentFactory.ManagementEnvironment.MgmtSettingOperations;
 
             settingOperations.Update(new Setting(Setting.ServiceProfile, ServiceProfile.SingleCompany.ToString()));
 

@@ -47,7 +47,7 @@ namespace Thriot.Objects.Operations.Tests
                 Name = "new network2"
             });
 
-            var pltNetworkOperations = environmentFactory.ObjNetworkOperations;
+            var pltNetworkOperations = environmentFactory.ManagementEnvironment.ObjNetworkOperations;
 
             var dg1 = pltNetworkOperations.Get(network1Id);
             var dg2 = pltNetworkOperations.Get(network2Id);
@@ -88,7 +88,7 @@ namespace Thriot.Objects.Operations.Tests
                 Name = "new network2"
             });
 
-            var pltNetworkOperations = environmentFactory.ObjNetworkOperations;
+            var pltNetworkOperations = environmentFactory.ManagementEnvironment.ObjNetworkOperations;
 
             var dg1 = pltNetworkOperations.Get(network1Id);
             var dg2 = pltNetworkOperations.Get(network2Id);
@@ -126,7 +126,7 @@ namespace Thriot.Objects.Operations.Tests
                 };
             _networkService.UpdateIncomingTelemetryDataSinks(networkId, incoming);
 
-            var pltNetworkOperations = environmentFactory.ObjNetworkOperations;
+            var pltNetworkOperations = environmentFactory.ManagementEnvironment.ObjNetworkOperations;
 
             var dg = pltNetworkOperations.Get(networkId);
 
@@ -176,7 +176,7 @@ namespace Thriot.Objects.Operations.Tests
             var device2Id = _deviceService.Create(device2);
             _deviceService.Create(device3);
 
-            var pltNetworkOperations = environmentFactory.ObjNetworkOperations;
+            var pltNetworkOperations = environmentFactory.ManagementEnvironment.ObjNetworkOperations;
             var ds = pltNetworkOperations.ListDevices(networkId);
             Assert.AreEqual(3, ds.Count());
             Assert.IsTrue(ds.Any(d => d.Id == device2Id && d.Name == device2.Name));
@@ -188,9 +188,9 @@ namespace Thriot.Objects.Operations.Tests
             _authenticationContext = Substitute.For<IAuthenticationContext>();
             var messagingServiceClient = Substitute.For<IMessagingServiceClient>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var companyOperations = environmentFactory.MgmtCompanyOperations;
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var companyOperations = environmentFactory.ManagementEnvironment.MgmtCompanyOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
 
             var userService = new UserService(userOperations, _authenticationContext, settingProvider, null);
             _userId = userService.Register(new RegisterDto() { Name = "user", Email = EmailHelper.Generate(), Password = "password" }, null);
@@ -201,11 +201,11 @@ namespace Thriot.Objects.Operations.Tests
 
             _companyId = _companyService.Create("new company");
 
-            var serviceOperations = environmentFactory.MgmtServiceOperations;
+            var serviceOperations = environmentFactory.ManagementEnvironment.MgmtServiceOperations;
             _serviceService = new ServiceService(serviceOperations, companyOperations, _authenticationContext, null, new CapabilityProvider(settingProvider));
             _serviceId = _serviceService.Create(new ServiceDto() { CompanyId = _companyId, Name = "new service" });
 
-            var networkOperations = environmentFactory.MgmtNetworkOperations;
+            var networkOperations = environmentFactory.ManagementEnvironment.MgmtNetworkOperations;
             var telemetryDataSinkSetupServiceClient = Substitute.For<ITelemetryDataSinkSetupServiceClient>();
             telemetryDataSinkSetupServiceClient.GetTelemetryDataSinksMetadata().Returns(
                 new TelemetryDataSinksMetadataDtoClient
@@ -224,7 +224,7 @@ namespace Thriot.Objects.Operations.Tests
 
             messagingServiceClient.Initialize("1234").ReturnsForAnyArgs(1);
 
-            var deviceOperations = environmentFactory.MgmtDeviceOperations;
+            var deviceOperations = environmentFactory.ManagementEnvironment.MgmtDeviceOperations;
             _deviceService = new DeviceService(deviceOperations, networkOperations, serviceOperations, companyOperations,
                 _authenticationContext, messagingServiceClient);
         }

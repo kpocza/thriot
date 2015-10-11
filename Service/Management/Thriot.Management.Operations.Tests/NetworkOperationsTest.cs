@@ -18,7 +18,7 @@ namespace Thriot.Management.Operations.Tests
         public void CreateNetworkUnderServiceTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var networkOperations = environmentFactory.MgmtNetworkOperations;
+            var networkOperations = environmentFactory.ManagementEnvironment.MgmtNetworkOperations;
 
             var companyServiceIdPair = CreateCompanyAndService();
 
@@ -38,7 +38,7 @@ namespace Thriot.Management.Operations.Tests
         public void GetNetworkUnderServiceTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var networkOperations = environmentFactory.MgmtNetworkOperations;
+            var networkOperations = environmentFactory.ManagementEnvironment.MgmtNetworkOperations;
 
             var companyServiceIdPair = CreateCompanyAndService();
 
@@ -81,8 +81,8 @@ namespace Thriot.Management.Operations.Tests
         public void ListNetworkUnderServiceTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var serviceOperations = environmentFactory.MgmtServiceOperations;
-            var networkOperations = environmentFactory.MgmtNetworkOperations;
+            var serviceOperations = environmentFactory.ManagementEnvironment.MgmtServiceOperations;
+            var networkOperations = environmentFactory.ManagementEnvironment.MgmtNetworkOperations;
 
             var companyServiceIdPair = CreateCompanyAndService();
 
@@ -121,8 +121,8 @@ namespace Thriot.Management.Operations.Tests
         public void DeleteNetworkUnderServiceTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var serviceOperations = environmentFactory.MgmtServiceOperations;
-            var networkOperations = environmentFactory.MgmtNetworkOperations;
+            var serviceOperations = environmentFactory.ManagementEnvironment.MgmtServiceOperations;
+            var networkOperations = environmentFactory.ManagementEnvironment.MgmtNetworkOperations;
 
             var companyServiceIdPair = CreateCompanyAndService();
 
@@ -148,8 +148,8 @@ namespace Thriot.Management.Operations.Tests
         public void UpdateNetworkUnderServiceTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var serviceOperations = environmentFactory.MgmtServiceOperations;
-            var networkOperations = environmentFactory.MgmtNetworkOperations;
+            var serviceOperations = environmentFactory.ManagementEnvironment.MgmtServiceOperations;
+            var networkOperations = environmentFactory.ManagementEnvironment.MgmtNetworkOperations;
 
             var companyServiceIdPair = CreateCompanyAndService();
 
@@ -180,7 +180,7 @@ namespace Thriot.Management.Operations.Tests
         public void UpdateNetworkUnderService2Test()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var networkOperations = environmentFactory.MgmtNetworkOperations;
+            var networkOperations = environmentFactory.ManagementEnvironment.MgmtNetworkOperations;
 
             var companyServiceIdPair = CreateCompanyAndService();
 
@@ -224,7 +224,7 @@ namespace Thriot.Management.Operations.Tests
         public void CreateNetworkUnderNetworkTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var networkOperations = environmentFactory.MgmtNetworkOperations;
+            var networkOperations = environmentFactory.ManagementEnvironment.MgmtNetworkOperations;
 
             var companyServiceIdPair = CreateCompanyAndService();
 
@@ -246,7 +246,7 @@ namespace Thriot.Management.Operations.Tests
         public void GetNetworkUnderNetworkTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var networkOperations = environmentFactory.MgmtNetworkOperations;
+            var networkOperations = environmentFactory.ManagementEnvironment.MgmtNetworkOperations;
 
             var companyServiceIdPair = CreateCompanyAndService();
 
@@ -291,8 +291,8 @@ namespace Thriot.Management.Operations.Tests
         public void ListNetworkUnderNetworkTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var serviceOperations = environmentFactory.MgmtServiceOperations;
-            var networkOperations = environmentFactory.MgmtNetworkOperations;
+            var serviceOperations = environmentFactory.ManagementEnvironment.MgmtServiceOperations;
+            var networkOperations = environmentFactory.ManagementEnvironment.MgmtNetworkOperations;
 
             var companyServiceIdPair = CreateCompanyAndService();
 
@@ -340,7 +340,7 @@ namespace Thriot.Management.Operations.Tests
         public void DeleteNetworkUnderNetworkTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var networkOperations = environmentFactory.MgmtNetworkOperations;
+            var networkOperations = environmentFactory.ManagementEnvironment.MgmtNetworkOperations;
 
             var companyServiceIdPair = CreateCompanyAndService();
 
@@ -369,7 +369,7 @@ namespace Thriot.Management.Operations.Tests
         public void UpdateNetworkUnderNetworkTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var networkOperations = environmentFactory.MgmtNetworkOperations;
+            var networkOperations = environmentFactory.ManagementEnvironment.MgmtNetworkOperations;
 
             var companyServiceIdPair = CreateCompanyAndService();
 
@@ -402,7 +402,7 @@ namespace Thriot.Management.Operations.Tests
         public void UpdateNetworkUnderNetwork2Test()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var networkOperations = environmentFactory.MgmtNetworkOperations;
+            var networkOperations = environmentFactory.ManagementEnvironment.MgmtNetworkOperations;
 
             var companyServiceIdPair = CreateCompanyAndService();
 
@@ -446,9 +446,9 @@ namespace Thriot.Management.Operations.Tests
         private CompanyServiceIdPair CreateCompanyAndService()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var companyOperations = environmentFactory.MgmtCompanyOperations;
-            var serviceOperations = environmentFactory.MgmtServiceOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var companyOperations = environmentFactory.ManagementEnvironment.MgmtCompanyOperations;
+            var serviceOperations = environmentFactory.ManagementEnvironment.MgmtServiceOperations;
 
             var salt = Crypto.GenerateSalt();
             var passwordHash = Crypto.CalcualteHash("password", salt);

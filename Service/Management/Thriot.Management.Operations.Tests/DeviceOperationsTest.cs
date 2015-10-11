@@ -14,7 +14,7 @@ namespace Thriot.Management.Operations.Tests
         public void CreateDeviceTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var deviceOperations = environmentFactory.MgmtDeviceOperations;
+            var deviceOperations = environmentFactory.ManagementEnvironment.MgmtDeviceOperations;
 
             var compServiceNetworkIds = CreateCompanyAndServiceAndNetwork();
 
@@ -34,7 +34,7 @@ namespace Thriot.Management.Operations.Tests
         public void GetDeviceTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var deviceOperations = environmentFactory.MgmtDeviceOperations;
+            var deviceOperations = environmentFactory.ManagementEnvironment.MgmtDeviceOperations;
 
             var compServiceNetworkIds = CreateCompanyAndServiceAndNetwork();
 
@@ -79,8 +79,8 @@ namespace Thriot.Management.Operations.Tests
         public void ListDevicesTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var deviceOperations = environmentFactory.MgmtDeviceOperations;
-            var networkOperations = environmentFactory.MgmtNetworkOperations;
+            var deviceOperations = environmentFactory.ManagementEnvironment.MgmtDeviceOperations;
+            var networkOperations = environmentFactory.ManagementEnvironment.MgmtNetworkOperations;
 
             var compServiceNetworkIds = CreateCompanyAndServiceAndNetwork();
 
@@ -121,8 +121,8 @@ namespace Thriot.Management.Operations.Tests
         public void DeleteDeviceTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var deviceOperations = environmentFactory.MgmtDeviceOperations;
-            var networkOperations = environmentFactory.MgmtNetworkOperations;
+            var deviceOperations = environmentFactory.ManagementEnvironment.MgmtDeviceOperations;
+            var networkOperations = environmentFactory.ManagementEnvironment.MgmtNetworkOperations;
 
             var compServiceNetworkIds = CreateCompanyAndServiceAndNetwork();
 
@@ -149,8 +149,8 @@ namespace Thriot.Management.Operations.Tests
         public void UpdateDeviceTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var deviceOperations = environmentFactory.MgmtDeviceOperations;
-            var networkOperations = environmentFactory.MgmtNetworkOperations;
+            var deviceOperations = environmentFactory.ManagementEnvironment.MgmtDeviceOperations;
+            var networkOperations = environmentFactory.ManagementEnvironment.MgmtNetworkOperations;
 
             var companyServiceNetworkIds = CreateCompanyAndServiceAndNetwork();
 
@@ -183,10 +183,10 @@ namespace Thriot.Management.Operations.Tests
         private CompanyServiceNetworkIds CreateCompanyAndServiceAndNetwork()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var companyOperations = environmentFactory.MgmtCompanyOperations;
-            var serviceOperations = environmentFactory.MgmtServiceOperations;
-            var networkOperations = environmentFactory.MgmtNetworkOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var companyOperations = environmentFactory.ManagementEnvironment.MgmtCompanyOperations;
+            var serviceOperations = environmentFactory.ManagementEnvironment.MgmtServiceOperations;
+            var networkOperations = environmentFactory.ManagementEnvironment.MgmtNetworkOperations;
 
             var salt = Crypto.GenerateSalt();
             var passwordHash = Crypto.CalcualteHash("password", salt);

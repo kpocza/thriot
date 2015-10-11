@@ -8,20 +8,60 @@ namespace Thriot.TestHelpers
 {
     public class InprocMessagingServiceClient : IMessagingServiceClient
     {
-        public static readonly IMessagingServiceClient Instance = new InprocMessagingServiceClient();
-        private readonly MessagingService _messagingService;
+        private static InprocMessagingServiceClient _client;
 
-        public class ConnectionStringResolver : IConnectionStringResolver
+        public static IMessagingServiceClient SqlInstance
         {
-            public string ConnectionString
+            get
             {
-                get { return @"Server=.\SQLEXPRESS;Database=ThriotMessaging;Trusted_Connection=True;"; }
+                if (_client == null)
+                {
+                    var client = new InprocMessagingServiceClient();
+                    client.SetupSql();
+                    _client = client;
+                }
+                return _client;
             }
+        }
+
+        public static IMessagingServiceClient PgSqlInstance
+        {
+            get
+            {
+                if (_client == null)
+                {
+                    var client = new InprocMessagingServiceClient();
+                    client.SetupPgSql();
+                    _client = client;
+                }
+                return _client;
+            }
+        }
+
+        private MessagingService _messagingService;
+
+        public class SqlConnectionStringResolver : IConnectionStringResolver
+        {
+            public string ConnectionString => @"Server=.\SQLEXPRESS;Database=ThriotMessaging;Trusted_Connection=True;";
+        }
+
+        public class PgSqlConnectionStringResolver : IConnectionStringResolver
+        {
+            public string ConnectionString => @"Server=127.0.0.1;Port=5432;Database=ThriotMessaging;User Id=thriotmessaging;Password=thriotmessaging;";
         }
 
         private InprocMessagingServiceClient()
         {
-            _messagingService = new MessagingService(new MessageCache(), new PersistentStorage(new ConnectionStringResolver()));
+        }
+
+        private void SetupSql()
+        {
+            _messagingService = new MessagingService(new MessageCache(), new PersistentStorage(new SqlConnectionStringResolver()));
+        }
+
+        private void SetupPgSql()
+        {
+            _messagingService = new MessagingService(new MessageCache(), new PersistentStoragePgSql(new PgSqlConnectionStringResolver()));
         }
 
         public void Setup(string serviceUrl, string apiKey)

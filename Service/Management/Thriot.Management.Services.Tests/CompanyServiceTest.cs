@@ -319,9 +319,9 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             _authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            _companyOperations = environmentFactory.MgmtCompanyOperations;
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            _companyOperations = environmentFactory.ManagementEnvironment.MgmtCompanyOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
             _userService = new UserService(userOperations, _authenticationContext, settingProvider, null);
 
             _userId = _userService.Register(new RegisterDto() { Name = "user", Email = EmailHelper.Generate(), Password = "password" }, null);

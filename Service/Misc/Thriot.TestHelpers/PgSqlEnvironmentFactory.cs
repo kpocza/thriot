@@ -1,79 +1,13 @@
-﻿using System.Collections.Generic;
-using Thriot.Management.Operations.Sql.DataAccess;
-using Thriot.Management.Operations.Sql.DataAccess.PgSql;
-using Thriot.Objects.Operations.Sql.DataAccess;
-using Thriot.Objects.Operations.Sql.DataAccess.PgSql;
-using Thriot.Plugins.Core;
-using Thriot.Messaging.Services.Client;
-
-namespace Thriot.TestHelpers
+﻿namespace Thriot.TestHelpers
 {
     public class PgSqlEnvironmentFactory : IEnvironmentFactory
     {
-        private IManagementUnitOfWorkFactory GetManagementUnitOfWorkFactory()
-        {
-            var connectionParameterResolver = new DevPgSqlConnectionParametersResolver();
+        public IManagementEnvironment ManagementEnvironment => new Environments.Management.PgSqlManagementEnvironment();
 
-            return new ManagementUnitOfWorkFactoryPgSql(connectionParameterResolver);
-        }
-        
-        private IObjectsUnitOfWorkFactory GetPlatformUnitOfWorkFactory()
-        {
-            var connectionParameterResolver = new DevPgSqlConnectionParametersResolver();
+        public IMessagingEnvironment MessagingEnvironment => new Environments.Messaging.PgSqlMessagingEnvironment();
 
-            return new ObjectsUnitOfWorkFactoryPgSql(connectionParameterResolver);
-        }
+        public ITelemetryEnvironment TelemetryEnvironment => new Environments.Telemetry.PgSqlTelemetryEnvironment();
 
-        public Management.Model.Operations.IUserOperations MgmtUserOperations => new Management.Operations.Sql.UserOperations(GetManagementUnitOfWorkFactory());
-
-        public Management.Model.Operations.ICompanyOperations MgmtCompanyOperations => new Management.Operations.Sql.CompanyOperations(GetManagementUnitOfWorkFactory());
-
-        public Management.Model.Operations.IServiceOperations MgmtServiceOperations => new Management.Operations.Sql.ServiceOperations(GetManagementUnitOfWorkFactory());
-
-        public Management.Model.Operations.INetworkOperations MgmtNetworkOperations => new Management.Operations.Sql.NetworkOperations(GetManagementUnitOfWorkFactory());
-
-        public Management.Model.Operations.IDeviceOperations MgmtDeviceOperations => new Management.Operations.Sql.DeviceOperations(GetManagementUnitOfWorkFactory());
-
-        public Management.Model.Operations.ISettingOperations MgmtSettingOperations => new Management.Operations.Sql.SettingOperations(GetManagementUnitOfWorkFactory());
-
-        public Objects.Model.Operations.ICompanyOperations ObjCompanyOperations => new Objects.Operations.Sql.CompanyOperations(GetPlatformUnitOfWorkFactory());
-
-        public Objects.Model.Operations.IServiceOperations ObjServiceOperations => new Objects.Operations.Sql.ServiceOperations(GetPlatformUnitOfWorkFactory());
-
-        public Objects.Model.Operations.INetworkOperations ObjNetworkOperations => new Objects.Operations.Sql.NetworkOperations(GetPlatformUnitOfWorkFactory());
-
-        public Objects.Model.Operations.IDeviceOperations ObjDeviceOperations => new Objects.Operations.Sql.DeviceOperations(GetPlatformUnitOfWorkFactory());
-
-        public Objects.Model.Operations.ISettingOperations ObjSettingOperations => new Objects.Operations.Sql.SettingOperations(GetPlatformUnitOfWorkFactory());
-
-        public IMessagingServiceClient MessagingServiceClient => InprocMessagingServiceClient.Instance;
-
-        public string TelemetryConnectionString => "Server=127.0.0.1;Port=5432;Database=ThriotTelemetry;User Id=thriottelemetry;Password=thriottelemetry;";
-
-        public ITelemetryDataSinkCurrent TelemetryDataSinkCurrent => InstanceCreator.Create<ITelemetryDataSinkCurrent>("Thriot.Plugins.PgSql.TelemetryDataSinkCurrent, Thriot.Plugins.PgSql");
-
-        public ITelemetryDataSinkTimeSeries TelemetryDataSinkTimeSeries => InstanceCreator.Create<ITelemetryDataSinkTimeSeries>("Thriot.Plugins.PgSql.TelemetryDataSinkTimeSeries, Thriot.Plugins.PgSql");
-
-        public string QueueConnectionString => "Server=127.0.0.1;Port=5432;Database=ThriotTelemetryQueue;User Id=thriottelemetryqueue;Password=thriottelemetryqueue;";
-
-        public IQueueSendAdapter QueueSendAdapter
-        {
-            get
-            {
-                var queueSendAdapter = InstanceCreator.Create<IQueueSendAdapter>("Thriot.Plugins.PgSql.QueueSendAdapter, Thriot.Plugins.PgSql");
-                queueSendAdapter.Setup(new Dictionary<string, string> { { "ConnectionString", QueueConnectionString } });
-                return queueSendAdapter;
-            }
-        }
-
-        public IQueueReceiveAdapter QueueReceiveAdapter
-        {
-            get
-            {
-                var queueReceiveAdapter = InstanceCreator.Create<IQueueReceiveAdapter>("Thriot.Plugins.PgSql.QueueReceiveAdapter, Thriot.Plugins.PgSql");
-                queueReceiveAdapter.Setup(new Dictionary<string, string> { { "ConnectionString", QueueConnectionString } });
-                return queueReceiveAdapter;
-            }
-        }
+        public IQueueEnvironment QueueEnvironment => new Environments.Queue.PgSqlQueueEnvironment();
     }
 } 

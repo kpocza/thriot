@@ -15,10 +15,10 @@ namespace Thriot.Plugins.Tests
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
 
-            var queueSendAdapter = environmentFactory.QueueSendAdapter;
+            var queueSendAdapter = environmentFactory.QueueEnvironment.QueueSendAdapter;
             queueSendAdapter.Clear();
 
-            var queueReceiverAdapter = environmentFactory.QueueReceiveAdapter;
+            var queueReceiverAdapter = environmentFactory.QueueEnvironment.QueueReceiveAdapter;
 
             int COUNT = 50;
 

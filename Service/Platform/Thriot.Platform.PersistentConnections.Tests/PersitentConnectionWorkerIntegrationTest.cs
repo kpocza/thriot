@@ -25,9 +25,9 @@ namespace Thriot.Platform.PersistentConnections.Tests
         public void RecordOutgoingAndReceiveAndForgetMessageRealTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingServiceClient);
+            MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingEnvironment.MessagingServiceClient);
 
-            var pltDeviceOperations = environmentFactory.ObjDeviceOperations;
+            var pltDeviceOperations = environmentFactory.ManagementEnvironment.ObjDeviceOperations;
             var messagingOperations = new MessagingOperations();
 
             var dateTimeProvider = Substitute.For<IDateTimeProvider>();
@@ -86,9 +86,9 @@ namespace Thriot.Platform.PersistentConnections.Tests
         public void RecordOutgoingAndPeekMessageRealTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingServiceClient);
+            MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingEnvironment.MessagingServiceClient);
 
-            var pltDeviceOperations = environmentFactory.ObjDeviceOperations;
+            var pltDeviceOperations = environmentFactory.ManagementEnvironment.ObjDeviceOperations;
             var messagingOperations = new MessagingOperations();
 
             var dateTimeProvider = Substitute.For<IDateTimeProvider>();
@@ -148,9 +148,9 @@ namespace Thriot.Platform.PersistentConnections.Tests
         public void RecordOutgoingAndPeekAndCommitMessageRealTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingServiceClient);
+            MessagingWorkers.Start(new TestBatchParameters(), environmentFactory.MessagingEnvironment.MessagingServiceClient);
 
-            var pltDeviceOperations = environmentFactory.ObjDeviceOperations;
+            var pltDeviceOperations = environmentFactory.ManagementEnvironment.ObjDeviceOperations;
             var messagingOperations = new MessagingOperations();
 
             var batchParameters = Substitute.For<IBatchParameters>();

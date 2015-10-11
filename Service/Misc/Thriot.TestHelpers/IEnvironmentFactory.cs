@@ -1,44 +1,13 @@
-﻿using Thriot.Plugins.Core;
-using Thriot.Messaging.Services.Client;
-using MgmtOp = Thriot.Management.Model.Operations;
-using ObjOp = Thriot.Objects.Model.Operations;
-
-namespace Thriot.TestHelpers
+﻿namespace Thriot.TestHelpers
 {
     public interface IEnvironmentFactory
     {
-        MgmtOp.IUserOperations MgmtUserOperations { get; }
+        IManagementEnvironment ManagementEnvironment { get; }
 
-        MgmtOp.ICompanyOperations MgmtCompanyOperations { get; }
+        IMessagingEnvironment MessagingEnvironment { get; }
 
-        MgmtOp.IServiceOperations MgmtServiceOperations { get; }
+        ITelemetryEnvironment TelemetryEnvironment { get; }
 
-        MgmtOp.INetworkOperations MgmtNetworkOperations { get; }
-
-        MgmtOp.IDeviceOperations MgmtDeviceOperations { get; }
-
-        MgmtOp.ISettingOperations MgmtSettingOperations { get; }
-
-        ObjOp.ICompanyOperations ObjCompanyOperations { get; }
-
-        ObjOp.IServiceOperations ObjServiceOperations { get; }
-
-        ObjOp.INetworkOperations ObjNetworkOperations { get; }
-
-        ObjOp.IDeviceOperations ObjDeviceOperations { get; }
-
-        ObjOp.ISettingOperations ObjSettingOperations { get; }
-
-        IMessagingServiceClient MessagingServiceClient { get; }
-
-        string TelemetryConnectionString { get; }
-
-        ITelemetryDataSinkCurrent TelemetryDataSinkCurrent { get; }
-
-        ITelemetryDataSinkTimeSeries TelemetryDataSinkTimeSeries { get; }
-
-        IQueueSendAdapter QueueSendAdapter { get; }
-
-        IQueueReceiveAdapter QueueReceiveAdapter { get; }
+        IQueueEnvironment QueueEnvironment { get; }
     }
 }

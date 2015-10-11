@@ -12,7 +12,7 @@ namespace Thriot.Objects.Operations.Tests
         public void GetSettingTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var setting = environmentFactory.ObjSettingOperations.Get(Setting.TelemetrySetupServiceApiKey);
+            var setting = environmentFactory.ManagementEnvironment.ObjSettingOperations.Get(Setting.TelemetrySetupServiceApiKey);
 
             Assert.AreEqual(32, setting.Value.Length);
         }

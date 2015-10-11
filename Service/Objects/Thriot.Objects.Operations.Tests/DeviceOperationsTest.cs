@@ -53,7 +53,7 @@ namespace Thriot.Objects.Operations.Tests
             var device1Id = _deviceService.Create(device1);
             var device2Id = _deviceService.Create(device2);
 
-            var pltDeviceOperations = environmentFactory.ObjDeviceOperations;
+            var pltDeviceOperations = environmentFactory.ManagementEnvironment.ObjDeviceOperations;
             var d1 = pltDeviceOperations.Get(device1Id);
             var d2 = pltDeviceOperations.Get(device2Id);
 
@@ -106,7 +106,7 @@ namespace Thriot.Objects.Operations.Tests
             var device3Id = _deviceService.Create(device3);
             var device4Id = _deviceService.Create(device4);
 
-            var pltDeviceOperations = environmentFactory.ObjDeviceOperations;
+            var pltDeviceOperations = environmentFactory.ManagementEnvironment.ObjDeviceOperations;
             var ds = pltDeviceOperations.ListDevices(new[] {device1Id, device2Id, device3Id});
             Assert.AreEqual(3, ds.Count());
             Assert.IsTrue(ds.Any(d => d.Id == device2Id && d.Name == device2.Name));
@@ -119,9 +119,9 @@ namespace Thriot.Objects.Operations.Tests
             _authenticationContext = Substitute.For<IAuthenticationContext>();
             _messagingServiceClient = Substitute.For<IMessagingServiceClient>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var companyOperations = environmentFactory.MgmtCompanyOperations;
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var companyOperations = environmentFactory.ManagementEnvironment.MgmtCompanyOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
 
             var userService = new UserService(userOperations, _authenticationContext, settingProvider, null);
             _userId = userService.Register(new RegisterDto() { Name = "user", Email = EmailHelper.Generate(), Password = "password" }, null);
@@ -132,11 +132,11 @@ namespace Thriot.Objects.Operations.Tests
 
             _companyId = _companyService.Create("new company");
 
-            var serviceOperations = environmentFactory.MgmtServiceOperations;
+            var serviceOperations = environmentFactory.ManagementEnvironment.MgmtServiceOperations;
             _serviceService = new ServiceService(serviceOperations, companyOperations, _authenticationContext, null, new CapabilityProvider(settingProvider));
             _serviceId = _serviceService.Create(new ServiceDto() { CompanyId = _companyId, Name = "new service" });
 
-            var networkOperations = environmentFactory.MgmtNetworkOperations;
+            var networkOperations = environmentFactory.ManagementEnvironment.MgmtNetworkOperations;
             _networkService = new NetworkService(networkOperations, serviceOperations, companyOperations, _authenticationContext, null);
 
             var network = new NetworkDto()
@@ -151,7 +151,7 @@ namespace Thriot.Objects.Operations.Tests
 
             _messagingServiceClient.Initialize("1234").ReturnsForAnyArgs(1);
 
-            var deviceOperations = environmentFactory.MgmtDeviceOperations;
+            var deviceOperations = environmentFactory.ManagementEnvironment.MgmtDeviceOperations;
             _deviceService = new DeviceService(deviceOperations, networkOperations, serviceOperations, companyOperations,
                 _authenticationContext, _messagingServiceClient);
         }

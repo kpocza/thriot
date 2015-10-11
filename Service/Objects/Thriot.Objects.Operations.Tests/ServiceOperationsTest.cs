@@ -46,7 +46,7 @@ namespace Thriot.Objects.Operations.Tests
 
             _serviceService.UpdateIncomingTelemetryDataSinks(service1Id, incoming);
 
-            var platformServiceOperations = environmentFactory.ObjServiceOperations;
+            var platformServiceOperations = environmentFactory.ManagementEnvironment.ObjServiceOperations;
 
             var s1 = platformServiceOperations.Get(service1Id);
             var s2 = platformServiceOperations.Get(service2Id);
@@ -67,9 +67,9 @@ namespace Thriot.Objects.Operations.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             _authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var companyOperations = environmentFactory.MgmtCompanyOperations;
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var companyOperations = environmentFactory.ManagementEnvironment.MgmtCompanyOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
 
             var userService = new UserService(userOperations, _authenticationContext, settingProvider, null);
             var userId = userService.Register(new RegisterDto() { Name = "user", Email = EmailHelper.Generate(), Password = "password" }, null);
@@ -80,7 +80,7 @@ namespace Thriot.Objects.Operations.Tests
 
             _companyId = companyService.Create("new company");
 
-            var serviceOperations = environmentFactory.MgmtServiceOperations;
+            var serviceOperations = environmentFactory.ManagementEnvironment.MgmtServiceOperations;
             var telemetryDataSinkSetupServiceClient = Substitute.For<ITelemetryDataSinkSetupServiceClient>();
             telemetryDataSinkSetupServiceClient.GetTelemetryDataSinksMetadata().Returns(
                 new TelemetryDataSinksMetadataDtoClient

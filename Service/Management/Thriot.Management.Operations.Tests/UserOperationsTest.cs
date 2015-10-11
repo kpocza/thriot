@@ -13,7 +13,7 @@ namespace Thriot.Management.Operations.Tests
         public void CreateTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var userOperations = environmentFactory.MgmtUserOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
 
             var salt = Crypto.GenerateSalt();
             var passwordHash = Crypto.CalcualteHash("password", salt);
@@ -26,7 +26,7 @@ namespace Thriot.Management.Operations.Tests
         public void IsNotExistsTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var userOperations = environmentFactory.MgmtUserOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
 
             Assert.IsFalse(userOperations.IsExists("nosuch"));
         }
@@ -35,7 +35,7 @@ namespace Thriot.Management.Operations.Tests
         public void IsExistsTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var userOperations = environmentFactory.MgmtUserOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
 
             var email = EmailHelper.Generate();
 
@@ -50,7 +50,7 @@ namespace Thriot.Management.Operations.Tests
         public void GetMeSuccessTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var userOperations = environmentFactory.MgmtUserOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
 
             var email = EmailHelper.Generate();
 
@@ -72,7 +72,7 @@ namespace Thriot.Management.Operations.Tests
         public void GetMeFailedTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var userOperations = environmentFactory.MgmtUserOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
 
             userOperations.Get("231413245");
         }
@@ -81,7 +81,7 @@ namespace Thriot.Management.Operations.Tests
         public void UpdateSuccessTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var userOperations = environmentFactory.MgmtUserOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
 
             var email = EmailHelper.Generate();
 
@@ -110,7 +110,7 @@ namespace Thriot.Management.Operations.Tests
         public void UpdateLoginUserTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            var userOperations = environmentFactory.MgmtUserOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
 
             var email = EmailHelper.Generate();
 

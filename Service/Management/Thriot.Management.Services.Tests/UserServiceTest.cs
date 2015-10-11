@@ -21,8 +21,8 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
 
             var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
 
@@ -43,7 +43,7 @@ namespace Thriot.Management.Services.Tests
             var authenticationContext = Substitute.For<IAuthenticationContext>();
             var mailer = Substitute.For<IMailer>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
             var settingProvider = Substitute.For<ISettingProvider>();
             settingProvider.EmailActivation.Returns(true);
 
@@ -64,8 +64,8 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
 
             var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
 
@@ -82,8 +82,8 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
 
             var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
 
@@ -102,8 +102,8 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
 
             var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
 
@@ -123,8 +123,8 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
 
             var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
 
@@ -142,8 +142,8 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
-            var userOperations = environmentFactory.MgmtUserOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
 
             var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
 
@@ -158,7 +158,7 @@ namespace Thriot.Management.Services.Tests
             var authenticationContext = Substitute.For<IAuthenticationContext>();
             var mailer = Substitute.For<IMailer>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
             var settingProvider = Substitute.For<ISettingProvider>();
             settingProvider.EmailActivation.Returns(true);
 
@@ -182,7 +182,7 @@ namespace Thriot.Management.Services.Tests
             var mailer = Substitute.For<IMailer>();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
             authenticationContext.GetContextUser().Returns((string)null);
-            var userOperations = environmentFactory.MgmtUserOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
 
             var settingProvider = Substitute.For<ISettingProvider>();
             settingProvider.EmailActivation.Returns(true);
@@ -213,7 +213,7 @@ namespace Thriot.Management.Services.Tests
             var mailer = Substitute.For<IMailer>();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
             authenticationContext.GetContextUser().Returns("123456");
-            var userOperations = environmentFactory.MgmtUserOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
             var settingProvider = Substitute.For<ISettingProvider>();
             settingProvider.EmailActivation.Returns(true);
 
@@ -238,7 +238,7 @@ namespace Thriot.Management.Services.Tests
             var mailer = Substitute.For<IMailer>();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
             authenticationContext.GetContextUser().Returns((string)null);
-            var userOperations = environmentFactory.MgmtUserOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
             var settingProvider = Substitute.For<ISettingProvider>();
             settingProvider.EmailActivation.Returns(true);
 
@@ -258,7 +258,7 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
             authenticationContext.GetContextUser().Returns((string)null);
-            var userOperations = environmentFactory.MgmtUserOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
 
             var settingProvider = Substitute.For<ISettingProvider>();
             settingProvider.EmailActivation.Returns(false);
@@ -280,7 +280,7 @@ namespace Thriot.Management.Services.Tests
             var mailer = Substitute.For<IMailer>();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
             authenticationContext.GetContextUser().Returns((string)null);
-            var userOperations = environmentFactory.MgmtUserOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
             var settingProvider = Substitute.For<ISettingProvider>();
             settingProvider.EmailActivation.Returns(true);
 
@@ -303,8 +303,8 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
 
             var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
 
@@ -332,8 +332,8 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
 
             var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
 
@@ -353,7 +353,7 @@ namespace Thriot.Management.Services.Tests
             var mailer = Substitute.For<IMailer>();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
             authenticationContext.GetContextUser().Returns((string)null);
-            var userOperations = environmentFactory.MgmtUserOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
 
             var settingProvider = Substitute.For<ISettingProvider>();
             settingProvider.EmailActivation.Returns(true);
@@ -376,8 +376,8 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
 
             var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
 
@@ -395,8 +395,8 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
 
             var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
 
@@ -418,8 +418,8 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
 
             var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
 
@@ -443,8 +443,8 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
 
             var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
 
@@ -463,7 +463,7 @@ namespace Thriot.Management.Services.Tests
             var mailer = Substitute.For<IMailer>();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
             authenticationContext.GetContextUser().Returns((string)null);
-            var userOperations = environmentFactory.MgmtUserOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
 
             var settingProvider = Substitute.For<ISettingProvider>();
             settingProvider.EmailActivation.Returns(true);
@@ -485,8 +485,8 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
 
             var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
 
@@ -520,8 +520,8 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
 
             var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
 
@@ -551,7 +551,7 @@ namespace Thriot.Management.Services.Tests
             var mailer = Substitute.For<IMailer>();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
             authenticationContext.GetContextUser().Returns((string)null);
-            var userOperations = environmentFactory.MgmtUserOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
 
             var settingProvider = Substitute.For<ISettingProvider>();
             settingProvider.EmailActivation.Returns(true);
@@ -581,9 +581,9 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var companyOperations = environmentFactory.MgmtCompanyOperations;
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var companyOperations = environmentFactory.ManagementEnvironment.MgmtCompanyOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
 
             var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
             var userId = userService.Register(new RegisterDto() { Name = "user", Email = EmailHelper.Generate(), Password = "password" }, null);
@@ -607,7 +607,7 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
 
             var userService = new UserService(userOperations, authenticationContext, null, null);
 
@@ -625,8 +625,8 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
 
             var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
 
@@ -650,7 +650,7 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
 
             var userService = new UserService(userOperations, authenticationContext, null, null);
 
@@ -669,8 +669,8 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
 
             var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
 
@@ -689,8 +689,8 @@ namespace Thriot.Management.Services.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             var authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var userOperations = environmentFactory.MgmtUserOperations;
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
 
             var userService = new UserService(userOperations, authenticationContext, settingProvider, null);
 

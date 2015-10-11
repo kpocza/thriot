@@ -42,7 +42,7 @@ namespace Thriot.Objects.Operations.Tests
 
             _companyService.UpdateIncomingTelemetryDataSinks(company1Id, incoming);
 
-            var platformCompanyOperations = environmentFactory.ObjCompanyOperations;
+            var platformCompanyOperations = environmentFactory.ManagementEnvironment.ObjCompanyOperations;
 
             var c1 = platformCompanyOperations.Get(company1Id);
             var c2 = platformCompanyOperations.Get(company2Id);
@@ -61,9 +61,9 @@ namespace Thriot.Objects.Operations.Tests
             var environmentFactory = EnvironmentFactoryFactory.Create();
             _authenticationContext = Substitute.For<IAuthenticationContext>();
 
-            var settingProvider = new SettingProvider(environmentFactory.MgmtSettingOperations);
-            var userOperations = environmentFactory.MgmtUserOperations;
-            _companyOperations = environmentFactory.MgmtCompanyOperations;
+            var settingProvider = new SettingProvider(environmentFactory.ManagementEnvironment.MgmtSettingOperations);
+            var userOperations = environmentFactory.ManagementEnvironment.MgmtUserOperations;
+            _companyOperations = environmentFactory.ManagementEnvironment.MgmtCompanyOperations;
             var userService = new UserService(userOperations, _authenticationContext, settingProvider, null);
 
             var userId = userService.Register(new RegisterDto() { Name = "user", Email = EmailHelper.Generate(), Password = "password" }, null);
