@@ -60,7 +60,7 @@ namespace Thriot.Plugins.Sql
 
         public IDictionary<string, string> ParameterSubstitutes
         {
-            get { return new Dictionary<string, string> { { "ConnectionName", "ConnectionString" }}; }
+            get { return new Dictionary<string, string> { { ConnectionNameString, ConnectionStringString } }; }
         }
     }
 }

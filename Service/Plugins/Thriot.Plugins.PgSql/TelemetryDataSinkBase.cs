@@ -55,7 +55,7 @@ namespace Thriot.Plugins.PgSql
 
         public IDictionary<string, string> ParameterSubstitutes
         {
-            get { return new Dictionary<string, string> { { "ConnectionName", "ConnectionString" }}; }
+            get { return new Dictionary<string, string> { { ConnectionNameString, ConnectionStringString } }; }
         }
     }
 }
