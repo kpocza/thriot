@@ -1,20 +1,15 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Thriot.Management.Services;
 using Thriot.TestHelpers;
 
-namespace Thriot.Platform.PersistentConnections.Tests
+namespace Thriot.Plugins.Sql.Tests
 {
     [TestClass]
-    public class AssemblyInit
+    public class AssemblyInitTest
     {
         [AssemblyInitialize]
         public static void AssemblyInitFunction(TestContext context)
         {
             EnvironmentFactoryFactory.Initialize(context.Properties);
-
-            DtoMapper.Setup();
-
-            SettingInitializer.Init();
         }
     }
 }

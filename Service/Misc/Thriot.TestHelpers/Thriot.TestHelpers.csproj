@@ -78,9 +78,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssertionHelper.cs" />
-    <Compile Include="AzureEnvironmentFactory.cs" />
     <Compile Include="DevPgSqlConnectionParametersResolver.cs" />
     <Compile Include="DevSqlConnectionParametersResolver.cs" />
+    <Compile Include="EnvironmentFactory.cs" />
     <Compile Include="EnvironmentFactoryFactory.cs" />
     <Compile Include="Environments\Management\AzureManagementEnvironment.cs" />
     <Compile Include="Environments\Management\InMemoryManagementEnvironment.cs" />
@@ -112,11 +112,7 @@
     <Compile Include="IQueueEnvironment.cs" />
     <Compile Include="ITelemetryEnvironment.cs" />
     <Compile Include="SettingInitializer.cs" />
-    <Compile Include="PgSqlEnvironmentFactory.cs" />
     <Compile Include="EmailHelper.cs" />
-    <Compile Include="IEnvironmentFactory.cs" />
-    <Compile Include="SqlEnvironmentFactory.cs" />
-    <Compile Include="InMemoryEnvironmentFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestBatchParameters.cs" />
     <Compile Include="DevAzureConnectionParametersResolver.cs" />

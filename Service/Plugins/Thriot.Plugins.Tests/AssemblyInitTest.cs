@@ -1,10 +1,9 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Thriot.Framework;
 using Thriot.Management.Services;
 using Thriot.TestHelpers;
 
-namespace Thriot.Plugins.Sql.Tests
+namespace Thriot.Plugins.Tests
 {
     [TestClass]
     public class AssemblyInitTest
@@ -12,12 +11,16 @@ namespace Thriot.Plugins.Sql.Tests
         [AssemblyInitialize]
         public static void AssemblyInitFunction(TestContext context)
         {
+            EnvironmentFactoryFactory.Initialize(context.Properties);
+
             AssemblyResolver.Initialize();
             DtoMapper.Setup();
 
-#if INTEGRATIONTEST
-            SettingInitializer.Init();
-#endif
+            var environmentFactory = EnvironmentFactoryFactory.Create();
+            if (environmentFactory.TelemetryEnvironment.TelemetryDataSinkCurrent != null)
+            {
+                SettingInitializer.Init();
+            }
         }
     }
 }

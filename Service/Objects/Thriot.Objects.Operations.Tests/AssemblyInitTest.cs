@@ -10,6 +10,8 @@ namespace Thriot.Objects.Operations.Tests
         [AssemblyInitialize]
         public static void AssemblyInitFunction(TestContext context)
         {
+            EnvironmentFactoryFactory.Initialize(context.Properties);
+
             DtoMapper.Setup();
 
             SettingInitializer.Init();

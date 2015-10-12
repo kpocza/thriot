@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Configuration;
 using Thriot.Messaging.Services.Caching;
 using Thriot.Messaging.Services.Storage;
+using Thriot.TestHelpers;
 
 namespace Thriot.Messaging.Services.Tests
 {
@@ -19,7 +19,10 @@ namespace Thriot.Messaging.Services.Tests
 
         private static IPersistentStorage PoorMansContainerResolver()
         {
-            var connectionStringResolverTypeString = ConfigurationManager.AppSettings["IConnectionStringResolver"];
+            var environmentFactoryFactory = EnvironmentFactoryFactory.Create();
+            var connectionStringResolverTypeString =
+                environmentFactoryFactory.MessagingEnvironment.ConnectionStringResolverType;
+
             object[] args = null;
             if (connectionStringResolverTypeString != null)
             {
@@ -27,7 +30,9 @@ namespace Thriot.Messaging.Services.Tests
                 args = new object[] {connectionStringResolver};
             }
 
-            var persistentStorage = (IPersistentStorage)Activator.CreateInstance(Type.GetType(ConfigurationManager.AppSettings["IPersistentStorage"]), args);
+            var persistentStorageTypeString =
+                environmentFactoryFactory.MessagingEnvironment.PersistentStorageType;
+            var persistentStorage = (IPersistentStorage)Activator.CreateInstance(Type.GetType(persistentStorageTypeString), args);
 
             return persistentStorage;
         }

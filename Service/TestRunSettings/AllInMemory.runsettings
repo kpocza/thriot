@@ -16,10 +16,10 @@
 
   <!-- Parameters used by tests at runtime -->
   <TestRunParameters>
-    <Parameter name="Management" value="Azure" />
-    <Parameter name="Messaging" value="Sql" />
-    <Parameter name="Telemetry" value="Azure" />
-    <Parameter name="Queue" value="Azure" />
+    <Parameter name="Management" value="InMemory" />
+    <Parameter name="Messaging" value="InMemory" />
+    <Parameter name="Telemetry" value="InMemory" />
+    <Parameter name="Queue" value="InMemory" />
   </TestRunParameters>
 
   <!-- Adapter Specific sections -->

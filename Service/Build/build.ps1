@@ -234,15 +234,17 @@ EnsureEmptyDirectory $targetRoot\install\storage\messaging
 EnsureEmptyDirectory $targetRoot\install\storage\queue
 
 if($config -eq "azure") {
-	& $msbuild $solutionRoot\Misc\Thriot.CreateAzureStorage\Thriot.CreateAzureStorage.csproj /p:Configuration=Debug  /p:OutDir=$targetRoot\install\storage\management
+	& $msbuild $solutionRoot\Misc\Thriot.CreateAzureStorage\Thriot.CreateAzureStorage.csproj /p:Configuration=$buildConfig  /p:OutDir=$targetRoot\install\storage\management
 }
 
 if($config -eq "sql") {
-	& $msbuild $solutionRoot\Misc\Thriot.CreateSqlStorage\Thriot.CreateSqlStorage.csproj /p:Configuration=Debug  /p:OutDir=$targetRoot\install\storage\management
+	& $msbuild $solutionRoot\Misc\Thriot.CreateSqlStorage\Thriot.CreateSqlStorage.csproj /p:Configuration=$buildConfig  /p:OutDir=$targetRoot\install\storage\management
+	cp $solutionRoot\Misc\Thriot.CreateSqlStorage\Thriot.CreateSqlStorage.exe.Sql.config $targetRoot\install\storage\management\Thriot.CreateSqlStorage.exe.config
 }
 
 if($config -eq "pgsql") {
-	& $msbuild $solutionRoot\Misc\Thriot.CreateSqlStorage\Thriot.CreateSqlStorage.csproj /p:Configuration=PgSql  /p:OutputPath=$targetRoot\install\storage\management
+	& $msbuild $solutionRoot\Misc\Thriot.CreateSqlStorage\Thriot.CreateSqlStorage.csproj /p:Configuration=$buildConfig  /p:OutputPath=$targetRoot\install\storage\management
+	cp $solutionRoot\Misc\Thriot.CreateSqlStorage\Thriot.CreateSqlStorage.exe.PgSql.config $targetRoot\install\storage\management\Thriot.CreateSqlStorage.exe.config
 }
 
 if($configmsg -eq "sql") {
