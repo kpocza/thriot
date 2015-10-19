@@ -1,13 +1,18 @@
-﻿using Thriot.Plugins.Core;
+﻿using System.Collections.Generic;
+using Thriot.Plugins.Core;
 
 namespace Thriot.TestHelpers.Environments.Telemetry
 {
     public class SqlTelemetryEnvironment : ITelemetryEnvironment
     {
-        public string TelemetryConnectionString => @"Server=.\SQLEXPRESS;Database=ThriotTelemetry;Trusted_Connection=True;";
+        public string ConnectionStringParamName => "ConnectionString";
 
-        public ITelemetryDataSinkCurrent TelemetryDataSinkCurrent => InstanceCreator.Create<ITelemetryDataSinkCurrent>("Thriot.Plugins.Sql.TelemetryDataSinkCurrent, Thriot.Plugins.Sql");
+        public string ConnectionString => @"Server=.\SQLEXPRESS;Database=ThriotTelemetry;Trusted_Connection=True;";
 
-        public ITelemetryDataSinkTimeSeries TelemetryDataSinkTimeSeries => InstanceCreator.Create<ITelemetryDataSinkTimeSeries>("Thriot.Plugins.Sql.TelemetryDataSinkTimeSeries, Thriot.Plugins.Sql");
+        public ITelemetryDataSinkCurrent DataSinkCurrent => InstanceCreator.Create<ITelemetryDataSinkCurrent>("Thriot.Plugins.Sql.TelemetryDataSinkCurrent, Thriot.Plugins.Sql");
+
+        public ITelemetryDataSinkTimeSeries DataSinkTimeSeries => InstanceCreator.Create<ITelemetryDataSinkTimeSeries>("Thriot.Plugins.Sql.TelemetryDataSinkTimeSeries, Thriot.Plugins.Sql");
+
+        public IDictionary<string, string> AdditionalSettings => null;
     }
 }

@@ -1,4 +1,5 @@
-﻿using NSubstitute;
+﻿using System.Collections.Generic;
+using NSubstitute;
 using Thriot.Management.Services.Dto;
 using Thriot.Management.Services;
 using Thriot.Messaging.Services.Client;
@@ -75,16 +76,52 @@ namespace Thriot.Plugins.Tests
             _deviceId = _deviceService.Create(device);
         }
 
-        protected virtual string GetConnectionString()
+        protected IDictionary<string, string> GetCurrentDataSettings()
         {
-            return EnvironmentFactoryFactory.Create().TelemetryEnvironment.TelemetryConnectionString;
+            var telemetryEnvrionment = EnvironmentFactoryFactory.Create().TelemetryEnvironment;
+
+            var result = new Dictionary<string, string>
+            {
+                {telemetryEnvrionment.ConnectionStringParamName, telemetryEnvrionment.ConnectionString},
+                {"Table", "CurrentData"}
+            };
+
+            PrepareAdditionalValues(telemetryEnvrionment, result);
+
+            return result;
+        }
+
+        protected IDictionary<string, string> GetTimeSeriesSettings()
+        {
+            var telemetryEnvrionment = EnvironmentFactoryFactory.Create().TelemetryEnvironment;
+
+            var result = new Dictionary<string, string>
+            {
+                {telemetryEnvrionment.ConnectionStringParamName, telemetryEnvrionment.ConnectionString},
+                {"Table", "TimeSeries"}
+            };
+
+            PrepareAdditionalValues(telemetryEnvrionment, result);
+
+            return result;
+        }
+
+        private static void PrepareAdditionalValues(ITelemetryEnvironment telemetryEnvrionment, Dictionary<string, string> result)
+        {
+            if (telemetryEnvrionment.AdditionalSettings != null)
+            {
+                foreach (var item in telemetryEnvrionment.AdditionalSettings)
+                {
+                    result.Add(item.Key, item.Value);
+                }
+            }
         }
 
         protected virtual bool IsIntegrationTest()
         {
             var environmentFactory = EnvironmentFactoryFactory.Create();
 
-            return environmentFactory.TelemetryEnvironment.TelemetryDataSinkCurrent != null;
+            return environmentFactory.TelemetryEnvironment.DataSinkCurrent != null;
         }
     }
 }

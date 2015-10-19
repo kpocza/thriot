@@ -17,7 +17,7 @@ namespace Thriot.Plugins.Tests
             DtoMapper.Setup();
 
             var environmentFactory = EnvironmentFactoryFactory.Create();
-            if (environmentFactory.TelemetryEnvironment.TelemetryDataSinkCurrent != null)
+            if (environmentFactory.TelemetryEnvironment.DataSinkCurrent != null)
             {
                 SettingInitializer.Init();
             }

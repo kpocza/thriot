@@ -1,13 +1,19 @@
-﻿using Thriot.Plugins.Core;
+﻿using System.Collections.Generic;
+using Thriot.Plugins.Core;
 
 namespace Thriot.TestHelpers
 {
     public interface ITelemetryEnvironment
     {
-        string TelemetryConnectionString { get; }
+        string ConnectionStringParamName { get; }
 
-        ITelemetryDataSinkCurrent TelemetryDataSinkCurrent { get; }
+        string ConnectionString { get; }
 
-        ITelemetryDataSinkTimeSeries TelemetryDataSinkTimeSeries { get; }
+        ITelemetryDataSinkCurrent DataSinkCurrent { get; }
+
+        ITelemetryDataSinkTimeSeries DataSinkTimeSeries { get; }
+
+        IDictionary<string, string> AdditionalSettings { get; }
+
     }
 }
