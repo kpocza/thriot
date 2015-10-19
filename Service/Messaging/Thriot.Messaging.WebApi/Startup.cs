@@ -24,7 +24,8 @@ namespace Thriot.Messaging.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var configurationBuilder = new ConfigurationBuilder(_appEnv.ApplicationBasePath);
+            var configurationBuilder = new ConfigurationBuilder();
+            configurationBuilder.SetBasePath(_appEnv.ApplicationBasePath);
             configurationBuilder.AddJsonFile("config/services.json");
             configurationBuilder.AddJsonFile("config/servicesmsg.json");
             configurationBuilder.AddJsonFile("config/connectionstring.json");

@@ -4,15 +4,14 @@
     "version": "1.0.0-*",
 
     "dependencies": {
-        "Microsoft.AspNet.Server.IIS": "1.0.0-beta7",
-        "Microsoft.AspNet.Server.WebListener": "1.0.0-beta7",
-        "Microsoft.AspNet.StaticFiles": "1.0.0-beta7",
-        "Microsoft.AspNet.Mvc": "6.0.0-beta7",
-        "Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta7",
-        "Microsoft.AspNet.Mvc.Core": "6.0.0-beta7",
-        "Microsoft.Framework.Configuration.Abstractions": "1.0.0-beta7",
+        "Microsoft.AspNet.Server.WebListener": "1.0.0-beta8",
+        "Microsoft.AspNet.StaticFiles": "1.0.0-beta8",
+        "Microsoft.AspNet.Mvc": "6.0.0-beta8",
+        "Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta8",
+        "Microsoft.AspNet.Mvc.Core": "6.0.0-beta8",
+        "Microsoft.Framework.Configuration.Abstractions": "1.0.0-beta8",
         "Newtonsoft.Json": "7.0.1",
-        "Microsoft.AspNet.Server.Kestrel": "1.0.0-beta7"
+        "Microsoft.AspNet.Server.Kestrel": "1.0.0-beta8"
     },
 
     "commands": {

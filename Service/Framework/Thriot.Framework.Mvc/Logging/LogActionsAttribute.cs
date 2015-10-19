@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Mvc;
 using System;
+using Microsoft.AspNet.Mvc.Filters;
 using Thriot.Framework.Logging;
 
 namespace Thriot.Framework.Mvc.Logging
@@ -11,8 +12,6 @@ namespace Thriot.Framework.Mvc.Logging
             try
             {
                 var controller = actionExecutingContext.Controller;
-                if (controller == null)
-                    return;
 
                 var loggerOwner = controller as ILoggerOwner;
                 if (loggerOwner == null)
@@ -35,8 +34,6 @@ namespace Thriot.Framework.Mvc.Logging
             try
             {
                 var controller = actionExecutedContext.Controller;
-                if (controller == null)
-                    return;
 
                 var loggerOwner = controller as ILoggerOwner;
                 if (loggerOwner == null)

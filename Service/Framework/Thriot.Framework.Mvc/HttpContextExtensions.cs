@@ -10,7 +10,7 @@ namespace Thriot.Framework.Mvc
         {
             try
             {
-                var remoteIpAddress = request.GetFeature<IHttpConnectionFeature>()?.RemoteIpAddress;
+                var remoteIpAddress = request.Features.Get<IHttpConnectionFeature>()?.RemoteIpAddress;
 
                 if (remoteIpAddress == null)
                     return "Unknown";

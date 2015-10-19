@@ -4,6 +4,7 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
 using System.Net;
+using System.Threading.Tasks;
 using Microsoft.AspNet.Authentication.Cookies;
 using Microsoft.Dnx.Runtime;
 using Microsoft.Framework.OptionsModel;
@@ -40,7 +41,8 @@ namespace Thriot.Management.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var configurationBuilder = new ConfigurationBuilder(_appEnv.ApplicationBasePath);
+            var configurationBuilder = new ConfigurationBuilder();
+            configurationBuilder.SetBasePath(_appEnv.ApplicationBasePath);
             configurationBuilder.AddJsonFile("config/services.json");
             configurationBuilder.AddJsonFile("config/connectionstring.json");
             configurationBuilder.AddJsonFile("config/smtpsettings.json");
@@ -54,8 +56,9 @@ namespace Thriot.Management.WebApi
                 options.Filters.Add(new ApiExceptionFilterAttribute());
             });
 
-            services.AddCors();
-            services.ConfigureCors(c => c.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials()));
+            services.AddCors(
+                c =>
+                    c.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials()));
 
             ConfigureThriotServices(services, configuration);
         }
@@ -79,9 +82,10 @@ namespace Thriot.Management.WebApi
                 options.SlidingExpiration = true;
                 options.CookieName = "ThriotMgmtAuth";
                 options.AutomaticAuthentication = true;
-                ((CookieAuthenticationNotifications)options.Notifications).OnApplyRedirect = context =>
+                ((CookieAuthenticationEvents)options.Events).OnRedirect = context =>
                 {
                     context.Response.StatusCode = 401;
+                    return Task.FromResult(0);
                 };
             });
 

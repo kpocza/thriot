@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Mvc;
+using Microsoft.AspNet.Mvc.Filters;
 using Thriot.Framework.Logging;
 using Thriot.Framework.Mvc;
 using Thriot.Objects.Model;

@@ -25,7 +25,7 @@ namespace Thriot.Reporting.WebApi.Controllers
         [HttpGet("sinks")]
         public IEnumerable<SinkInfoDto> GetSinks()
         {
-            var networkId = _networkAuthenticationContext.GetContextNetwork(this.Context);
+            var networkId = _networkAuthenticationContext.GetContextNetwork(this.HttpContext);
 
             return _reportingService.GetSinks(networkId);
         }
@@ -33,7 +33,7 @@ namespace Thriot.Reporting.WebApi.Controllers
         [HttpGet("json/{sinkName}")]
         public CurrentDataReportDto GetCurrentDataJson(string sinkName)
         {
-            var networkId = _networkAuthenticationContext.GetContextNetwork(this.Context);
+            var networkId = _networkAuthenticationContext.GetContextNetwork(this.HttpContext);
 
             return _reportingService.CurrentDataStructuredReport(new SinkAndNetworkDto { NetworkId = networkId, SinkName = sinkName });
         }
@@ -41,7 +41,7 @@ namespace Thriot.Reporting.WebApi.Controllers
         [HttpGet("json/{sinkName}/{timestamp:long}")]
         public TimeSeriesReportDto GetTimeSeriesReportJson(string sinkName, long timestamp)
         {
-            var networkId = _networkAuthenticationContext.GetContextNetwork(this.Context);
+            var networkId = _networkAuthenticationContext.GetContextNetwork(this.HttpContext);
 
             return
                 _reportingService.TimeSeriesStructuredReport(
@@ -52,7 +52,7 @@ namespace Thriot.Reporting.WebApi.Controllers
         [HttpGet("csv/{sinkName}")]
         public IActionResult GetCurrentDataCsv(string sinkName)
         {
-            var networkId = _networkAuthenticationContext.GetContextNetwork(this.Context);
+            var networkId = _networkAuthenticationContext.GetContextNetwork(this.HttpContext);
             var data = _reportingService.CurrentDataFlatReport(new SinkAndNetworkDto { NetworkId = networkId, SinkName = sinkName });
 
             return CsvFormatter.ToHttpResponseMessage(data);
@@ -61,7 +61,7 @@ namespace Thriot.Reporting.WebApi.Controllers
         [HttpGet("csv/{sinkName}/{timestamp:long}")]
         public IActionResult GetTimeSeriesReportCsv(string sinkName, long timestamp)
         {
-            var networkId = _networkAuthenticationContext.GetContextNetwork(this.Context);
+            var networkId = _networkAuthenticationContext.GetContextNetwork(this.HttpContext);
 
             var data = _reportingService.TimeSeriesFlatReport(
                     new SinkAndNetworkDto { NetworkId = networkId, SinkName = sinkName },
@@ -72,14 +72,8 @@ namespace Thriot.Reporting.WebApi.Controllers
 
         private static readonly ILogger _logger = LoggerFactory.GetCurrentClassLogger();
 
-        public ILogger Logger
-        {
-            get { return _logger; }
-        }
+        public ILogger Logger => _logger;
 
-        public string UserDefinedLogValue
-        {
-            get { return _networkAuthenticationContext.GetContextNetwork(this.Context); }
-        }
+        public string UserDefinedLogValue => _networkAuthenticationContext.GetContextNetwork(this.HttpContext);
     }
 }

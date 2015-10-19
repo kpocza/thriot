@@ -25,7 +25,7 @@ namespace Thriot.Reporting.WebApi.Controllers
         [HttpGet("sinks")]
         public IEnumerable<SinkInfoDto> GetSinks()
         {
-            var deviceId = _deviceAuthenticationContext.GetContextDevice(this.Context);
+            var deviceId = _deviceAuthenticationContext.GetContextDevice(this.HttpContext);
 
             return _reportingService.GetSinks(deviceId);
         }
@@ -33,7 +33,7 @@ namespace Thriot.Reporting.WebApi.Controllers
         [HttpGet("json/{sinkName}")]
         public CurrentDataReportDto GetCurrentDataJson(string sinkName)
         {
-            var deviceId = _deviceAuthenticationContext.GetContextDevice(this.Context);
+            var deviceId = _deviceAuthenticationContext.GetContextDevice(this.HttpContext);
 
             return _reportingService.CurrentDataStructuredReport(new SinkAndDeviceDto {DeviceId = deviceId, SinkName = sinkName});
         }
@@ -41,7 +41,7 @@ namespace Thriot.Reporting.WebApi.Controllers
         [HttpGet("json/{sinkName}/{timestamp:long}")]
         public TimeSeriesReportDto GetTimeSeriesReportJson(string sinkName, long timestamp)
         {
-            var deviceId = _deviceAuthenticationContext.GetContextDevice(this.Context);
+            var deviceId = _deviceAuthenticationContext.GetContextDevice(this.HttpContext);
 
             return
                 _reportingService.TimeSeriesStructuredReport(
@@ -52,7 +52,7 @@ namespace Thriot.Reporting.WebApi.Controllers
         [HttpGet("csv/{sinkName}")]
         public IActionResult GetCurrentDataCsv(string sinkName)
         {
-            var deviceId = _deviceAuthenticationContext.GetContextDevice(this.Context);
+            var deviceId = _deviceAuthenticationContext.GetContextDevice(this.HttpContext);
 
             var data = _reportingService.CurrentDataFlatReport(new SinkAndDeviceDto { DeviceId = deviceId, SinkName = sinkName });
 
@@ -62,7 +62,7 @@ namespace Thriot.Reporting.WebApi.Controllers
         [HttpGet("csv/{sinkName}/{timestamp:long}")]
         public IActionResult GetTimeSeriesReportCsv(string sinkName, long timestamp)
         {
-            var deviceId = _deviceAuthenticationContext.GetContextDevice(this.Context);
+            var deviceId = _deviceAuthenticationContext.GetContextDevice(this.HttpContext);
 
             var data = _reportingService.TimeSeriesFlatReport(
                     new SinkAndDeviceDto { DeviceId = deviceId, SinkName = sinkName },
@@ -73,14 +73,8 @@ namespace Thriot.Reporting.WebApi.Controllers
 
         private static readonly ILogger _logger = LoggerFactory.GetCurrentClassLogger();
 
-        public ILogger Logger
-        {
-            get { return _logger; }
-        }
+        public ILogger Logger => _logger;
 
-        public string UserDefinedLogValue
-        {
-            get { return _deviceAuthenticationContext.GetContextDevice(this.Context); }
-        }
+        public string UserDefinedLogValue => _deviceAuthenticationContext.GetContextDevice(this.HttpContext);
     }
 }

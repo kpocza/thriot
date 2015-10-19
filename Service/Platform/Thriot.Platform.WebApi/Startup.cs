@@ -49,7 +49,8 @@ namespace Thriot.Platform.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var configurationBuilder = new ConfigurationBuilder(_appEnv.ApplicationBasePath);
+            var configurationBuilder = new ConfigurationBuilder();
+            configurationBuilder.SetBasePath(_appEnv.ApplicationBasePath);
             configurationBuilder.AddJsonFile("config/services.json");
             configurationBuilder.AddJsonFile("config/connectionstring.json");
 
@@ -64,8 +65,9 @@ namespace Thriot.Platform.WebApi
                 options.Filters.Add(new ApiExceptionFilterAttribute());
             });
 
-            services.AddCors();
-            services.ConfigureCors(c => c.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials()));
+            services.AddCors(
+                c =>
+                    c.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials()));
 
             ConfigureThriotServices(services, configuration);
 
