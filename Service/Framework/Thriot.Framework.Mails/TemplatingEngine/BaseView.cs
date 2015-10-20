@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Thriot.Framework.Mails.TemplatingEngine
@@ -27,6 +28,14 @@ namespace Thriot.Framework.Mails.TemplatingEngine
         public string Raw(string value)
         {
             return value;
+        }
+
+        public void WriteAttribute(string name, Tuple<string, int> prefix, Tuple<string, int> suffix,
+            Tuple<Tuple<string, int>, Tuple<object, int>, bool> value)
+        {
+            WriteLiteral(prefix.Item1);
+            WriteLiteral(value.Item2.Item1);
+            WriteLiteral(suffix.Item1);
         }
 
         public override string ToString()
