@@ -17,7 +17,7 @@ namespace Thriot.Plugins.Tests
     {
         protected virtual ITelemetryDataSinkTimeSeries GetTelemetryDataSinkTimeSeries()
         {
-            return EnvironmentFactoryFactory.Create().TelemetryEnvironment.TelemetryDataSinkTimeSeries;
+            return EnvironmentFactoryFactory.Create().TelemetryEnvironment.DataSinkTimeSeries;
         }
 
         [TestInitialize]
@@ -33,11 +33,7 @@ namespace Thriot.Plugins.Tests
                 return;
             
             var telemetryDataSinkTimeSeries = GetTelemetryDataSinkTimeSeries();
-            telemetryDataSinkTimeSeries.Setup(null, new Dictionary<string, string>
-            {
-                {"ConnectionString", GetConnectionString()},
-                {"Table", "TimeSeries"}
-            });
+            telemetryDataSinkTimeSeries.Setup(null, GetTimeSeriesSettings());
 
             telemetryDataSinkTimeSeries.Initialize();
 
@@ -53,11 +49,7 @@ namespace Thriot.Plugins.Tests
                 return;
 
             var telemetryDataSinkTimeSeries = GetTelemetryDataSinkTimeSeries();
-            telemetryDataSinkTimeSeries.Setup(null, new Dictionary<string, string>
-            {
-                {"ConnectionString", GetConnectionString()},
-                {"Table", "TimeSeries"}
-            });
+            telemetryDataSinkTimeSeries.Setup(null, GetTimeSeriesSettings());
 
             telemetryDataSinkTimeSeries.Initialize();
 
@@ -76,11 +68,7 @@ namespace Thriot.Plugins.Tests
                 throw new StorageAccessException(HttpStatusCode.Conflict);
 
             var telemetryDataSinkTimeSeries = GetTelemetryDataSinkTimeSeries();
-            telemetryDataSinkTimeSeries.Setup(null, new Dictionary<string, string>
-            {
-                {"ConnectionString", GetConnectionString()},
-                {"Table", "TimeSeries"}
-            });
+            telemetryDataSinkTimeSeries.Setup(null, GetTimeSeriesSettings());
 
             telemetryDataSinkTimeSeries.Initialize();
 
@@ -97,11 +85,7 @@ namespace Thriot.Plugins.Tests
                 return;
 
             var telemetryDataSinkTimeSeries = GetTelemetryDataSinkTimeSeries();
-            telemetryDataSinkTimeSeries.Setup(null, new Dictionary<string, string>
-            {
-                {"ConnectionString", GetConnectionString()},
-                {"Table", "TimeSeries"}
-            });
+            telemetryDataSinkTimeSeries.Setup(null, GetTimeSeriesSettings());
 
             telemetryDataSinkTimeSeries.Initialize();
 
@@ -168,14 +152,13 @@ namespace Thriot.Plugins.Tests
 
             var dynamicConnectionStringResolver = new DynamicConnectionStringResolver(settingOperation);
 
-            settingOperation.Get(null).ReturnsForAnyArgs(new Setting(SettingId.GetConnection("ResolvableConnectionString"), EnvironmentFactoryFactory.Create().TelemetryEnvironment.TelemetryConnectionString));
+            settingOperation.Get(null).ReturnsForAnyArgs(new Setting(SettingId.GetConnection("ResolvableConnectionString"), EnvironmentFactoryFactory.Create().TelemetryEnvironment.ConnectionString));
+
+            var settingsDictionary = GetTimeSeriesSettings();
+            settingsDictionary["ConnectionName"] = "ResolvableConnectionString";
 
             var telemetryDataSinkTimeSeries = GetTelemetryDataSinkTimeSeries();
-            telemetryDataSinkTimeSeries.Setup(dynamicConnectionStringResolver, new Dictionary<string, string>
-            {
-                {"ConnectionName", "ResolvableConnectionString"},
-                {"Table", "CurrentData"}
-            });
+            telemetryDataSinkTimeSeries.Setup(dynamicConnectionStringResolver, settingsDictionary);
 
             settingOperation.ReceivedWithAnyArgs(1).Get(Arg.Any<SettingId>());
         }

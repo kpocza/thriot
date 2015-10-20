@@ -51,6 +51,7 @@ namespace Thriot.Framework.Mails.TemplatingEngine
                 DefaultBaseClass = "Thriot.Framework.Mails.TemplatingEngine.BaseView",
                 DefaultClassName = "Template",
                 DefaultNamespace = "CompiledRazor",
+                NamespaceImports = {"System"}
             };
 
             var engine = new RazorTemplateEngine(host);

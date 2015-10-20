@@ -37,7 +37,7 @@ namespace Thriot.Framework.Tests
                 "    <p>Dear @Model.Name,</p >" +
                 "    <p></p >" +
                 "    <p>Please click on the following link to activate you account in Thriot:</p>" +
-                "    <p><a href = \"@Model.Url\">@Model.Url</a></p>" +
+                "    <p><a href=\"@Model.Url\">@Model.Url</a></p>" +
                 "    <p></p>" +
                 "    <p>" +
                 "        Regards:<br />" +
@@ -168,6 +168,9 @@ namespace Thriot.Framework.Tests
             Assert.AreEqual("User activation on Thriot", mailSender.MailMessage.Subject);
             Assert.IsTrue(GetContent(mailSender.MailMessage.AlternateViews[0].ContentStream).Contains("username"));
             Assert.IsTrue(GetContent(mailSender.MailMessage.AlternateViews[1].ContentStream).Contains("username"));
+            Assert.IsTrue(GetContent(mailSender.MailMessage.AlternateViews[0].ContentStream).Contains("a href=\""));
+            Assert.IsTrue(GetContent(mailSender.MailMessage.AlternateViews[0].ContentStream).Contains("http://thriot.io"));
+            Assert.IsTrue(GetContent(mailSender.MailMessage.AlternateViews[1].ContentStream).Contains("http://thriot.io"));
         }
 
         private string GetContent(Stream stream)

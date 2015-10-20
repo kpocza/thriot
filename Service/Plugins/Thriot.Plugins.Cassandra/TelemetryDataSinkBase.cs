@@ -39,23 +39,15 @@ namespace Thriot.Plugins.Cassandra
         public void Initialize()
         {
             _session.CreateKeyspaceIfNotExists(KeyspaceName);
+            _session.ChangeKeyspace(KeyspaceName);
             CreateTable();
         }
         protected abstract void CreateTable();
 
         public abstract void Record(TelemetryData message);
 
-        public IReadOnlyCollection<string> ParametersNames
-        {
-            get
-            {
-                return new[] { ContactPointsString, KeyspaceString, TableString };
-            }
-        }
+        public IReadOnlyCollection<string> ParametersNames => new[] { ContactPointsString, KeyspaceString, TableString };
 
-        public IDictionary<string, string> ParameterSubstitutes
-        {
-            get { return new Dictionary<string, string> { { ContactPointNameString, ContactPointsString } }; }
-        }
+        public IDictionary<string, string> ParameterSubstitutes => new Dictionary<string, string> { { ContactPointNameString, ContactPointsString } };
     }
 }

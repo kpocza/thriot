@@ -15,7 +15,7 @@ namespace Thriot.Plugins.Tests
     {
         protected virtual ITelemetryDataSinkCurrent GetTelemetryDataSinkCurrent()
         {
-            return EnvironmentFactoryFactory.Create().TelemetryEnvironment.TelemetryDataSinkCurrent;
+            return EnvironmentFactoryFactory.Create().TelemetryEnvironment.DataSinkCurrent;
         }
 
         [TestInitialize]
@@ -31,11 +31,7 @@ namespace Thriot.Plugins.Tests
                 return;
 
             var telemetryDataSinkCurrent = GetTelemetryDataSinkCurrent();
-            telemetryDataSinkCurrent.Setup(null, new Dictionary<string, string>
-            {
-                {"ConnectionString", GetConnectionString()},
-                {"Table", "CurrentData"}
-            });
+            telemetryDataSinkCurrent.Setup(null, GetCurrentDataSettings());
 
             telemetryDataSinkCurrent.Initialize();
 
@@ -51,11 +47,7 @@ namespace Thriot.Plugins.Tests
                 return;
 
             var telemetryDataSinkCurrent = GetTelemetryDataSinkCurrent();
-            telemetryDataSinkCurrent.Setup(null, new Dictionary<string, string>
-            {
-                {"ConnectionString", GetConnectionString()},
-                {"Table", "CurrentData"}
-            });
+            telemetryDataSinkCurrent.Setup(null, GetCurrentDataSettings());
 
             telemetryDataSinkCurrent.Initialize();
 
@@ -72,11 +64,7 @@ namespace Thriot.Plugins.Tests
                 return;
 
             var telemetryDataSinkCurrent = GetTelemetryDataSinkCurrent();
-            telemetryDataSinkCurrent.Setup(null, new Dictionary<string, string>
-            {
-                {"ConnectionString", GetConnectionString()},
-                {"Table", "CurrentData"}
-            });
+            telemetryDataSinkCurrent.Setup(null, GetCurrentDataSettings());
 
             telemetryDataSinkCurrent.Initialize();
 
@@ -120,14 +108,13 @@ namespace Thriot.Plugins.Tests
 
             var dynamicConnectionStringResolver = new DynamicConnectionStringResolver(settingOperation);
 
-            settingOperation.Get(null).ReturnsForAnyArgs(new Setting(SettingId.GetConnection("ResolvableConnectionString"), EnvironmentFactoryFactory.Create().TelemetryEnvironment.TelemetryConnectionString));
+            settingOperation.Get(null).ReturnsForAnyArgs(new Setting(SettingId.GetConnection("ResolvableConnectionString"), EnvironmentFactoryFactory.Create().TelemetryEnvironment.ConnectionString));
+
+            var settingsDictionary = GetCurrentDataSettings();
+            settingsDictionary["ConnectionName"] = "ResolvableConnectionString";
 
             var telemetryDataSinkCurrent = GetTelemetryDataSinkCurrent();
-            telemetryDataSinkCurrent.Setup(dynamicConnectionStringResolver, new Dictionary<string, string>
-            {
-                {"ConnectionName", "ResolvableConnectionString"},
-                {"Table", "CurrentData"}
-            });
+            telemetryDataSinkCurrent.Setup(dynamicConnectionStringResolver, settingsDictionary);
 
             settingOperation.ReceivedWithAnyArgs(1).Get(Arg.Any<SettingId>());
         }

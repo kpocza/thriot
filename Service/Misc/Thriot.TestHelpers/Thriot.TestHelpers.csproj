@@ -93,6 +93,7 @@
     <Compile Include="Environments\Queue\InMemoryQueueEnvironment.cs" />
     <Compile Include="Environments\Queue\PgSqlQueueEnvironment.cs" />
     <Compile Include="Environments\Queue\SqlQueueEnvironment.cs" />
+    <Compile Include="Environments\Telemetry\CassandraTelemetryEnvironment.cs" />
     <Compile Include="Environments\Telemetry\AzureTelemetryEnvironment.cs" />
     <Compile Include="Environments\Telemetry\InMemoryTelemetryEnvironment.cs" />
     <Compile Include="Environments\Telemetry\PgSqlTelemetryEnvironment.cs" />

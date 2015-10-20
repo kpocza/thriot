@@ -1,4 +1,7 @@
-﻿namespace Thriot.TestHelpers
+﻿using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace Thriot.TestHelpers
 {
     public class EnvironmentFactory
     {
