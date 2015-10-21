@@ -7,7 +7,11 @@ namespace Thriot.TestHelpers
     {
         string ConnectionStringParamName { get; }
 
+        string ConnectionStringNameName { get; }
+
         string ConnectionString { get; }
+
+        bool SupportsDuplicateCheck { get; }
 
         ITelemetryDataSinkCurrent DataSinkCurrent { get; }
 

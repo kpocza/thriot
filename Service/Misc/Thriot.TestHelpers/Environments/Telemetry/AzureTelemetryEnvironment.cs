@@ -7,7 +7,11 @@ namespace Thriot.TestHelpers.Environments.Telemetry
     {
         public string ConnectionStringParamName => "ConnectionString";
 
+        public string ConnectionStringNameName => "ConnectionName";
+
         public string ConnectionString => "UseDevelopmentStorage=true";
+
+        public bool SupportsDuplicateCheck => true;
 
         public ITelemetryDataSinkCurrent DataSinkCurrent => InstanceCreator.Create<ITelemetryDataSinkCurrent>("Thriot.Plugins.Azure.TelemetryDataSinkCurrent, Thriot.Plugins.Azure");
 

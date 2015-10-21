@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Thriot.Plugins.Core;
 
 namespace Thriot.Plugins.Cassandra
@@ -21,7 +23,21 @@ namespace Thriot.Plugins.Cassandra
 
         public IEnumerable<TelemetryData> GetTimeSeries(IEnumerable<string> deviceIds, DateTime date)
         {
-            throw new NotImplementedException();
+            var deviceIdList = string.Join(",", deviceIds.Select(deviceId => $"'{deviceId}'"));
+
+            var selectQuery =
+                $"SELECT \"DeviceId\", \"Time\", \"Data\" FROM \"{TableName}\" WHERE \"Day\"='{date.Date.ToString("yyyyMMdd")}' AND \"DeviceId\" IN ({deviceIdList})";
+
+            var list = new List<TelemetryData>();
+
+            var rowSet = _session.Execute(selectQuery);
+
+            foreach (var row in rowSet)
+            {
+                list.Add(new TelemetryData((string)row["DeviceId"], Encoding.UTF8.GetString((byte[])row["Data"]), ((DateTimeOffset)row["Time"]).DateTime));
+            }
+
+            return list;
         }
     }
 }

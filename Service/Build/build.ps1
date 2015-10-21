@@ -144,6 +144,7 @@ EnsureEmptyDirectory $targetRoot\plugins\bin
 & $msbuild $solutionRoot\Plugins\Thriot.Plugins.Azure\Thriot.Plugins.Azure.csproj /p:Configuration=$buildConfig  /p:OutDir=$targetRoot\plugins\bin\azure
 & $msbuild $solutionRoot\Plugins\Thriot.Plugins.Sql\Thriot.Plugins.Sql.csproj /p:Configuration=$buildConfig  /p:OutDir=$targetRoot\plugins\bin\sql
 & $msbuild $solutionRoot\Plugins\Thriot.Plugins.PgSql\Thriot.Plugins.PgSql.csproj /p:Configuration=$buildConfig  /p:OutDir=$targetRoot\plugins\bin\pgsql
+& $msbuild $solutionRoot\Plugins\Thriot.Plugins.Cassandra\Thriot.Plugins.Cassandra.csproj /p:Configuration=$buildConfig  /p:OutDir=$targetRoot\plugins\bin\cassandra
 
 
 if($queueconfig -ne "no") 

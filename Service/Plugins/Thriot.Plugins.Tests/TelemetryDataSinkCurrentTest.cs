@@ -107,11 +107,13 @@ namespace Thriot.Plugins.Tests
             var settingOperation = Substitute.For<Thriot.Objects.Model.Operations.ISettingOperations>();
 
             var dynamicConnectionStringResolver = new DynamicConnectionStringResolver(settingOperation);
+            var telemetryEnvrionment = EnvironmentFactoryFactory.Create().TelemetryEnvironment;
 
-            settingOperation.Get(null).ReturnsForAnyArgs(new Setting(SettingId.GetConnection("ResolvableConnectionString"), EnvironmentFactoryFactory.Create().TelemetryEnvironment.ConnectionString));
+            settingOperation.Get(null).ReturnsForAnyArgs(new Setting(SettingId.GetConnection("ResolvableConnectionString"), telemetryEnvrionment.ConnectionString));
 
             var settingsDictionary = GetCurrentDataSettings();
-            settingsDictionary["ConnectionName"] = "ResolvableConnectionString";
+            settingsDictionary.Remove(telemetryEnvrionment.ConnectionStringParamName);
+            settingsDictionary[telemetryEnvrionment.ConnectionStringNameName] = "ResolvableConnectionString";
 
             var telemetryDataSinkCurrent = GetTelemetryDataSinkCurrent();
             telemetryDataSinkCurrent.Setup(dynamicConnectionStringResolver, settingsDictionary);
