@@ -33,7 +33,9 @@ namespace Thriot.Plugins.Cassandra
             TableName = parameters[TableString];
 
             var cluster = Cluster.Builder().AddContactPoints(connectionPointList).Build();
-            _session = cluster.Connect(KeyspaceName);
+            _session = cluster.Connect();
+            _session.CreateKeyspaceIfNotExists(KeyspaceName);
+            _session.ChangeKeyspace(KeyspaceName);
         }
 
         public void Initialize()

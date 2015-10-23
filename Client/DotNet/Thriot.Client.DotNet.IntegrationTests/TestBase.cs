@@ -12,5 +12,7 @@ namespace Thriot.Client.DotNet.IntegrationTests
         protected static readonly string SinkTimeSeries = ConfigurationManager.AppSettings["sinkTimeSeries"];
         protected static readonly string ParamSinkData = ConfigurationManager.AppSettings["paramSinkData"];
         protected static readonly string ParamSinkDataConnectionString = ConfigurationManager.AppSettings["paramSinkDataConnectionString"];
+        protected static readonly string ParamSinkDataKeyspace = ConfigurationManager.AppSettings["paramSinkDataKeyspace"];
+        protected static readonly string ParamSinkDataContactPoints = ConfigurationManager.AppSettings["paramSinkDataContactPoints"];
     }
 }

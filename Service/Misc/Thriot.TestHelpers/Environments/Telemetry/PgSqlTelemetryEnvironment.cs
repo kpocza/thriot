@@ -7,7 +7,11 @@ namespace Thriot.TestHelpers.Environments.Telemetry
     {
         public string ConnectionStringParamName => "ConnectionString";
 
+        public string ConnectionStringNameName => "ConnectionName";
+
         public string ConnectionString => "Server=127.0.0.1;Port=5432;Database=ThriotTelemetry;User Id=thriottelemetry;Password=thriottelemetry;";
+
+        public bool SupportsDuplicateCheck => true;
 
         public ITelemetryDataSinkCurrent DataSinkCurrent => InstanceCreator.Create<ITelemetryDataSinkCurrent>("Thriot.Plugins.PgSql.TelemetryDataSinkCurrent, Thriot.Plugins.PgSql");
 

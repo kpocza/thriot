@@ -34,8 +34,7 @@ namespace Thriot.CreateSqlStorage
                 CreateSettingIfNotExist(settingRepository, Setting.TelemetrySetupServiceApiKey, null, Crypto.GenerateSafeRandomToken());
                 CreateSettingIfNotExist(settingRepository, Setting.MessagingServiceEndpoint, "microservice.messagingserviceendpoint", "http://localhost/msvc/v1/messaging");
                 CreateSettingIfNotExist(settingRepository, Setting.MessagingServiceApiKey, null, Crypto.GenerateSafeRandomToken());
-                CreateSettingIfNotExist(settingRepository, SettingId.GetConnection("TelemetryConnectionAzure"), "telemetry.connectionazure", "UseDevelopmentStorage=true");
-                CreateSettingIfNotExist(settingRepository, SettingId.GetConnection("TelemetryConnectionSql"), "telemetry.connectionsql", ConfigurationManager.AppSettings["TelemetryConnectionSql"]);
+                CreateSettingIfNotExist(settingRepository, SettingId.GetConnection("TelemetryConnection"), "telemetry.connection", ConfigurationManager.AppSettings["TelemetryConnection"]);
                 CreateSettingIfNotExist(settingRepository, Setting.WebsiteUrl, "publicurl.web", "http://localhost");
                 CreateSettingIfNotExist(settingRepository, Setting.ManagementApiUrl, "publicurl.managementapi", "http://localhost/api/v1");
                 CreateSettingIfNotExist(settingRepository, Setting.PlatformApiUrl, "publicurl.platformapi", "http://localhost/papi/v1");

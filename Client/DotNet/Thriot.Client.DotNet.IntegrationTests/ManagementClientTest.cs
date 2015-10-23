@@ -645,17 +645,26 @@ namespace Thriot.Client.DotNet.IntegrationTests
             var serviceId = managementClient.Service.Create(new Service { CompanyId = companyId, Name = "árvíztűrő tükörfúrógép" });
             var networkId = managementClient.Network.Create(new Network { CompanyId = companyId, ServiceId = serviceId, Name = "árvíztűrő tükörfúrógép" });
 
+            var telemetryDataSinkParametersItem = new TelemetryDataSinkParameters
+            {
+                SinkName = ParamSinkData,
+                Parameters = new Dictionary<string, string>()
+                {
+                    {"Table", "CurrentData"}
+                }
+            };
+
+            var parameters = telemetryDataSinkParametersItem.Parameters;
+            if (!string.IsNullOrWhiteSpace(ParamSinkDataConnectionString))
+                parameters.Add("ConnectionString", ParamSinkDataConnectionString);
+            if (!string.IsNullOrWhiteSpace(ParamSinkDataContactPoints))
+                parameters.Add("ContactPoints", ParamSinkDataContactPoints);
+            if (!string.IsNullOrWhiteSpace(ParamSinkDataKeyspace))
+                parameters.Add("Keyspace", ParamSinkDataKeyspace);
+
             var telemetryDataSinkParameters = new List<TelemetryDataSinkParameters>
             {
-                new TelemetryDataSinkParameters
-                {
-                    SinkName = ParamSinkData,
-                    Parameters = new Dictionary<string, string>()
-                    {
-                        {"ConnectionString", ParamSinkDataConnectionString},
-                        {"Table", "CurrentData"}
-                    }
-                }
+                telemetryDataSinkParametersItem
             };
 
             managementClient.Company.UpdateIncomingTelemetryDataSinks(companyId, telemetryDataSinkParameters);

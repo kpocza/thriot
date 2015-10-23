@@ -1,6 +1,7 @@
 param 
 (
 	[string]$config,
+	[string]$configtmt,
 	[string]$configmsg,
 	[string]$copyConfigs,
 	[string]$linuxify,
@@ -80,6 +81,9 @@ function ConfigKeeper([string]$configDir, [string]$name, [string]$config, [strin
 $options = @([tuple]::Create("&azure", "Azure Table Storage"), [tuple]::Create("&sql", "Microsoft Sql 2012+ (Express)"), [tuple]::Create("&pgsql", "PostgreSql 9.4+"));
 $config = Choose "Master Management Storage" $null $options $config 0
 
+$options = @([tuple]::Create("&azure", "Azure Table Storage"), [tuple]::Create("&sql", "Microsoft Sql 2012+ (Express)"), [tuple]::Create("&pgsql", "PostgreSql 9.4+"), [tuple]::Create("&cassandra", "Cassandr 2.1+"));
+$configtmt = Choose "Telemetry storage" $null $options $configtmt 0
+
 $options = @([tuple]::Create("&sql", "Microsoft Sql 2012+ (Express)"), [tuple]::Create("&pgsql", "PostgreSql 9.4+"));
 $configmsg = Choose "Messaging backend storage" $null $options $configmsg 0
 
@@ -93,6 +97,7 @@ $options = @([tuple]::Create("&no", "Do not use queue"), [tuple]::Create("&azure
 $queueconfig = Choose "Queueing solution" $null $options $queueconfig 0
 
 "Master Management Storage: $config"
+"Telemetry Storage: $configtmt"
 "Messaging storage: $configmsg"
 "Deploy configuration files: $copyConfigs"
 "Prepare for Linux environment: $linuxify"
@@ -144,6 +149,7 @@ EnsureEmptyDirectory $targetRoot\plugins\bin
 & $msbuild $solutionRoot\Plugins\Thriot.Plugins.Azure\Thriot.Plugins.Azure.csproj /p:Configuration=$buildConfig  /p:OutDir=$targetRoot\plugins\bin\azure
 & $msbuild $solutionRoot\Plugins\Thriot.Plugins.Sql\Thriot.Plugins.Sql.csproj /p:Configuration=$buildConfig  /p:OutDir=$targetRoot\plugins\bin\sql
 & $msbuild $solutionRoot\Plugins\Thriot.Plugins.PgSql\Thriot.Plugins.PgSql.csproj /p:Configuration=$buildConfig  /p:OutDir=$targetRoot\plugins\bin\pgsql
+& $msbuild $solutionRoot\Plugins\Thriot.Plugins.Cassandra\Thriot.Plugins.Cassandra.csproj /p:Configuration=$buildConfig  /p:OutDir=$targetRoot\plugins\bin\cassandra
 
 
 if($queueconfig -ne "no") 
@@ -166,7 +172,7 @@ if($copyConfigs -eq "no")
 	$configDir = "$targetRoot\papi\approot\packages\Thriot.Platform.WebApi\1.0.0\root\config"
 	rm $configDir\connectionstring*
 	ConfigKeeper $configDir "services" $config
-	ConfigKeeper $configDir "telemetryDataSink" $config "xml"
+	ConfigKeeper $configDir "telemetryDataSink" $configtmt "xml"
 	mv $configDir\telemetryDataSink.xml $configDir\telemetryDataSink.default.xml
 
 	$configDir = "$targetRoot\rapi\approot\packages\Thriot.Reporting.WebApi\1.0.0\root\config"
@@ -201,7 +207,7 @@ else
 	$configDir = "$targetRoot\papi\approot\packages\Thriot.Platform.WebApi\1.0.0\root\config"
 	ConfigKeeper $configDir "connectionstring" $config
 	ConfigKeeper $configDir "services" $config
-	ConfigKeeper $configDir "telemetryDataSink" $config "xml"
+	ConfigKeeper $configDir "telemetryDataSink" $configtmt "xml"
 
 	$configDir = "$targetRoot\rapi\approot\packages\Thriot.Reporting.WebApi\1.0.0\root\config"
 	ConfigKeeper $configDir "connectionstring" $config

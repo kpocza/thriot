@@ -7,7 +7,12 @@ namespace Thriot.TestHelpers.Environments.Telemetry
     {
         public string ConnectionStringParamName => "ContactPoints";
 
+        public string ConnectionStringNameName => "ContactPointName";
+
         public string ConnectionString => "ubuntucas1";
+
+        // to be exact it supports but with performance penalty
+        public bool SupportsDuplicateCheck => false;
 
         public ITelemetryDataSinkCurrent DataSinkCurrent => InstanceCreator.Create<ITelemetryDataSinkCurrent>("Thriot.Plugins.Cassandra.TelemetryDataSinkCurrent, Thriot.Plugins.Cassandra");
 

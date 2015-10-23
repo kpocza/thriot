@@ -7,7 +7,11 @@ namespace Thriot.TestHelpers.Environments.Telemetry
     {
         public string ConnectionStringParamName => "ConnectionString";
 
+        public string ConnectionStringNameName => "ConnectionName";
+
         public string ConnectionString => @"Server=.\SQLEXPRESS;Database=ThriotTelemetry;Trusted_Connection=True;";
+
+        public bool SupportsDuplicateCheck => true;
 
         public ITelemetryDataSinkCurrent DataSinkCurrent => InstanceCreator.Create<ITelemetryDataSinkCurrent>("Thriot.Plugins.Sql.TelemetryDataSinkCurrent, Thriot.Plugins.Sql");
 
