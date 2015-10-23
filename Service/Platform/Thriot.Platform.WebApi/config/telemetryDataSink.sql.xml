@@ -5,13 +5,13 @@
     <sink name="sqlTimeSeries" type="Thriot.Plugins.Sql.TelemetryDataSinkTimeSeries, Thriot.Plugins.Sql" description="Sql table for time series" />
     <sink name="localSqlData" type="Thriot.Plugins.Sql.TelemetryDataSinkCurrent, Thriot.Plugins.Sql" description="Locally-hosted Sql table for data">
       <parameterPresets>
-        <param key="ConnectionName" value="TelemetryConnectionSql" />
+        <param key="ConnectionName" value="TelemetryConnection" />
         <param key="Table" value="CurrentData" />
       </parameterPresets>
     </sink>
     <sink name="localSqlTimeSeries" type="Thriot.Plugins.Sql.TelemetryDataSinkTimeSeries, Thriot.Plugins.Sql" description="Locally-hosted Sql table for time series">
       <parameterPresets>
-        <param key="ConnectionName" value="TelemetryConnectionSql" />
+        <param key="ConnectionName" value="TelemetryConnection" />
         <param key="Table" value="TimeSeries" />
       </parameterPresets>
     </sink>

@@ -5,13 +5,15 @@
     <sink name="cassandraTimeSeries" type="Thriot.Plugins.Cassandra.TelemetryDataSinkTimeSeries, Thriot.Plugins.Cassandra" description="Cassandra storage for time series" />
     <sink name="localCassandraeData" type="Thriot.Plugins.Cassandra.TelemetryDataSinkCurrent, Thriot.Plugins.Cassandra" description="Locally-hosted Cassandra storage for data">
       <parameterPresets>
-        <param key="ConnectionName" value="TelemetryConnectionCassandra" />
+        <param key="ContactPointName" value="TelemetryConnection" />
+        <param key="Keyspace" value="Telemetry" />
         <param key="Table" value="CurrentData" />
       </parameterPresets>
     </sink>
     <sink name="localCassandraTimeSeries" type="Thriot.Plugins.Cassandra.TelemetryDataSinkTimeSeries, Thriot.Plugins.Cassandra" description="Locally-hosted Cassandra storage for time series">
       <parameterPresets>
-        <param key="ConnectionName" value="TelemetryConnectionCassandra" />
+        <param key="ContactPointName" value="TelemetryConnection" />
+        <param key="Keyspace" value="Telemetry" />
         <param key="Table" value="TimeSeries" />
       </parameterPresets>
     </sink>

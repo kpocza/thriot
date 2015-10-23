@@ -5,13 +5,13 @@
     <sink name="azureTimeSeries" type="Thriot.Plugins.Azure.TelemetryDataSinkTimeSeries, Thriot.Plugins.Azure" description="Azure table storage for time series" />
     <sink name="localAzureData" type="Thriot.Plugins.Azure.TelemetryDataSinkCurrent, Thriot.Plugins.Azure" description="Locally-hosted Azure table storage for data">
       <parameterPresets>
-        <param key="ConnectionName" value="TelemetryConnectionAzure" />
+        <param key="ConnectionName" value="TelemetryConnection" />
         <param key="Table" value="CurrentData" />
       </parameterPresets>
     </sink>
     <sink name="localAzureTimeSeries" type="Thriot.Plugins.Azure.TelemetryDataSinkTimeSeries, Thriot.Plugins.Azure" description="Locally-hosted Azure table storage for time series">
       <parameterPresets>
-        <param key="ConnectionName" value="TelemetryConnectionAzure" />
+        <param key="ConnectionName" value="TelemetryConnection" />
         <param key="Table" value="TimeSeries" />
       </parameterPresets>
     </sink>
