@@ -15,7 +15,7 @@
     },
 
     "commands": {
-        "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:12345",
+        "web": "Microsoft.AspNet.Server.Kestrel",
         "kestrel": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.Kestrel --server.urls http://localhost:7999"
     },
 

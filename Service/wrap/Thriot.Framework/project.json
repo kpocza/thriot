@@ -9,9 +9,9 @@
       },
       "dependencies": {
         "Ix-Main": "1.2.5",
-        "Microsoft.Framework.Configuration.Abstractions": "1.0.0-beta7",
+        "Microsoft.Framework.Configuration.Abstractions": "1.0.0-beta8",
         "Newtonsoft.Json": "7.0.1",
-        "NLog": "4.1.0"
+        "NLog": "4.1.2"
       }
     }
   }
