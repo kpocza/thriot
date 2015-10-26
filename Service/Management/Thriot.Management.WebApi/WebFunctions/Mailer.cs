@@ -20,7 +20,7 @@ namespace Thriot.Management.WebApi.WebFunctions
             mail.Send(Addressing.Create(email, displayName), "Activation", new
             {
                 Name = displayName,
-                Url = $"{websiteUrl}/User/Activate#{userId},{activationCode}"
+                Url = $"{websiteUrl}/User/Activate#{userId}/{activationCode}"
             });
         }
 
@@ -31,7 +31,7 @@ namespace Thriot.Management.WebApi.WebFunctions
             mail.Send(Addressing.Create(email, displayName), "ResetPassword", new
             {
                 Name = displayName,
-                Url = $"{websiteUrl}/User/ResetPassword#{userId},{confirmationCode}"
+                Url = $"{websiteUrl}/User/ResetPassword#{userId}/{confirmationCode}"
             });
         }
     }

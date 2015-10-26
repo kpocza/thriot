@@ -28,8 +28,7 @@
 
     $scope.activate = function () {
         var hash = $window.location.hash.replace('#', '');
-        var hashParts = hash.split(',');
-        $http.get(mgmtApiUrls.usersApi + '/activate/' + hashParts[0] + '/' + hashParts[1])
+        $http.get(mgmtApiUrls.usersApi + '/activate/' + hash)
             .success(function () {
                 cookies.set('ThriotAuthenticated', '1');
                 infoService.navigateToRightPlace(true);
@@ -54,7 +53,7 @@
 
     $scope.resetPassword = function () {
         var hash = $window.location.hash.replace('#', '');
-        var hashParts = hash.split(',');
+        var hashParts = hash.split('/');
         $http.post(mgmtApiUrls.usersApi + '/resetPassword', { userId: hashParts[0], confirmationCode: hashParts[1], password: $scope.userInfo.password })
             .success(function () {
                 localStorage.put('messageWarning', 'Please login with your new password.');
