@@ -65,6 +65,8 @@ namespace Thriot.Reporting.WebApi
 
             telemetryDataSinkSetupServiceClient.Setup(settingOperations.Get(Setting.TelemetrySetupServiceEndpoint).Value, settingOperations.Get(Setting.TelemetrySetupServiceApiKey).Value);
 
+            app.UseIISPlatformHandler();
+
             app.UseCors("AllowAll");
 
             app.UseMvc();

@@ -75,6 +75,8 @@ namespace Thriot.Management.WebApi
             messagingServiceClient.Setup(settingProvider.MessagingServiceEndpoint, settingProvider.MessagingServiceApiKey);
             telemetryDataSinkSetupServiceClient.Setup(settingProvider.TelemetrySetupServiceEndpoint, settingProvider.TelemetrySetupServiceApiKey);
 
+            app.UseIISPlatformHandler();
+
             app.UseCookieAuthentication(options =>
             {
                 options.CookieHttpOnly = false;

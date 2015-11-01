@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Builder;
+using Microsoft.AspNet.Hosting;
 using Microsoft.Framework.DependencyInjection;
 
 namespace Thriot.Web
@@ -11,9 +12,11 @@ namespace Thriot.Web
             services.AddMvc();
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseStaticFiles();
+
+            app.UseIISPlatformHandler();
 
             app.UseMvc(routes =>
             {

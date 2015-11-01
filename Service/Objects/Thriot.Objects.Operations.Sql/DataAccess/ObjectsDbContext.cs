@@ -37,7 +37,7 @@ namespace Thriot.Objects.Operations.Sql.DataAccess
             modelBuilder.Entity<Service>().Property(p => p.ApiKey).HasColumnType("varchar");
             modelBuilder.Entity<Setting>().Property(p => p.Category).HasColumnType("varchar");
             modelBuilder.Entity<Setting>().Property(p => p.Config).HasColumnType("varchar");
-            modelBuilder.Entity<Setting>().Key(s => new { s.Category, s.Config });
+            modelBuilder.Entity<Setting>().HasKey(s => new { s.Category, s.Config });
 
             base.OnModelCreating(modelBuilder);
         }

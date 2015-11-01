@@ -116,13 +116,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Reporting.Tests", "R
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{722BF598-1BBC-4BE5-8A71-0569993623AA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{11DC450C-24E0-43F1-B778-34BCBA2FC09B}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{48F5F4BD-FBD0-4FCA-BC51-04025CF979D8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Objects.Common", "Objects\Thriot.Objects.Common\Thriot.Objects.Common.csproj", "{AD67078E-E373-409E-886F-A0270CE3D555}"
@@ -168,6 +161,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{37C7067D-9CC7-47B0-AD87-A0A8C38B9684}"
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
+		NuGet.Config = NuGet.Config
 	EndProjectSection
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Thriot.Web", "Web\Thriot.Web\Thriot.Web.xproj", "{CA5221DE-DFA9-40E6-A9DC-8BA6DF89195F}"

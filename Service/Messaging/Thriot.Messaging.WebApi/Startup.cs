@@ -45,6 +45,8 @@ namespace Thriot.Messaging.WebApi
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseIISPlatformHandler();
+
             app.UseMvc();
         }
 

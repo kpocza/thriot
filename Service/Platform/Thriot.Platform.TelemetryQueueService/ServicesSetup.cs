@@ -33,7 +33,8 @@ namespace Thriot.Platform.TelemetryQueueService
             Framework.Logging.NLogLogger.SetConfiguration(
                 Path.Combine(Path.Combine(appFolder, "config"), "nlog.config"));
 
-            var configurationBuilder = new ConfigurationBuilder(appFolder);
+            var configurationBuilder = new ConfigurationBuilder();
+            configurationBuilder.SetBasePath(appFolder);
             configurationBuilder.AddJsonFile("config/services.json");
             configurationBuilder.AddJsonFile("config/connectionstring.json");
 

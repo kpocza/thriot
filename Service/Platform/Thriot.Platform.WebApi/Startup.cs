@@ -98,6 +98,8 @@ namespace Thriot.Platform.WebApi
             var applicationShutdown = serviceProvider.GetService<IApplicationShutdown>();
             applicationShutdown.ShutdownRequested.Register(MessagingWorkers.Stop);
 
+            app.UseIISPlatformHandler();
+
             app.UseCors("AllowAll");
 
             app.UseMvc();
