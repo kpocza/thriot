@@ -61,14 +61,19 @@ function PublishASPNET5([string]$project, [string]$target)
 {
 	dnu publish $project --no-source --configuration $buildConfig -o $target
 
-	#WORKAROUND for publish bug (beta6)
+	#WORKAROUND for publish bug (beta8)
 	mkdir $target\approot\runtimes\$dnxFullName
 	cp -Recu $runtimeFolder\* $target\approot\runtimes\$dnxFullName
 
-	$xml=[xml]$(cat "$target\wwwroot\web.config")
-	($xml.configuration.appSettings.add |? {$_.key -eq "dnx-version"}).value = $dnxVersion
-	($xml.configuration.appSettings.add |? {$_.key -eq "dnx-clr"}).value = $dnxClr
-	$xml.Save("$target\wwwroot\web.config")
+	$webcmd=$(cat "$target\approot\web.cmd")
+	$webcmd = $webcmd.Replace("SET DNX_FOLDER=", "SET DNX_FOLDER="+$dnxFullName)
+	$webcmd | set-content "$target\approot\web.cmd" -Encoding ASCII
+	#WORKAROUND end
+
+	#WORKAROUND httpplatformhandler
+	$webconfig=$(cat "$target\wwwroot\web.config")
+	$webconfig=$webconfig.Replace("<handlers>", "<handlers>" + [Environment]::NewLine + "      <remove name=""httpplatformhandler"" />");
+	$webconfig | set-content "$target\wwwroot\web.config" -Encoding UTF8
 	#WORKAROUND end
 }
 
