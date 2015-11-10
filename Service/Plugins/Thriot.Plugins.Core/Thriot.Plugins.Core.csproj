@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventBasedQueueReceiveAdapter.cs" />
     <Compile Include="IQueueReceiveAdapter.cs" />
     <Compile Include="IQueueSendAdapter.cs" />
     <Compile Include="ITelemetryDataSink.cs" />
