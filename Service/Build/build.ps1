@@ -93,7 +93,7 @@ $copyConfigs = Choose "Deploy configuration files?" "Answer carefully if your ar
 $options = @([tuple]::Create("&yes", "Yes"), [tuple]::Create("&no", "No"));
 $linuxify = Choose "Is this build targeting a Linux environment?" $null $options $linuxify 1
 
-$options = @([tuple]::Create("&no", "Do not use queue"), [tuple]::Create("&azure", "Azure Queue"), [tuple]::Create("&sql", "Microsoft Sql-based queue"), [tuple]::Create("&pgsql", "PostgreSql-based queue"));
+$options = @([tuple]::Create("&no", "Do not use queue"), [tuple]::Create("&azure", "Azure Queue"), [tuple]::Create("&sql", "Microsoft Sql-based queue"), [tuple]::Create("&pgsql", "PostgreSql-based queue"), [tuple]::Create("&eventhub", "Azure Eventhub"));
 $queueconfig = Choose "Queueing solution" $null $options $queueconfig 0
 
 "Master Management Storage: $config"

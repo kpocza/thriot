@@ -60,6 +60,8 @@ $configFolders |? {Test-Path $_} |% {
 
 	ReplaceParameter $_ "telemetryqueue.json" "ConnectionString" $queue.connectionstring
 	ReplaceParameter $_ "telemetryqueue.json" "QueueName" $queue.name
+	ReplaceParameter $_ "telemetryqueue.json" "EventHubName" $queue.name
+	ReplaceParameter $_ "telemetryqueue.json" "StorageConnectionString" $queue.storageconnectionstring
 
 	ReplaceParameter $_ "siteRoots.js" "managementRoot" $publicurl.managementapi
 	ReplaceParameter $_ "siteRoots.js" "reportingRoot" $publicurl.reportingapi

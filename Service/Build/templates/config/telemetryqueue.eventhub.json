@@ -1,0 +1,9 @@
+﻿{
+    "TelemetryQueue": {
+        "QueueSendAdapter": "Thriot.Plugins.Azure.EventhubSendAdapter, Thriot.Plugins.Azure",
+        "QueueReceiveAdapter": "Thriot.Plugins.Azure.EventhubReceiveAdapter, Thriot.Plugins.Azure",
+        "ConnectionString": "EventHub",
+        "EventHubName": "telemetry",
+	"StorageConnectionString": "StorageConnString"
+    }
+}
