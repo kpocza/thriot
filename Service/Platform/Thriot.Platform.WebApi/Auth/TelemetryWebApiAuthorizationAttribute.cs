@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 using Microsoft.AspNet.Mvc.Filters;
-using Microsoft.Framework.Primitives;
+using Microsoft.Extensions.Primitives;
 using Thriot.Framework.Logging;
 using Thriot.Objects.Model;
 using Thriot.Objects.Model.Operations;

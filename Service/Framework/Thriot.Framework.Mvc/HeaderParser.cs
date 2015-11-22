@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNet.Http;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Framework.Primitives;
+using Microsoft.Extensions.Primitives;
 
 namespace Thriot.Framework.Mvc
 {

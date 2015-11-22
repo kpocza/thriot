@@ -1,24 +1,24 @@
 {
   "version": "1.0.0-*",
   "frameworks": {
-    "net45": {
+    "net46": {
       "wrappedProject": "../../Management/Thriot.Management.Operations.Azure/Thriot.Management.Operations.Azure.csproj",
       "bin": {
         "assembly": "../../Management/Thriot.Management.Operations.Azure/obj/{configuration}/Thriot.Management.Operations.Azure.dll",
         "pdb": "../../Management/Thriot.Management.Operations.Azure/obj/{configuration}/Thriot.Management.Operations.Azure.pdb"
       },
       "dependencies": {
-        "Microsoft.Data.Edm": "5.6.4",
-        "Microsoft.Data.OData": "5.6.4",
-        "Microsoft.Data.Services.Client": "5.6.4",
+        "Microsoft.Azure.KeyVault.Core": "1.0.0",
+        "Microsoft.Data.Edm": "5.7.0",
+        "Microsoft.Data.OData": "5.7.0",
+        "Microsoft.Data.Services.Client": "5.7.0",
         "Microsoft.WindowsAzure.ConfigurationManager": "3.1.0",
         "Newtonsoft.Json": "7.0.1",
-        "System.Spatial": "5.6.4",
-        "WindowsAzure.Storage": "6.0.0",
+        "System.Spatial": "5.7.0",
+        "WindowsAzure.Storage": "6.1.0",
         "Thriot.Framework.Azure": "1.0.0-*",
         "Thriot.Framework": "1.0.0-*",
-        "Thriot.Management.Model": "1.0.0-*",
-        "Microsoft.Azure.KeyVault.Core": "1.0.0"
+        "Thriot.Management.Model": "1.0.0-*"
       }
     }
   }

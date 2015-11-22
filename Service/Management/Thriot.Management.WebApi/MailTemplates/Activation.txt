@@ -1,6 +1,6 @@
 ﻿Dear @Raw(Model.Name),
 
-Please click on the following link to activate you account in Thriot:
+Please click the following link to activate your Thriot account:
 @Raw(Model.Url)
 
 

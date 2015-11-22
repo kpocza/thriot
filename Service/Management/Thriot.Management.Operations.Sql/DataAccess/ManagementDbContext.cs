@@ -1,23 +1,23 @@
-﻿using System;
-using Microsoft.Data.Entity;
+﻿using Microsoft.Data.Entity;
 using Thriot.Management.Model;
 
 namespace Thriot.Management.Operations.Sql.DataAccess
 {
     public abstract class ManagementDbContext : DbContext
     {
-        protected ManagementDbContext()
-        {
+        //protected ManagementDbContext()
+        //{
 //            Configuration.LazyLoadingEnabled = false;
   //          Configuration.ProxyCreationEnabled = false;
     //        Configuration.ValidateOnSaveEnabled = false;
-        }
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Ignore<TelemetryDataSinkSettings>();
+            modelBuilder.Ignore<SettingId>();
 
             modelBuilder.Entity<Company>().Property(p => p.Id).HasColumnType("char");//.IsFixedLength();
             modelBuilder.Entity<Device>().Property(p => p.Id).HasColumnType("char");//.IsFixedLength();
@@ -26,7 +26,7 @@ namespace Thriot.Management.Operations.Sql.DataAccess
             modelBuilder.Entity<Network>().Property(p => p.Id).HasColumnType("char");//.IsFixedLength();
             modelBuilder.Entity<Network>().Property(p => p.NetworkKey).HasColumnType("varchar");//.IsFixedLength();
             modelBuilder.Entity<Network>().Property(p => p.ServiceId).HasColumnType("char");//.IsFixedLength();
-            modelBuilder.Entity<Network>().HasOne(n => n.Service).WithMany(s => s.Networks).ForeignKey(n => n.ServiceId);
+            modelBuilder.Entity<Network>().HasOne(n => n.Service).WithMany(s => s.Networks).HasForeignKey(n => n.ServiceId);
             modelBuilder.Entity<Network>().HasOne(n => n.ParentNetwork);
 
             modelBuilder.Entity<Service>().Property(p => p.Id).HasColumnType("char");//.IsFixedLength();
@@ -43,8 +43,8 @@ namespace Thriot.Management.Operations.Sql.DataAccess
             modelBuilder.Entity<Setting>().Property(p => p.Config).HasColumnType("varchar");
             modelBuilder.Entity<Setting>().HasKey(s => new { s.Category, s.Config });
 
-            modelBuilder.Entity<UserCompany>().Property(p => p.UserId).HasColumnType("char").HasColumnName("UserId").HasSqlServerColumnName("UserId");//.IsFixedLength();
-            modelBuilder.Entity<UserCompany>().Property(p => p.CompanyId).HasColumnType("char").HasColumnName("CompanyId").HasSqlServerColumnName("CompanyId");//.IsFixedLength();
+            modelBuilder.Entity<UserCompany>().Property(p => p.UserId).HasColumnType("char");//.IsFixedLength();
+            modelBuilder.Entity<UserCompany>().Property(p => p.CompanyId).HasColumnType("char");//.IsFixedLength();
             modelBuilder.Entity<UserCompany>().HasKey(uc => new { uc.UserId, uc.CompanyId });
         }
 

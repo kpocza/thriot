@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Mvc;
-using Microsoft.Framework.Configuration;
-using Microsoft.Framework.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Authentication.Cookies;
-using Microsoft.Dnx.Runtime;
-using Microsoft.Framework.OptionsModel;
+using Microsoft.Extensions.PlatformAbstractions;
 using Thriot.Framework;
 using Thriot.Framework.Mvc.ApiExceptions;
 using Thriot.Framework.Mvc.Logging;
@@ -83,8 +82,7 @@ namespace Thriot.Management.WebApi
                 options.ExpireTimeSpan = System.TimeSpan.FromMinutes(60);
                 options.SlidingExpiration = true;
                 options.CookieName = "ThriotMgmtAuth";
-                options.AutomaticAuthentication = true;
-                ((CookieAuthenticationEvents)options.Events).OnRedirect = context =>
+                ((CookieAuthenticationEvents)options.Events).OnRedirectToLogin = context =>
                 {
                     context.Response.StatusCode = 401;
                     return Task.FromResult(0);
@@ -133,5 +131,7 @@ namespace Thriot.Management.WebApi
             
             return System.IO.File.ReadAllText(pathToRead);
         }
+
+        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Net.Mail;
-using Microsoft.Framework.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace Thriot.Framework.Mails
 {

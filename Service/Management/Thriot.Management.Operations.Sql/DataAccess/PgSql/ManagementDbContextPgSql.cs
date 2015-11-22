@@ -24,6 +24,10 @@ namespace Thriot.Management.Operations.Sql.DataAccess.PgSql
             modelBuilder.Entity<Service>().Property(p => p.Id).HasColumnType("varchar");//.IsFixedLength();
             modelBuilder.Entity<User>().Property(p => p.Id).HasColumnType("varchar");//.IsFixedLength();
             modelBuilder.Entity<LoginUser>().Property(p => p.UserId).HasColumnType("varchar");//.IsFixedLength();
+            modelBuilder.Entity<UserCompany>().Property(p => p.UserId).HasColumnType("varchar");//.IsFixedLength();
+            modelBuilder.Entity<UserCompany>().Property(p => p.CompanyId).HasColumnType("varchar");//.IsFixedLength();
+            modelBuilder.Entity<Network>().Property(p => p.ParentNetworkId).HasColumnType("varchar");//.IsFixedLength();
+            modelBuilder.Entity<Network>().Property(p => p.ServiceId).HasColumnType("varchar");//.IsFixedLength();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

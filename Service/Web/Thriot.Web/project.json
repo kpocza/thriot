@@ -2,17 +2,20 @@
     "userSecretsId": "aspnet5-Thriot.Web-20150527113940",
     "webroot": "wwwroot",
     "version": "1.0.0-*",
+    "compilationOptions": {
+        "emitEntryPoint": true
+    },
 
     "dependencies": {
-        "Microsoft.AspNet.Server.WebListener": "1.0.0-beta8",
-        "Microsoft.AspNet.StaticFiles": "1.0.0-beta8",
-        "Microsoft.AspNet.Mvc": "6.0.0-beta8",
-        "Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta8",
-        "Microsoft.AspNet.Mvc.Core": "6.0.0-beta8",
-        "Microsoft.Framework.Configuration.Abstractions": "1.0.0-beta8",
+        "Microsoft.AspNet.Server.WebListener": "1.0.0-rc1-final",
+        "Microsoft.AspNet.StaticFiles": "1.0.0-rc1-final",
+        "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
+        "Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-rc1-final",
+        "Microsoft.AspNet.Mvc.Core": "6.0.0-rc1-final",
+        "Microsoft.Extensions.Configuration.Abstractions": "1.0.0-rc1-final",
         "Newtonsoft.Json": "7.0.1",
-        "Microsoft.AspNet.Server.Kestrel": "1.0.0-beta8",
-        "Microsoft.AspNet.IISPlatformHandler": "1.0.0-beta8"
+        "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
+        "Microsoft.AspNet.IISPlatformHandler": "1.0.0-rc1-final"
     },
 
     "commands": {
@@ -21,7 +24,7 @@
     },
 
     "frameworks": {
-        "dnx451": { }
+        "dnx46": { }
     },
 
     "publishExclude": [
@@ -38,6 +41,6 @@
     ],
     "scripts": {
         "postrestore": [ "npm install", "bower install" ],
-        "prepare": [ "gulp copy" ]
+        "prepublish": [ "npm install", "bower install", "gulp clean", "gulp min" ]
     }
 }

@@ -39,7 +39,7 @@ namespace Thriot.Objects.Operations.Sql.DataAccess.PgSql
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-
+            
             optionsBuilder.UseNpgsql(_connectionString);
         }
     }

@@ -1,18 +1,21 @@
 {
     "webroot": "wwwroot",
     "version": "1.0.0-*",
+    "compilationOptions": {
+        "emitEntryPoint": true
+    },
 
     "dependencies": {
-        "Microsoft.AspNet.Mvc": "6.0.0-beta8",
-        "Microsoft.AspNet.Server.WebListener": "1.0.0-beta8",
-        "Microsoft.AspNet.StaticFiles": "1.0.0-beta8",
-        "Microsoft.AspNet.Authentication.Cookies": "1.0.0-beta8",
-        "Microsoft.Framework.Configuration": "1.0.0-beta8",
-        "Microsoft.Framework.Configuration.Json": "1.0.0-beta8",
-        "Microsoft.AspNet.Cors": "6.0.0-beta8",
+        "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
+        "Microsoft.AspNet.Server.WebListener": "1.0.0-rc1-final",
+        "Microsoft.AspNet.StaticFiles": "1.0.0-rc1-final",
+        "Microsoft.AspNet.Authentication.Cookies": "1.0.0-rc1-final",
+        "Microsoft.Extensions.Configuration": "1.0.0-rc1-final",
+        "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final",
+        "Microsoft.AspNet.Cors": "6.0.0-rc1-final",
         "Thriot.Framework.Mvc": "1.0.0-*",
-        "Microsoft.AspNet.Server.Kestrel": "1.0.0-beta8",
-        "Microsoft.AspNet.IISPlatformHandler": "1.0.0-beta8"
+        "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
+        "Microsoft.AspNet.IISPlatformHandler": "1.0.0-rc1-final"
     },
 
     "commands": {
@@ -21,7 +24,7 @@
     },
 
     "frameworks": {
-        "dnx451": {
+        "dnx46": {
             "dependencies": {
                 "Thriot.Framework.Mails": "1.0.0-*",
                 "Thriot.Management.Operations.Azure": "1.0.0-*",

@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.Data.Entity;
+﻿using Microsoft.Data.Entity;
+using Thriot.Management.Model;
 
 namespace Thriot.Management.Operations.Sql.DataAccess.Sql
 {

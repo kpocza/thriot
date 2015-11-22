@@ -12,6 +12,9 @@ namespace Thriot.Framework.Mails.TemplatingEngine
         }
 
         private StringBuilder _builder;
+        private string _attributePrefix;
+        private string _attributeSuffix;
+        private string _attributeValue;
 
         public dynamic Model { get; set; }
 
@@ -30,12 +33,23 @@ namespace Thriot.Framework.Mails.TemplatingEngine
             return value;
         }
 
-        public void WriteAttribute(string name, Tuple<string, int> prefix, Tuple<string, int> suffix,
-            Tuple<Tuple<string, int>, Tuple<object, int>, bool> value)
+
+        public void BeginWriteAttribute(string name, string prefix, int v1, string suffix, int v2, int stg)
         {
-            WriteLiteral(prefix.Item1);
-            WriteLiteral(value.Item2.Item1);
-            WriteLiteral(suffix.Item1);
+            _attributePrefix = prefix;
+            _attributeSuffix = suffix;
+        }
+
+        public void WriteAttributeValue(string name, int v1, string value, int v2, int v3, bool v4)
+        {
+            _attributeValue = value;
+        }
+
+        public void EndWriteAttribute()
+        {
+            WriteLiteral(_attributePrefix);
+            WriteLiteral(_attributeValue);
+            WriteLiteral(_attributeSuffix);
         }
 
         public override string ToString()

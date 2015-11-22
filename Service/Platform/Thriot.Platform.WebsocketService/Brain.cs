@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using SuperSocket.SocketBase.Config;
-using Microsoft.Framework.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Thriot.Objects.Model;
 using Thriot.Objects.Model.Operations;
 using Thriot.Platform.Model;
