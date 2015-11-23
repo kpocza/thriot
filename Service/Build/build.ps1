@@ -59,16 +59,7 @@ function RestoreASPNET5([string]$project)
 
 function PublishASPNET5([string]$project, [string]$target)
 {
-	dnu publish $project --no-source --configuration $buildConfig -o $target
-
-	#WORKAROUND for publish bug (beta8)
-	mkdir $target\approot\runtimes\$dnxFullName
-	cp -Recu $runtimeFolder\* $target\approot\runtimes\$dnxFullName
-
-	$webcmd=$(cat "$target\approot\web.cmd")
-	$webcmd = $webcmd.Replace("SET DNX_FOLDER=", "SET DNX_FOLDER="+$dnxFullName)
-	$webcmd | set-content "$target\approot\web.cmd" -Encoding ASCII
-	#WORKAROUND end
+	dnu publish $project --no-source --runtime active --configuration $buildConfig -o $target
 
 	#WORKAROUND httpplatformhandler
 	$webconfig=$(cat "$target\wwwroot\web.config")

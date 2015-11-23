@@ -82,6 +82,7 @@ namespace Thriot.Management.WebApi
                 options.ExpireTimeSpan = System.TimeSpan.FromMinutes(60);
                 options.SlidingExpiration = true;
                 options.CookieName = "ThriotMgmtAuth";
+                options.AutomaticAuthenticate = true;
                 ((CookieAuthenticationEvents)options.Events).OnRedirectToLogin = context =>
                 {
                     context.Response.StatusCode = 401;

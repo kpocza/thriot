@@ -95,9 +95,9 @@ namespace Thriot.Platform.WebApi
 
             MessagingWorkers.Start(batchParameters, messagingServiceClient);
 
-            var applicationShutdown = serviceProvider.GetService<IApplicationShutdown>();
-            applicationShutdown.ShutdownRequested.Register(MessagingWorkers.Stop);
-
+            var applicationLifetime = serviceProvider.GetService<IApplicationLifetime>();
+            applicationLifetime.ApplicationStopping.Register(MessagingWorkers.Stop);
+            
             app.UseIISPlatformHandler();
 
             app.UseCors("AllowAll");

@@ -95,6 +95,15 @@ app.directive('systemMessages', function ($interval, localStorage) {
 
 app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.defaults.withCredentials = true;
+    if (!$httpProvider.defaults.headers.get) {
+        $httpProvider.defaults.headers.get = {};
+    }
+
+    //disable IE ajax request caching
+    $httpProvider.defaults.headers.get['If-Modified-Since'] = 'Mon, 23 Nov 2015 01:00:00 GMT';
+    // extra
+    $httpProvider.defaults.headers.get['Cache-Control'] = 'no-cache';
+    $httpProvider.defaults.headers.get['Pragma'] = 'no-cache';
 
     $httpProvider.interceptors.push('authenticationInterceptor');
     $httpProvider.interceptors.push('errorHandlerInterceptor');
