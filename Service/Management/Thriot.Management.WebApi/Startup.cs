@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Authentication.Cookies;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Thriot.Framework;
 using Thriot.Framework.Mvc.ApiExceptions;
@@ -62,17 +63,39 @@ namespace Thriot.Management.WebApi
             ConfigureThriotServices(services, configuration);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        {
+            // WORKAROUND: HttpPlatformHandler - RC1
+            var configurationBuilder = new ConfigurationBuilder();
+            configurationBuilder.SetBasePath(_appEnv.ApplicationBasePath);
+            configurationBuilder.AddJsonFile("config/vdir.json", true);
+
+            var configuration = configurationBuilder.Build();
+            var vdir = configuration["VDIR"];
+
+            if (string.IsNullOrWhiteSpace(vdir))
+            {
+                ConfigureCore(app, env, loggerFactory);
+            }
+            else
+            {
+                app.Map(vdir, app1 => this.ConfigureCore(app1, env, loggerFactory));
+            }
+        }
+
+        private void ConfigureCore(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             var serviceProvider = app.ApplicationServices;
 
             var messagingServiceClient = serviceProvider.GetService<Messaging.Services.Client.IMessagingServiceClient>();
-            var telemetryDataSinkSetupServiceClient = serviceProvider.GetService<Platform.Services.Client.ITelemetryDataSinkSetupServiceClient>();
+            var telemetryDataSinkSetupServiceClient =
+                serviceProvider.GetService<Platform.Services.Client.ITelemetryDataSinkSetupServiceClient>();
 
-            var settingProvider = (Services.SettingProvider)serviceProvider.GetService<Services.ISettingProvider>();
+            var settingProvider = (Services.SettingProvider) serviceProvider.GetService<Services.ISettingProvider>();
 
             messagingServiceClient.Setup(settingProvider.MessagingServiceEndpoint, settingProvider.MessagingServiceApiKey);
-            telemetryDataSinkSetupServiceClient.Setup(settingProvider.TelemetrySetupServiceEndpoint, settingProvider.TelemetrySetupServiceApiKey);
+            telemetryDataSinkSetupServiceClient.Setup(settingProvider.TelemetrySetupServiceEndpoint,
+                settingProvider.TelemetrySetupServiceApiKey);
 
             app.UseIISPlatformHandler();
 
@@ -83,7 +106,7 @@ namespace Thriot.Management.WebApi
                 options.SlidingExpiration = true;
                 options.CookieName = "ThriotMgmtAuth";
                 options.AutomaticAuthenticate = true;
-                ((CookieAuthenticationEvents)options.Events).OnRedirectToLogin = context =>
+                ((CookieAuthenticationEvents) options.Events).OnRedirectToLogin = context =>
                 {
                     context.Response.StatusCode = 401;
                     return Task.FromResult(0);

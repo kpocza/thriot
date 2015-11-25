@@ -22,7 +22,8 @@ using System.Security;
 [assembly: AssemblyTrademark("")]
 [assembly: NeutralResourcesLanguage("en", UltimateResourceFallbackLocation.MainAssembly)]
 
-// The following version attributes get rewritten by GitVersion as part of the build
-[assembly: AssemblyVersion("3.1.0.0")]
-[assembly: AssemblyFileVersion("3.1.0.0")]
+// Customized
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
+
 [assembly: AssemblyInformationalVersion("3.1.0-beta7-1+Branch.develop.Sha.a017bfc066ce372041992d892423c34089090402")]

@@ -4,6 +4,7 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Thriot.Framework;
 using Thriot.Framework.Mvc.ApiExceptions;
@@ -56,7 +57,27 @@ namespace Thriot.Reporting.WebApi
             ConfigureThriotServices(services, configuration);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        {
+            // WORKAROUND: HttpPlatformHandler - RC1
+            var configurationBuilder = new ConfigurationBuilder();
+            configurationBuilder.SetBasePath(_appEnv.ApplicationBasePath);
+            configurationBuilder.AddJsonFile("config/vdir.json", true);
+
+            var configuration = configurationBuilder.Build();
+            var vdir = configuration["VDIR"];
+
+            if (string.IsNullOrWhiteSpace(vdir))
+            {
+                ConfigureCore(app, env, loggerFactory);
+            }
+            else
+            {
+                app.Map(vdir, app1 => this.ConfigureCore(app1, env, loggerFactory));
+            }
+        }
+
+        private void ConfigureCore(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             var serviceProvider = app.ApplicationServices;
 

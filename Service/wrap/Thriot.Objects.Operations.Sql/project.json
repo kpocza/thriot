@@ -11,7 +11,6 @@
         "EntityFramework.Core": "7.0.0-rc1-final",
         "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
         "EntityFramework.Relational": "7.0.0-rc1-final",
-        "EntityFramework7.Npgsql": "3.1.0-unstable0313",
         "Ix-Async": "1.2.5",
         "Microsoft.Extensions.Caching.Abstractions": "1.0.0-rc1-final",
         "Microsoft.Extensions.Caching.Memory": "1.0.0-rc1-final",
@@ -37,6 +36,7 @@
         "System.Threading": "4.0.10",
         "Thriot.Framework.Sql": "1.0.0-*",
         "Thriot.Framework": "1.0.0-*",
+        "EntityFramework7.Npgsql": "1.0.0-*",
         "Thriot.Objects.Model": "1.0.0-*"
       }
     }
