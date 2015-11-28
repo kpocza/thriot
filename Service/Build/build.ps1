@@ -59,7 +59,7 @@ function RestoreASPNET5([string]$project)
 
 function PublishASPNET5([string]$project, [string]$target)
 {
-	dnu publish $project --no-source --runtime active --configuration $buildConfig -o $target
+	dnu publish $project --no-source --runtime $publishRuntime --configuration $buildConfig -o $target
 
 	#WORKAROUND httpplatformhandler
 	$webconfig=$(cat "$target\wwwroot\web.config")
@@ -103,11 +103,14 @@ $targetRoot = $(pwd).Path + "\output\" + [DateTime]::Now.ToString("yyyyMMddHHmm"
 $solutionRoot = $(Split-Path -parent $(pwd))
 $msbuild = "c:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe"
 $buildConfig = "Debug"
-$dnxFullName = "dnx-clr-win-x64.1.0.0-rc1-final"
 $dnxVersion = "1.0.0-rc1-final"
 $dnxClr = "clr"
 $dnxArch = "x64"
-$runtimeFolder = $env:USERPROFILE + "\.dnx\runtimes\" + $dnxFullName
+$publishRuntime = "active"
+
+if($linuxify -eq "yes") {
+	$publishRuntime="dnx-mono.1.0.0-rc1-final"
+}
 
 if(-not $env:Path.Contains("Common7\IDE\Extensions\Microsoft\Web Tools\External\")) {
 	$env:Path = $env:Path + ";C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\Microsoft\Web Tools\External\";
