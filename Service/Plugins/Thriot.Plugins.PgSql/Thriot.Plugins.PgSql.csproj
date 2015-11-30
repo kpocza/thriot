@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Thriot.Plugins.PgSql</RootNamespace>
     <AssemblyName>Thriot.Plugins.PgSql</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
@@ -36,10 +36,6 @@
       <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Npgsql, Version=3.1.0.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Npgsql.3.1.0-unstable0313\lib\net45\Npgsql.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -61,6 +57,10 @@
     <ProjectReference Include="..\..\Framework\Thriot.Framework\Thriot.Framework.csproj">
       <Project>{72721cbb-098d-499b-b037-1cceacbc4524}</Project>
       <Name>Thriot.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Misc\Npgsql\Npgsql.csproj">
+      <Project>{9d13b739-62b1-4190-b386-7a9547304eb3}</Project>
+      <Name>Npgsql</Name>
     </ProjectReference>
     <ProjectReference Include="..\Thriot.Plugins.Core\Thriot.Plugins.Core.csproj">
       <Project>{d84f1a4c-1539-416a-a40a-a72aa2a5f360}</Project>

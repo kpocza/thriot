@@ -1,7 +1,7 @@
 {
   "version": "1.0.0-*",
   "frameworks": {
-    "net46": {
+    "net451": {
       "wrappedProject": "../../Misc/EntityFramework7.Npgsql/EntityFramework7.Npgsql.csproj",
       "bin": {
         "assembly": "../../Misc/EntityFramework7.Npgsql/obj/{configuration}/EntityFramework7.Npgsql.dll",
@@ -11,7 +11,6 @@
         "EntityFramework.Core": "7.0.0-rc1-final",
         "EntityFramework.Relational": "7.0.0-rc1-final",
         "Ix-Async": "1.2.5",
-        "JetBrains.Annotations": "10.0.0",
         "Microsoft.Extensions.Caching.Abstractions": "1.0.0-rc1-final",
         "Microsoft.Extensions.Caching.Memory": "1.0.0-rc1-final",
         "Microsoft.Extensions.Configuration": "1.0.0-rc1-final",
@@ -23,13 +22,13 @@
         "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
         "Microsoft.Extensions.OptionsModel": "1.0.0-rc1-final",
         "Microsoft.Extensions.Primitives": "1.0.0-rc1-final",
-        "Npgsql": "3.1.0-unstable0313",
         "Remotion.Linq": "2.0.1",
-        "System.Collections.Immutable": "1.1.37",
+        "System.Collections.Immutable": "1.1.36",
         "System.Diagnostics.DiagnosticSource": "4.0.0-beta-23516",
-        "System.Diagnostics.Tracing": "4.0.20",
-        "System.Runtime": "4.0.20",
-        "System.Threading": "4.0.10"
+        "System.Diagnostics.Tracing": "4.0.0",
+        "System.Runtime": "4.0.0",
+        "System.Threading": "4.0.0",
+        "Npgsql": "1.0.0-*"
       }
     }
   }

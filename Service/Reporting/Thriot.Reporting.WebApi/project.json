@@ -23,7 +23,7 @@
     },
 
     "frameworks": {
-        "dnx46": {
+        "dnx451": {
             "dependencies": {
                 "Thriot.Objects.Common": "1.0.0-*",
                 "Thriot.Objects.Operations.Azure": "1.0.0-*",

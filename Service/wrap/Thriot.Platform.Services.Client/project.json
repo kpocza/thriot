@@ -1,7 +1,7 @@
 {
   "version": "1.0.0-*",
   "frameworks": {
-    "net46": {
+    "net451": {
       "wrappedProject": "../../Platform/Thriot.Platform.Services.Client/Thriot.Platform.Services.Client.csproj",
       "bin": {
         "assembly": "../../Platform/Thriot.Platform.Services.Client/obj/{configuration}/Thriot.Platform.Services.Client.dll",

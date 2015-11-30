@@ -200,6 +200,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thriot.Plugins.Cassandra", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFramework7.Npgsql", "Misc\EntityFramework7.Npgsql\EntityFramework7.Npgsql.csproj", "{FADDA2D1-03B4-4DEF-8D24-DD1CA4E81F4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Npgsql", "Misc\Npgsql\Npgsql.csproj", "{9D13B739-62B1-4190-B386-7A9547304EB3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -402,6 +404,10 @@ Global
 		{FADDA2D1-03B4-4DEF-8D24-DD1CA4E81F4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FADDA2D1-03B4-4DEF-8D24-DD1CA4E81F4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FADDA2D1-03B4-4DEF-8D24-DD1CA4E81F4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D13B739-62B1-4190-B386-7A9547304EB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D13B739-62B1-4190-B386-7A9547304EB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D13B739-62B1-4190-B386-7A9547304EB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D13B739-62B1-4190-B386-7A9547304EB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -471,6 +477,7 @@ Global
 		{86052A9D-88C1-4D64-9F14-547A6D8C8E5E} = {A8C271CF-663A-492A-B734-5E715E7E1B83}
 		{851BBF3D-4C8A-4336-A5A3-47789FA3CA0A} = {F0375912-0C84-400B-9BF0-917162B331E1}
 		{FADDA2D1-03B4-4DEF-8D24-DD1CA4E81F4A} = {A7461ACE-ABB7-4359-BAEC-3494430B7A63}
+		{9D13B739-62B1-4190-B386-7A9547304EB3} = {A7461ACE-ABB7-4359-BAEC-3494430B7A63}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.WindowsAzure.Storage.6.0.1304.1\lib\NET45

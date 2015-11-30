@@ -24,7 +24,7 @@
     },
 
     "frameworks": {
-        "dnx46": {
+        "dnx451": {
             "dependencies": {
                 "Thriot.Framework.Mails": "1.0.0-*",
                 "Thriot.Management.Operations.Azure": "1.0.0-*",

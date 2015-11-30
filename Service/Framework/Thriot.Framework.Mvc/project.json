@@ -12,7 +12,7 @@
     },
 
     "frameworks": {
-        "dnx46": {
+        "dnx451": {
             "dependencies": {
                 "Thriot.Framework": "1.0.0-*"
             }

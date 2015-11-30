@@ -1,7 +1,7 @@
 {
   "version": "1.0.0-*",
   "frameworks": {
-    "net46": {
+    "net451": {
       "wrappedProject": "../../Framework/Thriot.Framework.Sql/Thriot.Framework.Sql.csproj",
       "bin": {
         "assembly": "../../Framework/Thriot.Framework.Sql/obj/{configuration}/Thriot.Framework.Sql.dll",
@@ -22,15 +22,7 @@
         "Microsoft.Extensions.OptionsModel": "1.0.0-rc1-final",
         "Microsoft.Extensions.Primitives": "1.0.0-rc1-final",
         "Remotion.Linq": "2.0.1",
-        "System.Collections": "4.0.10",
-        "System.Collections.Immutable": "1.1.37",
-        "System.Diagnostics.Debug": "4.0.10",
-        "System.Globalization": "4.0.10",
-        "System.Linq": "4.0.0",
-        "System.Resources.ResourceManager": "4.0.0",
-        "System.Runtime": "4.0.20",
-        "System.Runtime.Extensions": "4.0.10",
-        "System.Threading": "4.0.10",
+        "System.Collections.Immutable": "1.1.36",
         "Thriot.Framework": "1.0.0-*"
       }
     }

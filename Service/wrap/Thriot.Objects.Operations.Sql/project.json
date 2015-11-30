@@ -1,7 +1,7 @@
 {
   "version": "1.0.0-*",
   "frameworks": {
-    "net46": {
+    "net451": {
       "wrappedProject": "../../Objects/Thriot.Objects.Operations.Sql/Thriot.Objects.Operations.Sql.csproj",
       "bin": {
         "assembly": "../../Objects/Thriot.Objects.Operations.Sql/obj/{configuration}/Thriot.Objects.Operations.Sql.dll",
@@ -22,18 +22,13 @@
         "Microsoft.Extensions.Logging": "1.0.0-rc1-final",
         "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
         "Microsoft.Extensions.OptionsModel": "1.0.0-rc1-final",
-        "Npgsql": "3.1.0-unstable0313",
+        "Microsoft.Extensions.Primitives": "1.0.0-rc1-final",
         "Remotion.Linq": "2.0.1",
-        "System.Collections": "4.0.10",
-        "System.Collections.Immutable": "1.1.37",
-        "System.Data.Common": "4.0.1-beta-23516",
-        "System.Diagnostics.Debug": "4.0.10",
-        "System.Globalization": "4.0.10",
-        "System.Linq": "4.0.0",
-        "System.Resources.ResourceManager": "4.0.0",
-        "System.Runtime": "4.0.20",
-        "System.Runtime.Extensions": "4.0.10",
-        "System.Threading": "4.0.10",
+        "System.Collections.Immutable": "1.1.36",
+        "System.Diagnostics.DiagnosticSource": "4.0.0-beta-23516",
+        "System.Diagnostics.Tracing": "4.0.0",
+        "System.Runtime": "4.0.0",
+        "System.Threading": "4.0.0",
         "Thriot.Framework.Sql": "1.0.0-*",
         "Thriot.Framework": "1.0.0-*",
         "EntityFramework7.Npgsql": "1.0.0-*",

@@ -1,4 +1,5 @@
 dnu wrap Misc\Entityframework7.Npgsql\Entityframework7.Npgsql.csproj
+dnu wrap Misc\Npgsql\Npgsql.csproj
 dnu wrap Framework\Thriot.Framework\Thriot.Framework.csproj
 dnu wrap Framework\Thriot.Framework.Azure\Thriot.Framework.Azure.csproj
 dnu wrap Framework\Thriot.Framework.Mails\Thriot.Framework.Mails.csproj

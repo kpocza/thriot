@@ -1,7 +1,7 @@
 {
   "version": "1.0.0-*",
   "frameworks": {
-    "net46": {
+    "net451": {
       "wrappedProject": "../../Objects/Thriot.Objects.Operations.Azure/Thriot.Objects.Operations.Azure.csproj",
       "bin": {
         "assembly": "../../Objects/Thriot.Objects.Operations.Azure/obj/{configuration}/Thriot.Objects.Operations.Azure.dll",
