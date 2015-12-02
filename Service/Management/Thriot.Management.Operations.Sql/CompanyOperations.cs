@@ -25,13 +25,11 @@ namespace Thriot.Management.Operations.Sql
 
                 var companyIdentity = Identity.NextIncremental();
 
-                var userCompany = new UserCompany { CompanyId = companyIdentity, UserId = user.Id };
-
                 company.Id = companyIdentity;
                 company.Services = null;
                 company.TelemetryDataSinkSettings = new TelemetryDataSinkSettings();
-                company.Users = new List<UserCompany>() {userCompany};
 
+                var userCompany = new UserCompany { CompanyId = companyIdentity, UserId = user.Id };
 
                 unitOfWork.GetCompanyRepository().Create(company);
                 unitOfWork.GetUserCompanyRepository().Create(userCompany);
@@ -73,12 +71,19 @@ namespace Thriot.Management.Operations.Sql
             {
                 var companyRepository = unitOfWork.GetCompanyRepository();
 
-                var companyEntity = companyRepository.Get(id, c => c.Users);
-                companyRepository.Delete(companyEntity);
-
                 var userCompanyRepository = unitOfWork.GetUserCompanyRepository();
                 var userCompanies = userCompanyRepository.List(c => c.CompanyId == id);
                 userCompanies.ToList().ForEach(uc => userCompanyRepository.Delete(uc));
+
+                unitOfWork.Commit();
+            }
+
+            using (var unitOfWork = _managementUnitOfWorkFactory.Create())
+            {
+                var companyRepository = unitOfWork.GetCompanyRepository();
+
+                var companyEntity = companyRepository.Get(id);
+                companyRepository.Delete(companyEntity);
 
                 unitOfWork.Commit();
             }
@@ -116,7 +121,7 @@ namespace Thriot.Management.Operations.Sql
             {
                 var companyRepository = unitOfWork.GetCompanyRepository();
 
-                var company = companyRepository.Get(companyId, c => c.Users);
+                var company = companyRepository.Get(companyId);
                 if (company == null)
                     throw new NotFoundException();
 
@@ -131,8 +136,6 @@ namespace Thriot.Management.Operations.Sql
                 if (userCompanies.All(uc => uc.UserId != user.Id))
                 {
                     var userCompany = new UserCompany {CompanyId = company.Id, UserId = user.Id};
-                    company.Users.Add(userCompany);
-
                     userCompanyRepository.Create(userCompany);
                 }
 

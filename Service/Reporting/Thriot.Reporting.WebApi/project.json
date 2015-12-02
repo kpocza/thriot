@@ -1,22 +1,25 @@
 {
     "webroot": "wwwroot",
     "version": "1.0.0-*",
+    "compilationOptions": {
+        "emitEntryPoint": true
+    },
 
     "dependencies": {
-        "Microsoft.AspNet.Mvc": "6.0.0-beta7",
-        "Microsoft.AspNet.Server.IIS": "1.0.0-beta7",
-        "Microsoft.AspNet.Server.WebListener": "1.0.0-beta7",
-        "Microsoft.AspNet.StaticFiles": "1.0.0-beta7",
-        "Microsoft.Framework.Configuration": "1.0.0-beta7",
-        "Microsoft.Framework.Configuration.Json": "1.0.0-beta7",
-        "Microsoft.AspNet.Cors": "1.0.0-beta7",
+        "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
+        "Microsoft.AspNet.Server.WebListener": "1.0.0-rc1-final",
+        "Microsoft.AspNet.StaticFiles": "1.0.0-rc1-final",
+        "Microsoft.Extensions.Configuration": "1.0.0-rc1-final",
+        "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final",
+        "Microsoft.AspNet.Cors": "6.0.0-rc1-final",
         "Thriot.Framework.Mvc": "1.0.0-*",
-        "Microsoft.AspNet.Server.Kestrel": "1.0.0-beta7"
+        "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
+        "Microsoft.AspNet.IISPlatformHandler": "1.0.0-rc1-final"
     },
 
     "commands": {
-        "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5000",
-        "kestrel": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.Kestrel --server.urls http://localhost:8002"
+        "web": "Microsoft.AspNet.Server.Kestrel",
+        "kestrel": "Microsoft.AspNet.Server.Kestrel --server.urls http://localhost:8002"
     },
 
     "frameworks": {

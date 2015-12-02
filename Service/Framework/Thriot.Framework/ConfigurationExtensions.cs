@@ -1,4 +1,4 @@
-﻿using Microsoft.Framework.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,9 +19,9 @@ namespace Thriot.Framework
             foreach (var section in configuration.GetSection(parentKey).GetChildren())
             {
                 var key = section.Key;
-                var value = configuration[key];
+                var value = section.Value;
 
-                dictionary.Add(key.Substring(parentKey.Length + 1), value);
+                dictionary.Add(key, value);
             }
 
             return dictionary;

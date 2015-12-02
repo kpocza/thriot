@@ -1,14 +1,14 @@
 {
   "version": "1.0.0-*",
   "frameworks": {
-    "net45": {
+    "net451": {
       "wrappedProject": "../../Platform/Thriot.Platform.Services.Telemetry/Thriot.Platform.Services.Telemetry.csproj",
       "bin": {
         "assembly": "../../Platform/Thriot.Platform.Services.Telemetry/obj/{configuration}/Thriot.Platform.Services.Telemetry.dll",
         "pdb": "../../Platform/Thriot.Platform.Services.Telemetry/obj/{configuration}/Thriot.Platform.Services.Telemetry.pdb"
       },
       "dependencies": {
-        "AutoMapper": "4.0.4",
+        "AutoMapper": "4.1.1",
         "Newtonsoft.Json": "7.0.1",
         "Thriot.Framework": "1.0.0-*",
         "Thriot.Objects.Model": "1.0.0-*",

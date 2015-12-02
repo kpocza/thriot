@@ -9,8 +9,6 @@
         "Reporting"
     ],
     "sdk": {
-        "version": "1.0.0-beta7",
-        "runtime": "clr",
-        "architecture": "x64"
+        "version": "1.0.0-rc1-final"
     }
 }

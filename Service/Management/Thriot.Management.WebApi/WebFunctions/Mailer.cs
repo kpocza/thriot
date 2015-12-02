@@ -1,4 +1,4 @@
-﻿using Microsoft.Framework.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Thriot.Framework.Mails;
 using Thriot.Management.Services;
 

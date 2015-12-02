@@ -1,7 +1,7 @@
 {
   "version": "1.0.0-*",
   "frameworks": {
-    "net45": {
+    "net451": {
       "wrappedProject": "../../Framework/Thriot.Framework.Azure/Thriot.Framework.Azure.csproj",
       "bin": {
         "assembly": "../../Framework/Thriot.Framework.Azure/obj/{configuration}/Thriot.Framework.Azure.dll",
@@ -11,13 +11,14 @@
         "EnterpriseLibrary.TransientFaultHandling": "6.0.1304.0",
         "EnterpriseLibrary.TransientFaultHandling.Data": "6.0.1304.1",
         "EnterpriseLibrary.TransientFaultHandling.WindowsAzure.Storage": "6.0.1304.1",
-        "Microsoft.Data.Edm": "5.6.2",
-        "Microsoft.Data.OData": "5.6.2",
-        "Microsoft.Data.Services.Client": "5.6.2",
+        "Microsoft.Azure.KeyVault.Core": "1.0.0",
+        "Microsoft.Data.Edm": "5.7.0",
+        "Microsoft.Data.OData": "5.7.0",
+        "Microsoft.Data.Services.Client": "5.7.0",
         "Microsoft.WindowsAzure.ConfigurationManager": "3.1.0",
         "Newtonsoft.Json": "7.0.1",
-        "System.Spatial": "5.6.2",
-        "WindowsAzure.Storage": "4.3.0",
+        "System.Spatial": "5.7.0",
+        "WindowsAzure.Storage": "6.1.0",
         "Thriot.Framework": "1.0.0-*"
       }
     }

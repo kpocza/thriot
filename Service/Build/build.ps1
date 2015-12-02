@@ -59,16 +59,12 @@ function RestoreASPNET5([string]$project)
 
 function PublishASPNET5([string]$project, [string]$target)
 {
-	dnu publish $project --no-source --configuration $buildConfig -o $target
+	dnu publish $project --no-source --runtime $publishRuntime --configuration $buildConfig -o $target
 
-	#WORKAROUND for publish bug (beta6)
-	mkdir $target\approot\runtimes\$dnxFullName
-	cp -Recu $runtimeFolder\* $target\approot\runtimes\$dnxFullName
-
-	$xml=[xml]$(cat "$target\wwwroot\web.config")
-	($xml.configuration.appSettings.add |? {$_.key -eq "dnx-version"}).value = $dnxVersion
-	($xml.configuration.appSettings.add |? {$_.key -eq "dnx-clr"}).value = $dnxClr
-	$xml.Save("$target\wwwroot\web.config")
+	#WORKAROUND httpplatformhandler
+	$webconfig=$(cat "$target\wwwroot\web.config")
+	$webconfig=$webconfig.Replace("<handlers>", "<handlers>" + [Environment]::NewLine + "      <remove name=""httpplatformhandler"" />");
+	$webconfig | set-content "$target\wwwroot\web.config" -Encoding UTF8
 	#WORKAROUND end
 }
 
@@ -107,11 +103,14 @@ $targetRoot = $(pwd).Path + "\output\" + [DateTime]::Now.ToString("yyyyMMddHHmm"
 $solutionRoot = $(Split-Path -parent $(pwd))
 $msbuild = "c:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe"
 $buildConfig = "Debug"
-$dnxFullName = "dnx-clr-win-x64.1.0.0-beta7"
-$dnxVersion = "1.0.0-beta7"
+$dnxVersion = "1.0.0-rc1-final"
 $dnxClr = "clr"
 $dnxArch = "x64"
-$runtimeFolder = $env:USERPROFILE + "\.dnx\runtimes\" + $dnxFullName
+$publishRuntime = "active"
+
+if($linuxify -eq "yes") {
+	$publishRuntime="dnx-mono.1.0.0-rc1-final"
+}
 
 if(-not $env:Path.Contains("Common7\IDE\Extensions\Microsoft\Web Tools\External\")) {
 	$env:Path = $env:Path + ";C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\Microsoft\Web Tools\External\";

@@ -26,7 +26,6 @@
     <ProjectReference Include="..\..\Plugins\Thriot.Plugins.Azure\Thriot.Plugins.Azure.csproj" />
     <ProjectReference Include="..\..\Plugins\Thriot.Plugins.PgSql\Thriot.Plugins.PgSql.csproj" />
     <ProjectReference Include="..\..\Plugins\Thriot.Plugins.Sql\Thriot.Plugins.Sql.csproj" />
-    <ProjectReference Include="..\Thriot.Reporting.Dto\Thriot.Reporting.Dto.csproj" />
     <ProjectReference Include="..\Thriot.Reporting.Services\Thriot.Reporting.Services.csproj" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.targets" Condition="'$(VSToolsPath)' != ''" />

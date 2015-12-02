@@ -1,7 +1,7 @@
 {
   "version": "1.0.0-*",
   "frameworks": {
-    "net45": {
+    "net451": {
       "wrappedProject": "../../Platform/Thriot.Platform.Services.Messaging/Thriot.Platform.Services.Messaging.csproj",
       "bin": {
         "assembly": "../../Platform/Thriot.Platform.Services.Messaging/obj/{configuration}/Thriot.Platform.Services.Messaging.dll",
@@ -9,9 +9,9 @@
       },
       "dependencies": {
         "Thriot.Framework": "1.0.0-*",
+        "Thriot.Messaging.Services.Client": "1.0.0-*",
         "Thriot.Objects.Model": "1.0.0-*",
-        "Thriot.Platform.Model": "1.0.0-*",
-        "Thriot.Messaging.Services.Client": "1.0.0-*"
+        "Thriot.Platform.Model": "1.0.0-*"
       }
     }
   }

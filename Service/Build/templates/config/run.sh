@@ -1,19 +1,19 @@
 #! /bin/bash
 
 echo "Starting Management API..."
-nohup dnx --appbase /opt/thriot/api/approot/packages/Thriot.Management.WebApi/1.0.0/root Microsoft.Dnx.ApplicationHost kestrel &
+nohup dnx --project /opt/thriot/api/approot/packages/Thriot.Management.WebApi/1.0.0/root kestrel &
 
 echo "Starting Platform API..."
-nohup dnx --appbase /opt/thriot/papi/approot/packages/Thriot.Platform.WebApi/1.0.0/root Microsoft.Dnx.ApplicationHost kestrel &
+nohup dnx --project /opt/thriot/papi/approot/packages/Thriot.Platform.WebApi/1.0.0/root kestrel &
 
 echo "Starting Reporting API..."
-nohup dnx --appbase /opt/thriot/rapi/approot/packages/Thriot.Reporting.WebApi/1.0.0/root Microsoft.Dnx.ApplicationHost kestrel &
+nohup dnx --project /opt/thriot/rapi/approot/packages/Thriot.Reporting.WebApi/1.0.0/root kestrel &
 
 echo "Starting Messaging Services..."
-nohup dnx --appbase /opt/thriot/msvc/approot/packages/Thriot.Messaging.WebApi/1.0.0/root Microsoft.Dnx.ApplicationHost kestrel &
+nohup dnx --project /opt/thriot/msvc/approot/packages/Thriot.Messaging.WebApi/1.0.0/root kestrel &
 
 echo "Starting Central website..."
-nohup dnx --appbase /opt/thriot/web/approot/packages/Thriot.Web/1.0.0/root Microsoft.Dnx.ApplicationHost kestrel &
+nohup dnx --project /opt/thriot/web/approot/packages/Thriot.Web/1.0.0/root kestrel &
 
 echo "Starting Websocket service..."
 pushd .

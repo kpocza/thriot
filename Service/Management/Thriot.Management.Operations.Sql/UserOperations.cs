@@ -24,7 +24,6 @@ namespace Thriot.Management.Operations.Sql
                 var userIdentity = Identity.NextIncremental();
 
                 user.Id = userIdentity;
-                user.Companies = null;
                 unitOfWork.GetUserRepository().Create(user);
 
                 var loginUser = new LoginUser

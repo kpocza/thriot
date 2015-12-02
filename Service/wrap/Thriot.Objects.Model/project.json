@@ -1,7 +1,7 @@
 {
   "version": "1.0.0-*",
   "frameworks": {
-    "net45": {
+    "net451": {
       "wrappedProject": "../../Objects/Thriot.Objects.Model/Thriot.Objects.Model.csproj",
       "bin": {
         "assembly": "../../Objects/Thriot.Objects.Model/obj/{configuration}/Thriot.Objects.Model.dll",

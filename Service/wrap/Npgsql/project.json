@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net451": {
+      "wrappedProject": "../../Misc/Npgsql/Npgsql.csproj",
+      "bin": {
+        "assembly": "../../Misc/Npgsql/obj/{configuration}/Npgsql.dll",
+        "pdb": "../../Misc/Npgsql/obj/{configuration}/Npgsql.pdb"
+      },
+      "dependencies": {
+        "AsyncRewriter": "0.6.7"
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using Microsoft.Framework.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Thriot.Platform.Services.Telemetry.Recording;
 
 namespace Thriot.Platform.TelemetryQueueService

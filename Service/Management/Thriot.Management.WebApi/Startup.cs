@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Mvc;
-using Microsoft.Framework.Configuration;
-using Microsoft.Framework.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System.Net;
+using System.Threading.Tasks;
 using Microsoft.AspNet.Authentication.Cookies;
-using Microsoft.Dnx.Runtime;
-using Microsoft.Framework.OptionsModel;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.PlatformAbstractions;
 using Thriot.Framework;
 using Thriot.Framework.Mvc.ApiExceptions;
 using Thriot.Framework.Mvc.Logging;
@@ -40,7 +41,8 @@ namespace Thriot.Management.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var configurationBuilder = new ConfigurationBuilder(_appEnv.ApplicationBasePath);
+            var configurationBuilder = new ConfigurationBuilder();
+            configurationBuilder.SetBasePath(_appEnv.ApplicationBasePath);
             configurationBuilder.AddJsonFile("config/services.json");
             configurationBuilder.AddJsonFile("config/connectionstring.json");
             configurationBuilder.AddJsonFile("config/smtpsettings.json");
@@ -54,23 +56,48 @@ namespace Thriot.Management.WebApi
                 options.Filters.Add(new ApiExceptionFilterAttribute());
             });
 
-            services.AddCors();
-            services.ConfigureCors(c => c.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials()));
+            services.AddCors(
+                c =>
+                    c.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials()));
 
             ConfigureThriotServices(services, configuration);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        {
+            // WORKAROUND: HttpPlatformHandler - RC1
+            var configurationBuilder = new ConfigurationBuilder();
+            configurationBuilder.SetBasePath(_appEnv.ApplicationBasePath);
+            configurationBuilder.AddJsonFile("config/vdir.json", true);
+
+            var configuration = configurationBuilder.Build();
+            var vdir = configuration["VDIR"];
+
+            if (string.IsNullOrWhiteSpace(vdir))
+            {
+                ConfigureCore(app, env, loggerFactory);
+            }
+            else
+            {
+                app.Map(vdir, app1 => this.ConfigureCore(app1, env, loggerFactory));
+            }
+        }
+
+        private void ConfigureCore(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             var serviceProvider = app.ApplicationServices;
 
             var messagingServiceClient = serviceProvider.GetService<Messaging.Services.Client.IMessagingServiceClient>();
-            var telemetryDataSinkSetupServiceClient = serviceProvider.GetService<Platform.Services.Client.ITelemetryDataSinkSetupServiceClient>();
+            var telemetryDataSinkSetupServiceClient =
+                serviceProvider.GetService<Platform.Services.Client.ITelemetryDataSinkSetupServiceClient>();
 
-            var settingProvider = (Services.SettingProvider)serviceProvider.GetService<Services.ISettingProvider>();
+            var settingProvider = (Services.SettingProvider) serviceProvider.GetService<Services.ISettingProvider>();
 
             messagingServiceClient.Setup(settingProvider.MessagingServiceEndpoint, settingProvider.MessagingServiceApiKey);
-            telemetryDataSinkSetupServiceClient.Setup(settingProvider.TelemetrySetupServiceEndpoint, settingProvider.TelemetrySetupServiceApiKey);
+            telemetryDataSinkSetupServiceClient.Setup(settingProvider.TelemetrySetupServiceEndpoint,
+                settingProvider.TelemetrySetupServiceApiKey);
+
+            app.UseIISPlatformHandler();
 
             app.UseCookieAuthentication(options =>
             {
@@ -78,10 +105,11 @@ namespace Thriot.Management.WebApi
                 options.ExpireTimeSpan = System.TimeSpan.FromMinutes(60);
                 options.SlidingExpiration = true;
                 options.CookieName = "ThriotMgmtAuth";
-                options.AutomaticAuthentication = true;
-                ((CookieAuthenticationNotifications)options.Notifications).OnApplyRedirect = context =>
+                options.AutomaticAuthenticate = true;
+                ((CookieAuthenticationEvents) options.Events).OnRedirectToLogin = context =>
                 {
                     context.Response.StatusCode = 401;
+                    return Task.FromResult(0);
                 };
             });
 
@@ -127,5 +155,7 @@ namespace Thriot.Management.WebApi
             
             return System.IO.File.ReadAllText(pathToRead);
         }
+
+        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
     }
 }

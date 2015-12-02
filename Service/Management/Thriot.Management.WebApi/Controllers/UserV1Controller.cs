@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.AspNet.Mvc;
-using Microsoft.Framework.Configuration;
+using Microsoft.Extensions.Configuration;
 using Thriot.Framework.Logging;
 using Thriot.Management.Services.Dto;
 using Thriot.Management.Services;
@@ -114,14 +114,8 @@ namespace Thriot.Management.WebApi.Controllers
 
         private static readonly ILogger _logger = LoggerFactory.GetCurrentClassLogger();
 
-        public ILogger Logger
-        {
-            get { return _logger; }
-        }
+        public ILogger Logger => _logger;
 
-        public string UserDefinedLogValue
-        {
-            get { return Context?.User?.Identity?.Name; }
-        }
+        public string UserDefinedLogValue => this.User?.Identity?.Name;
     }
 }

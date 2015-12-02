@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNet.Mvc;
 using System;
 using System.Linq;
+using Microsoft.AspNet.Mvc.Filters;
+using Microsoft.Extensions.Primitives;
 using Thriot.Framework.Logging;
 using Thriot.Objects.Model;
 using Thriot.Objects.Model.Operations;
@@ -14,7 +16,7 @@ namespace Thriot.Platform.WebApi.Auth
 
         public override void OnAuthorization(AuthorizationContext context)
         {
-            string[] values;
+            StringValues values;
 
             var headers = context.HttpContext.Request.Headers;
 

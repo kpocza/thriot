@@ -1,5 +1,5 @@
 ﻿using System.ServiceProcess;
-using Microsoft.Framework.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Thriot.Platform.Services.Telemetry.Recording;
 
 namespace Thriot.Platform.TelemetryQueueService

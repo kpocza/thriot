@@ -1,5 +1,4 @@
-﻿using System;
-using Thriot.Framework.DataAccess;
+﻿using Thriot.Framework.DataAccess;
 
 namespace Thriot.Management.Operations.Sql.DataAccess.PgSql
 {

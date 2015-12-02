@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNet.Mvc;
 using Newtonsoft.Json.Linq;
 using Thriot.Framework.Logging;
-using Thriot.Platform.Services.Telemetry;
 using Thriot.Platform.Services.Telemetry.Recording;
 using Thriot.Platform.WebApi.Auth;
 
@@ -23,7 +22,7 @@ namespace Thriot.Platform.WebApi.Controllers
         [HttpPost]
         public void Post([FromBody]JToken message) // POST: v1/telemetry
         {
-            var deviceId = _authenticationContext.GetContextDevice(this.Context.User);
+            var deviceId = _authenticationContext.GetContextDevice(this.HttpContext.User);
 
             _telemetryDataService.RecordTelemetryData(deviceId, message);
         }
@@ -32,6 +31,6 @@ namespace Thriot.Platform.WebApi.Controllers
 
         public ILogger Logger => _logger;
 
-        public string UserDefinedLogValue => _authenticationContext.GetContextDevice(this.Context.User);
+        public string UserDefinedLogValue => _authenticationContext.GetContextDevice(this.HttpContext.User);
     }
 }

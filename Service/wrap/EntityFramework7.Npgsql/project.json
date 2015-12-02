@@ -1,0 +1,35 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net451": {
+      "wrappedProject": "../../Misc/EntityFramework7.Npgsql/EntityFramework7.Npgsql.csproj",
+      "bin": {
+        "assembly": "../../Misc/EntityFramework7.Npgsql/obj/{configuration}/EntityFramework7.Npgsql.dll",
+        "pdb": "../../Misc/EntityFramework7.Npgsql/obj/{configuration}/EntityFramework7.Npgsql.pdb"
+      },
+      "dependencies": {
+        "EntityFramework.Core": "7.0.0-rc1-final",
+        "EntityFramework.Relational": "7.0.0-rc1-final",
+        "Ix-Async": "1.2.5",
+        "Microsoft.Extensions.Caching.Abstractions": "1.0.0-rc1-final",
+        "Microsoft.Extensions.Caching.Memory": "1.0.0-rc1-final",
+        "Microsoft.Extensions.Configuration": "1.0.0-rc1-final",
+        "Microsoft.Extensions.Configuration.Abstractions": "1.0.0-rc1-final",
+        "Microsoft.Extensions.Configuration.Binder": "1.0.0-rc1-final",
+        "Microsoft.Extensions.DependencyInjection": "1.0.0-rc1-final",
+        "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final",
+        "Microsoft.Extensions.Logging": "1.0.0-rc1-final",
+        "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
+        "Microsoft.Extensions.OptionsModel": "1.0.0-rc1-final",
+        "Microsoft.Extensions.Primitives": "1.0.0-rc1-final",
+        "Remotion.Linq": "2.0.1",
+        "System.Collections.Immutable": "1.1.36",
+        "System.Diagnostics.DiagnosticSource": "4.0.0-beta-23516",
+        "System.Diagnostics.Tracing": "4.0.0",
+        "System.Runtime": "4.0.0",
+        "System.Threading": "4.0.0",
+        "Npgsql": "1.0.0-*"
+      }
+    }
+  }
+}

@@ -1,18 +1,18 @@
 {
   "version": "1.0.0-*",
   "frameworks": {
-    "net45": {
+    "net451": {
       "wrappedProject": "../../Management/Thriot.Management.Services/Thriot.Management.Services.csproj",
       "bin": {
         "assembly": "../../Management/Thriot.Management.Services/obj/{configuration}/Thriot.Management.Services.dll",
         "pdb": "../../Management/Thriot.Management.Services/obj/{configuration}/Thriot.Management.Services.pdb"
       },
       "dependencies": {
-        "AutoMapper": "4.0.4",
+        "AutoMapper": "4.1.1",
         "Thriot.Framework": "1.0.0-*",
-        "Thriot.Management.Model": "1.0.0-*",
         "Thriot.Messaging.Services.Client": "1.0.0-*",
-        "Thriot.Platform.Services.Client": "1.0.0-*"
+        "Thriot.Platform.Services.Client": "1.0.0-*",
+        "Thriot.Management.Model": "1.0.0-*"
       }
     }
   }

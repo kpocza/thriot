@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using Microsoft.Framework.Configuration;
-using Microsoft.Framework.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Thriot.Framework;
 using Thriot.Messaging.Services.Client;
 using Thriot.Objects.Common;
@@ -36,7 +36,8 @@ namespace Thriot.Platform.WebsocketService
             Framework.Logging.NLogLogger.SetConfiguration(
                 Path.Combine(Path.Combine(appFolder, "config"), "nlog.config"));
 
-            var configurationBuilder = new ConfigurationBuilder(appFolder);
+            var configurationBuilder = new ConfigurationBuilder();
+            configurationBuilder.SetBasePath(appFolder);
             configurationBuilder.AddJsonFile("config/services.json");
             configurationBuilder.AddJsonFile("config/connectionstring.json");
 

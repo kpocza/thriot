@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Http;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.Primitives;
 
 namespace Thriot.Framework.Mvc
 {
@@ -9,7 +10,7 @@ namespace Thriot.Framework.Mvc
         public static IDictionary<string, string> ParseAllOrNothing(IHeaderDictionary headers, params string[] fields)
         {
             var result = new Dictionary<string, string>();
-            string[] values;
+            StringValues values;
 
             foreach (var field in fields)
             {

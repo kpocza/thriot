@@ -21,7 +21,5 @@ namespace Thriot.Management.Model
         public bool Activated { get; set; }
 
         public string ActivationCode { get; set; }
-
-        public ICollection<UserCompany> Companies { get; set; }
     }
 }

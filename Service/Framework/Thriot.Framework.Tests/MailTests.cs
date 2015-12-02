@@ -17,10 +17,10 @@ namespace Thriot.Framework.Tests
             MailTemplateStore.Instance.Add(MailTemplate.Create("Minimal", "Subject", "Text", "<html>Html</html>"));
             MailTemplateStore.Instance.Add(MailTemplate.Create("ToReplace", "S@(Model.SSS)S", "Text@(Model.TextStuff) and more", "<html>Ht @(Model.some) ml</html>"));
             MailTemplateStore.Instance.Add(MailTemplate.Create("ImageAdded", "Subject", "Text", "<html>Html<img src=\"cid:img.jpg\"></img></html>"));
-            MailTemplateStore.Instance.Add(MailTemplate.Create("Activation", "User activation on Thriot",
+            MailTemplateStore.Instance.Add(MailTemplate.Create("Activation", "Thriot - user activation",
                 "Dear @Raw(Model.Name),"+
                 ""+
-                "Please click on the following link to activate you account in Thriot:"+
+                "Please click the following link to activate your Thriot account:" +
                 "@Raw(Model.Url)"+
                 ""+
                 ""+
@@ -31,12 +31,12 @@ namespace Thriot.Framework.Tests
                 "<!DOCTYPE html >" +
                 "<html xmlns = \"http://www.w3.org/1999/xhtml\">" +
                 "<head>" +
-                "    <title>User activation on Thriot</title>" +
+                "    <title>Thriot - user activation</title>" +
                 "</head>" +
                 "<body>" +
                 "    <p>Dear @Model.Name,</p >" +
                 "    <p></p >" +
-                "    <p>Please click on the following link to activate you account in Thriot:</p>" +
+                "    <p>Please click the following link to activate your Thriot account:</p>" +
                 "    <p><a href=\"@Model.Url\">@Model.Url</a></p>" +
                 "    <p></p>" +
                 "    <p>" +
@@ -165,12 +165,15 @@ namespace Thriot.Framework.Tests
 
             Assert.AreEqual("no-reply@thriot.io", mailSender.MailMessage.From.Address);
             Assert.AreEqual("user@somewhere.hu", mailSender.MailMessage.To[0].Address);
-            Assert.AreEqual("User activation on Thriot", mailSender.MailMessage.Subject);
-            Assert.IsTrue(GetContent(mailSender.MailMessage.AlternateViews[0].ContentStream).Contains("username"));
-            Assert.IsTrue(GetContent(mailSender.MailMessage.AlternateViews[1].ContentStream).Contains("username"));
-            Assert.IsTrue(GetContent(mailSender.MailMessage.AlternateViews[0].ContentStream).Contains("a href=\""));
-            Assert.IsTrue(GetContent(mailSender.MailMessage.AlternateViews[0].ContentStream).Contains("http://thriot.io"));
-            Assert.IsTrue(GetContent(mailSender.MailMessage.AlternateViews[1].ContentStream).Contains("http://thriot.io"));
+            Assert.AreEqual("Thriot - user activation", mailSender.MailMessage.Subject);
+
+            var part0 = GetContent(mailSender.MailMessage.AlternateViews[0].ContentStream);
+            var part1 = GetContent(mailSender.MailMessage.AlternateViews[1].ContentStream);
+            Assert.IsTrue(part0.Contains("username"));
+            Assert.IsTrue(part1.Contains("username"));
+            Assert.IsTrue(part0.Contains("a href=\""));
+            Assert.IsTrue(part0.Contains("http://thriot.io"));
+            Assert.IsTrue(part1.Contains("http://thriot.io"));
         }
 
         private string GetContent(Stream stream)

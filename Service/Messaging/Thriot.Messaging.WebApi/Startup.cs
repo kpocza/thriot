@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Mvc;
-using Microsoft.Framework.Configuration;
-using Microsoft.Framework.DependencyInjection;
-using Microsoft.Dnx.Runtime;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.PlatformAbstractions;
 using Thriot.Framework;
 using Thriot.Framework.Mvc.ApiExceptions;
 using Thriot.Framework.Mvc.Logging;
@@ -24,7 +25,8 @@ namespace Thriot.Messaging.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var configurationBuilder = new ConfigurationBuilder(_appEnv.ApplicationBasePath);
+            var configurationBuilder = new ConfigurationBuilder();
+            configurationBuilder.SetBasePath(_appEnv.ApplicationBasePath);
             configurationBuilder.AddJsonFile("config/services.json");
             configurationBuilder.AddJsonFile("config/servicesmsg.json");
             configurationBuilder.AddJsonFile("config/connectionstring.json");
@@ -42,8 +44,30 @@ namespace Thriot.Messaging.WebApi
             ConfigureThriotServices(services, configuration);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            // WORKAROUND: HttpPlatformHandler - RC1
+            var configurationBuilder = new ConfigurationBuilder();
+            configurationBuilder.SetBasePath(_appEnv.ApplicationBasePath);
+            configurationBuilder.AddJsonFile("config/vdir.json", true);
+
+            var configuration = configurationBuilder.Build();
+            var vdir = configuration["VDIR"];
+
+            if (string.IsNullOrWhiteSpace(vdir))
+            {
+                ConfigureCore(app, env, loggerFactory);
+            }
+            else
+            {
+                app.Map(vdir, app1 => this.ConfigureCore(app1, env, loggerFactory));
+            }
+        }
+
+        private void ConfigureCore(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        {
+            app.UseIISPlatformHandler();
+
             app.UseMvc();
         }
 
@@ -60,5 +84,7 @@ namespace Thriot.Messaging.WebApi
                 services.AddTransient(extraService.Key, extraService.Value);
             }
         }
+
+        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
     }
 }

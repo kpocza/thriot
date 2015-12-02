@@ -1,7 +1,7 @@
 {
   "version": "1.0.0-*",
   "frameworks": {
-    "net45": {
+    "net451": {
       "wrappedProject": "../../Messaging/Thriot.Messaging.Services.Client/Thriot.Messaging.Services.Client.csproj",
       "bin": {
         "assembly": "../../Messaging/Thriot.Messaging.Services.Client/obj/{configuration}/Thriot.Messaging.Services.Client.dll",

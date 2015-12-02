@@ -28,7 +28,7 @@ namespace Thriot.Platform.WebApi.Controllers
         {
             var payload = Encoding.UTF8.GetString(Convert.FromBase64String(base64Payload));
 
-            var senderDeviceId = _authenticationContext.GetContextDevice(this.Context.User);
+            var senderDeviceId = _authenticationContext.GetContextDevice(this.User);
 
             var result = _messagingService.RecordOutgoingMessage(senderDeviceId, id, payload);
 
@@ -41,7 +41,7 @@ namespace Thriot.Platform.WebApi.Controllers
         [HttpGet("forget")]
         public IActionResult Get() // GET: v1/messages/forget
         {
-            var deviceId = _authenticationContext.GetContextDevice(this.Context.User);
+            var deviceId = _authenticationContext.GetContextDevice(this.User);
 
             var message = _messagingService.ReceiveAndForgetOutgoingMessage(deviceId);
 
@@ -57,7 +57,7 @@ namespace Thriot.Platform.WebApi.Controllers
         [HttpGet("peek")]
         public IActionResult Peek() // GET: v1/messages/peek
         {
-            var deviceId = _authenticationContext.GetContextDevice(this.Context.User);
+            var deviceId = _authenticationContext.GetContextDevice(this.User);
 
             var message = _messagingService.Peek(deviceId);
 
@@ -73,7 +73,7 @@ namespace Thriot.Platform.WebApi.Controllers
         [HttpPost("commit")]
         public IActionResult Commit() // GET: v1/messages/commit
         {
-            var deviceId = _authenticationContext.GetContextDevice(this.Context.User);
+            var deviceId = _authenticationContext.GetContextDevice(this.User);
 
             var state = _messagingService.Commit(deviceId);
 
@@ -92,7 +92,7 @@ namespace Thriot.Platform.WebApi.Controllers
 
         public string UserDefinedLogValue
         {
-            get { return _authenticationContext.GetContextDevice(this.Context.User); }
+            get { return _authenticationContext.GetContextDevice(this.User); }
         }
     }
 }
