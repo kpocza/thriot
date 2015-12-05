@@ -20,7 +20,7 @@
 
     "commands": {
         "web": "Microsoft.AspNet.Server.Kestrel",
-        "kestrel": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.Kestrel --server.urls http://localhost:7999"
+        "kestrel": "Microsoft.AspNet.Server.Kestrel --server.urls http://*:7999"
     },
 
     "frameworks": {

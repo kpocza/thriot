@@ -19,7 +19,7 @@
 
     "commands": {
         "web": "Microsoft.AspNet.Server.Kestrel",
-        "kestrel": "Microsoft.AspNet.Server.Kestrel --server.urls http://localhost:8002"
+        "kestrel": "Microsoft.AspNet.Server.Kestrel --server.urls http://*:8002"
     },
 
     "frameworks": {

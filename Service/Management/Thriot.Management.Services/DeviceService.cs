@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Thriot.Framework;
 using Thriot.Framework.Exceptions;
 using Thriot.Management.Services.Dto;
@@ -51,11 +52,27 @@ namespace Thriot.Management.Services
 
             var deviceId = _deviceOperations.Create(device);
 
-            var deviceNumericId = _messagingServiceClient.Initialize(deviceId);
+            try
+            {
+                var deviceNumericId = _messagingServiceClient.Initialize(deviceId);
 
-            var newDevice = _deviceOperations.Get(deviceId);
-            newDevice.NumericId = deviceNumericId;
-            _deviceOperations.Update(newDevice);
+                var newDevice = _deviceOperations.Get(deviceId);
+                newDevice.NumericId = deviceNumericId;
+                _deviceOperations.Update(newDevice);
+            }
+            catch
+            {
+                try
+                {
+                    _deviceOperations.Delete(deviceId);
+                }
+                catch
+                {
+                    // best effort solution the remove not complete device
+                }
+
+                throw;
+            }
 
             return deviceId;
         }
