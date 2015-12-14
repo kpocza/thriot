@@ -81,7 +81,7 @@ namespace Npgsql
         static readonly ConcurrentDictionary<string, TypeHandler> _globalCompositeMappings;
 
         internal static IReadOnlyDictionary<string, TypeHandler> GlobalCompositeMappings
-            => (IReadOnlyDictionary<string, TypeHandler>)_globalCompositeMappings.ToDictionary(a => a.Key, a => a.Value);
+            => _globalCompositeMappings.ToDictionary(a => a.Key, a => a.Value);
 
         static readonly NpgsqlLogger Log = NpgsqlLogManager.GetCurrentClassLogger();
 
