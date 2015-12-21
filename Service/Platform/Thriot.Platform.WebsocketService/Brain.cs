@@ -1,7 +1,11 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using SuperSocket.SocketBase.Config;
 using Microsoft.Extensions.DependencyInjection;
+using SuperSocket.SocketBase;
+using SuperSocket.SocketEngine;
 using Thriot.Objects.Model;
 using Thriot.Objects.Model.Operations;
 using Thriot.Platform.Model;
@@ -19,8 +23,8 @@ namespace Thriot.Platform.WebsocketService
         private readonly IServiceProvider _serviceProvider;
         private PersistentConnectionReceiveAndForgetWorker _persistentConnectionReceiveAndForgetWorker;
         private PersistentConnectionPeekWorker _persistentConnectionPeekWorker;
-        private IotWebSocketServer _iotWebSocketServer;
         private ConnectionRegistry _connectionRegistry;
+        private IBootstrap _bootstrapFactory;
 
         public Brain(IServiceProvider serviceProvider)
         {
@@ -42,31 +46,23 @@ namespace Thriot.Platform.WebsocketService
 
         private void StartWebSocketServer()
         {
-            _iotWebSocketServer = new IotWebSocketServer();
-            _iotWebSocketServer.Setup(new RootConfig()
-            {
-                MaxWorkingThreads = 100,
-                MaxCompletionPortThreads = 100,
-                MinCompletionPortThreads = 20,
-                MinWorkingThreads = 20,
-            }, new ServerConfig
-            {
-                Port = 8080,
-                MaxConnectionNumber = 10000,
-                SendingQueueSize = 500,
-                ListenBacklog = 500,
-                MaxRequestLength = 2048,
-                ReceiveBufferSize = 10240,
-                SendBufferSize = 10240,
-                SyncSend = false,
-            });
-            _iotWebSocketServer.SetConnectionRegistry(_connectionRegistry, () => _serviceProvider.GetService<CommandExecutor>());
-            _iotWebSocketServer.Start();
+            var appFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var configPath = Path.Combine(Path.Combine(appFolder, "config"), "supersocket.config");
+
+            _bootstrapFactory = BootstrapFactory.CreateBootstrapFromConfigFile(configPath);
+            if(!_bootstrapFactory.Initialize())
+                throw new Exception("Failed to initialize");
+            (_bootstrapFactory.AppServers.First() as IotWebSocketServer).SetConnectionRegistry(_connectionRegistry, () => _serviceProvider.GetService<CommandExecutor>());
+
+            var result = _bootstrapFactory.Start();
+
+            if(result == StartResult.Failed)
+                throw new Exception("Failed to start");
         }
 
         private void StopWebSocketServer()
         {
-            _iotWebSocketServer.Stop();
+            _bootstrapFactory.Stop();
         }
 
         private void StartBackgrounProcesses()

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <!-- Configurations that affect the Test Framework -->
+  <RunConfiguration>
+    <!-- Path relative to solution directory -->
+    <ResultsDirectory>.\TestResults</ResultsDirectory>
+
+    <!-- [x86] | x64  
+      - You can also change it from menu Test, Test Settings, Default Processor Architecture -->
+    <TargetPlatform>x64</TargetPlatform>
+
+    <!-- Framework35 | [Framework40] | Framework45 -->
+    <TargetFrameworkVersion>Framework45</TargetFrameworkVersion>
+  </RunConfiguration>
+
+
+  <!-- Parameters used by tests at runtime -->
+  <TestRunParameters>
+    <Parameter name="ManagementApi" value="http://thriotpgsql.cloudapp.net/api/v1" />
+    <Parameter name="PlatformApi" value="http://thriotpgsql.cloudapp.net/papi/v1" />
+    <Parameter name="ReportingApi" value="http://thriotpgsql.cloudapp.net/rapi/v1" />
+    <Parameter name="PlatformWebsocketApi" value="ws://thriotpgsql.cloudapp.net:8080" />
+    <Parameter name="sinkData" value="localPgSqlData" />
+    <Parameter name="sinkTimeSeries" value="localPgSqlTimeSeries" />
+    <Parameter name="paramSinkData" value="pgSqlData" />
+    <Parameter name="paramSinkDataConnectionString" value="Server=127.0.0.1;Port=5432;Database=ThriotTelemetry;User Id=thriottelemetry;Password=thriottelemetry;" />
+  </TestRunParameters>
+
+  <!-- Adapter Specific sections -->
+
+  <!-- MSTest adapter -->
+  <MSTest>
+    <MapInconclusiveToFailed>True</MapInconclusiveToFailed>
+    <CaptureTraceOutput>false</CaptureTraceOutput>
+    <DeleteDeploymentDirectoryAfterTestRunIsComplete>False</DeleteDeploymentDirectoryAfterTestRunIsComplete>
+    <DeploymentEnabled>False</DeploymentEnabled>
+  </MSTest>
+</RunSettings>

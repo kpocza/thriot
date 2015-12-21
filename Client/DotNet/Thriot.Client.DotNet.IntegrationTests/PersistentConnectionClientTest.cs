@@ -20,7 +20,7 @@ namespace Thriot.Client.DotNet.IntegrationTests
         {
             RegisterDevice();
 
-            var persistentConnection = new PersistentConnectionClient(PlatformWebSocketApi);
+            var persistentConnection = new PersistentConnectionClient(PlatformWebsocketApi);
 
             persistentConnection.Login(_deviceId, _apiKey);
         }
@@ -31,7 +31,7 @@ namespace Thriot.Client.DotNet.IntegrationTests
         {
             RegisterDevice();
 
-            var persistentConnection = new PersistentConnectionClient(PlatformWebSocketApi);
+            var persistentConnection = new PersistentConnectionClient(PlatformWebsocketApi);
 
             persistentConnection.Login(_deviceId, "123123");
         }
@@ -41,7 +41,7 @@ namespace Thriot.Client.DotNet.IntegrationTests
         {
             RegisterDevice();
 
-            var persistentConnection = new PersistentConnectionClient(PlatformWebSocketApi);
+            var persistentConnection = new PersistentConnectionClient(PlatformWebsocketApi);
 
             persistentConnection.Login(_deviceId, _apiKey);
 
@@ -58,7 +58,7 @@ namespace Thriot.Client.DotNet.IntegrationTests
         {
             RegisterDevice();
 
-            var persistentConnection = new PersistentConnectionClient(PlatformWebSocketApi);
+            var persistentConnection = new PersistentConnectionClient(PlatformWebsocketApi);
 
             persistentConnection.Subscribe(SubscriptionType.ReceiveAndForget, message => { });
         }
@@ -69,7 +69,7 @@ namespace Thriot.Client.DotNet.IntegrationTests
         {
             RegisterDevice();
 
-            var persistentConnection = new PersistentConnectionClient(PlatformWebSocketApi);
+            var persistentConnection = new PersistentConnectionClient(PlatformWebsocketApi);
 
             persistentConnection.Login(_deviceId, _apiKey);
 
@@ -84,7 +84,7 @@ namespace Thriot.Client.DotNet.IntegrationTests
         {
             RegisterDevice();
 
-            var persistentConnection = new PersistentConnectionClient(PlatformWebSocketApi);
+            var persistentConnection = new PersistentConnectionClient(PlatformWebsocketApi);
 
             persistentConnection.Login(_deviceId, _apiKey);
 
@@ -99,7 +99,7 @@ namespace Thriot.Client.DotNet.IntegrationTests
         {
             RegisterDevice(addMessageSinks: false);
 
-            var persistentConnection = new PersistentConnectionClient(PlatformWebSocketApi);
+            var persistentConnection = new PersistentConnectionClient(PlatformWebsocketApi);
 
             persistentConnection.Login(_deviceId, _apiKey);
 
@@ -111,7 +111,7 @@ namespace Thriot.Client.DotNet.IntegrationTests
         {
             RegisterDevice(true);
 
-            var persistentConnection = new PersistentConnectionClient(PlatformWebSocketApi);
+            var persistentConnection = new PersistentConnectionClient(PlatformWebsocketApi);
 
             persistentConnection.Login(_deviceId, _apiKey);
 
@@ -125,7 +125,7 @@ namespace Thriot.Client.DotNet.IntegrationTests
         {
             RegisterDevice(true);
 
-            var persistentConnection = new PersistentConnectionClient(PlatformWebSocketApi);
+            var persistentConnection = new PersistentConnectionClient(PlatformWebsocketApi);
 
             persistentConnection.Login(_deviceId, _apiKey);
 
@@ -133,7 +133,7 @@ namespace Thriot.Client.DotNet.IntegrationTests
 
             persistentConnection.Close();
 
-            var persistentConnection2 = new PersistentConnectionClient(PlatformWebSocketApi);
+            var persistentConnection2 = new PersistentConnectionClient(PlatformWebsocketApi);
 
             PushedMessage received = null;
             ManualResetEvent mre = new ManualResetEvent(false);
@@ -155,7 +155,7 @@ namespace Thriot.Client.DotNet.IntegrationTests
         {
             RegisterDevice(false);
 
-            var persistentConnection = new PersistentConnectionClient(PlatformWebSocketApi);
+            var persistentConnection = new PersistentConnectionClient(PlatformWebsocketApi);
 
             var privateObject = new PrivateObject(persistentConnection);
             var lastHeartbeatBeforeLogin = (DateTime)privateObject.GetField("_lastHeartbeatTime");

@@ -153,6 +153,12 @@
     <Content Include="App.config">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="config\supersocket.Tls.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="config\supersocket.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="config\connectionstring.json">

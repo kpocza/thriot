@@ -4,15 +4,15 @@ namespace Thriot.Client.DotNet.IntegrationTests
 {
     public abstract class TestBase
     {
-        protected static readonly string ManagementApi = ConfigurationManager.AppSettings["ManagementApi"];
-        protected static readonly string PlatformApi = ConfigurationManager.AppSettings["PlatformApi"];
-        protected static readonly string ReportingApi = ConfigurationManager.AppSettings["ReportingApi"];
-        protected static readonly string PlatformWebSocketApi = ConfigurationManager.AppSettings["PlatformWebSocketApi"];
-        protected static readonly string SinkData = ConfigurationManager.AppSettings["sinkData"];
-        protected static readonly string SinkTimeSeries = ConfigurationManager.AppSettings["sinkTimeSeries"];
-        protected static readonly string ParamSinkData = ConfigurationManager.AppSettings["paramSinkData"];
-        protected static readonly string ParamSinkDataConnectionString = ConfigurationManager.AppSettings["paramSinkDataConnectionString"];
-        protected static readonly string ParamSinkDataKeyspace = ConfigurationManager.AppSettings["paramSinkDataKeyspace"];
-        protected static readonly string ParamSinkDataContactPoints = ConfigurationManager.AppSettings["paramSinkDataContactPoints"];
+        internal static string ManagementApi { get; set; }
+        internal static string PlatformApi { get; set; }
+        internal static string ReportingApi { get; set; }
+        internal static string PlatformWebsocketApi { get; set; }
+        internal static string SinkData { get; set; }
+        internal static string SinkTimeSeries { get; set; }
+        internal static string ParamSinkData { get; set; }
+        internal static string ParamSinkDataConnectionString { get; set; }
+        internal static string ParamSinkDataKeyspace { get; set; }
+        internal static string ParamSinkDataContactPoints { get; set; }
     }
 }

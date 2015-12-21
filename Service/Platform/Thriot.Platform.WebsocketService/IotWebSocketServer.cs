@@ -4,7 +4,7 @@ using Thriot.Platform.PersistentConnections;
 
 namespace Thriot.Platform.WebsocketService
 {
-    class IotWebSocketServer : WebSocketServer<IotSession>
+    public class IotWebSocketServer : WebSocketServer<IotSession>
     {
         private ConnectionRegistry _connectionRegistry;
         private Func<CommandExecutor> _commandExecutor;

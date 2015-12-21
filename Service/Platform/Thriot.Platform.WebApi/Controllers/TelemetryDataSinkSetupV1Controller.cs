@@ -30,14 +30,8 @@ namespace Thriot.Platform.WebApi.Controllers
 
         private static readonly ILogger _logger = LoggerFactory.GetCurrentClassLogger();
 
-        public ILogger Logger
-        {
-            get { return _logger; }
-        }
+        public ILogger Logger => _logger;
 
-        public string UserDefinedLogValue
-        {
-            get { return null; }
-        }
+        public string UserDefinedLogValue => null;
     }
 }

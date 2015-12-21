@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <!-- Configurations that affect the Test Framework -->
+  <RunConfiguration>
+    <!-- Path relative to solution directory -->
+    <ResultsDirectory>.\TestResults</ResultsDirectory>
+
+    <!-- [x86] | x64  
+      - You can also change it from menu Test, Test Settings, Default Processor Architecture -->
+    <TargetPlatform>x64</TargetPlatform>
+
+    <!-- Framework35 | [Framework40] | Framework45 -->
+    <TargetFrameworkVersion>Framework45</TargetFrameworkVersion>
+  </RunConfiguration>
+
+
+  <!-- Parameters used by tests at runtime -->
+  <TestRunParameters>
+    <Parameter name="ManagementApi" value="http://localhost/api/v1" />
+    <Parameter name="PlatformApi" value="http://localhost/papi/v1" />
+    <Parameter name="ReportingApi" value="http://localhost/rapi/v1" />
+    <Parameter name="PlatformWebsocketApi" value="ws://localhost:8080" />
+    <Parameter name="sinkData" value="localCassandraData" />
+    <Parameter name="sinkTimeSeries" value="localCassandraTimeSeries" />
+    <Parameter name="paramSinkData" value="cassandraData" />
+    <Parameter name="paramSinkDataKeyspace" value="telemetrytest" />
+    <Parameter name="paramSinkDataContactPoints" value="ubuntucas1" />
+  </TestRunParameters>
+
+  <!-- Adapter Specific sections -->
+
+  <!-- MSTest adapter -->
+  <MSTest>
+    <MapInconclusiveToFailed>True</MapInconclusiveToFailed>
+    <CaptureTraceOutput>false</CaptureTraceOutput>
+    <DeleteDeploymentDirectoryAfterTestRunIsComplete>False</DeleteDeploymentDirectoryAfterTestRunIsComplete>
+    <DeploymentEnabled>False</DeploymentEnabled>
+  </MSTest>
+</RunSettings>
