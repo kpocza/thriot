@@ -28,9 +28,24 @@ function ReplaceLogPath([string]$configFolder, [string]$file, [string]$to)
 	}
 }
 
-($build,$connectionstring,$telemetry,$microservice,$queue,$publicurl,$runtime,$path,$smtp)=(@{},@{},@{},@{},@{},@{},@{},@{},@{})
 
-cat $configFile |? {$_.StartsWith("$")} |% {$_ -replace '^(.*?)\=(.*)','$1="$2"'} | Invoke-Expression
+function ReplaceXmlNode([string]$configFolder, [string]$file, [string]$element, [string]$to)
+{
+	if($to -eq $null -or $to -eq "") {
+		return;
+	}
+	$configPath = "$configFolder\$file"
+	if(Test-Path $configPath)
+	{
+		$tmp = $configPath + ".tmp"
+		cat $configPath |% {$_ -replace "<$element`.+?/>","$($security.wsscertificate)"} | out-file $tmp -encoding utf8
+		mv -Force $tmp $configPath
+	}
+}
+
+($build,$connectionstring,$telemetry,$microservice,$queue,$publicurl,$runtime,$path,$smtp,$security)=(@{},@{},@{},@{},@{},@{},@{},@{},@{},@{})
+
+cat $configFile |? {$_.StartsWith("$")} |% {$_ -replace """", """"""} |% {$_ -replace '^(.*?)\=(.*)','$1="$2"'} | Invoke-Expression
 
 "Configurations:"
 $build
@@ -42,6 +57,7 @@ $telemetry
 $microservice
 $publicurl
 $runtime
+$security
 
 $configFolders = (
 	"$targetRoot\api\approot\packages\Thriot.Management.WebApi\1.0.0\root\config",
@@ -76,6 +92,8 @@ $configFolders |? {Test-Path $_} |% {
 
 	ReplaceLogPath $_ "web.nlog" $path.logroot
 	ReplaceLogPath $_ "nlog.config" $path.logroot
+
+	ReplaceXmlNode $_ "supersocket.config" "certificate" $security.wsscertificate
 }
 
 $storageCreatorConfigPath = "$targetRoot\install\storage\management\Thriot.CreateSqlStorage.exe.config"

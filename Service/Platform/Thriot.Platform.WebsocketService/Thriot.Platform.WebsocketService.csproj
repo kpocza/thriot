@@ -153,7 +153,10 @@
     <Content Include="App.config">
       <SubType>Designer</SubType>
     </Content>
-    <None Include="config\supersocket.Tls.config">
+    <None Include="config\supersocket.no.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="config\supersocket.tls.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="config\supersocket.config">

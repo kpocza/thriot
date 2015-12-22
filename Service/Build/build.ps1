@@ -6,6 +6,7 @@ param
 	[string]$copyConfigs,
 	[string]$linuxify,
 	[string]$queueconfig,
+	[string]$security,
 	[string]$targetToPassFile = ""
 )
 
@@ -92,12 +93,16 @@ $linuxify = Choose "Is this build targeting a Linux environment?" $null $options
 $options = @([tuple]::Create("&no", "Do not use queue"), [tuple]::Create("&azure", "Azure Queue"), [tuple]::Create("&sql", "Microsoft Sql-based queue"), [tuple]::Create("&pgsql", "PostgreSql-based queue"), [tuple]::Create("&eventhub", "Azure Eventhub"));
 $queueconfig = Choose "Queueing solution" $null $options $queueconfig 0
 
+$options = @([tuple]::Create("&no", "No security"), [tuple]::Create("&tls", "TLS - HTTPS, WSS"));
+$security = Choose "Security " $null $options $security 0
+
 "Master Management Storage: $config"
 "Telemetry Storage: $configtmt"
 "Messaging storage: $configmsg"
 "Deploy configuration files: $copyConfigs"
 "Prepare for Linux environment: $linuxify"
 "Queueing solution: $queueconfig"
+"Security: $security"
 
 $targetRoot = $(pwd).Path + "\output\" + [DateTime]::Now.ToString("yyyyMMddHHmm") + "_" + $config
 $solutionRoot = $(Split-Path -parent $(pwd))
@@ -185,6 +190,7 @@ if($copyConfigs -eq "no")
 
 	$configDir = "$targetRoot\websocketservice\config"
 	rm $configDir\connectionstring*
+	rm $configDir\supersocket*
 	ConfigKeeper $configDir "services" $config
 
 	if($queueconfig -ne "no") {
@@ -221,6 +227,7 @@ else
 	$configDir = "$targetRoot\websocketservice\config"
 	ConfigKeeper $configDir "connectionstring" $config
 	ConfigKeeper $configDir "services" $config
+	ConfigKeeper $configDir "supersocket" $security "config"
 
 	if($queueconfig -ne "no") {
 		$configDir = "$targetRoot\telemetryqueueservice\config"
@@ -279,9 +286,9 @@ if($linuxify -eq "yes")
 		LinuxifyNLogConfig $targetRoot\telemetryqueueservice\config\nlog.config
 	}
 
-	cp $solutionRoot\Build\templates\config\linuxthriothost $targetRoot\install\configtemplates
-	cp $solutionRoot\Build\templates\config\settings.sql $targetRoot\install\storage
-	cp $solutionRoot\Build\templates\config\run.sh $targetRoot\install
+	cp $solutionRoot\Build\templates\nginxlinuxthriothost.$security $targetRoot\install\configtemplates\nginxlinuxthriothost
+	cp $solutionRoot\Build\templates\settings.sql $targetRoot\install\storage
+	cp $solutionRoot\Build\templates\run.sh $targetRoot\install
 }
 
 if($targetToPassFile -ne "") {

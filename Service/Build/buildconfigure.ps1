@@ -12,7 +12,7 @@ cat $configFile |? {$_.StartsWith("`$build")} |% {$_ -replace '^(.*?)\=(.*)','$1
 $build
 
 "Executing build..."
-./build.ps1 -config $build.config -configtmt $build.configtmt -configmsg $build.configmsg -copyConfigs $build.copyConfigs -linuxify $build.linuxify -queueconfig $build.queueconfig -targetToPassFile $targetToPassFile
+./build.ps1 -config $build.config -configtmt $build.configtmt -configmsg $build.configmsg -copyConfigs $build.copyConfigs -linuxify $build.linuxify -queueconfig $build.queueconfig -security $build.security -targetToPassFile $targetToPassFile
 
 $targetRoot = (cat $targetToPassFile)
 
