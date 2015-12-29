@@ -99,7 +99,7 @@ TEST(ReportingDeviceClientTest, singleDeviceMultiEntry)
 		reportingTestInput.Dev1.Id, reportingTestInput.Dev1.DeviceKey);
 
 	occasionallyConnectionClient->RecordTelemetryData("{\"Temperature\": 24, \"Humidity\": 50, \"Source\": \"Linux\"}");
-	usleep(1000);
+	usleep(1000000);
 	occasionallyConnectionClient->RecordTelemetryData("{\"Temperature\": 25, \"Humidity\": 51, \"Source\": \"Linux\"}");
 
 	ReportingClient *reportingClient = new ReportingClient(RAPIURL);

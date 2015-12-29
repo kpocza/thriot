@@ -11,7 +11,7 @@ OUT=out
 APP=app
 CPP=g++
 LIBCFLAGS=-I$(DEPS)/$(INC) -Wall -fPIC
-LIBDEPLIBS=-L$(DEPS)/$(LIB) -lArduinoJson -lwebsockets -lcurl
+LIBDEPLIBS=-L$(DEPS)/$(LIB) -lArduinoJson -lssl -lcrypto -lwebsockets -lcurl
 APPCFLAGS=-I$(LIBOUT)/$(INC) -Wall
 APPDEPLIBS=-L$(LIBOUT) -lthriotclient
 TESTCFLAGS=-std=gnu++0x -I$(LIBOUT)/$(INC) -I$(DEPS)/$(TEST)/$(INC) -Wall
@@ -126,7 +126,7 @@ libwebsockets:
 	cd $(EXTERNALS) && \
 	rm -R -f $(LIBWEBSOCKETS) && \
 	git clone https://github.com/warmcat/libwebsockets.git && \
-	cd $(LIBWEBSOCKETS) && \
+ 	cd $(LIBWEBSOCKETS) && \
 	mkdir build && \
 	cd build && \
 	cmake .. && \
@@ -162,8 +162,8 @@ copydeps:
 	cp $(EXTERNALS)/$(LIBWEBSOCKETS)/build/lws_config.h $(DEPS)/$(INC)
 	cp $(EXTERNALS)/$(LIBWEBSOCKETS)/build/lib/libwebsockets.so $(DEPS)/$(LIB)
 	cp $(EXTERNALS)/$(LIBWEBSOCKETS)/build/lib/libwebsockets.so $(OUT)
-	ln -f -s libwebsockets.so $(OUT)/libwebsockets.so.5.0.0
-	ln -f -s libwebsockets.so $(OUT)/libwebsockets.so.5
+	ln -f -s libwebsockets.so $(OUT)/libwebsockets.so.6.0.0
+	ln -f -s libwebsockets.so $(OUT)/libwebsockets.so.6
 	
 	cp -R $(EXTERNALS)/$(ARDUINOJSON)/include/* $(DEPS)/$(INC)
 	cp $(EXTERNALS)/$(ARDUINOJSON)/lib/libArduinoJson.a $(DEPS)/$(LIB)

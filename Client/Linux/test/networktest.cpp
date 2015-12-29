@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 #include "ManagementClient.h"
 #include "common.h"
+#include <algorithm>
 
 TEST(NetworkTest, createGetUpdateGetDeleteGetUnderService)
 {
@@ -79,6 +80,7 @@ TEST(NetworkTest, createTwoListUnderService)
 	string id2 = networkClient->Create(network2);
 
 	vector<Small> networks = serviceClient->ListNetworks(serviceId);
+	sort(networks.begin(), networks.end(), [] (const Small &n1, const Small &n2) {return n1.Name < n2.Name;});
 
 	ASSERT_EQ(2, networks.size());
 	ASSERT_EQ(id1, networks[0].Id);
@@ -177,6 +179,7 @@ TEST(NetworkTest, createTwoListUnderNetwork)
 	string id2 = networkClient->Create(network2);
 
 	vector<Small> networks = networkClient->ListNetworks(parentNetworkId);
+	sort(networks.begin(), networks.end(), [] (const Small &n1, const Small &n2) {return n1.Name < n2.Name;});
 
 	ASSERT_EQ(2, networks.size());
 	ASSERT_EQ(id1, networks[0].Id);

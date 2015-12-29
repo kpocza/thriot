@@ -50,7 +50,7 @@ int UserManagementClient::Register(const RegisterInfo& reg)
 	JsonObject& respJson = jsonBufferResponse.parseObject((char *)httpResponse.Body.c_str());
 	
 	bool needsActivation = (bool)respJson["NeedsActivation"];
-	
+
 	if(needsActivation)
 		return -1;
 

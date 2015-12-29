@@ -1,9 +1,7 @@
 #include <string>
+#include "libwebsockets.h"
 
 using namespace std;
-
-struct libwebsocket_context;
-struct libwebsocket;
 
 namespace Thriot
 {
@@ -14,8 +12,8 @@ class WebSocketConnection
 	private:
 		MessagePayloadReceivedFunc _onMessage;
 		void *_object;
-		libwebsocket_context *_context;
-		struct libwebsocket *_wsi;
+		static lws_context *_context;
+		struct lws *_wsi;
 		string _partialReceived;
 		string _messageToSend;
 		string _messageReceived;
@@ -28,8 +26,8 @@ class WebSocketConnection
 		string WaitResponse(const int timeout);
 		void Spin();
 		void Close();
-		static int lws_callback(struct libwebsocket_context *context, struct libwebsocket *wsi,
-			int reason, void *userdata, void *in, size_t len);
+		static int lws_callback(struct lws *wsi, enum lws_callback_reasons reason, 
+			void *userdata, void *in, size_t len);
 };
 }
 

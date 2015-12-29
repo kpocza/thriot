@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 #include "ManagementClient.h"
 #include "common.h"
+#include <algorithm>
 
 TEST(CompanyTest, createGetUpdateGetDeleteGet)
 {
@@ -51,6 +52,7 @@ TEST(CompanyTest, createTwoList)
 	string id2 = companyClient->Create(company2);
 
 	vector<Small> companies = companyClient->List();
+	sort(companies.begin(), companies.end(), [] (const Small &c1, const Small &c2) {return c1.Name < c2.Name;});
 
 	ASSERT_EQ(2, companies.size());
 	ASSERT_EQ(id1, companies[0].Id);

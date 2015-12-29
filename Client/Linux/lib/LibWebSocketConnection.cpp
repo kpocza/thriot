@@ -1,19 +1,30 @@
 #include "WebSocketConnection.h"
-#include "libwebsockets.h"
 #include <string.h>
 #include <stdio.h>
+#include <openssl/ssl.h>
 
 namespace Thriot
 {
+static int always_accept_callback(X509_STORE_CTX *ctx, void *arg)
+{
+	return 1;
+}
+
 unsigned char buffer[LWS_SEND_BUFFER_PRE_PADDING + 1024 + LWS_SEND_BUFFER_POST_PADDING];
 
-int WebSocketConnection::lws_callback(struct libwebsocket_context *context, struct libwebsocket *wsi,
-              int reason, void *userdata, void *in, size_t len)
+lws_context *WebSocketConnection::_context = NULL;
+
+int WebSocketConnection::lws_callback(struct lws *wsi, enum lws_callback_reasons reason,
+	void *userdata, void *in, size_t len)
 {
 	WebSocketConnection *webSocketConnection = (WebSocketConnection *)userdata;
 	int size;
-	switch((libwebsocket_callback_reasons)reason)
+
+	switch(reason)
 	{
+		case LWS_CALLBACK_OPENSSL_LOAD_EXTRA_CLIENT_VERIFY_CERTS:
+			SSL_CTX_set_cert_verify_callback((SSL_CTX*)userdata, always_accept_callback, NULL);
+			break;
 		case LWS_CALLBACK_CLIENT_ESTABLISHED:
 			webSocketConnection->_isConnected = true;
 			break;
@@ -25,7 +36,7 @@ int WebSocketConnection::lws_callback(struct libwebsocket_context *context, stru
 		case LWS_CALLBACK_CLIENT_RECEIVE:
 			webSocketConnection->_partialReceived.append((const char *)in, len);
 
-			if(libwebsocket_is_final_fragment(wsi))
+			if(lws_is_final_fragment(wsi))
 			{
 				if(!webSocketConnection->_onMessage(webSocketConnection->_object, webSocketConnection->_partialReceived))
 				{
@@ -43,7 +54,7 @@ int WebSocketConnection::lws_callback(struct libwebsocket_context *context, stru
 				memcpy(bp, webSocketConnection->_messageToSend.c_str(), size);
 
 				// TODO: handle partial writes
-				libwebsocket_write(wsi, bp, size, LWS_WRITE_TEXT);
+				lws_write(wsi, bp, size, LWS_WRITE_TEXT);
 
 				webSocketConnection->_messageToSend.clear();
 			}
@@ -56,11 +67,11 @@ int WebSocketConnection::lws_callback(struct libwebsocket_context *context, stru
 	return 0;
 }
 
-static struct libwebsocket_protocols protocols[] = 
+static struct lws_protocols protocols[] = 
 {
 	{
 		NULL,
-		(callback_function*)WebSocketConnection::lws_callback,
+		WebSocketConnection::lws_callback,
 		0
 	},
 	{
@@ -70,26 +81,39 @@ static struct libwebsocket_protocols protocols[] =
 	}
 };
 
+
+//void logger(int level, const char *line){std::cout << line << std::endl;}
+
 bool WebSocketConnection::Connect(const string& url)
 {
 	struct lws_context_creation_info info;
 	char host[128];
 	int port;
 	char path[128];
-	lws_set_log_level(0, NULL);
-	if (url.size() >= 128)
+	bool isSecure = false;
+	int connectionType = 0;
+
+	if(WebSocketConnection::_context == NULL)
+	{
+//		uncomment for more detailed logging
+//		lws_set_log_level(7, logger);
+
+		lws_set_log_level(0, NULL);
+
+		memset(&info, 0, sizeof(info));
+
+		info.port = CONTEXT_PORT_NO_LISTEN;
+		info.gid = -1;
+		info.uid = -1;
+		info.protocols = protocols;
+
+		WebSocketConnection::_context = lws_create_context(&info);
+	}
+
+	if(WebSocketConnection::_context == NULL)
 		return false;
 
-	memset(&info, 0, sizeof(info));
-
-	info.port = CONTEXT_PORT_NO_LISTEN;
-	info.gid = -1;
-	info.uid = -1;
-	info.protocols = protocols;
-
-	_context = libwebsocket_create_context(&info);
-
-	if(_context == NULL)
+	if (url.size() >= 128)
 		return false;
 
 	if (sscanf(url.c_str(), "ws://%[^:/]:%d/%s", host, &port, path) == 3) 
@@ -108,11 +132,35 @@ bool WebSocketConnection::Connect(const string& url)
 		port = 80;
 		path[0] = '\0';
 	}
+	else if (sscanf(url.c_str(), "wss://%[^:/]:%d/%s", host, &port, path) == 3) 
+	{
+		isSecure = true;
+	}
+	else if (sscanf(url.c_str(), "wss://%[^:/]/%s", host, path) == 2) 
+	{
+		isSecure = true;
+		port = 443;
+	}
+	else if (sscanf(url.c_str(), "wss://%[^:/]:%d", host, &port) == 2) 
+	{
+		isSecure = true;
+		path[0] = '\0';
+	}
+	else if (sscanf(url.c_str(), "wss://%[^:/]", host) == 1) 
+	{
+		isSecure = true;
+		port = 443;
+		path[0] = '\0';
+	}
 	else {
 		return false;
-    }
+    	}
 
-	_wsi = libwebsocket_client_connect_extended(_context, host, port, 0, path, host, host, NULL, 13, this);
+	connectionType = 0;
+	if(isSecure) {
+		connectionType = 2;
+	}
+	_wsi = lws_client_connect_extended(WebSocketConnection::_context, host, port, connectionType, path, host, host, NULL, 13, this);
 
 	if(_wsi == NULL)
 		return false;
@@ -140,7 +188,7 @@ bool WebSocketConnection::IsDisconnected()
 void WebSocketConnection::Send(const string& message)
 {
 	_messageToSend = message;
-	libwebsocket_callback_on_writable(_context, _wsi);
+	lws_callback_on_writable(_wsi);
 
 	time_t startTime = time(NULL);
 	while((time(NULL) - startTime) < 2 && !_messageToSend.empty() && _isConnected) // at least 1 sec
@@ -165,13 +213,12 @@ string WebSocketConnection::WaitResponse(const int timeout)
 
 void WebSocketConnection::Spin()
 {
-	libwebsocket_service(_context, 100);
+	lws_service(WebSocketConnection::_context, 100);
 }
 
 void WebSocketConnection::Close()
 {
 	_isConnected = false;
-	libwebsocket_context_destroy(_context);
 }
 }
 

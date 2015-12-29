@@ -4,8 +4,8 @@
 #include <cstdlib>
 #include <string.h>
 #include <algorithm>
-
 #include <iostream>
+
 using namespace std;
 
 namespace Thriot
@@ -22,8 +22,15 @@ size_t write_callback(void *data, size_t size, size_t nmemb, void *userdata);
 size_t header_callback(void *data, size_t size, size_t nmemb, void *userdata);
 size_t read_callback(void *data, size_t size, size_t nmemb, void *userdata);
 
+bool RestConnection::_initialized = false;
+
 RestConnection::RestConnection(string baseUrl)
 {
+	if(!_initialized)
+	{
+		curl_global_init(CURL_GLOBAL_ALL);
+		_initialized = true;
+	}
 	_baseUrl = baseUrl;
 	_curl = curl_easy_init();
 	curl_easy_setopt(_curl, CURLOPT_VERBOSE, true);
@@ -70,6 +77,8 @@ Response RestConnection::Get(const string& url)
 	}
 	curl_easy_setopt(_curl, CURLOPT_HTTPHEADER, header);
 
+	SetupTLS();
+
 	res = curl_easy_perform(_curl);
 	if (res != CURLE_OK)
 	{
@@ -109,6 +118,8 @@ Response RestConnection::Post(const string& url, const string& contentType, cons
 		header = curl_slist_append(header, (it->first + ": " + it->second).c_str());
 	}
 	curl_easy_setopt(_curl, CURLOPT_HTTPHEADER, header);
+
+	SetupTLS();
 
 	res = curl_easy_perform(_curl);
 	if (res != CURLE_OK)
@@ -155,6 +166,8 @@ Response RestConnection::Put(const string& url, const string& contentType, const
 	}
 	curl_easy_setopt(_curl, CURLOPT_HTTPHEADER, header);
 
+	SetupTLS();
+
 	res = curl_easy_perform(_curl);
 	if (res != CURLE_OK)
 	{
@@ -192,6 +205,8 @@ Response RestConnection::Delete(const string& url)
 	}
 	curl_easy_setopt(_curl, CURLOPT_HTTPHEADER, header);
 
+	SetupTLS();
+
 	res = curl_easy_perform(_curl);
 	if (res != CURLE_OK)
 	{
@@ -205,6 +220,12 @@ Response RestConnection::Delete(const string& url)
 	curl_slist_free_all(header);
 
 	return ret;
+}
+
+void RestConnection::SetupTLS()
+{
+	curl_easy_setopt(_curl, CURLOPT_SSL_VERIFYPEER, 0L);
+	curl_easy_setopt(_curl, CURLOPT_SSL_VERIFYHOST, 0L);
 }
 
 static inline string &ltrim(string &s) {

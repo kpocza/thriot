@@ -100,7 +100,7 @@ TEST(ReportingNetworkClientTest, singleDeviceMultiEntry)
 		reportingTestInput.Dev1.Id, reportingTestInput.Dev1.DeviceKey);
 
 	occasionallyConnectionClient->RecordTelemetryData("{\"Temperature\": 24, \"Humidity\": 50, \"Source\": \"Linux\"}");
-	usleep(1000);
+	usleep(1000000);
 	occasionallyConnectionClient->RecordTelemetryData("{\"Temperature\": 25, \"Humidity\": 51, \"Source\": \"Linux\"}");
 
 	ReportingClient *reportingClient = new ReportingClient(RAPIURL);
@@ -155,14 +155,14 @@ TEST(ReportingNetworkClientTest, multiDeviceMultiEntry)
 		reportingTestInput.Dev1.Id, reportingTestInput.Dev1.DeviceKey);
 
 	occasionallyConnectionClient->RecordTelemetryData("{\"Temperature\": 24, \"Humidity\": 50, \"Source\": \"Linux\"}");
-	usleep(1000);
+	usleep(1000000);
 	occasionallyConnectionClient->RecordTelemetryData("{\"Temperature\": 25, \"Humidity\": 51, \"Source\": \"Linux\"}");
 
 	occasionallyConnectionClient = new OccasionallyConnectionClient(PAPIURL, 
 		reportingTestInput.Dev2.Id, reportingTestInput.Dev2.DeviceKey);
 
 	occasionallyConnectionClient->RecordTelemetryData("{\"Temperature\": 26, \"Humidity\": 50, \"Source\": \"Linux\"}");
-	usleep(1000);
+	usleep(1000000);
 	occasionallyConnectionClient->RecordTelemetryData("{\"Temperature\": 27, \"Humidity\": 51, \"Source\": \"Linux\"}");
 
 	ReportingClient *reportingClient = new ReportingClient(RAPIURL);

@@ -4,8 +4,14 @@
 
 using namespace std;
 
+bool seeded = false;
 string getRandomEmail()
 {
+	if(!seeded)
+	{
+		srand(time(NULL));
+		seeded = true;
+	}
 	return string("linuxemail") + to_string((int)time(NULL)) + "_" + to_string(rand()) +string("@gmail.com");
 }
 
@@ -65,8 +71,9 @@ PlatformTestInput CreatePlatformTestInput()
 	companyClient->UpdateIncomingTelemetryDataSinks(companyId, telemetryDataSinkParameters);
 
 	PlatformTestInput platformTestInput;
-	platformTestInput.ManagementCli = managementClient;
 	platformTestInput.Dev = getDevice;
+
+	delete managementClient;
 
 	return platformTestInput;
 }
@@ -118,10 +125,11 @@ ReportingTestInput CreateReportingTestInput()
 	companyClient->UpdateIncomingTelemetryDataSinks(companyId, telemetryDataSinkParameters);
 
 	ReportingTestInput reportingTestInput;
-	reportingTestInput.ManagementCli = managementClient;
 	reportingTestInput.Net = getNetwork;
 	reportingTestInput.Dev1 = getDevice1;
 	reportingTestInput.Dev2 = getDevice2;
+
+	delete managementClient;
 
 	return reportingTestInput;
 }

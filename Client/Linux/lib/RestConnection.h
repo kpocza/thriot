@@ -20,6 +20,7 @@ class RestConnection
 		string _baseUrl;
 		map<string, string> _requestHeaders;
 		void *_curl;
+		static bool _initialized;
 
 	public:
 		RestConnection(string baseUrl);
@@ -33,6 +34,8 @@ class RestConnection
 		Response Post(const string& url, const string& contentType, const string& data);
 		Response Put(const string& url, const string& contentType, const string& data);
 		Response Delete(const string& url);
+	private:
+		void SetupTLS();
 };
 }
 

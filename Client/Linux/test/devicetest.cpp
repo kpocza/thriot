@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 #include "ManagementClient.h"
 #include "common.h"
+#include <algorithm>
 
 TEST(DeviceTest, createGetUpdateGetDeleteGet)
 {
@@ -96,6 +97,7 @@ TEST(DeviceTest, createTwoListUnder)
 	string id2 = deviceClient->Create(device2);
 
 	vector<Small> devices = networkClient->ListDevices(networkId);
+	sort(devices.begin(), devices.end(), [] (const Small &d1, const Small &d2) {return d1.Name < d2.Name;});
 
 	ASSERT_EQ(2, devices.size());
 	ASSERT_EQ(id1, devices[0].Id);
