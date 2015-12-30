@@ -1,6 +1,10 @@
 server {
 	listen 80 default_server;
+	listen 443 default_server ssl;
 	server_name _;
+
+	ssl_certificate /opt/thriot/certs/ubuntuthriottesthost.crt;
+	ssl_certificate_key /opt/thriot/certs/ubuntuthriottesthost.key;
 
 	location /api/ {
 		rewrite /api/(.*) /$1 break;

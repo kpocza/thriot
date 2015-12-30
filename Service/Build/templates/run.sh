@@ -15,6 +15,9 @@ nohup dnx --project /opt/thriot/msvc/approot/packages/Thriot.Messaging.WebApi/1.
 echo "Starting Central website..."
 nohup dnx --project /opt/thriot/web/approot/packages/Thriot.Web/1.0.0/root kestrel &
 
+echo "Waiting for the websites to fire up..."
+sleep 5
+
 echo "Starting Websocket service..."
 pushd .
 cd /opt/thriot/websocketservice
