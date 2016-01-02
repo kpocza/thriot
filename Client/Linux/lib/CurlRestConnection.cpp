@@ -1,4 +1,5 @@
 #include "RestConnection.h"
+#include "ClientSettings.h"
 #include "base64.h"
 #include <curl/curl.h>
 #include <cstdlib>
@@ -224,8 +225,15 @@ Response RestConnection::Delete(const string& url)
 
 void RestConnection::SetupTLS()
 {
-	curl_easy_setopt(_curl, CURLOPT_SSL_VERIFYPEER, 0L);
-	curl_easy_setopt(_curl, CURLOPT_SSL_VERIFYHOST, 0L);
+	if(!ClientSettings::Instance().IsValidateCertificate())
+	{
+		curl_easy_setopt(_curl, CURLOPT_SSL_VERIFYPEER, 0L);
+	}
+
+	if(!ClientSettings::Instance().IsValidateHostname())
+	{
+		curl_easy_setopt(_curl, CURLOPT_SSL_VERIFYHOST, 0L);
+	}
 }
 
 static inline string &ltrim(string &s) {

@@ -18,6 +18,8 @@ class WebSocketConnection
 		string _messageToSend;
 		string _messageReceived;
 		bool _isConnected;
+		static int lws_callback(struct lws *wsi, enum lws_callback_reasons reason, 
+			void *userdata, void *in, size_t len);
 	public:
 		bool Connect(const string& url);
 		void OnMessage(void *object, MessagePayloadReceivedFunc onMessage);
@@ -26,8 +28,6 @@ class WebSocketConnection
 		string WaitResponse(const int timeout);
 		void Spin();
 		void Close();
-		static int lws_callback(struct lws *wsi, enum lws_callback_reasons reason, 
-			void *userdata, void *in, size_t len);
 };
 }
 

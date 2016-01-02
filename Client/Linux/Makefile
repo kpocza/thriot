@@ -18,7 +18,7 @@ TESTCFLAGS=-std=gnu++0x -I$(LIBOUT)/$(INC) -I$(DEPS)/$(TEST)/$(INC) -Wall
 TESTDEPLIBS=-L$(LIBOUT) -lthriotclient -L$(DEPS)/$(TEST)/$(LIB) -lgtest -lgtest_main -lpthread
 LIBNAME=libthriotclient.so
 
-_LIBOBJS = CurlRestConnection.o LibWebSocketConnection.o base64.o \
+_LIBOBJS = CurlRestConnection.o LibWebSocketConnection.o base64.o ClientSettings.o \
 	Management/ManagementClient.o Management/common.o \
 	Management/UserManagementClient.o Management/TelemetryDataSinksMetadataClient.o \
 	Management/CompanyManagementClient.o Management/ServiceManagementClient.o \
@@ -30,7 +30,9 @@ _LIBOBJS = CurlRestConnection.o LibWebSocketConnection.o base64.o \
 LIBOBJS = $(patsubst %,$(LIB)/obj/%, $(_LIBOBJS))
 
 _TESTOBJS = usertest.o companytest.o servicetest.o networktest.o devicetest.o telemetrymetadatatest.o \
-		occasionalcctest.o persistentcctest.o reportingdevctest.o reportingnetctest.o common.o
+		occasionalcctest.o persistentcctest.o reportingdevctest.o reportingnetctest.o \
+		common.o TestEnvironment.o
+
 TESTOBJS = $(patsubst %,$(TEST)/obj/%, $(_TESTOBJS))
 
 _APPOBJS = app.o 
@@ -57,6 +59,7 @@ buildlib: $(LIBOBJS)
 	cp $(LIB)/Management/ManagementClient.h $(LIBOUT)/include
 	cp $(LIB)/Platform/PlatformClient.h $(LIBOUT)/include
 	cp $(LIB)/Reporting/ReportingClient.h $(LIBOUT)/include
+	cp $(LIB)/ClientSettings.h $(LIBOUT)/include
 	cp $(LIBOUT)/$(LIBNAME) $(OUT)/$(LIBNAME)
 
 $(LIB)/obj/%.o: $(LIB)/%.cpp $(LIB)/*.h $(DEPS)/$(INC)/*.h

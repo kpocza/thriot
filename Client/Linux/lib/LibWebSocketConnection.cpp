@@ -1,4 +1,5 @@
 #include "WebSocketConnection.h"
+#include "ClientSettings.h"
 #include <string.h>
 #include <stdio.h>
 #include <openssl/ssl.h>
@@ -23,7 +24,10 @@ int WebSocketConnection::lws_callback(struct lws *wsi, enum lws_callback_reasons
 	switch(reason)
 	{
 		case LWS_CALLBACK_OPENSSL_LOAD_EXTRA_CLIENT_VERIFY_CERTS:
-			SSL_CTX_set_cert_verify_callback((SSL_CTX*)userdata, always_accept_callback, NULL);
+			if(!ClientSettings::Instance().IsValidateCertificate())
+			{
+				SSL_CTX_set_cert_verify_callback((SSL_CTX*)userdata, always_accept_callback, NULL);
+			}
 			break;
 		case LWS_CALLBACK_CLIENT_ESTABLISHED:
 			webSocketConnection->_isConnected = true;
@@ -67,25 +71,23 @@ int WebSocketConnection::lws_callback(struct lws *wsi, enum lws_callback_reasons
 	return 0;
 }
 
-static struct lws_protocols protocols[] = 
-{
-	{
-		NULL,
-		WebSocketConnection::lws_callback,
-		0
-	},
-	{
-		NULL,
-		NULL,
-		0
-	}
-};
-
-
 //void logger(int level, const char *line){std::cout << line << std::endl;}
 
 bool WebSocketConnection::Connect(const string& url)
 {
+	static struct lws_protocols protocols[] = 
+	{
+		{
+			NULL,
+			WebSocketConnection::lws_callback,
+			0
+		},
+		{
+			NULL,
+			NULL,
+			0
+		}
+	};
 	struct lws_context_creation_info info;
 	char host[128];
 	int port;
