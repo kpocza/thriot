@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Management", "Management", "{9410464C-9293-45AF-8D3B-B991B5E01A38}"
 EndProject
@@ -42,15 +42,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{7480DBBF
 	ProjectSection(SolutionItems) = preProject
 		Build\build.ps1 = Build\build.ps1
 		Build\buildconfigure.ps1 = Build\buildconfigure.ps1
-		Build\config.azure.txt = Build\config.azure.txt
-		Build\config.azureexpress.txt = Build\config.azureexpress.txt
-		Build\config.azurewqueue.txt = Build\config.azurewqueue.txt
-		Build\config.pgsql.txt = Build\config.pgsql.txt
-		Build\config.pgsqllinux.txt = Build\config.pgsqllinux.txt
-		Build\config.pgsqlwqueue.txt = Build\config.pgsqlwqueue.txt
-		Build\config.sql.txt = Build\config.sql.txt
-		Build\config.sqlwqueue.txt = Build\config.sqlwqueue.txt
-		Build\config.template.txt = Build\config.template.txt
 		Build\configure.ps1 = Build\configure.ps1
 	EndProjectSection
 EndProject
@@ -127,15 +118,15 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4FBF854A-9BF1-4BDB-B536-61B976E5EA8F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{452E7E47-B5FF-4813-B252-2203F712B256}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{E1175BE8-BA2D-4107-891A-0A5B0E7A4D6E}"
 	ProjectSection(SolutionItems) = preProject
-		Build\templates\config\run.sh = Build\templates\config\run.sh
-		Build\templates\config\settings.sql = Build\templates\config\settings.sql
-		Build\templates\config\telemetryqueue.azure.json = Build\templates\config\telemetryqueue.azure.json
-		Build\templates\config\telemetryqueue.pgsql.json = Build\templates\config\telemetryqueue.pgsql.json
-		Build\templates\config\telemetryqueue.sql.json = Build\templates\config\telemetryqueue.sql.json
-		Build\templates\config\tinyproxy.conf = Build\templates\config\tinyproxy.conf
+		Build\templates\nginxlinuxthriothost.no = Build\templates\nginxlinuxthriothost.no
+		Build\templates\nginxlinuxthriothost.tls = Build\templates\nginxlinuxthriothost.tls
+		Build\templates\run.sh = Build\templates\run.sh
+		Build\templates\settings.sql = Build\templates\settings.sql
+		Build\templates\telemetryqueue.azure.json = Build\templates\telemetryqueue.azure.json
+		Build\templates\telemetryqueue.eventhub.json = Build\templates\telemetryqueue.eventhub.json
+		Build\templates\telemetryqueue.pgsql.json = Build\templates\telemetryqueue.pgsql.json
+		Build\templates\telemetryqueue.sql.json = Build\templates\telemetryqueue.sql.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{5AB8A0EE-21CF-4F09-AFE7-81C43500CF94}"
@@ -201,6 +192,34 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFramework7.Npgsql", "Misc\EntityFramework7.Npgsql\EntityFramework7.Npgsql.csproj", "{FADDA2D1-03B4-4DEF-8D24-DD1CA4E81F4A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Npgsql", "Misc\Npgsql\Npgsql.csproj", "{9D13B739-62B1-4190-B386-7A9547304EB3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "configs", "configs", "{24C1A3DE-B38A-4400-BFCB-75982DFBB161}"
+	ProjectSection(SolutionItems) = preProject
+		Build\configs\template.config = Build\configs\template.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "local", "local", "{E7784F2D-FF65-4567-AB14-856F95799B5A}"
+	ProjectSection(SolutionItems) = preProject
+		Build\configs\local\azure.config = Build\configs\local\azure.config
+		Build\configs\local\azureexpress.config = Build\configs\local\azureexpress.config
+		Build\configs\local\azureweventhub.config = Build\configs\local\azureweventhub.config
+		Build\configs\local\azurewqueue.config = Build\configs\local\azurewqueue.config
+		Build\configs\local\pgsql.config = Build\configs\local\pgsql.config
+		Build\configs\local\pgsqlcassandratelemetry.config = Build\configs\local\pgsqlcassandratelemetry.config
+		Build\configs\local\pgsqllinux.config = Build\configs\local\pgsqllinux.config
+		Build\configs\local\pgsqllinuxtls.config = Build\configs\local\pgsqllinuxtls.config
+		Build\configs\local\pgsqlwqueue.config = Build\configs\local\pgsqlwqueue.config
+		Build\configs\local\sql.config = Build\configs\local\sql.config
+		Build\configs\local\sqltls.config = Build\configs\local\sqltls.config
+		Build\configs\local\sqlwqueue.config = Build\configs\local\sqlwqueue.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "prod", "prod", "{2EBA9592-A85D-4DF6-AE42-189076DB81CD}"
+	ProjectSection(SolutionItems) = preProject
+		Build\configs\prod\azure.config = Build\configs\prod\azure.config
+		Build\configs\prod\pgsql.config = Build\configs\prod\pgsql.config
+		Build\configs\prod\sql.config = Build\configs\prod\sql.config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -456,7 +475,6 @@ Global
 		{3C41112F-9499-4B28-ACCA-C1A53E1FEB41} = {2EB474CC-AE21-4682-81CD-E66559763344}
 		{4FBF854A-9BF1-4BDB-B536-61B976E5EA8F} = {2EB474CC-AE21-4682-81CD-E66559763344}
 		{452E7E47-B5FF-4813-B252-2203F712B256} = {7480DBBF-9FA7-4714-9219-37B52D113E8A}
-		{E1175BE8-BA2D-4107-891A-0A5B0E7A4D6E} = {452E7E47-B5FF-4813-B252-2203F712B256}
 		{5AB8A0EE-21CF-4F09-AFE7-81C43500CF94} = {450A4620-4290-4B07-846A-7D33FF53B5FD}
 		{AF4A7C88-59FA-4CBC-894A-47903742E510} = {450A4620-4290-4B07-846A-7D33FF53B5FD}
 		{6C1F185C-BBD2-4A90-B565-58F03D46CABE} = {F0375912-0C84-400B-9BF0-917162B331E1}
@@ -478,6 +496,9 @@ Global
 		{851BBF3D-4C8A-4336-A5A3-47789FA3CA0A} = {F0375912-0C84-400B-9BF0-917162B331E1}
 		{FADDA2D1-03B4-4DEF-8D24-DD1CA4E81F4A} = {A7461ACE-ABB7-4359-BAEC-3494430B7A63}
 		{9D13B739-62B1-4190-B386-7A9547304EB3} = {A7461ACE-ABB7-4359-BAEC-3494430B7A63}
+		{24C1A3DE-B38A-4400-BFCB-75982DFBB161} = {7480DBBF-9FA7-4714-9219-37B52D113E8A}
+		{E7784F2D-FF65-4567-AB14-856F95799B5A} = {24C1A3DE-B38A-4400-BFCB-75982DFBB161}
+		{2EBA9592-A85D-4DF6-AE42-189076DB81CD} = {24C1A3DE-B38A-4400-BFCB-75982DFBB161}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.WindowsAzure.Storage.6.0.1304.1\lib\NET45

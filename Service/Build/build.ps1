@@ -291,6 +291,16 @@ if($linuxify -eq "yes")
 	cp $solutionRoot\Build\templates\run.sh $targetRoot\install
 }
 
+if($security -eq "tls") {
+	EnsureEmptyDirectory $targetRoot\certs
+	$certs = "$solutionRoot\..\Certificates(NonProd)";
+	cp $certs\*.cer $targetRoot\certs
+	cp $certs\*.crt $targetRoot\certs
+	cp $certs\*.pfx $targetRoot\certs
+	cp $certs\*.pvk $targetRoot\certs
+	cp $certs\*.key $targetRoot\certs
+}
+
 if($targetToPassFile -ne "") {
 	$targetRoot > $targetToPassFile
 }
